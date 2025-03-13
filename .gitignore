@@ -1,0 +1,12 @@
+# Ignore build files
+bin/
+obj/
+
+# Ignore Visual Studio cache
+.vs/
+*.suo
+*.vsidx
+*.user
+
+# Ignore user-specific settings
+*.userprefs
