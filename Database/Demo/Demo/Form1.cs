@@ -1,4 +1,4 @@
-using Google.Cloud.Firestore;
+﻿using Google.Cloud.Firestore;
 
 namespace Demo
 {
@@ -37,6 +37,29 @@ namespace Demo
             catch (Exception ex)
             {
                 MessageBox.Show($"Loi: {ex.Message}");
+            }
+        }
+
+        private async void button1_Click(object sender, EventArgs e)
+        {
+            try {
+                // connect Collections and Documents
+                DocumentReference dr = db.Collection("users").Document("user_123");
+
+                // dùng dictionary thay đổi
+                Dictionary<string, object> dict = new Dictionary<string, object>()
+                {
+                    {"Age", "20" },
+                    {"Email", "akwydongnai@gmail.com" },
+                    {"Name", "Đậu" }
+                };
+                // Note: Đoạn này sau này cho nhập nhỉ?
+                await dr.UpdateAsync(dict);
+                MessageBox.Show("Data Patched");
+            }
+            catch(Exception ex) 
+            {
+                MessageBox.Show($"Error: {ex.Message}");
             }
         }
     }

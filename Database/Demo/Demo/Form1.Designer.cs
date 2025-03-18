@@ -29,6 +29,7 @@
         private void InitializeComponent()
         {
             btn_TaoDuLieu = new Button();
+            button1 = new Button();
             SuspendLayout();
             // 
             // btn_TaoDuLieu
@@ -41,11 +42,22 @@
             btn_TaoDuLieu.UseVisualStyleBackColor = true;
             btn_TaoDuLieu.Click += btn_TaoDuLieu_Click;
             // 
+            // button1
+            // 
+            button1.Location = new Point(228, 186);
+            button1.Name = "button1";
+            button1.Size = new Size(133, 44);
+            button1.TabIndex = 1;
+            button1.Text = "Sửa dữ liệu";
+            button1.UseVisualStyleBackColor = true;
+            button1.Click += button1_Click;
+            // 
             // Form1
             // 
             AutoScaleDimensions = new SizeF(8F, 20F);
             AutoScaleMode = AutoScaleMode.Font;
             ClientSize = new Size(800, 450);
+            Controls.Add(button1);
             Controls.Add(btn_TaoDuLieu);
             Name = "Form1";
             Text = "Form1";
@@ -56,5 +68,6 @@
         #endregion
 
         private Button btn_TaoDuLieu;
+        private Button button1;
     }
 }
