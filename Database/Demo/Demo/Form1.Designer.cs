@@ -30,6 +30,8 @@
         {
             btn_TaoDuLieu = new Button();
             button1 = new Button();
+            btn_Xoa = new Button();
+            btn_XoaTruong = new Button();
             SuspendLayout();
             // 
             // btn_TaoDuLieu
@@ -52,11 +54,33 @@
             button1.UseVisualStyleBackColor = true;
             button1.Click += button1_Click;
             // 
+            // btn_Xoa
+            // 
+            btn_Xoa.Location = new Point(416, 186);
+            btn_Xoa.Name = "btn_Xoa";
+            btn_Xoa.Size = new Size(137, 44);
+            btn_Xoa.TabIndex = 2;
+            btn_Xoa.Text = "Xóa dữ liệu";
+            btn_Xoa.UseVisualStyleBackColor = true;
+            btn_Xoa.Click += btn_Xoa_Click;
+            // 
+            // btn_XoaTruong
+            // 
+            btn_XoaTruong.Location = new Point(592, 186);
+            btn_XoaTruong.Name = "btn_XoaTruong";
+            btn_XoaTruong.Size = new Size(137, 44);
+            btn_XoaTruong.TabIndex = 3;
+            btn_XoaTruong.Text = "Xóa một trường";
+            btn_XoaTruong.UseVisualStyleBackColor = true;
+            btn_XoaTruong.Click += btn_XoaTruong_Click;
+            // 
             // Form1
             // 
             AutoScaleDimensions = new SizeF(8F, 20F);
             AutoScaleMode = AutoScaleMode.Font;
             ClientSize = new Size(800, 450);
+            Controls.Add(btn_XoaTruong);
+            Controls.Add(btn_Xoa);
             Controls.Add(button1);
             Controls.Add(btn_TaoDuLieu);
             Name = "Form1";
@@ -69,5 +93,7 @@
 
         private Button btn_TaoDuLieu;
         private Button button1;
+        private Button btn_Xoa;
+        private Button btn_XoaTruong;
     }
 }

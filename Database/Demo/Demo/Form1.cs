@@ -31,7 +31,7 @@ namespace Demo
                     Email = "nguyenvanb@example.com"
                 };
 
-                await db.Collection("users").Document("user_123").SetAsync(data);
+                await db.Collection("users").Document("user_12").SetAsync(data);
                 MessageBox.Show("Da gui du lieu len Firestore!");
             }
             catch (Exception ex)
@@ -42,7 +42,8 @@ namespace Demo
 
         private async void button1_Click(object sender, EventArgs e)
         {
-            try {
+            try
+            {
                 // connect Collections and Documents
                 DocumentReference dr = db.Collection("users").Document("user_123");
 
@@ -57,10 +58,32 @@ namespace Demo
                 await dr.UpdateAsync(dict);
                 MessageBox.Show("Data Patched");
             }
-            catch(Exception ex) 
+            catch (Exception ex)
             {
                 MessageBox.Show($"Error: {ex.Message}");
             }
         }
+
+        //Xoa 1 document
+        private async void btn_Xoa_Click(object sender, EventArgs e)
+        {
+            DocumentReference docRef = db.Collection("users").Document("user_12");
+            await docRef.DeleteAsync();
+            MessageBox.Show("Document đã bị xóa!");
+        }
+        //Xoa 1 truong trong document
+        private async void btn_XoaTruong_Click(object sender, EventArgs e)
+        {
+            DocumentReference docRef = db.Collection("users").Document("user_12");
+            Dictionary<string, object> updates = new Dictionary<string, object>
+            {
+                { "Age", FieldValue.Delete }
+            };
+
+            await docRef.UpdateAsync(updates);
+            MessageBox.Show("Trường Age đã bị xóa!");
+        }
+
+
     }
 }
