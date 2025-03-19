@@ -40,21 +40,41 @@ namespace Demo
             }
         }
 
+
         private async void button1_Click(object sender, EventArgs e)
         {
+            //try
+            //{
+            //    // connect Collections and Documents
+            //    DocumentReference dr = db.Collection("users").Document("user_123");
+
+            //    // dùng dictionary thay đổi
+            //    Dictionary<string, object> dict = new Dictionary<string, object>()
+            //    {
+            //        {"Age", "20" },
+            //        {"Email", "akwydongnai@gmail.com" },
+            //        {"Name", "Đậu" }
+            //    };
+            //    // Note: Đoạn này sau này cho nhập nhỉ?
+            //    await dr.UpdateAsync(dict);
+            //    MessageBox.Show("Data Patched");
+            //}
+            //catch (Exception ex)
+            //{
+            //    MessageBox.Show($"Error: {ex.Message}");
+            //}
+            // ================================================================
+            // try to update non-existed document
             try
             {
                 // connect Collections and Documents
-                DocumentReference dr = db.Collection("users").Document("user_123");
+                DocumentReference dr = db.Collection("pomo").Document("user_123");
 
                 // dùng dictionary thay đổi
                 Dictionary<string, object> dict = new Dictionary<string, object>()
                 {
-                    {"Age", "20" },
-                    {"Email", "akwydongnai@gmail.com" },
-                    {"Name", "Đậu" }
+                    {"Age", "20" }
                 };
-                // Note: Đoạn này sau này cho nhập nhỉ?
                 await dr.UpdateAsync(dict);
                 MessageBox.Show("Data Patched");
             }
@@ -62,6 +82,7 @@ namespace Demo
             {
                 MessageBox.Show($"Error: {ex.Message}");
             }
+
         }
 
         //Xoa 1 document
@@ -70,6 +91,7 @@ namespace Demo
             DocumentReference docRef = db.Collection("users").Document("user_12");
             await docRef.DeleteAsync();
             MessageBox.Show("Document đã bị xóa!");
+            
         }
         //Xoa 1 truong trong document
         private async void btn_XoaTruong_Click(object sender, EventArgs e)
