@@ -29,38 +29,39 @@
         private void InitializeComponent()
         {
             btn_TaoDuLieu = new Button();
-            button1 = new Button();
+            btn_SuaDocument = new Button();
             btn_Xoa = new Button();
             btn_XoaTruong = new Button();
             btn_ThemTruong = new Button();
             btn_ThemDocumentMoi = new Button();
             btn_GuiDuLieuNull = new Button();
+            btn_SuaTruong = new Button();
             SuspendLayout();
             // 
             // btn_TaoDuLieu
             // 
-            btn_TaoDuLieu.Location = new Point(51, 195);
+            btn_TaoDuLieu.Location = new Point(45, 186);
             btn_TaoDuLieu.Name = "btn_TaoDuLieu";
-            btn_TaoDuLieu.Size = new Size(150, 46);
+            btn_TaoDuLieu.Size = new Size(133, 44);
             btn_TaoDuLieu.TabIndex = 0;
             btn_TaoDuLieu.Text = "Tạo dữ liệu";
             btn_TaoDuLieu.UseVisualStyleBackColor = true;
             // 
-            // button1
+            // btn_SuaDocument
             // 
-            button1.Location = new Point(256, 195);
-            button1.Name = "button1";
-            button1.Size = new Size(150, 46);
-            button1.TabIndex = 1;
-            button1.Text = "Sửa dữ liệu";
-            button1.UseVisualStyleBackColor = true;
-            button1.Click += button1_Click;
+            btn_SuaDocument.Location = new Point(228, 186);
+            btn_SuaDocument.Name = "btn_SuaDocument";
+            btn_SuaDocument.Size = new Size(133, 44);
+            btn_SuaDocument.TabIndex = 1;
+            btn_SuaDocument.Text = "Sửa document";
+            btn_SuaDocument.UseVisualStyleBackColor = true;
+            btn_SuaDocument.Click += btn_SuaDocument_Click;
             // 
             // btn_Xoa
             // 
-            btn_Xoa.Location = new Point(468, 195);
+            btn_Xoa.Location = new Point(416, 186);
             btn_Xoa.Name = "btn_Xoa";
-            btn_Xoa.Size = new Size(154, 46);
+            btn_Xoa.Size = new Size(137, 44);
             btn_Xoa.TabIndex = 2;
             btn_Xoa.Text = "Xóa dữ liệu";
             btn_Xoa.UseVisualStyleBackColor = true;
@@ -68,9 +69,9 @@
             // 
             // btn_XoaTruong
             // 
-            btn_XoaTruong.Location = new Point(666, 195);
+            btn_XoaTruong.Location = new Point(592, 186);
             btn_XoaTruong.Name = "btn_XoaTruong";
-            btn_XoaTruong.Size = new Size(154, 46);
+            btn_XoaTruong.Size = new Size(137, 44);
             btn_XoaTruong.TabIndex = 3;
             btn_XoaTruong.Text = "Xóa một trường";
             btn_XoaTruong.UseVisualStyleBackColor = true;
@@ -78,9 +79,9 @@
             // 
             // btn_ThemTruong
             // 
-            btn_ThemTruong.Location = new Point(51, 284);
+            btn_ThemTruong.Location = new Point(45, 270);
             btn_ThemTruong.Name = "btn_ThemTruong";
-            btn_ThemTruong.Size = new Size(207, 46);
+            btn_ThemTruong.Size = new Size(184, 44);
             btn_ThemTruong.TabIndex = 4;
             btn_ThemTruong.Text = "Thêm một trường";
             btn_ThemTruong.UseVisualStyleBackColor = true;
@@ -88,9 +89,9 @@
             // 
             // btn_ThemDocumentMoi
             // 
-            btn_ThemDocumentMoi.Location = new Point(328, 284);
+            btn_ThemDocumentMoi.Location = new Point(302, 270);
             btn_ThemDocumentMoi.Name = "btn_ThemDocumentMoi";
-            btn_ThemDocumentMoi.Size = new Size(211, 46);
+            btn_ThemDocumentMoi.Size = new Size(188, 44);
             btn_ThemDocumentMoi.TabIndex = 5;
             btn_ThemDocumentMoi.Text = "Thêm một Document";
             btn_ThemDocumentMoi.UseVisualStyleBackColor = true;
@@ -98,25 +99,36 @@
             // 
             // btn_GuiDuLieuNull
             // 
-            btn_GuiDuLieuNull.Location = new Point(619, 284);
+            btn_GuiDuLieuNull.Location = new Point(45, 359);
             btn_GuiDuLieuNull.Name = "btn_GuiDuLieuNull";
-            btn_GuiDuLieuNull.Size = new Size(201, 46);
+            btn_GuiDuLieuNull.Size = new Size(179, 44);
             btn_GuiDuLieuNull.TabIndex = 6;
             btn_GuiDuLieuNull.Text = "Gửi dữ liệu null";
             btn_GuiDuLieuNull.UseVisualStyleBackColor = true;
             btn_GuiDuLieuNull.Click += btn_GuiDuLieuNull_Click;
             // 
+            // btn_SuaTruong
+            // 
+            btn_SuaTruong.Location = new Point(592, 270);
+            btn_SuaTruong.Name = "btn_SuaTruong";
+            btn_SuaTruong.Size = new Size(133, 44);
+            btn_SuaTruong.TabIndex = 7;
+            btn_SuaTruong.Text = "Sửa trường";
+            btn_SuaTruong.UseVisualStyleBackColor = true;
+            btn_SuaTruong.Click += btn_SuaTruong_Click;
+            // 
             // Form1
             // 
-            AutoScaleDimensions = new SizeF(9F, 21F);
+            AutoScaleDimensions = new SizeF(8F, 20F);
             AutoScaleMode = AutoScaleMode.Font;
-            ClientSize = new Size(900, 472);
+            ClientSize = new Size(800, 450);
+            Controls.Add(btn_SuaTruong);
             Controls.Add(btn_GuiDuLieuNull);
             Controls.Add(btn_ThemDocumentMoi);
             Controls.Add(btn_ThemTruong);
             Controls.Add(btn_XoaTruong);
             Controls.Add(btn_Xoa);
-            Controls.Add(button1);
+            Controls.Add(btn_SuaDocument);
             Controls.Add(btn_TaoDuLieu);
             Name = "Form1";
             Text = "Form1";
@@ -127,11 +139,12 @@
         #endregion
 
         private Button btn_TaoDuLieu;
-        private Button button1;
+        private Button btn_SuaDocument;
         private Button btn_Xoa;
         private Button btn_XoaTruong;
         private Button btn_ThemTruong;
         private Button btn_ThemDocumentMoi;
         private Button btn_GuiDuLieuNull;
+        private Button btn_SuaTruong;
     }
 }

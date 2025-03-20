@@ -14,8 +14,8 @@ namespace Demo
         private void Form1_Load(object sender, EventArgs e)
         {
             //Thiet lap duong dan json trong bien moi truong
-            string jsonPath = @"/path/to/your/firebase-key.json";
-            Environment.SetEnvironmentVariable("GOOGLE_APPLICATION_CREDENTIALS", jsonPath);
+            //string jsonPath = @"/path/to/your/firebase-key.json";
+            //Environment.SetEnvironmentVariable("GOOGLE_APPLICATION_CREDENTIALS", jsonPath);
 
             //Ket noi den Firestore
             db = FirestoreDb.Create("fir-eddc8");
@@ -42,22 +42,42 @@ namespace Demo
             }
         }
 
-
-        private async void button1_Click(object sender, EventArgs e)
+        // Sửa document
+        private async void btn_SuaDocument_Click(object sender, EventArgs e)
         {
+            try
+            {
+                // connect Collections and Documents
+                DocumentReference dr = db.Collection("users").Document("user_123");
+
+                // dùng dictionary thay đổi
+                Dictionary<string, object> dict = new Dictionary<string, object>()
+                {
+                    {"Age", "20" },
+                    {"Email", "akwydongnai@gmail.com" },
+                    {"Name", "Đậu" }
+                };
+                // Note: Đoạn này sau này cho nhập nhỉ?
+                await dr.SetAsync(dict, SetOptions.MergeAll); // dùng setAsync với SetOptions
+
+                MessageBox.Show("Document Updated");
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"Error: {ex.Message}");
+            }
+            // ================================================================
+            // try to update non-existed document
             //try
             //{
             //    // connect Collections and Documents
-            //    DocumentReference dr = db.Collection("users").Document("user_123");
+            //    DocumentReference dr = db.Collection("pomo").Document("user_123");
 
             //    // dùng dictionary thay đổi
             //    Dictionary<string, object> dict = new Dictionary<string, object>()
             //    {
-            //        {"Age", "20" },
-            //        {"Email", "akwydongnai@gmail.com" },
-            //        {"Name", "Đậu" }
+            //        {"Age", "20" }
             //    };
-            //    // Note: Đoạn này sau này cho nhập nhỉ?
             //    await dr.UpdateAsync(dict);
             //    MessageBox.Show("Data Patched");
             //}
@@ -65,27 +85,30 @@ namespace Demo
             //{
             //    MessageBox.Show($"Error: {ex.Message}");
             //}
-            // ================================================================
-            // try to update non-existed document
+
+        }
+        // Sửa 1 hoặc nhiều trường trong document
+        private async void btn_SuaTruong_Click(object sender, EventArgs e)
+        {
             try
             {
-                // connect Collections and Documents
-                DocumentReference dr = db.Collection("pomo").Document("user_123");
-
-                // dùng dictionary thay đổi
-                Dictionary<string, object> dict = new Dictionary<string, object>()
+                DocumentReference dr = db.Collection("users").Document("user_123");
+                Dictionary<string, object> data = new Dictionary<string, object>()
                 {
-                    {"Age", "20" }
+                        {"Age", "22" },
+                        {"Name", "đaulungqua"}
                 };
-                await dr.UpdateAsync(dict);
-                MessageBox.Show("Data Patched");
+
+                await dr.UpdateAsync(data);
+                MessageBox.Show("Fields Updated!");
             }
-            catch (Exception ex)
+            catch (Exception ex) 
             {
                 MessageBox.Show($"Error: {ex.Message}");
             }
 
         }
+
 
         //Xoa 1 document
         private async void btn_Xoa_Click(object sender, EventArgs e)
@@ -172,5 +195,7 @@ namespace Demo
                 MessageBox.Show($"Lỗi: {ex.Message}");
             }
         }
+
+
     }
 }
