@@ -39,7 +39,6 @@
             btn_TaoDuLieu.TabIndex = 0;
             btn_TaoDuLieu.Text = "Tạo dữ liệu";
             btn_TaoDuLieu.UseVisualStyleBackColor = true;
-            btn_TaoDuLieu.Click += btn_TaoDuLieu_Click;
             // 
             // Form1
             // 

@@ -1,5 +1,11 @@
+﻿using Google.Cloud.Firestore;
+using Google.Apis.Auth.OAuth2;
+using Grpc.Net.Client;
+using System;
+
 namespace Demo
 {
+
     internal static class Program
     {
         /// <summary>
@@ -13,5 +19,6 @@ namespace Demo
             ApplicationConfiguration.Initialize();
             Application.Run(new Form1());
         }
+
     }
 }
