@@ -1,4 +1,5 @@
 using PomoMeetApp.View;
+
 namespace PomoMeetApp
 {
     internal static class Program
@@ -12,7 +13,7 @@ namespace PomoMeetApp
             // To customize application configuration such as set high DPI settings or default font,
             // see https://aka.ms/applicationconfiguration.
             ApplicationConfiguration.Initialize();
-            Application.Run(new Setting());
+            Application.Run(new Dashboard());
         }
     }
 }
