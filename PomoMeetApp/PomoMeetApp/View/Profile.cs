@@ -18,6 +18,7 @@ namespace PomoMeetApp.View
             InitializeComponent();
             InitializeCustomComponents();
             this.Resize += Profile_Resize;
+            this.Click += HideDropdownOnClickOutside; // Thêm sự kiện Click cho Form
         }
 
         private void Profile_Load(object sender, EventArgs e)
@@ -29,16 +30,15 @@ namespace PomoMeetApp.View
             // Tạo nút thông báo
             notifyButton = new NotificationButton
             {
-                Location = new Point(20, 20)
+                Location = new Point(10, 20)
             };
             this.Controls.Add(notifyButton);
 
             // Tạo avatar
             avatar = new PictureBox
             {
-                Size = new Size(40, 40),
-                Location = new Point(notifyButton.Right + 10, 20),
-                Image = Image.FromFile("D:/Downloads_D/HK4_UIT/LTM_NT106_P22_ANTT/backup/profile/avatar.jpg"),
+                Size = new Size(50, 50),
+                Image = Properties.Resources.avatar,
                 SizeMode = PictureBoxSizeMode.Zoom,
                 BackColor = Color.Transparent
             };
@@ -48,8 +48,7 @@ namespace PomoMeetApp.View
             nameLabel = new Label
             {
                 Text = "User",
-                Location = new Point(avatar.Right + 10, 30),
-                Font = new Font("Inter", 9, FontStyle.Bold),
+                Font = new Font("Inter", 11, FontStyle.Bold),
                 Cursor = Cursors.Hand
             };
             nameLabel.Click += NameLabel_Click;
@@ -67,11 +66,14 @@ namespace PomoMeetApp.View
             btnSave = new SiticoneButton
             {
                 Text = "Save Changes",
-                Size = new Size(100, 40),
-                Location = new Point(this.ClientSize.Width / 2 - 50, this.ClientSize.Height - 60),
-                ButtonBackColor = Color.LightSkyBlue,
+                Font = new Font("Inter", 11, FontStyle.Bold),
+                ButtonBackColor = Color.DarkSeaGreen,
+                AutoSizeBasedOnText = true,
                 ForeColor = Color.White,
-                Cursor = Cursors.Hand
+                Cursor = Cursors.Hand,
+                BorderColor = Color.DarkSeaGreen,
+                PressedBackColor = Color.DarkSeaGreen,
+                HoverBackColor = Color.DarkGreen
             };
             btnSave.Click += BtnSave_Click;
             this.Controls.Add(btnSave);
@@ -82,6 +84,8 @@ namespace PomoMeetApp.View
             UpdateControlPositions();
 
         }
+
+
         private void BtnEditAvatar_Click(object sender, EventArgs e)
         {
             OpenFileDialog openFileDialog = new OpenFileDialog
@@ -106,19 +110,37 @@ namespace PomoMeetApp.View
         private void UpdateControlPositions()
         {
             int rightMargin = 20;
-            notifyButton.Location = new Point(this.ClientSize.Width - notifyButton.Width - rightMargin - 150, 20);
+            notifyButton.Location = new Point(this.ClientSize.Width - notifyButton.Width - rightMargin - 240, 20);
             avatar.Location = new Point(notifyButton.Right + 10, 20);
             nameLabel.Location = new Point(avatar.Right + 10, 30);
-            profileDropdown.Location = new Point(nameLabel.Left - 10, nameLabel.Bottom + 5);
-            btnSave.Location = new Point(this.ClientSize.Width / 2 - 130, this.ClientSize.Height - 60);
+            profileDropdown.Location = new Point(nameLabel.Left, nameLabel.Bottom + 7);
+            btnSave.Location = new Point(this.ClientSize.Width / 2 + 450, this.ClientSize.Height - 130);
         }
+        private void HideDropdownOnClickOutside(object sender, EventArgs e)
+        {
+            // Kiểm tra nếu người dùng nhấn ra ngoài nameLabel hoặc profileDropdown
+            if (!nameLabel.ClientRectangle.Contains(this.PointToClient(Cursor.Position)) &&
+                !profileDropdown.ClientRectangle.Contains(this.PointToClient(Cursor.Position)))
+            {
+                profileDropdown.Visible = false; // Ẩn dropdown nếu nhấn ngoài
+            }
+        }
+
         private void NameLabel_Click(object sender, EventArgs e)
         {
+            // Nếu dropdown đang ẩn, hiển thị; nếu đang hiển thị, ẩn
             profileDropdown.Visible = !profileDropdown.Visible;
+
+            if (profileDropdown.Visible)
+            {
+                profileDropdown.BringToFront(); // Đảm bảo dropdown hiển thị phía trên các điều khiển khác
+                profileDropdown.AdjustDropdownSize(); // Cập nhật kích thước dropdown
+            }
         }
         private void BtnSave_Click(object sender, EventArgs e)
         {
             MessageBox.Show("Đã nhấn nút Save!", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Information);
         }
+
     }
 }

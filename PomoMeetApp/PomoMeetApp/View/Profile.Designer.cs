@@ -29,20 +29,7 @@
         private void InitializeComponent()
         {
             components = new System.ComponentModel.Container();
-            SiticoneNetCoreUI.SiticoneFlowPanel.LayoutState layoutState1 = new SiticoneNetCoreUI.SiticoneFlowPanel.LayoutState();
-            SiticoneNetCoreUI.SiticoneFlowPanel.LayoutState layoutState2 = new SiticoneNetCoreUI.SiticoneFlowPanel.LayoutState();
-            SiticoneNetCoreUI.SiticoneFlowPanel.LayoutState layoutState3 = new SiticoneNetCoreUI.SiticoneFlowPanel.LayoutState();
-            SiticoneNetCoreUI.SiticoneFlowPanel.LayoutState layoutState4 = new SiticoneNetCoreUI.SiticoneFlowPanel.LayoutState();
-            SiticoneNetCoreUI.SiticoneFlowPanel.LayoutState layoutState5 = new SiticoneNetCoreUI.SiticoneFlowPanel.LayoutState();
-            SiticoneNetCoreUI.SiticoneFlowPanel.LayoutState layoutState6 = new SiticoneNetCoreUI.SiticoneFlowPanel.LayoutState();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Profile));
-            siticoneFlowPanel1 = new SiticoneNetCoreUI.SiticoneFlowPanel();
-            panel1 = new Panel();
-            siticoneDashboardButton1 = new SiticoneNetCoreUI.SiticoneDashboardButton();
-            siticoneDashboardButton2 = new SiticoneNetCoreUI.SiticoneDashboardButton();
-            siticoneDashboardButton3 = new SiticoneNetCoreUI.SiticoneDashboardButton();
-            siticoneDashboardButton4 = new SiticoneNetCoreUI.SiticoneDashboardButton();
-            siticoneDashboardButton5 = new SiticoneNetCoreUI.SiticoneDashboardButton();
             pictureBox_avatar = new PictureBox();
             siticoneLabel1 = new SiticoneNetCoreUI.SiticoneLabel();
             siticoneLabel2 = new SiticoneNetCoreUI.SiticoneLabel();
@@ -61,299 +48,19 @@
             bindingSource1 = new BindingSource(components);
             siticoneLabel9 = new SiticoneNetCoreUI.SiticoneLabel();
             editAvatarButton = new PictureBox();
-            siticoneFlowPanel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)pictureBox_avatar).BeginInit();
             ((System.ComponentModel.ISupportInitialize)bindingSource1).BeginInit();
             ((System.ComponentModel.ISupportInitialize)editAvatarButton).BeginInit();
             SuspendLayout();
-            // 
-            // siticoneFlowPanel1
-            // 
-            siticoneFlowPanel1.BackColor = Color.DarkSeaGreen;
-            siticoneFlowPanel1.Controls.Add(panel1);
-            siticoneFlowPanel1.Controls.Add(siticoneDashboardButton1);
-            siticoneFlowPanel1.Controls.Add(siticoneDashboardButton2);
-            siticoneFlowPanel1.Controls.Add(siticoneDashboardButton3);
-            siticoneFlowPanel1.Controls.Add(siticoneDashboardButton4);
-            siticoneFlowPanel1.Controls.Add(siticoneDashboardButton5);
-            siticoneFlowPanel1.EnableAnimations = true;
-            siticoneFlowPanel1.EnableAutoScale = true;
-            siticoneFlowPanel1.EnableDragDrop = false;
-            siticoneFlowPanel1.EnableLayoutCaching = true;
-            siticoneFlowPanel1.EnableSmoothScrolling = true;
-            siticoneFlowPanel1.EnableSnapToGrid = false;
-            siticoneFlowPanel1.EnableTransparency = false;
-            siticoneFlowPanel1.EnableVirtualization = false;
-            siticoneFlowPanel1.EnableWrapping = true;
-            siticoneFlowPanel1.GridSize = 8;
-            siticoneFlowPanel1.IsTrackingTheme = false;
-            siticoneFlowPanel1.ItemSpacing = 5;
-            siticoneFlowPanel1.Location = new Point(-2, -3);
-            siticoneFlowPanel1.Name = "siticoneFlowPanel1";
-            siticoneFlowPanel1.Size = new Size(198, 620);
-            siticoneFlowPanel1.TabIndex = 4;
-            siticoneFlowPanel1.VirtualizationThreshold = 100;
-            // 
-            // panel1
-            // 
-            panel1.Dock = DockStyle.Top;
-            panel1.Location = new Point(3, 3);
-            panel1.Name = "panel1";
-            panel1.Size = new Size(216, 125);
-            panel1.TabIndex = 0;
-            layoutState1.Location = new Point(3, 3);
-            layoutState1.Size = new Size(216, 125);
-            layoutState1.Visible = true;
-            panel1.Tag = layoutState1;
-            // 
-            // siticoneDashboardButton1
-            // 
-            siticoneDashboardButton1.AccessibilityDescription = "";
-            siticoneDashboardButton1.AccessibleDescription = "Button ";
-            siticoneDashboardButton1.AccessibleName = "";
-            siticoneDashboardButton1.AccessibleRole = AccessibleRole.PushButton;
-            siticoneDashboardButton1.AnimationSpeed = 0.09F;
-            siticoneDashboardButton1.BackColor = Color.Transparent;
-            siticoneDashboardButton1.BadgeColor = Color.FromArgb(255, 62, 62);
-            siticoneDashboardButton1.BadgeCount = 0;
-            siticoneDashboardButton1.BadgePadding = 8;
-            siticoneDashboardButton1.BadgeSize = 20;
-            siticoneDashboardButton1.BadgeTextColor = Color.White;
-            siticoneDashboardButton1.CornerRadiusBottomLeft = 0;
-            siticoneDashboardButton1.CornerRadiusBottomRight = 0;
-            siticoneDashboardButton1.CornerRadiusTopLeft = 0;
-            siticoneDashboardButton1.CornerRadiusTopRight = 0;
-            siticoneDashboardButton1.Dock = DockStyle.Top;
-            siticoneDashboardButton1.EnableRippleEffect = false;
-            siticoneDashboardButton1.Font = new Font("Segoe UI", 9F);
-            siticoneDashboardButton1.GradientEndColor = Color.FromArgb(0, 200, 255);
-            siticoneDashboardButton1.GradientMode = System.Drawing.Drawing2D.LinearGradientMode.Horizontal;
-            siticoneDashboardButton1.GradientStartColor = Color.FromArgb(41, 121, 255);
-            siticoneDashboardButton1.HoverColor = Color.Honeydew;
-            siticoneDashboardButton1.IndicatorColor = Color.FromArgb(0, 123, 255);
-            siticoneDashboardButton1.IndicatorGradientColor = Color.FromArgb(0, 183, 255);
-            siticoneDashboardButton1.IndicatorWidth = 4;
-            siticoneDashboardButton1.IsAccessibilityEnabled = true;
-            siticoneDashboardButton1.IsSelected = false;
-            siticoneDashboardButton1.Location = new Point(3, 134);
-            siticoneDashboardButton1.Name = "siticoneDashboardButton1";
-            siticoneDashboardButton1.NormalColor = Color.DarkSeaGreen;
-            siticoneDashboardButton1.PressColor = Color.SeaGreen;
-            siticoneDashboardButton1.RippleColor = Color.Honeydew;
-            siticoneDashboardButton1.SelectedColor = Color.SeaGreen;
-            siticoneDashboardButton1.SelectedTextColor = Color.White;
-            siticoneDashboardButton1.ShowBadge = false;
-            siticoneDashboardButton1.ShowLeftIndicator = false;
-            siticoneDashboardButton1.Size = new Size(216, 50);
-            siticoneDashboardButton1.TabIndex = 5;
-            layoutState2.Location = new Point(3, 134);
-            layoutState2.Size = new Size(216, 50);
-            layoutState2.Visible = true;
-            siticoneDashboardButton1.Tag = layoutState2;
-            siticoneDashboardButton1.Text = "Dashboard";
-            siticoneDashboardButton1.TextColor = Color.White;
-            siticoneDashboardButton1.UseGradientBackground = false;
-            // 
-            // siticoneDashboardButton2
-            // 
-            siticoneDashboardButton2.AccessibilityDescription = "";
-            siticoneDashboardButton2.AccessibleDescription = "Button ";
-            siticoneDashboardButton2.AccessibleName = "";
-            siticoneDashboardButton2.AccessibleRole = AccessibleRole.PushButton;
-            siticoneDashboardButton2.AnimationSpeed = 0.09F;
-            siticoneDashboardButton2.BackColor = Color.Transparent;
-            siticoneDashboardButton2.BadgeColor = Color.FromArgb(255, 62, 62);
-            siticoneDashboardButton2.BadgeCount = 0;
-            siticoneDashboardButton2.BadgePadding = 8;
-            siticoneDashboardButton2.BadgeSize = 20;
-            siticoneDashboardButton2.BadgeTextColor = Color.White;
-            siticoneDashboardButton2.CornerRadiusBottomLeft = 0;
-            siticoneDashboardButton2.CornerRadiusBottomRight = 0;
-            siticoneDashboardButton2.CornerRadiusTopLeft = 0;
-            siticoneDashboardButton2.CornerRadiusTopRight = 0;
-            siticoneDashboardButton2.Dock = DockStyle.Top;
-            siticoneDashboardButton2.EnableRippleEffect = false;
-            siticoneDashboardButton2.Font = new Font("Segoe UI", 9F);
-            siticoneDashboardButton2.GradientEndColor = Color.FromArgb(0, 200, 255);
-            siticoneDashboardButton2.GradientMode = System.Drawing.Drawing2D.LinearGradientMode.Horizontal;
-            siticoneDashboardButton2.GradientStartColor = Color.FromArgb(41, 121, 255);
-            siticoneDashboardButton2.HoverColor = Color.Honeydew;
-            siticoneDashboardButton2.IndicatorColor = Color.FromArgb(0, 123, 255);
-            siticoneDashboardButton2.IndicatorGradientColor = Color.FromArgb(0, 183, 255);
-            siticoneDashboardButton2.IndicatorWidth = 4;
-            siticoneDashboardButton2.IsAccessibilityEnabled = true;
-            siticoneDashboardButton2.IsSelected = false;
-            siticoneDashboardButton2.Location = new Point(3, 190);
-            siticoneDashboardButton2.Name = "siticoneDashboardButton2";
-            siticoneDashboardButton2.NormalColor = Color.DarkSeaGreen;
-            siticoneDashboardButton2.PressColor = Color.SeaGreen;
-            siticoneDashboardButton2.RippleColor = Color.Honeydew;
-            siticoneDashboardButton2.SelectedColor = Color.SeaGreen;
-            siticoneDashboardButton2.SelectedTextColor = Color.White;
-            siticoneDashboardButton2.ShowBadge = false;
-            siticoneDashboardButton2.ShowLeftIndicator = false;
-            siticoneDashboardButton2.Size = new Size(216, 50);
-            siticoneDashboardButton2.TabIndex = 6;
-            layoutState3.Location = new Point(3, 190);
-            layoutState3.Size = new Size(216, 50);
-            layoutState3.Visible = true;
-            siticoneDashboardButton2.Tag = layoutState3;
-            siticoneDashboardButton2.Text = "Create";
-            siticoneDashboardButton2.TextColor = Color.White;
-            siticoneDashboardButton2.UseGradientBackground = false;
-            // 
-            // siticoneDashboardButton3
-            // 
-            siticoneDashboardButton3.AccessibilityDescription = "";
-            siticoneDashboardButton3.AccessibleDescription = "Button ";
-            siticoneDashboardButton3.AccessibleName = "";
-            siticoneDashboardButton3.AccessibleRole = AccessibleRole.PushButton;
-            siticoneDashboardButton3.AnimationSpeed = 0.09F;
-            siticoneDashboardButton3.BackColor = Color.Transparent;
-            siticoneDashboardButton3.BadgeColor = Color.FromArgb(255, 62, 62);
-            siticoneDashboardButton3.BadgeCount = 0;
-            siticoneDashboardButton3.BadgePadding = 8;
-            siticoneDashboardButton3.BadgeSize = 20;
-            siticoneDashboardButton3.BadgeTextColor = Color.White;
-            siticoneDashboardButton3.CornerRadiusBottomLeft = 0;
-            siticoneDashboardButton3.CornerRadiusBottomRight = 0;
-            siticoneDashboardButton3.CornerRadiusTopLeft = 0;
-            siticoneDashboardButton3.CornerRadiusTopRight = 0;
-            siticoneDashboardButton3.Dock = DockStyle.Top;
-            siticoneDashboardButton3.EnableRippleEffect = false;
-            siticoneDashboardButton3.Font = new Font("Segoe UI", 9F);
-            siticoneDashboardButton3.GradientEndColor = Color.FromArgb(0, 200, 255);
-            siticoneDashboardButton3.GradientMode = System.Drawing.Drawing2D.LinearGradientMode.Horizontal;
-            siticoneDashboardButton3.GradientStartColor = Color.FromArgb(41, 121, 255);
-            siticoneDashboardButton3.HoverColor = Color.Honeydew;
-            siticoneDashboardButton3.IndicatorColor = Color.FromArgb(0, 123, 255);
-            siticoneDashboardButton3.IndicatorGradientColor = Color.FromArgb(0, 183, 255);
-            siticoneDashboardButton3.IndicatorWidth = 4;
-            siticoneDashboardButton3.IsAccessibilityEnabled = true;
-            siticoneDashboardButton3.IsSelected = false;
-            siticoneDashboardButton3.Location = new Point(3, 246);
-            siticoneDashboardButton3.Name = "siticoneDashboardButton3";
-            siticoneDashboardButton3.NormalColor = Color.DarkSeaGreen;
-            siticoneDashboardButton3.PressColor = Color.SeaGreen;
-            siticoneDashboardButton3.RippleColor = Color.Honeydew;
-            siticoneDashboardButton3.SelectedColor = Color.SeaGreen;
-            siticoneDashboardButton3.SelectedTextColor = Color.White;
-            siticoneDashboardButton3.ShowBadge = false;
-            siticoneDashboardButton3.ShowLeftIndicator = false;
-            siticoneDashboardButton3.Size = new Size(216, 50);
-            siticoneDashboardButton3.TabIndex = 7;
-            layoutState4.Location = new Point(3, 246);
-            layoutState4.Size = new Size(216, 50);
-            layoutState4.Visible = true;
-            siticoneDashboardButton3.Tag = layoutState4;
-            siticoneDashboardButton3.Text = "Friends";
-            siticoneDashboardButton3.TextColor = Color.White;
-            siticoneDashboardButton3.UseGradientBackground = false;
-            // 
-            // siticoneDashboardButton4
-            // 
-            siticoneDashboardButton4.AccessibilityDescription = "";
-            siticoneDashboardButton4.AccessibleDescription = "Button ";
-            siticoneDashboardButton4.AccessibleName = "";
-            siticoneDashboardButton4.AccessibleRole = AccessibleRole.PushButton;
-            siticoneDashboardButton4.AnimationSpeed = 0.09F;
-            siticoneDashboardButton4.BackColor = Color.Transparent;
-            siticoneDashboardButton4.BadgeColor = Color.FromArgb(255, 62, 62);
-            siticoneDashboardButton4.BadgeCount = 0;
-            siticoneDashboardButton4.BadgePadding = 8;
-            siticoneDashboardButton4.BadgeSize = 20;
-            siticoneDashboardButton4.BadgeTextColor = Color.White;
-            siticoneDashboardButton4.CornerRadiusBottomLeft = 0;
-            siticoneDashboardButton4.CornerRadiusBottomRight = 0;
-            siticoneDashboardButton4.CornerRadiusTopLeft = 0;
-            siticoneDashboardButton4.CornerRadiusTopRight = 0;
-            siticoneDashboardButton4.Dock = DockStyle.Top;
-            siticoneDashboardButton4.EnableRippleEffect = false;
-            siticoneDashboardButton4.Font = new Font("Segoe UI", 9F);
-            siticoneDashboardButton4.GradientEndColor = Color.FromArgb(0, 200, 255);
-            siticoneDashboardButton4.GradientMode = System.Drawing.Drawing2D.LinearGradientMode.Horizontal;
-            siticoneDashboardButton4.GradientStartColor = Color.FromArgb(41, 121, 255);
-            siticoneDashboardButton4.HoverColor = Color.Honeydew;
-            siticoneDashboardButton4.IndicatorColor = Color.FromArgb(0, 123, 255);
-            siticoneDashboardButton4.IndicatorGradientColor = Color.FromArgb(0, 183, 255);
-            siticoneDashboardButton4.IndicatorWidth = 4;
-            siticoneDashboardButton4.IsAccessibilityEnabled = true;
-            siticoneDashboardButton4.IsSelected = false;
-            siticoneDashboardButton4.Location = new Point(3, 302);
-            siticoneDashboardButton4.Name = "siticoneDashboardButton4";
-            siticoneDashboardButton4.NormalColor = Color.DarkSeaGreen;
-            siticoneDashboardButton4.PressColor = Color.SeaGreen;
-            siticoneDashboardButton4.RippleColor = Color.Honeydew;
-            siticoneDashboardButton4.SelectedColor = Color.SeaGreen;
-            siticoneDashboardButton4.SelectedTextColor = Color.White;
-            siticoneDashboardButton4.ShowBadge = false;
-            siticoneDashboardButton4.ShowLeftIndicator = false;
-            siticoneDashboardButton4.Size = new Size(216, 50);
-            siticoneDashboardButton4.TabIndex = 8;
-            layoutState5.Location = new Point(3, 302);
-            layoutState5.Size = new Size(216, 50);
-            layoutState5.Visible = true;
-            siticoneDashboardButton4.Tag = layoutState5;
-            siticoneDashboardButton4.Text = "Settings";
-            siticoneDashboardButton4.TextColor = Color.White;
-            siticoneDashboardButton4.UseGradientBackground = false;
-            // 
-            // siticoneDashboardButton5
-            // 
-            siticoneDashboardButton5.AccessibilityDescription = "";
-            siticoneDashboardButton5.AccessibleDescription = "Button ";
-            siticoneDashboardButton5.AccessibleName = "";
-            siticoneDashboardButton5.AccessibleRole = AccessibleRole.PushButton;
-            siticoneDashboardButton5.AnimationSpeed = 0.09F;
-            siticoneDashboardButton5.BackColor = Color.Transparent;
-            siticoneDashboardButton5.BadgeColor = Color.FromArgb(255, 62, 62);
-            siticoneDashboardButton5.BadgeCount = 0;
-            siticoneDashboardButton5.BadgePadding = 8;
-            siticoneDashboardButton5.BadgeSize = 20;
-            siticoneDashboardButton5.BadgeTextColor = Color.White;
-            siticoneDashboardButton5.CornerRadiusBottomLeft = 0;
-            siticoneDashboardButton5.CornerRadiusBottomRight = 0;
-            siticoneDashboardButton5.CornerRadiusTopLeft = 0;
-            siticoneDashboardButton5.CornerRadiusTopRight = 0;
-            siticoneDashboardButton5.Dock = DockStyle.Top;
-            siticoneDashboardButton5.EnableRippleEffect = false;
-            siticoneDashboardButton5.Font = new Font("Segoe UI", 9F);
-            siticoneDashboardButton5.GradientEndColor = Color.FromArgb(0, 200, 255);
-            siticoneDashboardButton5.GradientMode = System.Drawing.Drawing2D.LinearGradientMode.Horizontal;
-            siticoneDashboardButton5.GradientStartColor = Color.FromArgb(41, 121, 255);
-            siticoneDashboardButton5.HoverColor = Color.Honeydew;
-            siticoneDashboardButton5.IndicatorColor = Color.FromArgb(0, 123, 255);
-            siticoneDashboardButton5.IndicatorGradientColor = Color.FromArgb(0, 183, 255);
-            siticoneDashboardButton5.IndicatorWidth = 4;
-            siticoneDashboardButton5.IsAccessibilityEnabled = true;
-            siticoneDashboardButton5.IsSelected = false;
-            siticoneDashboardButton5.Location = new Point(3, 358);
-            siticoneDashboardButton5.Name = "siticoneDashboardButton5";
-            siticoneDashboardButton5.NormalColor = Color.DarkSeaGreen;
-            siticoneDashboardButton5.PressColor = Color.SeaGreen;
-            siticoneDashboardButton5.RippleColor = Color.Honeydew;
-            siticoneDashboardButton5.SelectedColor = Color.SeaGreen;
-            siticoneDashboardButton5.SelectedTextColor = Color.White;
-            siticoneDashboardButton5.ShowBadge = false;
-            siticoneDashboardButton5.ShowLeftIndicator = false;
-            siticoneDashboardButton5.Size = new Size(216, 50);
-            siticoneDashboardButton5.TabIndex = 9;
-            layoutState6.Location = new Point(3, 358);
-            layoutState6.Size = new Size(216, 50);
-            layoutState6.Visible = true;
-            siticoneDashboardButton5.Tag = layoutState6;
-            siticoneDashboardButton5.Text = "Logout";
-            siticoneDashboardButton5.TextColor = Color.White;
-            siticoneDashboardButton5.UseGradientBackground = false;
             // 
             // pictureBox_avatar
             // 
             pictureBox_avatar.BackColor = Color.Transparent;
             pictureBox_avatar.BorderStyle = BorderStyle.FixedSingle;
             pictureBox_avatar.Image = (Image)resources.GetObject("pictureBox_avatar.Image");
-            pictureBox_avatar.Location = new Point(496, 123);
+            pictureBox_avatar.Location = new Point(726, 142);
             pictureBox_avatar.Name = "pictureBox_avatar";
-            pictureBox_avatar.Size = new Size(77, 77);
+            pictureBox_avatar.Size = new Size(158, 164);
             pictureBox_avatar.SizeMode = PictureBoxSizeMode.StretchImage;
             pictureBox_avatar.TabIndex = 6;
             pictureBox_avatar.TabStop = false;
@@ -361,55 +68,55 @@
             // siticoneLabel1
             // 
             siticoneLabel1.BackColor = Color.Transparent;
-            siticoneLabel1.Font = new Font("Segoe UI", 10F, FontStyle.Bold);
+            siticoneLabel1.Font = new Font("Segoe UI", 17F, FontStyle.Bold);
             siticoneLabel1.ForeColor = Color.DarkSeaGreen;
-            siticoneLabel1.Location = new Point(223, 123);
+            siticoneLabel1.Location = new Point(381, 232);
             siticoneLabel1.Name = "siticoneLabel1";
-            siticoneLabel1.Size = new Size(125, 29);
+            siticoneLabel1.Size = new Size(160, 45);
             siticoneLabel1.TabIndex = 7;
             siticoneLabel1.Text = "Username";
             // 
             // siticoneLabel2
             // 
             siticoneLabel2.BackColor = Color.Transparent;
-            siticoneLabel2.Font = new Font("Segoe UI", 10F, FontStyle.Bold);
+            siticoneLabel2.Font = new Font("Segoe UI", 17F, FontStyle.Bold);
             siticoneLabel2.ForeColor = Color.DarkSeaGreen;
-            siticoneLabel2.Location = new Point(223, 208);
+            siticoneLabel2.Location = new Point(381, 357);
             siticoneLabel2.Name = "siticoneLabel2";
-            siticoneLabel2.Size = new Size(125, 29);
+            siticoneLabel2.Size = new Size(99, 46);
             siticoneLabel2.TabIndex = 8;
             siticoneLabel2.Text = "Email";
             // 
             // siticoneLabel3
             // 
             siticoneLabel3.BackColor = Color.Transparent;
-            siticoneLabel3.Font = new Font("Segoe UI", 10F, FontStyle.Bold);
+            siticoneLabel3.Font = new Font("Segoe UI", 17F, FontStyle.Bold);
             siticoneLabel3.ForeColor = Color.DarkSeaGreen;
-            siticoneLabel3.Location = new Point(223, 293);
+            siticoneLabel3.Location = new Point(381, 490);
             siticoneLabel3.Name = "siticoneLabel3";
-            siticoneLabel3.Size = new Size(125, 29);
+            siticoneLabel3.Size = new Size(160, 39);
             siticoneLabel3.TabIndex = 9;
             siticoneLabel3.Text = "Password";
             // 
             // siticoneLabel4
             // 
             siticoneLabel4.BackColor = Color.Transparent;
-            siticoneLabel4.Font = new Font("Segoe UI", 10F, FontStyle.Bold);
+            siticoneLabel4.Font = new Font("Segoe UI", 17F, FontStyle.Bold);
             siticoneLabel4.ForeColor = Color.DarkSeaGreen;
-            siticoneLabel4.Location = new Point(223, 377);
+            siticoneLabel4.Location = new Point(381, 607);
             siticoneLabel4.Name = "siticoneLabel4";
-            siticoneLabel4.Size = new Size(133, 29);
+            siticoneLabel4.Size = new Size(222, 49);
             siticoneLabel4.TabIndex = 10;
             siticoneLabel4.Text = "New password";
             // 
             // siticoneLabel5
             // 
             siticoneLabel5.BackColor = Color.Transparent;
-            siticoneLabel5.Font = new Font("Segoe UI", 10F, FontStyle.Bold);
+            siticoneLabel5.Font = new Font("Segoe UI", 17F, FontStyle.Bold);
             siticoneLabel5.ForeColor = Color.DarkSeaGreen;
-            siticoneLabel5.Location = new Point(223, 463);
+            siticoneLabel5.Location = new Point(381, 739);
             siticoneLabel5.Name = "siticoneLabel5";
-            siticoneLabel5.Size = new Size(160, 29);
+            siticoneLabel5.Size = new Size(160, 38);
             siticoneLabel5.TabIndex = 11;
             siticoneLabel5.Text = "Confirm password";
             // 
@@ -439,12 +146,12 @@
             siticoneTextBox1.EnableDropShadow = false;
             siticoneTextBox1.FillColor1 = Color.White;
             siticoneTextBox1.FillColor2 = Color.White;
-            siticoneTextBox1.Font = new Font("Segoe UI", 9.5F);
+            siticoneTextBox1.Font = new Font("Segoe UI", 15F);
             siticoneTextBox1.ForeColor = Color.DimGray;
             siticoneTextBox1.HoverBorderColor1 = Color.Gray;
             siticoneTextBox1.HoverBorderColor2 = Color.Gray;
             siticoneTextBox1.IsEnabled = true;
-            siticoneTextBox1.Location = new Point(223, 146);
+            siticoneTextBox1.Location = new Point(381, 280);
             siticoneTextBox1.Name = "siticoneTextBox1";
             siticoneTextBox1.PlaceholderColor = Color.Gray;
             siticoneTextBox1.PlaceholderText = "Enter text here...";
@@ -457,7 +164,7 @@
             siticoneTextBox1.ShadowAnimationDuration = 1;
             siticoneTextBox1.ShadowBlur = 10;
             siticoneTextBox1.ShadowColor = Color.FromArgb(15, 0, 0, 0);
-            siticoneTextBox1.Size = new Size(197, 35);
+            siticoneTextBox1.Size = new Size(287, 49);
             siticoneTextBox1.SolidBorderColor = Color.LightSlateGray;
             siticoneTextBox1.SolidBorderFocusColor = Color.FromArgb(77, 77, 255);
             siticoneTextBox1.SolidBorderHoverColor = Color.Gray;
@@ -494,12 +201,12 @@
             siticoneTextBox2.EnableDropShadow = false;
             siticoneTextBox2.FillColor1 = Color.White;
             siticoneTextBox2.FillColor2 = Color.White;
-            siticoneTextBox2.Font = new Font("Segoe UI", 9.5F);
+            siticoneTextBox2.Font = new Font("Segoe UI", 15F);
             siticoneTextBox2.ForeColor = Color.DimGray;
             siticoneTextBox2.HoverBorderColor1 = Color.Gray;
             siticoneTextBox2.HoverBorderColor2 = Color.Gray;
             siticoneTextBox2.IsEnabled = true;
-            siticoneTextBox2.Location = new Point(223, 231);
+            siticoneTextBox2.Location = new Point(381, 406);
             siticoneTextBox2.Name = "siticoneTextBox2";
             siticoneTextBox2.PlaceholderColor = Color.Gray;
             siticoneTextBox2.PlaceholderText = "Enter text here...";
@@ -512,7 +219,7 @@
             siticoneTextBox2.ShadowAnimationDuration = 1;
             siticoneTextBox2.ShadowBlur = 10;
             siticoneTextBox2.ShadowColor = Color.FromArgb(15, 0, 0, 0);
-            siticoneTextBox2.Size = new Size(197, 35);
+            siticoneTextBox2.Size = new Size(287, 49);
             siticoneTextBox2.SolidBorderColor = Color.LightSlateGray;
             siticoneTextBox2.SolidBorderFocusColor = Color.FromArgb(77, 77, 255);
             siticoneTextBox2.SolidBorderHoverColor = Color.Gray;
@@ -549,12 +256,12 @@
             siticoneTextBox3.EnableDropShadow = false;
             siticoneTextBox3.FillColor1 = Color.White;
             siticoneTextBox3.FillColor2 = Color.White;
-            siticoneTextBox3.Font = new Font("Segoe UI", 9.5F);
+            siticoneTextBox3.Font = new Font("Segoe UI", 15F);
             siticoneTextBox3.ForeColor = Color.DimGray;
             siticoneTextBox3.HoverBorderColor1 = Color.Gray;
             siticoneTextBox3.HoverBorderColor2 = Color.Gray;
             siticoneTextBox3.IsEnabled = true;
-            siticoneTextBox3.Location = new Point(223, 316);
+            siticoneTextBox3.Location = new Point(381, 532);
             siticoneTextBox3.Name = "siticoneTextBox3";
             siticoneTextBox3.PlaceholderColor = Color.Gray;
             siticoneTextBox3.PlaceholderText = "Enter text here...";
@@ -567,7 +274,7 @@
             siticoneTextBox3.ShadowAnimationDuration = 1;
             siticoneTextBox3.ShadowBlur = 10;
             siticoneTextBox3.ShadowColor = Color.FromArgb(15, 0, 0, 0);
-            siticoneTextBox3.Size = new Size(197, 35);
+            siticoneTextBox3.Size = new Size(287, 49);
             siticoneTextBox3.SolidBorderColor = Color.LightSlateGray;
             siticoneTextBox3.SolidBorderFocusColor = Color.FromArgb(77, 77, 255);
             siticoneTextBox3.SolidBorderHoverColor = Color.Gray;
@@ -604,12 +311,12 @@
             siticoneTextBox4.EnableDropShadow = false;
             siticoneTextBox4.FillColor1 = Color.White;
             siticoneTextBox4.FillColor2 = Color.White;
-            siticoneTextBox4.Font = new Font("Segoe UI", 9.5F);
+            siticoneTextBox4.Font = new Font("Segoe UI", 15F);
             siticoneTextBox4.ForeColor = Color.DimGray;
             siticoneTextBox4.HoverBorderColor1 = Color.Gray;
             siticoneTextBox4.HoverBorderColor2 = Color.Gray;
             siticoneTextBox4.IsEnabled = true;
-            siticoneTextBox4.Location = new Point(223, 401);
+            siticoneTextBox4.Location = new Point(381, 659);
             siticoneTextBox4.Name = "siticoneTextBox4";
             siticoneTextBox4.PlaceholderColor = Color.Gray;
             siticoneTextBox4.PlaceholderText = "Enter text here...";
@@ -622,7 +329,7 @@
             siticoneTextBox4.ShadowAnimationDuration = 1;
             siticoneTextBox4.ShadowBlur = 10;
             siticoneTextBox4.ShadowColor = Color.FromArgb(15, 0, 0, 0);
-            siticoneTextBox4.Size = new Size(197, 35);
+            siticoneTextBox4.Size = new Size(287, 49);
             siticoneTextBox4.SolidBorderColor = Color.LightSlateGray;
             siticoneTextBox4.SolidBorderFocusColor = Color.FromArgb(77, 77, 255);
             siticoneTextBox4.SolidBorderHoverColor = Color.Gray;
@@ -659,12 +366,12 @@
             siticoneTextBox5.EnableDropShadow = false;
             siticoneTextBox5.FillColor1 = Color.White;
             siticoneTextBox5.FillColor2 = Color.White;
-            siticoneTextBox5.Font = new Font("Segoe UI", 9.5F);
+            siticoneTextBox5.Font = new Font("Segoe UI", 15F);
             siticoneTextBox5.ForeColor = Color.DimGray;
             siticoneTextBox5.HoverBorderColor1 = Color.Gray;
             siticoneTextBox5.HoverBorderColor2 = Color.Gray;
             siticoneTextBox5.IsEnabled = true;
-            siticoneTextBox5.Location = new Point(223, 487);
+            siticoneTextBox5.Location = new Point(381, 780);
             siticoneTextBox5.Name = "siticoneTextBox5";
             siticoneTextBox5.PlaceholderColor = Color.Gray;
             siticoneTextBox5.PlaceholderText = "Enter text here...";
@@ -677,7 +384,7 @@
             siticoneTextBox5.ShadowAnimationDuration = 1;
             siticoneTextBox5.ShadowBlur = 10;
             siticoneTextBox5.ShadowColor = Color.FromArgb(15, 0, 0, 0);
-            siticoneTextBox5.Size = new Size(197, 35);
+            siticoneTextBox5.Size = new Size(287, 49);
             siticoneTextBox5.SolidBorderColor = Color.LightSlateGray;
             siticoneTextBox5.SolidBorderFocusColor = Color.FromArgb(77, 77, 255);
             siticoneTextBox5.SolidBorderHoverColor = Color.Gray;
@@ -691,36 +398,36 @@
             // siticoneTextArea1
             // 
             siticoneTextArea1.BorderStyle = BorderStyle.None;
-            siticoneTextArea1.Font = new Font("Century Gothic", 10F);
-            siticoneTextArea1.Location = new Point(496, 255);
+            siticoneTextArea1.Font = new Font("Century Gothic", 17F);
+            siticoneTextArea1.Location = new Point(726, 368);
             siticoneTextArea1.Margin = new Padding(5);
             siticoneTextArea1.MinimumSize = new Size(100, 100);
             siticoneTextArea1.Multiline = true;
             siticoneTextArea1.Name = "siticoneTextArea1";
             siticoneTextArea1.PlaceholderText = "Write something here...";
             siticoneTextArea1.ScrollBars = ScrollBars.Vertical;
-            siticoneTextArea1.Size = new Size(371, 267);
+            siticoneTextArea1.Size = new Size(636, 461);
             siticoneTextArea1.TabIndex = 21;
             // 
             // siticoneLabel6
             // 
             siticoneLabel6.BackColor = Color.Transparent;
-            siticoneLabel6.Font = new Font("Segoe UI", 10F, FontStyle.Bold);
+            siticoneLabel6.Font = new Font("Segoe UI", 17F, FontStyle.Bold);
             siticoneLabel6.ForeColor = Color.DarkSeaGreen;
-            siticoneLabel6.Location = new Point(496, 231);
+            siticoneLabel6.Location = new Point(726, 316);
             siticoneLabel6.Name = "siticoneLabel6";
-            siticoneLabel6.Size = new Size(125, 29);
+            siticoneLabel6.Size = new Size(173, 47);
             siticoneLabel6.TabIndex = 22;
             siticoneLabel6.Text = "About me";
             // 
             // siticoneLabel7
             // 
             siticoneLabel7.BackColor = Color.Transparent;
-            siticoneLabel7.Font = new Font("Segoe UI", 20F, FontStyle.Bold);
+            siticoneLabel7.Font = new Font("Segoe UI", 28F, FontStyle.Bold);
             siticoneLabel7.ForeColor = Color.DarkSeaGreen;
-            siticoneLabel7.Location = new Point(202, 56);
+            siticoneLabel7.Location = new Point(332, 148);
             siticoneLabel7.Name = "siticoneLabel7";
-            siticoneLabel7.Size = new Size(239, 50);
+            siticoneLabel7.Size = new Size(363, 67);
             siticoneLabel7.TabIndex = 24;
             siticoneLabel7.Text = "Your Profile";
             siticoneLabel7.TextAlign = ContentAlignment.MiddleCenter;
@@ -728,11 +435,11 @@
             // siticoneLabel8
             // 
             siticoneLabel8.BackColor = Color.Transparent;
-            siticoneLabel8.Font = new Font("Segoe UI", 17F, FontStyle.Bold);
+            siticoneLabel8.Font = new Font("Segoe UI", 28F, FontStyle.Bold);
             siticoneLabel8.ForeColor = Color.DarkSeaGreen;
-            siticoneLabel8.Location = new Point(579, 105);
+            siticoneLabel8.Location = new Point(890, 142);
             siticoneLabel8.Name = "siticoneLabel8";
-            siticoneLabel8.Size = new Size(161, 49);
+            siticoneLabel8.Size = new Size(279, 56);
             siticoneLabel8.TabIndex = 26;
             siticoneLabel8.Text = "Username";
             siticoneLabel8.TextAlign = ContentAlignment.MiddleCenter;
@@ -740,9 +447,9 @@
             // siticoneLabel9
             // 
             siticoneLabel9.BackColor = Color.Transparent;
-            siticoneLabel9.Font = new Font("Segoe UI", 10F);
+            siticoneLabel9.Font = new Font("Segoe UI", 15F);
             siticoneLabel9.ForeColor = Color.LimeGreen;
-            siticoneLabel9.Location = new Point(589, 146);
+            siticoneLabel9.Location = new Point(915, 198);
             siticoneLabel9.Name = "siticoneLabel9";
             siticoneLabel9.Size = new Size(125, 29);
             siticoneLabel9.TabIndex = 27;
@@ -754,7 +461,7 @@
             editAvatarButton.Cursor = Cursors.Hand;
             editAvatarButton.Image = (Image)resources.GetObject("editAvatarButton.Image");
             editAvatarButton.InitialImage = (Image)resources.GetObject("editAvatarButton.InitialImage");
-            editAvatarButton.Location = new Point(559, 187);
+            editAvatarButton.Location = new Point(875, 293);
             editAvatarButton.Name = "editAvatarButton";
             editAvatarButton.Size = new Size(24, 24);
             editAvatarButton.SizeMode = PictureBoxSizeMode.Zoom;
@@ -765,7 +472,7 @@
             // 
             AutoScaleDimensions = new SizeF(9F, 21F);
             AutoScaleMode = AutoScaleMode.Font;
-            ClientSize = new Size(904, 612);
+            ClientSize = new Size(1422, 977);
             Controls.Add(editAvatarButton);
             Controls.Add(siticoneLabel9);
             Controls.Add(siticoneLabel8);
@@ -782,11 +489,9 @@
             Controls.Add(siticoneLabel2);
             Controls.Add(siticoneLabel1);
             Controls.Add(pictureBox_avatar);
-            Controls.Add(siticoneFlowPanel1);
             Controls.Add(siticoneLabel6);
             Name = "Profile";
             Text = "Profile";
-            siticoneFlowPanel1.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)pictureBox_avatar).EndInit();
             ((System.ComponentModel.ISupportInitialize)bindingSource1).EndInit();
             ((System.ComponentModel.ISupportInitialize)editAvatarButton).EndInit();
@@ -795,13 +500,6 @@
         }
 
         #endregion
-        private SiticoneNetCoreUI.SiticoneFlowPanel siticoneFlowPanel1;
-        private Panel panel1;
-        private SiticoneNetCoreUI.SiticoneDashboardButton siticoneDashboardButton1;
-        private SiticoneNetCoreUI.SiticoneDashboardButton siticoneDashboardButton2;
-        private SiticoneNetCoreUI.SiticoneDashboardButton siticoneDashboardButton3;
-        private SiticoneNetCoreUI.SiticoneDashboardButton siticoneDashboardButton4;
-        private SiticoneNetCoreUI.SiticoneDashboardButton siticoneDashboardButton5;
         private PictureBox pictureBox_avatar;
         private SiticoneNetCoreUI.SiticoneLabel siticoneLabel1;
         private SiticoneNetCoreUI.SiticoneLabel siticoneLabel2;

@@ -23,8 +23,8 @@ namespace PomoMeetApp.View
         {
             var btnNotify = new SiticoneNotificationButton
             {
-                Size = new Size(40, 40), // Kích thước của nút thông báo
-                Location = new Point(10, y),
+                Size = new Size(50, 50), // Kích thước của nút thông báo
+                Location = new Point(0, y),
                 BellColor = Color.Black,
                 Text = "", // Xóa text vì đây là nút notification (chỉ có icon)
                 Cursor = Cursors.Hand
