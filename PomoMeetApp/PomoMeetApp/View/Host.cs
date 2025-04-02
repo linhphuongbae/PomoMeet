@@ -22,5 +22,9 @@ namespace PomoMeetApp.View
 
         }
 
+        private void siticonePanel2_Paint(object sender, PaintEventArgs e)
+        {
+
+        }
     }
 }
