@@ -48,10 +48,26 @@
             bindingSource1 = new BindingSource(components);
             siticoneLabel9 = new SiticoneNetCoreUI.SiticoneLabel();
             editAvatarButton = new PictureBox();
+            siticoneButton1 = new SiticoneNetCoreUI.SiticoneButton();
             ((System.ComponentModel.ISupportInitialize)pictureBox_avatar).BeginInit();
             ((System.ComponentModel.ISupportInitialize)bindingSource1).BeginInit();
             ((System.ComponentModel.ISupportInitialize)editAvatarButton).BeginInit();
             SuspendLayout();
+            // 
+            // notifyButton
+            // 
+            notifyButton.Location = new Point(1202, 20);
+            // 
+            // avatar
+            // 
+            // 
+            // nameLabel
+            // 
+            nameLabel.Location = new Point(1322, 31);
+            // 
+            // profileDropdown
+            // 
+            profileDropdown.Location = new Point(1322, 65);
             // 
             // pictureBox_avatar
             // 
@@ -468,11 +484,88 @@
             editAvatarButton.TabIndex = 28;
             editAvatarButton.TabStop = false;
             // 
+            // siticoneButton1
+            // 
+            siticoneButton1.AccessibleDescription = "The default button control that accept input though the mouse, touch and keyboard";
+            siticoneButton1.AccessibleName = "Save Changes";
+            siticoneButton1.AutoSizeBasedOnText = false;
+            siticoneButton1.BackColor = Color.Transparent;
+            siticoneButton1.BadgeBackColor = Color.Red;
+            siticoneButton1.BadgeFont = new Font("Segoe UI", 8F, FontStyle.Bold);
+            siticoneButton1.BadgeValue = 0;
+            siticoneButton1.BadgeValueForeColor = Color.White;
+            siticoneButton1.BorderColor = Color.DarkSeaGreen;
+            siticoneButton1.BorderWidth = 2;
+            siticoneButton1.ButtonBackColor = Color.DarkSeaGreen;
+            siticoneButton1.ButtonImage = null;
+            siticoneButton1.CanBeep = true;
+            siticoneButton1.CanGlow = false;
+            siticoneButton1.CanShake = true;
+            siticoneButton1.ContextMenuStripEx = null;
+            siticoneButton1.CornerRadiusBottomLeft = 0;
+            siticoneButton1.CornerRadiusBottomRight = 0;
+            siticoneButton1.CornerRadiusTopLeft = 0;
+            siticoneButton1.CornerRadiusTopRight = 0;
+            siticoneButton1.CustomCursor = Cursors.Default;
+            siticoneButton1.DisabledTextColor = Color.FromArgb(150, 150, 150);
+            siticoneButton1.EnableLongPress = false;
+            siticoneButton1.EnablePressAnimation = true;
+            siticoneButton1.EnableRippleEffect = true;
+            siticoneButton1.EnableShadow = false;
+            siticoneButton1.EnableTextWrapping = false;
+            siticoneButton1.Font = new Font("Segoe UI", 9F);
+            siticoneButton1.GlowColor = Color.FromArgb(100, 255, 255, 255);
+            siticoneButton1.GlowIntensity = 100;
+            siticoneButton1.GlowRadius = 20F;
+            siticoneButton1.GradientBackground = false;
+            siticoneButton1.GradientColor = Color.FromArgb(114, 168, 255);
+            siticoneButton1.GradientMode = System.Drawing.Drawing2D.LinearGradientMode.Vertical;
+            siticoneButton1.HintText = null;
+            siticoneButton1.HoverBackColor = Color.DarkSeaGreen;
+            siticoneButton1.HoverFontStyle = FontStyle.Regular;
+            siticoneButton1.HoverTextColor = Color.White;
+            siticoneButton1.HoverTransitionDuration = 250;
+            siticoneButton1.ImageAlign = ContentAlignment.MiddleLeft;
+            siticoneButton1.ImagePadding = 5;
+            siticoneButton1.ImageSize = new Size(16, 16);
+            siticoneButton1.IsRadial = false;
+            siticoneButton1.IsReadOnly = false;
+            siticoneButton1.IsToggleButton = false;
+            siticoneButton1.IsToggled = false;
+            siticoneButton1.Location = new Point(504, 860);
+            siticoneButton1.LongPressDurationMS = 1000;
+            siticoneButton1.Name = "siticoneButton1";
+            siticoneButton1.NormalFontStyle = FontStyle.Regular;
+            siticoneButton1.ParticleColor = Color.FromArgb(200, 200, 200);
+            siticoneButton1.ParticleCount = 15;
+            siticoneButton1.PressAnimationScale = 0.97F;
+            siticoneButton1.PressedBackColor = Color.SeaGreen;
+            siticoneButton1.PressedFontStyle = FontStyle.Regular;
+            siticoneButton1.PressTransitionDuration = 150;
+            siticoneButton1.ReadOnlyTextColor = Color.FromArgb(100, 100, 100);
+            siticoneButton1.RippleColor = Color.FromArgb(255, 255, 255);
+            siticoneButton1.RippleOpacity = 0.3F;
+            siticoneButton1.RippleRadiusMultiplier = 0.6F;
+            siticoneButton1.ShadowBlur = 5;
+            siticoneButton1.ShadowColor = Color.FromArgb(100, 0, 0, 0);
+            siticoneButton1.ShadowOffset = new Point(2, 2);
+            siticoneButton1.ShakeDuration = 500;
+            siticoneButton1.ShakeIntensity = 5;
+            siticoneButton1.Size = new Size(164, 51);
+            siticoneButton1.TabIndex = 29;
+            siticoneButton1.Text = "Save Changes";
+            siticoneButton1.TextAlign = ContentAlignment.MiddleCenter;
+            siticoneButton1.TextColor = Color.White;
+            siticoneButton1.TooltipText = null;
+            siticoneButton1.UseAdvancedRendering = true;
+            siticoneButton1.UseParticles = false;
+            // 
             // Profile
             // 
             AutoScaleDimensions = new SizeF(9F, 21F);
             AutoScaleMode = AutoScaleMode.Font;
             ClientSize = new Size(1422, 977);
+            Controls.Add(siticoneButton1);
             Controls.Add(editAvatarButton);
             Controls.Add(siticoneLabel9);
             Controls.Add(siticoneLabel8);
@@ -492,6 +585,27 @@
             Controls.Add(siticoneLabel6);
             Name = "Profile";
             Text = "Profile";
+            Controls.SetChildIndex(siticoneLabel6, 0);
+            Controls.SetChildIndex(pictureBox_avatar, 0);
+            Controls.SetChildIndex(siticoneLabel1, 0);
+            Controls.SetChildIndex(siticoneLabel2, 0);
+            Controls.SetChildIndex(siticoneLabel3, 0);
+            Controls.SetChildIndex(siticoneLabel4, 0);
+            Controls.SetChildIndex(siticoneLabel5, 0);
+            Controls.SetChildIndex(siticoneTextBox1, 0);
+            Controls.SetChildIndex(siticoneTextBox2, 0);
+            Controls.SetChildIndex(siticoneTextBox3, 0);
+            Controls.SetChildIndex(siticoneTextBox4, 0);
+            Controls.SetChildIndex(siticoneTextBox5, 0);
+            Controls.SetChildIndex(siticoneTextArea1, 0);
+            Controls.SetChildIndex(siticoneLabel7, 0);
+            Controls.SetChildIndex(siticoneLabel8, 0);
+            Controls.SetChildIndex(siticoneLabel9, 0);
+            Controls.SetChildIndex(editAvatarButton, 0);
+            Controls.SetChildIndex(profileDropdown, 0);
+            Controls.SetChildIndex(nameLabel, 0);
+            Controls.SetChildIndex(notifyButton, 0);
+            Controls.SetChildIndex(siticoneButton1, 0);
             ((System.ComponentModel.ISupportInitialize)pictureBox_avatar).EndInit();
             ((System.ComponentModel.ISupportInitialize)bindingSource1).EndInit();
             ((System.ComponentModel.ISupportInitialize)editAvatarButton).EndInit();
@@ -518,5 +632,6 @@
         private BindingSource bindingSource1;
         private SiticoneNetCoreUI.SiticoneLabel siticoneLabel9;
         private PictureBox editAvatarButton;
+        private SiticoneNetCoreUI.SiticoneButton siticoneButton1;
     }
 }
