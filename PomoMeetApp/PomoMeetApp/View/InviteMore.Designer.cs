@@ -29,6 +29,7 @@
         private void InitializeComponent()
         {
             siticonePanel1 = new SiticoneNetCoreUI.SiticonePanel();
+            siticoneLabel2 = new SiticoneNetCoreUI.SiticoneLabel();
             siticoneRadialButton2 = new SiticoneNetCoreUI.SiticoneRadialButton();
             siticoneLabel1 = new SiticoneNetCoreUI.SiticoneLabel();
             siticoneButton4 = new SiticoneNetCoreUI.SiticoneButton();
@@ -39,7 +40,6 @@
             siticoneTextBox1 = new SiticoneNetCoreUI.SiticoneTextBox();
             siticonePanel2 = new SiticoneNetCoreUI.SiticonePanel();
             siticoneLabel3 = new SiticoneNetCoreUI.SiticoneLabel();
-            siticoneLabel2 = new SiticoneNetCoreUI.SiticoneLabel();
             siticonePanel1.SuspendLayout();
             siticonePanel2.SuspendLayout();
             SuspendLayout();
@@ -98,6 +98,16 @@
             siticonePanel1.UseMultiGradient = false;
             siticonePanel1.UsePatternTexture = false;
             siticonePanel1.UseRadialGradient = false;
+            // 
+            // siticoneLabel2
+            // 
+            siticoneLabel2.BackColor = Color.Transparent;
+            siticoneLabel2.Font = new Font("Inter Medium", 12F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            siticoneLabel2.Location = new Point(95, 98);
+            siticoneLabel2.Name = "siticoneLabel2";
+            siticoneLabel2.Size = new Size(125, 29);
+            siticoneLabel2.TabIndex = 18;
+            siticoneLabel2.Text = "Evans";
             // 
             // siticoneRadialButton2
             // 
@@ -666,16 +676,6 @@
             siticoneLabel3.Size = new Size(361, 52);
             siticoneLabel3.TabIndex = 0;
             siticoneLabel3.Text = "Mời thêm bạn";
-            // 
-            // siticoneLabel2
-            // 
-            siticoneLabel2.BackColor = Color.Transparent;
-            siticoneLabel2.Font = new Font("Inter Medium", 12F, FontStyle.Bold, GraphicsUnit.Point, 0);
-            siticoneLabel2.Location = new Point(95, 98);
-            siticoneLabel2.Name = "siticoneLabel2";
-            siticoneLabel2.Size = new Size(125, 29);
-            siticoneLabel2.TabIndex = 18;
-            siticoneLabel2.Text = "Evans";
             // 
             // InviteMore
             // 
