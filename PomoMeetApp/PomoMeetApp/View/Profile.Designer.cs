@@ -49,25 +49,11 @@
             siticoneLabel9 = new SiticoneNetCoreUI.SiticoneLabel();
             editAvatarButton = new PictureBox();
             siticoneButton1 = new SiticoneNetCoreUI.SiticoneButton();
+            userProfilePanel1 = new UserProfilePanel();
             ((System.ComponentModel.ISupportInitialize)pictureBox_avatar).BeginInit();
             ((System.ComponentModel.ISupportInitialize)bindingSource1).BeginInit();
             ((System.ComponentModel.ISupportInitialize)editAvatarButton).BeginInit();
             SuspendLayout();
-            // 
-            // notifyButton
-            // 
-            notifyButton.Location = new Point(1202, 20);
-            // 
-            // avatar
-            // 
-            // 
-            // nameLabel
-            // 
-            nameLabel.Location = new Point(1322, 31);
-            // 
-            // profileDropdown
-            // 
-            profileDropdown.Location = new Point(1322, 65);
             // 
             // pictureBox_avatar
             // 
@@ -477,7 +463,7 @@
             editAvatarButton.Cursor = Cursors.Hand;
             editAvatarButton.Image = (Image)resources.GetObject("editAvatarButton.Image");
             editAvatarButton.InitialImage = (Image)resources.GetObject("editAvatarButton.InitialImage");
-            editAvatarButton.Location = new Point(875, 293);
+            editAvatarButton.Location = new Point(890, 282);
             editAvatarButton.Name = "editAvatarButton";
             editAvatarButton.Size = new Size(24, 24);
             editAvatarButton.SizeMode = PictureBoxSizeMode.Zoom;
@@ -560,11 +546,20 @@
             siticoneButton1.UseAdvancedRendering = true;
             siticoneButton1.UseParticles = false;
             // 
+            // userProfilePanel1
+            // 
+            userProfilePanel1.BackColor = Color.Transparent;
+            userProfilePanel1.Location = new Point(1111, 12);
+            userProfilePanel1.Name = "userProfilePanel1";
+            userProfilePanel1.Size = new Size(312, 75);
+            userProfilePanel1.TabIndex = 30;
+            // 
             // Profile
             // 
             AutoScaleDimensions = new SizeF(9F, 21F);
             AutoScaleMode = AutoScaleMode.Font;
             ClientSize = new Size(1422, 977);
+            Controls.Add(userProfilePanel1);
             Controls.Add(siticoneButton1);
             Controls.Add(editAvatarButton);
             Controls.Add(siticoneLabel9);
@@ -585,27 +580,6 @@
             Controls.Add(siticoneLabel6);
             Name = "Profile";
             Text = "Profile";
-            Controls.SetChildIndex(siticoneLabel6, 0);
-            Controls.SetChildIndex(pictureBox_avatar, 0);
-            Controls.SetChildIndex(siticoneLabel1, 0);
-            Controls.SetChildIndex(siticoneLabel2, 0);
-            Controls.SetChildIndex(siticoneLabel3, 0);
-            Controls.SetChildIndex(siticoneLabel4, 0);
-            Controls.SetChildIndex(siticoneLabel5, 0);
-            Controls.SetChildIndex(siticoneTextBox1, 0);
-            Controls.SetChildIndex(siticoneTextBox2, 0);
-            Controls.SetChildIndex(siticoneTextBox3, 0);
-            Controls.SetChildIndex(siticoneTextBox4, 0);
-            Controls.SetChildIndex(siticoneTextBox5, 0);
-            Controls.SetChildIndex(siticoneTextArea1, 0);
-            Controls.SetChildIndex(siticoneLabel7, 0);
-            Controls.SetChildIndex(siticoneLabel8, 0);
-            Controls.SetChildIndex(siticoneLabel9, 0);
-            Controls.SetChildIndex(editAvatarButton, 0);
-            Controls.SetChildIndex(profileDropdown, 0);
-            Controls.SetChildIndex(nameLabel, 0);
-            Controls.SetChildIndex(notifyButton, 0);
-            Controls.SetChildIndex(siticoneButton1, 0);
             ((System.ComponentModel.ISupportInitialize)pictureBox_avatar).EndInit();
             ((System.ComponentModel.ISupportInitialize)bindingSource1).EndInit();
             ((System.ComponentModel.ISupportInitialize)editAvatarButton).EndInit();
@@ -633,5 +607,6 @@
         private SiticoneNetCoreUI.SiticoneLabel siticoneLabel9;
         private PictureBox editAvatarButton;
         private SiticoneNetCoreUI.SiticoneButton siticoneButton1;
+        private UserProfilePanel userProfilePanel1;
     }
 }

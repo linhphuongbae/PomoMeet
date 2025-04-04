@@ -5,7 +5,7 @@ using System.Windows.Forms;
 
 namespace PomoMeetApp.View
 {
-    public partial class Profile : BaseForm
+    public partial class Profile : Form
     {
         public Profile()
         {
@@ -38,11 +38,6 @@ namespace PomoMeetApp.View
             {
                 pictureBox_avatar.Image = Image.FromFile(openFileDialog.FileName);
             }
-        }
-
-        private void UpdateControlPositions()
-        {
-            base.UpdateControlPositions(); // Gọi phương thức của lớp cha
         }
     }
 }

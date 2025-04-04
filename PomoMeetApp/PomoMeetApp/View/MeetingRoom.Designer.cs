@@ -82,6 +82,7 @@
             panel8 = new Panel();
             siticoneImageButton10 = new SiticoneNetCoreUI.SiticoneImageButton();
             siticoneTextBox2 = new SiticoneNetCoreUI.SiticoneTextBox();
+            userProfilePanel1 = new UserProfilePanel();
             siticoneAdvancedPanel1.SuspendLayout();
             panel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)pictureBox1).BeginInit();
@@ -1071,7 +1072,7 @@
             participants_panel.Controls.Add(listViewParticipants, 0, 2);
             participants_panel.Location = new Point(1072, 157);
             participants_panel.Name = "participants_panel";
-            participants_panel.RowCount = 4;
+            participants_panel.RowCount = 3;
             participants_panel.RowStyles.Add(new RowStyle(SizeType.Percent, 59.8540154F));
             participants_panel.RowStyles.Add(new RowStyle(SizeType.Percent, 40.1459846F));
             participants_panel.RowStyles.Add(new RowStyle(SizeType.Absolute, 232F));
@@ -1110,7 +1111,7 @@
             siticoneTextBox1.HoverBorderColor1 = Color.Gray;
             siticoneTextBox1.HoverBorderColor2 = Color.Gray;
             siticoneTextBox1.IsEnabled = true;
-            siticoneTextBox1.Location = new Point(3, 55);
+            siticoneTextBox1.Location = new Point(3, 67);
             siticoneTextBox1.Name = "siticoneTextBox1";
             siticoneTextBox1.PlaceholderColor = Color.Gray;
             siticoneTextBox1.PlaceholderText = "Enter text here...";
@@ -1139,7 +1140,7 @@
             listViewParticipants.BorderStyle = BorderStyle.None;
             listViewParticipants.Columns.AddRange(new ColumnHeader[] { colAvatar, colName, colMic, colCamera });
             listViewParticipants.FullRowSelect = true;
-            listViewParticipants.Location = new Point(3, 89);
+            listViewParticipants.Location = new Point(3, 109);
             listViewParticipants.Name = "listViewParticipants";
             listViewParticipants.OwnerDraw = true;
             listViewParticipants.Size = new Size(298, 226);
@@ -1373,11 +1374,20 @@
             siticoneTextBox2.ValidationErrorMessage = "Invalid input.";
             siticoneTextBox2.ValidationFunction = null;
             // 
+            // userProfilePanel1
+            // 
+            userProfilePanel1.BackColor = Color.Transparent;
+            userProfilePanel1.Location = new Point(1111, 12);
+            userProfilePanel1.Name = "userProfilePanel1";
+            userProfilePanel1.Size = new Size(312, 75);
+            userProfilePanel1.TabIndex = 31;
+            // 
             // MeetingRoom
             // 
             AutoScaleDimensions = new SizeF(9F, 21F);
             AutoScaleMode = AutoScaleMode.Font;
             ClientSize = new Size(1422, 977);
+            Controls.Add(userProfilePanel1);
             Controls.Add(tableLayoutPanel1);
             Controls.Add(participants_panel);
             Controls.Add(label2);
@@ -1464,5 +1474,6 @@
         private SiticoneNetCoreUI.SiticoneTextBox siticoneTextBox2;
         private Panel panel8;
         private SiticoneNetCoreUI.SiticoneImageButton siticoneImageButton10;
+        private UserProfilePanel userProfilePanel1;
     }
 }

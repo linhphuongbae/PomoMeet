@@ -12,7 +12,7 @@ using System.Xml;
 
 namespace PomoMeetApp.View
 {
-    public partial class MeetingRoom : BaseForm
+    public partial class MeetingRoom : Form
     {
         private ImageList imageListAvatars;
 
@@ -64,9 +64,6 @@ namespace PomoMeetApp.View
                 e.DrawDefault = true; // Vẽ mặc định cho các cột khác
             }
         }
-        protected override void UpdateControlPositions()
-        {
-            base.UpdateControlPositions(); // Gọi phương thức của lớp cha
-        }
+
     }
 }
