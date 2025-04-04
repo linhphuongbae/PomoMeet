@@ -109,7 +109,7 @@
             siticonePanel1.RippleMaxSize = 600F;
             siticonePanel1.RippleSpeed = 15F;
             siticonePanel1.ShowBorder = true;
-            siticonePanel1.Size = new Size(310, 1050);
+            siticonePanel1.Size = new Size(276, 1000);
             siticonePanel1.TabIndex = 1;
             siticonePanel1.TabStop = true;
             siticonePanel1.UseBorderGradient = false;
@@ -166,7 +166,7 @@
             siticoneButton2.IsReadOnly = false;
             siticoneButton2.IsToggleButton = false;
             siticoneButton2.IsToggled = false;
-            siticoneButton2.Location = new Point(91, 264);
+            siticoneButton2.Location = new Point(81, 251);
             siticoneButton2.LongPressDurationMS = 1000;
             siticoneButton2.Name = "siticoneButton2";
             siticoneButton2.NormalFontStyle = FontStyle.Regular;
@@ -185,7 +185,7 @@
             siticoneButton2.ShadowOffset = new Point(2, 2);
             siticoneButton2.ShakeDuration = 500;
             siticoneButton2.ShakeIntensity = 5;
-            siticoneButton2.Size = new Size(207, 65);
+            siticoneButton2.Size = new Size(184, 62);
             siticoneButton2.TabIndex = 13;
             siticoneButton2.Text = "Create";
             siticoneButton2.TextAlign = ContentAlignment.MiddleLeft;
@@ -233,7 +233,7 @@
             siticonePanel6.RippleMaxSize = 600F;
             siticonePanel6.RippleSpeed = 15F;
             siticonePanel6.ShowBorder = true;
-            siticonePanel6.Size = new Size(123, 110);
+            siticonePanel6.Size = new Size(109, 105);
             siticonePanel6.TabIndex = 12;
             siticonePanel6.TabStop = true;
             siticonePanel6.UseBorderGradient = false;
@@ -271,14 +271,14 @@
             siticonePictureBox8.Images = (List<Image>)resources.GetObject("siticonePictureBox8.Images");
             siticonePictureBox8.InterpolationMode = System.Drawing.Drawing2D.InterpolationMode.HighQualityBicubic;
             siticonePictureBox8.IsCircular = false;
-            siticonePictureBox8.Location = new Point(14, 13);
+            siticonePictureBox8.Location = new Point(12, 12);
             siticonePictureBox8.MaintainAspectRatio = true;
             siticonePictureBox8.Name = "siticonePictureBox8";
             siticonePictureBox8.PlaceholderImage = null;
             siticonePictureBox8.RotationAngle = 0F;
             siticonePictureBox8.Saturation = 1F;
             siticonePictureBox8.ShowBorder = true;
-            siticonePictureBox8.Size = new Size(92, 81);
+            siticonePictureBox8.Size = new Size(82, 77);
             siticonePictureBox8.SizeMode = SiticoneNetCoreUI.SiticonePictureBoxSizeMode.Normal;
             siticonePictureBox8.TabIndex = 0;
             siticonePictureBox8.Text = "siticonePictureBox8";
@@ -313,14 +313,14 @@
             siticonePictureBox7.Images = (List<Image>)resources.GetObject("siticonePictureBox7.Images");
             siticonePictureBox7.InterpolationMode = System.Drawing.Drawing2D.InterpolationMode.HighQualityBicubic;
             siticonePictureBox7.IsCircular = false;
-            siticonePictureBox7.Location = new Point(24, 572);
+            siticonePictureBox7.Location = new Point(21, 545);
             siticonePictureBox7.MaintainAspectRatio = true;
             siticonePictureBox7.Name = "siticonePictureBox7";
             siticonePictureBox7.PlaceholderImage = null;
             siticonePictureBox7.RotationAngle = 0F;
             siticonePictureBox7.Saturation = 1F;
             siticonePictureBox7.ShowBorder = false;
-            siticonePictureBox7.Size = new Size(61, 65);
+            siticonePictureBox7.Size = new Size(54, 62);
             siticonePictureBox7.SizeMode = SiticoneNetCoreUI.SiticonePictureBoxSizeMode.Normal;
             siticonePictureBox7.TabIndex = 11;
             siticonePictureBox7.Text = "siticonePictureBox7";
@@ -355,14 +355,14 @@
             siticonePictureBox6.Images = (List<Image>)resources.GetObject("siticonePictureBox6.Images");
             siticonePictureBox6.InterpolationMode = System.Drawing.Drawing2D.InterpolationMode.HighQualityBicubic;
             siticonePictureBox6.IsCircular = false;
-            siticonePictureBox6.Location = new Point(21, 471);
+            siticonePictureBox6.Location = new Point(19, 449);
             siticonePictureBox6.MaintainAspectRatio = true;
             siticonePictureBox6.Name = "siticonePictureBox6";
             siticonePictureBox6.PlaceholderImage = null;
             siticonePictureBox6.RotationAngle = 0F;
             siticonePictureBox6.Saturation = 1F;
             siticonePictureBox6.ShowBorder = false;
-            siticonePictureBox6.Size = new Size(61, 65);
+            siticonePictureBox6.Size = new Size(54, 62);
             siticonePictureBox6.SizeMode = SiticoneNetCoreUI.SiticonePictureBoxSizeMode.Normal;
             siticonePictureBox6.TabIndex = 10;
             siticonePictureBox6.Text = "siticonePictureBox6";
@@ -397,14 +397,14 @@
             siticonePictureBox5.Images = (List<Image>)resources.GetObject("siticonePictureBox5.Images");
             siticonePictureBox5.InterpolationMode = System.Drawing.Drawing2D.InterpolationMode.HighQualityBicubic;
             siticonePictureBox5.IsCircular = false;
-            siticonePictureBox5.Location = new Point(21, 366);
+            siticonePictureBox5.Location = new Point(19, 349);
             siticonePictureBox5.MaintainAspectRatio = true;
             siticonePictureBox5.Name = "siticonePictureBox5";
             siticonePictureBox5.PlaceholderImage = null;
             siticonePictureBox5.RotationAngle = 0F;
             siticonePictureBox5.Saturation = 1F;
             siticonePictureBox5.ShowBorder = false;
-            siticonePictureBox5.Size = new Size(61, 65);
+            siticonePictureBox5.Size = new Size(54, 62);
             siticonePictureBox5.SizeMode = SiticoneNetCoreUI.SiticonePictureBoxSizeMode.Normal;
             siticonePictureBox5.TabIndex = 9;
             siticonePictureBox5.Text = "siticonePictureBox5";
@@ -439,14 +439,14 @@
             siticonePictureBox3.Images = (List<Image>)resources.GetObject("siticonePictureBox3.Images");
             siticonePictureBox3.InterpolationMode = System.Drawing.Drawing2D.InterpolationMode.HighQualityBicubic;
             siticonePictureBox3.IsCircular = false;
-            siticonePictureBox3.Location = new Point(32, 173);
+            siticonePictureBox3.Location = new Point(28, 165);
             siticonePictureBox3.MaintainAspectRatio = true;
             siticonePictureBox3.Name = "siticonePictureBox3";
             siticonePictureBox3.PlaceholderImage = null;
             siticonePictureBox3.RotationAngle = 0F;
             siticonePictureBox3.Saturation = 1F;
             siticonePictureBox3.ShowBorder = false;
-            siticonePictureBox3.Size = new Size(50, 47);
+            siticonePictureBox3.Size = new Size(44, 45);
             siticonePictureBox3.SizeMode = SiticoneNetCoreUI.SiticonePictureBoxSizeMode.Normal;
             siticonePictureBox3.TabIndex = 8;
             siticonePictureBox3.Text = "siticonePictureBox3";
@@ -481,14 +481,14 @@
             siticonePictureBox4.Images = (List<Image>)resources.GetObject("siticonePictureBox4.Images");
             siticonePictureBox4.InterpolationMode = System.Drawing.Drawing2D.InterpolationMode.HighQualityBicubic;
             siticonePictureBox4.IsCircular = false;
-            siticonePictureBox4.Location = new Point(22, 264);
+            siticonePictureBox4.Location = new Point(20, 251);
             siticonePictureBox4.MaintainAspectRatio = true;
             siticonePictureBox4.Name = "siticonePictureBox4";
             siticonePictureBox4.PlaceholderImage = null;
             siticonePictureBox4.RotationAngle = 0F;
             siticonePictureBox4.Saturation = 1F;
             siticonePictureBox4.ShowBorder = false;
-            siticonePictureBox4.Size = new Size(61, 65);
+            siticonePictureBox4.Size = new Size(54, 62);
             siticonePictureBox4.SizeMode = SiticoneNetCoreUI.SiticonePictureBoxSizeMode.Normal;
             siticonePictureBox4.TabIndex = 7;
             siticonePictureBox4.Text = "siticonePictureBox4";
@@ -542,7 +542,7 @@
             siticoneButton5.IsReadOnly = false;
             siticoneButton5.IsToggleButton = false;
             siticoneButton5.IsToggled = false;
-            siticoneButton5.Location = new Point(91, 572);
+            siticoneButton5.Location = new Point(81, 545);
             siticoneButton5.LongPressDurationMS = 1000;
             siticoneButton5.Name = "siticoneButton5";
             siticoneButton5.NormalFontStyle = FontStyle.Regular;
@@ -561,7 +561,7 @@
             siticoneButton5.ShadowOffset = new Point(2, 2);
             siticoneButton5.ShakeDuration = 500;
             siticoneButton5.ShakeIntensity = 5;
-            siticoneButton5.Size = new Size(207, 65);
+            siticoneButton5.Size = new Size(184, 62);
             siticoneButton5.TabIndex = 5;
             siticoneButton5.Text = "Đăng Xuất";
             siticoneButton5.TextAlign = ContentAlignment.MiddleLeft;
@@ -619,7 +619,7 @@
             siticoneButton4.IsReadOnly = false;
             siticoneButton4.IsToggleButton = false;
             siticoneButton4.IsToggled = false;
-            siticoneButton4.Location = new Point(92, 471);
+            siticoneButton4.Location = new Point(82, 449);
             siticoneButton4.LongPressDurationMS = 1000;
             siticoneButton4.Name = "siticoneButton4";
             siticoneButton4.NormalFontStyle = FontStyle.Regular;
@@ -638,7 +638,7 @@
             siticoneButton4.ShadowOffset = new Point(2, 2);
             siticoneButton4.ShakeDuration = 500;
             siticoneButton4.ShakeIntensity = 5;
-            siticoneButton4.Size = new Size(207, 65);
+            siticoneButton4.Size = new Size(184, 62);
             siticoneButton4.TabIndex = 4;
             siticoneButton4.Text = "Cài đặt";
             siticoneButton4.TextAlign = ContentAlignment.MiddleLeft;
@@ -696,7 +696,7 @@
             siticoneButton3.IsReadOnly = false;
             siticoneButton3.IsToggleButton = false;
             siticoneButton3.IsToggled = false;
-            siticoneButton3.Location = new Point(92, 366);
+            siticoneButton3.Location = new Point(82, 349);
             siticoneButton3.LongPressDurationMS = 1000;
             siticoneButton3.Name = "siticoneButton3";
             siticoneButton3.NormalFontStyle = FontStyle.Regular;
@@ -715,7 +715,7 @@
             siticoneButton3.ShadowOffset = new Point(2, 2);
             siticoneButton3.ShakeDuration = 500;
             siticoneButton3.ShakeIntensity = 5;
-            siticoneButton3.Size = new Size(207, 65);
+            siticoneButton3.Size = new Size(184, 62);
             siticoneButton3.TabIndex = 3;
             siticoneButton3.Text = "Friends";
             siticoneButton3.TextAlign = ContentAlignment.MiddleLeft;
@@ -773,7 +773,7 @@
             siticoneButton1.IsReadOnly = false;
             siticoneButton1.IsToggleButton = false;
             siticoneButton1.IsToggled = false;
-            siticoneButton1.Location = new Point(92, 163);
+            siticoneButton1.Location = new Point(82, 155);
             siticoneButton1.LongPressDurationMS = 1000;
             siticoneButton1.Name = "siticoneButton1";
             siticoneButton1.NormalFontStyle = FontStyle.Regular;
@@ -792,7 +792,7 @@
             siticoneButton1.ShadowOffset = new Point(2, 2);
             siticoneButton1.ShakeDuration = 500;
             siticoneButton1.ShakeIntensity = 5;
-            siticoneButton1.Size = new Size(207, 65);
+            siticoneButton1.Size = new Size(184, 62);
             siticoneButton1.TabIndex = 1;
             siticoneButton1.Text = "Dashboard";
             siticoneButton1.TextAlign = ContentAlignment.MiddleLeft;
@@ -805,9 +805,9 @@
             // 
             siticoneLabel1.BackColor = Color.Transparent;
             siticoneLabel1.Font = new Font("Inter", 24F, FontStyle.Bold, GraphicsUnit.Point, 0);
-            siticoneLabel1.Location = new Point(362, 24);
+            siticoneLabel1.Location = new Point(322, 23);
             siticoneLabel1.Name = "siticoneLabel1";
-            siticoneLabel1.Size = new Size(141, 68);
+            siticoneLabel1.Size = new Size(125, 65);
             siticoneLabel1.TabIndex = 6;
             siticoneLabel1.Text = "Hi, ";
             // 
@@ -815,9 +815,9 @@
             // 
             siticoneLabel2.BackColor = Color.Transparent;
             siticoneLabel2.Font = new Font("Inter", 24F, FontStyle.Bold, GraphicsUnit.Point, 0);
-            siticoneLabel2.Location = new Point(362, 92);
+            siticoneLabel2.Location = new Point(322, 88);
             siticoneLabel2.Name = "siticoneLabel2";
-            siticoneLabel2.Size = new Size(796, 68);
+            siticoneLabel2.Size = new Size(708, 65);
             siticoneLabel2.TabIndex = 7;
             siticoneLabel2.Text = "Chào mừng bạn đến với PomoMeet";
             // 
@@ -869,11 +869,11 @@
             siticoneButton6.IsReadOnly = false;
             siticoneButton6.IsToggleButton = false;
             siticoneButton6.IsToggled = false;
-            siticoneButton6.Location = new Point(366, 172);
+            siticoneButton6.Location = new Point(325, 164);
             siticoneButton6.LongPressDurationMS = 1000;
             siticoneButton6.Name = "siticoneButton6";
             siticoneButton6.NormalFontStyle = FontStyle.Regular;
-            siticoneButton6.Padding = new Padding(22, 0, 0, 0);
+            siticoneButton6.Padding = new Padding(20, 0, 0, 0);
             siticoneButton6.ParticleColor = Color.FromArgb(200, 200, 200);
             siticoneButton6.ParticleCount = 15;
             siticoneButton6.PressAnimationScale = 0.97F;
@@ -889,7 +889,7 @@
             siticoneButton6.ShadowOffset = new Point(2, 2);
             siticoneButton6.ShakeDuration = 500;
             siticoneButton6.ShakeIntensity = 5;
-            siticoneButton6.Size = new Size(385, 60);
+            siticoneButton6.Size = new Size(342, 57);
             siticoneButton6.TabIndex = 8;
             siticoneButton6.Text = "Create a new room";
             siticoneButton6.TextAlign = ContentAlignment.MiddleCenter;
@@ -946,11 +946,11 @@
             siticoneButton7.IsReadOnly = false;
             siticoneButton7.IsToggleButton = false;
             siticoneButton7.IsToggled = false;
-            siticoneButton7.Location = new Point(774, 172);
+            siticoneButton7.Location = new Point(688, 164);
             siticoneButton7.LongPressDurationMS = 1000;
             siticoneButton7.Name = "siticoneButton7";
             siticoneButton7.NormalFontStyle = FontStyle.Regular;
-            siticoneButton7.Padding = new Padding(22, 0, 0, 0);
+            siticoneButton7.Padding = new Padding(20, 0, 0, 0);
             siticoneButton7.ParticleColor = Color.FromArgb(200, 200, 200);
             siticoneButton7.ParticleCount = 15;
             siticoneButton7.PressAnimationScale = 0.97F;
@@ -966,7 +966,7 @@
             siticoneButton7.ShadowOffset = new Point(2, 2);
             siticoneButton7.ShakeDuration = 500;
             siticoneButton7.ShakeIntensity = 5;
-            siticoneButton7.Size = new Size(202, 60);
+            siticoneButton7.Size = new Size(180, 57);
             siticoneButton7.TabIndex = 9;
             siticoneButton7.Text = "Join a room";
             siticoneButton7.TextAlign = ContentAlignment.MiddleCenter;
@@ -1010,7 +1010,7 @@
             siticoneTextBox1.HoverBorderColor1 = Color.Gray;
             siticoneTextBox1.HoverBorderColor2 = Color.Gray;
             siticoneTextBox1.IsEnabled = true;
-            siticoneTextBox1.Location = new Point(1202, 180);
+            siticoneTextBox1.Location = new Point(1068, 171);
             siticoneTextBox1.Name = "siticoneTextBox1";
             siticoneTextBox1.PlaceholderColor = Color.Gray;
             siticoneTextBox1.PlaceholderText = "Enter text here...";
@@ -1023,7 +1023,7 @@
             siticoneTextBox1.ShadowAnimationDuration = 1;
             siticoneTextBox1.ShadowBlur = 10;
             siticoneTextBox1.ShadowColor = Color.FromArgb(15, 0, 0, 0);
-            siticoneTextBox1.Size = new Size(331, 52);
+            siticoneTextBox1.Size = new Size(294, 50);
             siticoneTextBox1.SolidBorderColor = Color.LightSlateGray;
             siticoneTextBox1.SolidBorderFocusColor = Color.FromArgb(77, 77, 255);
             siticoneTextBox1.SolidBorderHoverColor = Color.Gray;
@@ -1082,7 +1082,7 @@
             siticoneButton8.IsReadOnly = false;
             siticoneButton8.IsToggleButton = false;
             siticoneButton8.IsToggled = false;
-            siticoneButton8.Location = new Point(346, 276);
+            siticoneButton8.Location = new Point(308, 263);
             siticoneButton8.LongPressDurationMS = 1000;
             siticoneButton8.Name = "siticoneButton8";
             siticoneButton8.NormalFontStyle = FontStyle.Regular;
@@ -1101,7 +1101,7 @@
             siticoneButton8.ShadowOffset = new Point(2, 2);
             siticoneButton8.ShakeDuration = 500;
             siticoneButton8.ShakeIntensity = 5;
-            siticoneButton8.Size = new Size(349, 241);
+            siticoneButton8.Size = new Size(310, 230);
             siticoneButton8.TabIndex = 12;
             siticoneButton8.Text = "Tham gia";
             siticoneButton8.TextAlign = ContentAlignment.MiddleCenter;
@@ -1158,7 +1158,7 @@
             siticoneButton9.IsReadOnly = false;
             siticoneButton9.IsToggleButton = false;
             siticoneButton9.IsToggled = false;
-            siticoneButton9.Location = new Point(762, 276);
+            siticoneButton9.Location = new Point(677, 263);
             siticoneButton9.LongPressDurationMS = 1000;
             siticoneButton9.Name = "siticoneButton9";
             siticoneButton9.NormalFontStyle = FontStyle.Regular;
@@ -1177,7 +1177,7 @@
             siticoneButton9.ShadowOffset = new Point(2, 2);
             siticoneButton9.ShakeDuration = 500;
             siticoneButton9.ShakeIntensity = 5;
-            siticoneButton9.Size = new Size(349, 241);
+            siticoneButton9.Size = new Size(310, 230);
             siticoneButton9.TabIndex = 13;
             siticoneButton9.Text = "Tham gia";
             siticoneButton9.TextAlign = ContentAlignment.MiddleCenter;
@@ -1234,7 +1234,7 @@
             siticoneButton10.IsReadOnly = false;
             siticoneButton10.IsToggleButton = false;
             siticoneButton10.IsToggled = false;
-            siticoneButton10.Location = new Point(1184, 276);
+            siticoneButton10.Location = new Point(1052, 263);
             siticoneButton10.LongPressDurationMS = 1000;
             siticoneButton10.Name = "siticoneButton10";
             siticoneButton10.NormalFontStyle = FontStyle.Regular;
@@ -1253,7 +1253,7 @@
             siticoneButton10.ShadowOffset = new Point(2, 2);
             siticoneButton10.ShakeDuration = 500;
             siticoneButton10.ShakeIntensity = 5;
-            siticoneButton10.Size = new Size(349, 241);
+            siticoneButton10.Size = new Size(310, 230);
             siticoneButton10.TabIndex = 14;
             siticoneButton10.Text = "Tham gia";
             siticoneButton10.TextAlign = ContentAlignment.MiddleCenter;
@@ -1310,7 +1310,7 @@
             siticoneButton11.IsReadOnly = false;
             siticoneButton11.IsToggleButton = false;
             siticoneButton11.IsToggled = false;
-            siticoneButton11.Location = new Point(346, 571);
+            siticoneButton11.Location = new Point(308, 544);
             siticoneButton11.LongPressDurationMS = 1000;
             siticoneButton11.Name = "siticoneButton11";
             siticoneButton11.NormalFontStyle = FontStyle.Regular;
@@ -1329,7 +1329,7 @@
             siticoneButton11.ShadowOffset = new Point(2, 2);
             siticoneButton11.ShakeDuration = 500;
             siticoneButton11.ShakeIntensity = 5;
-            siticoneButton11.Size = new Size(349, 241);
+            siticoneButton11.Size = new Size(310, 230);
             siticoneButton11.TabIndex = 15;
             siticoneButton11.Text = "Tham gia";
             siticoneButton11.TextAlign = ContentAlignment.MiddleCenter;
@@ -1386,7 +1386,7 @@
             siticoneButton12.IsReadOnly = false;
             siticoneButton12.IsToggleButton = false;
             siticoneButton12.IsToggled = false;
-            siticoneButton12.Location = new Point(762, 571);
+            siticoneButton12.Location = new Point(677, 544);
             siticoneButton12.LongPressDurationMS = 1000;
             siticoneButton12.Name = "siticoneButton12";
             siticoneButton12.NormalFontStyle = FontStyle.Regular;
@@ -1405,7 +1405,7 @@
             siticoneButton12.ShadowOffset = new Point(2, 2);
             siticoneButton12.ShakeDuration = 500;
             siticoneButton12.ShakeIntensity = 5;
-            siticoneButton12.Size = new Size(349, 241);
+            siticoneButton12.Size = new Size(310, 230);
             siticoneButton12.TabIndex = 16;
             siticoneButton12.Text = "Tham gia";
             siticoneButton12.TextAlign = ContentAlignment.MiddleCenter;
@@ -1462,7 +1462,7 @@
             siticoneButton13.IsReadOnly = false;
             siticoneButton13.IsToggleButton = false;
             siticoneButton13.IsToggled = false;
-            siticoneButton13.Location = new Point(1184, 571);
+            siticoneButton13.Location = new Point(1052, 544);
             siticoneButton13.LongPressDurationMS = 1000;
             siticoneButton13.Name = "siticoneButton13";
             siticoneButton13.NormalFontStyle = FontStyle.Regular;
@@ -1481,7 +1481,7 @@
             siticoneButton13.ShadowOffset = new Point(2, 2);
             siticoneButton13.ShakeDuration = 500;
             siticoneButton13.ShakeIntensity = 5;
-            siticoneButton13.Size = new Size(349, 241);
+            siticoneButton13.Size = new Size(310, 230);
             siticoneButton13.TabIndex = 17;
             siticoneButton13.Text = "Tham gia";
             siticoneButton13.TextAlign = ContentAlignment.MiddleCenter;
@@ -1492,9 +1492,9 @@
             // 
             // Dashboard
             // 
-            AutoScaleDimensions = new SizeF(9F, 21F);
+            AutoScaleDimensions = new SizeF(8F, 20F);
             AutoScaleMode = AutoScaleMode.Font;
-            ClientSize = new Size(1600, 1026);
+            ClientSize = new Size(1422, 977);
             Controls.Add(siticoneButton13);
             Controls.Add(siticoneButton12);
             Controls.Add(siticoneButton11);
@@ -1509,6 +1509,7 @@
             Controls.Add(siticonePanel1);
             Name = "Dashboard";
             Text = "Dashboard";
+            Load += Dashboard_Load;
             siticonePanel1.ResumeLayout(false);
             siticonePanel6.ResumeLayout(false);
             ResumeLayout(false);
