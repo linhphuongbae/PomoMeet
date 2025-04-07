@@ -186,9 +186,9 @@ namespace Demo
                 };
 
                 DocumentReference docRef = db.Collection("users").Document("user_456");
-                await docRef.SetAsync(newUser, SetOptions.MergeFields("Name", "Email"));
+                await docRef.SetAsync(newUser);  // Gửi toàn bộ, kể cả trường null
 
-                MessageBox.Show("Đã gửi dữ liệu lên Firestore (bỏ qua trường null).");
+                MessageBox.Show("Đã gửi dữ liệu lên Firestore cả trường null).");
             }
             catch (Exception ex)
             {
