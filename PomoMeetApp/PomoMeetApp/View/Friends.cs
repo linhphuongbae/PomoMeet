@@ -54,5 +54,15 @@ namespace PomoMeetApp.View
             pnFindFriends.Visible = true;
 
         }
+
+        private void Friends_Load(object sender, EventArgs e)
+        {
+
+        }
+
+        private void siticoneButton4_Click(object sender, EventArgs e)
+        {
+
+        }
     }
 }
