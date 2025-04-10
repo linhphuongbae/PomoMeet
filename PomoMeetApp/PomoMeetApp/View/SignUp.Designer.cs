@@ -268,6 +268,7 @@
             tbPasswordConfirm.SolidFillColor = Color.White;
             tbPasswordConfirm.TabIndex = 7;
             tbPasswordConfirm.TextPadding = new Padding(16, 0, 6, 0);
+            tbPasswordConfirm.UseSystemPasswordChar = true;
             tbPasswordConfirm.ValidationErrorMessage = "Invalid input.";
             tbPasswordConfirm.ValidationFunction = null;
             // 

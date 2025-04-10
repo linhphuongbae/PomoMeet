@@ -57,9 +57,9 @@ namespace PomoMeetApp.View
             }
 
             // check confirmed password
-            if (passwordConfirm != data.Password)
+            if (passwordConfirm != Security.Decrypt(data.Password))
             {
-                MessageBox.Show("Passwords do not match. Try again", "Warning", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                MessageBox.Show("Password does not match. Try again", "Warning", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                 return;
             }
             try
@@ -69,7 +69,7 @@ namespace PomoMeetApp.View
 
                 if (snapshot.Exists)
                 {
-                    MessageBox.Show("This email is already registered.", "Warning", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                    MessageBox.Show("This username is already registered!", "Warning", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                     return;
                 }
                 await docRef.SetAsync(data);
@@ -85,7 +85,7 @@ namespace PomoMeetApp.View
         private UserData getData()
         {
             string username = tbUsername.Text.Trim();
-            string passwd = tbPassword.Text;
+            string passwd = Security.Encrypt(tbPassword.Text);
 
             return new UserData()
             {
