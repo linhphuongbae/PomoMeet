@@ -280,6 +280,7 @@
             btnSignInGG.TooltipText = null;
             btnSignInGG.UseAdvancedRendering = true;
             btnSignInGG.UseParticles = false;
+            btnSignInGG.Click += btnSignInGG_Click;
             // 
             // label4
             // 
