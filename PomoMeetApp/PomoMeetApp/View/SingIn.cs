@@ -16,5 +16,13 @@ namespace PomoMeetApp.View
         {
             InitializeComponent();
         }
+
+        private void BackToRegs_Click(object sender, EventArgs e)
+        {
+            Hide();
+            SignUp sg = new SignUp();
+            sg.ShowDialog();
+            Close();
+        }
     }
 }
