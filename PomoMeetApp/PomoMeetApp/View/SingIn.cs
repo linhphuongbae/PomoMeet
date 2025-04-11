@@ -65,35 +65,69 @@ namespace PomoMeetApp.View
 
         private async void btnSignInGG_Click(object sender, EventArgs e)
         {
-            string clientId = "1002644567232-b8dhi0ue0o5sb7ar58rtrml6i59qfl7e.apps.googleusercontent.com";
-            string clientSecret = "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";
 
-            string[] scopes = new[]
+            try
             {
-                "https://www.googleapis.com/auth/userinfo.email",
-                "https://www.googleapis.com/auth/userinfo.profile"
-            };
+                using var stream = new FileStream("client_secret.json", FileMode.Open, FileAccess.Read);
 
-            var credential = await GoogleWebAuthorizationBroker.AuthorizeAsync(
-                new ClientSecrets
+
+                var credential = await GoogleWebAuthorizationBroker.AuthorizeAsync(
+                    GoogleClientSecrets.FromStream(stream).Secrets,
+                    new[] { "https://www.googleapis.com/auth/userinfo.email", "https://www.googleapis.com/auth/userinfo.profile" },
+                     Guid.NewGuid().ToString(), CancellationToken.None, new FileDataStore("Google0AuthToken", false) // ko lưu token
+                );
+
+                if (credential?.Token != null && credential.Token.IsStale)
                 {
-                    ClientId = clientId,
-                    ClientSecret = clientSecret
-                },
-                scopes, "user", CancellationToken.None, new FileDataStore("Google0AuthToken", true)
-            );
+                    await credential.RefreshTokenAsync(CancellationToken.None);
+                }
 
-            if (credential != null && credential.Token != null)
-            {
+
                 var oAuthService = new Oauth2Service(new BaseClientService.Initializer()
                 {
                     HttpClientInitializer = credential,
-                    ApplicationName = "PomoMeetApp"
+                    ApplicationName = "PomoMeet"
                 });
                 // gửi yêu cầu tới google để lấy thông tin user
                 var userInfo = await oAuthService.Userinfo.Get().ExecuteAsync();
+
+                // Xử lí các kiểu nè
+                string email = userInfo.Email;
+                var db = FirebaseConfig.database;
+                DocumentReference docRef = db.Collection("User").Document(email);
+                DocumentSnapshot snapshot = await docRef.GetSnapshotAsync();
+
+                if (!snapshot.Exists)
+                {
+                    using (var EnterUsername = new EnterUsername())
+                    {
+                        if (EnterUsername.ShowDialog() == DialogResult.OK)
+                        {
+
+                            string username = EnterUsername.EnteredUsername;
+
+                            UserData userData = new UserData()
+                            {
+                                Username = username,
+                                Password = null,
+                                Email = email
+                            };
+
+                            await docRef.SetAsync(userData);
+                            MessageBox.Show("Success Login using Gmail!", "Success", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                        }
+                    }
+                }  
+                else
+                {
+                    MessageBox.Show("Success Login using Gmail!", "Success", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                }
+            } 
+            catch (Exception ex)
+            {
+
+                MessageBox.Show($"Login failed: {ex.Message}", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
-            
         }
     }
 }
