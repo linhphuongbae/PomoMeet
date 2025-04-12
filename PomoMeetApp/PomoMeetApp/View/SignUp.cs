@@ -19,12 +19,9 @@ namespace PomoMeetApp.View
             InitializeComponent();
         }
 
-        private void siticoneButton2_Click(object sender, EventArgs e)
+        private async void siticoneButton2_Click(object sender, EventArgs e)
         {
-            Hide();
-            SingIn sg = new SingIn();
-            sg.ShowDialog();
-            Close();
+            await FormTransition.FadeTo(this, new SingIn());
         }
 
         private void Rectangle_Click(object sender, EventArgs e)
@@ -75,6 +72,8 @@ namespace PomoMeetApp.View
                 await docRef.SetAsync(data);
 
                 MessageBox.Show("Registration successful!", "Success", MessageBoxButtons.OK, MessageBoxIcon.Information);
+
+                await FormTransition.FadeTo(this, new SingIn());
             }
             catch (Exception ex) 
             {

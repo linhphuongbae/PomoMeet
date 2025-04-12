@@ -42,7 +42,7 @@
             Rectangle.Image = Properties.Resources.Rectangle;
             Rectangle.Location = new Point(167, 72);
             Rectangle.Name = "Rectangle";
-            Rectangle.Size = new Size(645, 408);
+            Rectangle.Size = new Size(645, 445);
             Rectangle.TabIndex = 2;
             Rectangle.TabStop = false;
             // 
@@ -52,7 +52,7 @@
             email.BackColor = Color.FromArgb(233, 240, 201);
             email.Font = new Font("Inter", 19.8000011F, FontStyle.Bold, GraphicsUnit.Point, 0);
             email.ForeColor = Color.FromArgb(117, 164, 127);
-            email.Location = new Point(398, 154);
+            email.Location = new Point(230, 163);
             email.Name = "email";
             email.Size = new Size(193, 49);
             email.TabIndex = 5;
@@ -89,7 +89,7 @@
             tbEnter.HoverBorderColor1 = Color.Gray;
             tbEnter.HoverBorderColor2 = Color.Gray;
             tbEnter.IsEnabled = true;
-            tbEnter.Location = new Point(230, 253);
+            tbEnter.Location = new Point(230, 248);
             tbEnter.Name = "tbEnter";
             tbEnter.PlaceholderColor = Color.Gray;
             tbEnter.PlaceholderText = "Enter text here...";

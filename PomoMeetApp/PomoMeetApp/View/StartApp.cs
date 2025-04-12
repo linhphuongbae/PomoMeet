@@ -33,18 +33,18 @@ namespace PomoMeetApp.View
             else
             {
                 fadeTimer.Stop();
-                OpenSignUpForm(); // Chuyển sang form đăng nhập
+                OpenSignInForm(); // Chuyển sang form đăng nhập
             }
         }
 
-        private void OpenSignUpForm()
+        private void OpenSignInForm()
         {
-            SignUp signupForm = new SignUp();
-            signupForm.FormClosed += (sender, e) =>
+            SingIn signinForm = new SingIn();
+            signinForm.FormClosed += (sender, e) =>
             {
                 this.Close(); // Đóng Form Logo khi Form Đăng Ký đóng
             };
-            signupForm.Show(); // Mở Form Đăng Ký
+            signinForm.Show(); // Mở Form Đăng Ký
             this.Hide(); // Ẩn Form Logo
         }
 

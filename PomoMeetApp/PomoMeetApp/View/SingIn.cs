@@ -24,12 +24,9 @@ namespace PomoMeetApp.View
             InitializeComponent();
         }
 
-        private void BackToRegs_Click(object sender, EventArgs e)
+        private async void BackToRegs_Click(object sender, EventArgs e)
         {
-            Hide();
-            SignUp sg = new SignUp();
-            sg.ShowDialog();
-            Close();
+            await FormTransition.FadeTo(this, new SignUp());
         }
 
         private async void btnLogIn_Click(object sender, EventArgs e)
@@ -54,6 +51,7 @@ namespace PomoMeetApp.View
                         MessageBox.Show("username or password is wrong", "Warning", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                     }
                 }
+                await FormTransition.FadeTo(this, new Dashboard());
             }
             catch (Exception ex)
             {
@@ -94,10 +92,10 @@ namespace PomoMeetApp.View
                 // Xử lí các kiểu nè
                 string email = userInfo.Email;
                 var db = FirebaseConfig.database;
-                DocumentReference docRef = db.Collection("User").Document(email);
-                DocumentSnapshot snapshot = await docRef.GetSnapshotAsync();
+                Query emailQuery = db.Collection("User").WhereEqualTo("Email", email);
+                QuerySnapshot emailQuerySnapshot = await emailQuery.GetSnapshotAsync();
 
-                if (!snapshot.Exists)
+                if (emailQuerySnapshot.Count == 0)
                 {
                     using (var EnterUsername = new EnterUsername())
                     {
@@ -113,7 +111,7 @@ namespace PomoMeetApp.View
                                 Email = email
                             };
 
-                            await docRef.SetAsync(userData);
+                            await db.Collection("User").Document(username).SetAsync(userData);
                             MessageBox.Show("Success Login using Gmail!", "Success", MessageBoxButtons.OK, MessageBoxIcon.Information);
                         }
                     }
@@ -122,10 +120,10 @@ namespace PomoMeetApp.View
                 {
                     MessageBox.Show("Success Login using Gmail!", "Success", MessageBoxButtons.OK, MessageBoxIcon.Information);
                 }
+                await FormTransition.FadeTo(this, new Dashboard());
             } 
             catch (Exception ex)
             {
-
                 MessageBox.Show($"Login failed: {ex.Message}", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
