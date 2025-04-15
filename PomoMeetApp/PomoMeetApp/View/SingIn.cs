@@ -38,6 +38,15 @@ namespace PomoMeetApp.View
             try
             {
                 DocumentReference docRef = db.Collection("User").Document(username);
+                DocumentSnapshot snapshot = await docRef.GetSnapshotAsync();
+
+                if (!snapshot.Exists)
+                {
+                    MessageBox.Show("Username doesn't exist", "Warning", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                    return;
+                } 
+                    
+
                 UserData data = await docRef.GetSnapshotAsync().ContinueWith(task => task.Result.ConvertTo<UserData>());
 
                 if (data != null)
@@ -48,7 +57,7 @@ namespace PomoMeetApp.View
                     }
                     else
                     {
-                        MessageBox.Show("username or password is wrong", "Warning", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                        MessageBox.Show("Wrong password", "Warning", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                     }
                 }
                 await FormTransition.FadeTo(this, new Dashboard());
@@ -57,8 +66,6 @@ namespace PomoMeetApp.View
             {
                 MessageBox.Show($"Login failed: {ex.Message}", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
-
-
         }
 
         private async void btnSignInGG_Click(object sender, EventArgs e)
