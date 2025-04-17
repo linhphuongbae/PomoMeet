@@ -21,7 +21,7 @@ namespace PomoMeetApp.View
         {
             lbAllFriends.Text = "All Friends";
             pnAllFriends.Visible = true;
-            pn_OnlineFriends.Visible = false;
+            btn_OnlineFriends.Visible = false;
             pnFriendRequests.Visible = false;
             pnFindFriends.Visible = false;
 
@@ -31,7 +31,7 @@ namespace PomoMeetApp.View
         {
             lbAllFriends.Text = "Online Friends";
             pnAllFriends.Visible = false;
-            pn_OnlineFriends.Visible = true;
+            btn_OnlineFriends.Visible = true;
             pnFriendRequests.Visible = false;
             pnFindFriends.Visible = false;
         }
@@ -40,7 +40,7 @@ namespace PomoMeetApp.View
         {
             lbAllFriends.Text = "Friends Requests";
             pnAllFriends.Visible = false;
-            pn_OnlineFriends.Visible = false;
+            btn_OnlineFriends.Visible = false;
             pnFriendRequests.Visible = true;
             pnFindFriends.Visible = false;
         }
@@ -49,7 +49,7 @@ namespace PomoMeetApp.View
         {
             lbAllFriends.Text = "Results";
             pnAllFriends.Visible = false;
-            pn_OnlineFriends.Visible = false;
+            btn_OnlineFriends.Visible = false;
             pnFriendRequests.Visible = false;
             pnFindFriends.Visible = true;
 

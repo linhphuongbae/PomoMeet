@@ -57,8 +57,6 @@ namespace PomoMeetApp.View
             {
                 MessageBox.Show($"Login failed: {ex.Message}", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
-
-
         }
 
         private async void btnSignInGG_Click(object sender, EventArgs e)

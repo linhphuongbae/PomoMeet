@@ -46,17 +46,6 @@
             label3 = new Label();
             label2 = new Label();
             lbAllFriends = new Label();
-            pn_OnlineFriends = new SiticoneNetCoreUI.SiticonePanel();
-            pictureBox7 = new PictureBox();
-            pictureBox8 = new PictureBox();
-            pictureBox9 = new PictureBox();
-            pictureBox10 = new PictureBox();
-            pictureBox11 = new PictureBox();
-            pictureBox12 = new PictureBox();
-            label1 = new Label();
-            label6 = new Label();
-            label7 = new Label();
-            label8 = new Label();
             pnFriendRequests = new SiticoneNetCoreUI.SiticonePanel();
             siticoneButton2 = new SiticoneNetCoreUI.SiticoneButton();
             pnFindFriends = new SiticoneNetCoreUI.SiticonePanel();
@@ -68,8 +57,6 @@
             pictureBox18 = new PictureBox();
             label11 = new Label();
             label12 = new Label();
-            userProfilePanel1 = new UserProfilePanel();
-            sideBar1 = new SideBar();
             pnAllFriends.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)pictureBox6).BeginInit();
             ((System.ComponentModel.ISupportInitialize)pictureBox5).BeginInit();
@@ -77,13 +64,6 @@
             ((System.ComponentModel.ISupportInitialize)pictureBox3).BeginInit();
             ((System.ComponentModel.ISupportInitialize)pictureBox2).BeginInit();
             ((System.ComponentModel.ISupportInitialize)pictureBox1).BeginInit();
-            pn_OnlineFriends.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)pictureBox7).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)pictureBox8).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)pictureBox9).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)pictureBox10).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)pictureBox11).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)pictureBox12).BeginInit();
             pnFriendRequests.SuspendLayout();
             pnFindFriends.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)pictureBox13).BeginInit();
@@ -630,165 +610,6 @@
             lbAllFriends.TabIndex = 11;
             lbAllFriends.Text = "All Friends (10)";
             // 
-            // pn_OnlineFriends
-            // 
-            pn_OnlineFriends.AcrylicTintColor = Color.FromArgb(128, 255, 255, 255);
-            pn_OnlineFriends.BackColor = Color.Transparent;
-            pn_OnlineFriends.BorderAlignment = System.Drawing.Drawing2D.PenAlignment.Center;
-            pn_OnlineFriends.BorderDashPattern = null;
-            pn_OnlineFriends.BorderGradientEndColor = Color.Purple;
-            pn_OnlineFriends.BorderGradientStartColor = Color.Blue;
-            pn_OnlineFriends.BorderThickness = 2F;
-            pn_OnlineFriends.Controls.Add(pictureBox7);
-            pn_OnlineFriends.Controls.Add(pictureBox8);
-            pn_OnlineFriends.Controls.Add(pictureBox9);
-            pn_OnlineFriends.Controls.Add(pictureBox10);
-            pn_OnlineFriends.Controls.Add(pictureBox11);
-            pn_OnlineFriends.Controls.Add(pictureBox12);
-            pn_OnlineFriends.Controls.Add(label1);
-            pn_OnlineFriends.Controls.Add(label6);
-            pn_OnlineFriends.Controls.Add(label7);
-            pn_OnlineFriends.Controls.Add(label8);
-            pn_OnlineFriends.CornerRadiusBottomLeft = 10F;
-            pn_OnlineFriends.CornerRadiusBottomRight = 10F;
-            pn_OnlineFriends.CornerRadiusTopLeft = 10F;
-            pn_OnlineFriends.CornerRadiusTopRight = 10F;
-            pn_OnlineFriends.EnableAcrylicEffect = false;
-            pn_OnlineFriends.EnableMicaEffect = false;
-            pn_OnlineFriends.EnableRippleEffect = false;
-            pn_OnlineFriends.FillColor = Color.Transparent;
-            pn_OnlineFriends.GradientColors = new Color[]
-    {
-    Color.White,
-    Color.LightGray,
-    Color.Gray
-    };
-            pn_OnlineFriends.GradientPositions = new float[]
-    {
-    0F,
-    0.5F,
-    1F
-    };
-            pn_OnlineFriends.Location = new Point(21, 0);
-            pn_OnlineFriends.Name = "pn_OnlineFriends";
-            pn_OnlineFriends.PatternStyle = System.Drawing.Drawing2D.HatchStyle.Max;
-            pn_OnlineFriends.RippleAlpha = 50;
-            pn_OnlineFriends.RippleAlphaDecrement = 3;
-            pn_OnlineFriends.RippleColor = Color.FromArgb(50, 255, 255, 255);
-            pn_OnlineFriends.RippleMaxSize = 600F;
-            pn_OnlineFriends.RippleSpeed = 15F;
-            pn_OnlineFriends.ShowBorder = true;
-            pn_OnlineFriends.Size = new Size(1090, 724);
-            pn_OnlineFriends.TabIndex = 26;
-            pn_OnlineFriends.TabStop = true;
-            pn_OnlineFriends.UseBorderGradient = false;
-            pn_OnlineFriends.UseMultiGradient = false;
-            pn_OnlineFriends.UsePatternTexture = false;
-            pn_OnlineFriends.UseRadialGradient = false;
-            pn_OnlineFriends.Visible = false;
-            // 
-            // pictureBox7
-            // 
-            pictureBox7.Image = (Image)resources.GetObject("pictureBox7.Image");
-            pictureBox7.Location = new Point(895, 237);
-            pictureBox7.Name = "pictureBox7";
-            pictureBox7.Size = new Size(28, 26);
-            pictureBox7.TabIndex = 25;
-            pictureBox7.TabStop = false;
-            // 
-            // pictureBox8
-            // 
-            pictureBox8.Image = (Image)resources.GetObject("pictureBox8.Image");
-            pictureBox8.Location = new Point(576, 237);
-            pictureBox8.Name = "pictureBox8";
-            pictureBox8.Size = new Size(28, 26);
-            pictureBox8.TabIndex = 24;
-            pictureBox8.TabStop = false;
-            // 
-            // pictureBox9
-            // 
-            pictureBox9.BackColor = Color.Transparent;
-            pictureBox9.Image = (Image)resources.GetObject("pictureBox9.Image");
-            pictureBox9.Location = new Point(217, 237);
-            pictureBox9.Name = "pictureBox9";
-            pictureBox9.Size = new Size(28, 26);
-            pictureBox9.TabIndex = 23;
-            pictureBox9.TabStop = false;
-            // 
-            // pictureBox10
-            // 
-            pictureBox10.Image = (Image)resources.GetObject("pictureBox10.Image");
-            pictureBox10.Location = new Point(747, 57);
-            pictureBox10.Name = "pictureBox10";
-            pictureBox10.Size = new Size(204, 206);
-            pictureBox10.TabIndex = 22;
-            pictureBox10.TabStop = false;
-            // 
-            // pictureBox11
-            // 
-            pictureBox11.Image = (Image)resources.GetObject("pictureBox11.Image");
-            pictureBox11.Location = new Point(428, 57);
-            pictureBox11.Name = "pictureBox11";
-            pictureBox11.Size = new Size(204, 206);
-            pictureBox11.TabIndex = 21;
-            pictureBox11.TabStop = false;
-            // 
-            // pictureBox12
-            // 
-            pictureBox12.Image = (Image)resources.GetObject("pictureBox12.Image");
-            pictureBox12.Location = new Point(69, 57);
-            pictureBox12.Name = "pictureBox12";
-            pictureBox12.Size = new Size(204, 206);
-            pictureBox12.TabIndex = 20;
-            pictureBox12.TabStop = false;
-            // 
-            // label1
-            // 
-            label1.AutoSize = true;
-            label1.BackColor = Color.Transparent;
-            label1.Font = new Font("Inter", 16.2F, FontStyle.Bold, GraphicsUnit.Point, 0);
-            label1.ForeColor = Color.Black;
-            label1.Location = new Point(811, 266);
-            label1.Name = "label1";
-            label1.Size = new Size(78, 40);
-            label1.TabIndex = 19;
-            label1.Text = "Alex";
-            // 
-            // label6
-            // 
-            label6.AutoSize = true;
-            label6.BackColor = Color.Transparent;
-            label6.Font = new Font("Inter", 16.2F, FontStyle.Bold, GraphicsUnit.Point, 0);
-            label6.ForeColor = Color.Black;
-            label6.Location = new Point(493, 266);
-            label6.Name = "label6";
-            label6.Size = new Size(78, 40);
-            label6.TabIndex = 16;
-            label6.Text = "Alex";
-            // 
-            // label7
-            // 
-            label7.AutoSize = true;
-            label7.BackColor = Color.Transparent;
-            label7.Font = new Font("Inter", 13.8F, FontStyle.Bold, GraphicsUnit.Point, 0);
-            label7.ForeColor = Color.Black;
-            label7.Location = new Point(78, 298);
-            label7.Name = "label7";
-            label7.Size = new Size(0, 32);
-            label7.TabIndex = 13;
-            // 
-            // label8
-            // 
-            label8.AutoSize = true;
-            label8.BackColor = Color.Transparent;
-            label8.Font = new Font("Inter", 16.2F, FontStyle.Bold, GraphicsUnit.Point, 0);
-            label8.ForeColor = Color.Black;
-            label8.Location = new Point(132, 266);
-            label8.Name = "label8";
-            label8.Size = new Size(78, 40);
-            label8.TabIndex = 12;
-            label8.Text = "Alex";
-            // 
             // pnFriendRequests
             // 
             pnFriendRequests.AcrylicTintColor = Color.FromArgb(128, 255, 255, 255);
@@ -802,7 +623,6 @@
             pnFriendRequests.Controls.Add(pnFindFriends);
             pnFriendRequests.Controls.Add(siticoneButton1);
             pnFriendRequests.Controls.Add(pictureBox18);
-            pnFriendRequests.Controls.Add(pn_OnlineFriends);
             pnFriendRequests.Controls.Add(label11);
             pnFriendRequests.Controls.Add(label12);
             pnFriendRequests.CornerRadiusBottomLeft = 10F;
@@ -825,7 +645,7 @@
     0.5F,
     1F
     };
-            pnFriendRequests.Location = new Point(284, 175);
+            pnFriendRequests.Location = new Point(281, 172);
             pnFriendRequests.Name = "pnFriendRequests";
             pnFriendRequests.PatternStyle = System.Drawing.Drawing2D.HatchStyle.Max;
             pnFriendRequests.RippleAlpha = 50;
@@ -952,7 +772,7 @@
     0.5F,
     1F
     };
-            pnFindFriends.Location = new Point(21, 13);
+            pnFindFriends.Location = new Point(3, 3);
             pnFindFriends.Name = "pnFindFriends";
             pnFindFriends.PatternStyle = System.Drawing.Drawing2D.HatchStyle.Max;
             pnFindFriends.RippleAlpha = 50;
@@ -1186,28 +1006,12 @@
             label12.TabIndex = 12;
             label12.Text = "Alex";
             // 
-            // userProfilePanel1
-            // 
-            userProfilePanel1.BackColor = Color.Transparent;
-            userProfilePanel1.Location = new Point(1148, 11);
-            userProfilePanel1.Name = "userProfilePanel1";
-            userProfilePanel1.Size = new Size(277, 71);
-            userProfilePanel1.TabIndex = 29;
-            // 
-            // sideBar1
-            // 
-            sideBar1.Location = new Point(-5, -3);
-            sideBar1.Name = "sideBar1";
-            sideBar1.Size = new Size(304, 1250);
-            sideBar1.TabIndex = 30;
-            // 
             // Friends
             // 
             AutoScaleDimensions = new SizeF(8F, 20F);
             AutoScaleMode = AutoScaleMode.Font;
             BackColor = Color.FromArgb(252, 255, 224);
             ClientSize = new Size(1422, 977);
-            Controls.Add(userProfilePanel1);
             Controls.Add(pnFriendRequests);
             Controls.Add(lbAllFriends);
             Controls.Add(siticoneTextBox1);
@@ -1216,7 +1020,6 @@
             Controls.Add(btn_FriendRequests);
             Controls.Add(btn_OnlineFriends);
             Controls.Add(btn_AllFriends);
-            Controls.Add(sideBar1);
             Name = "Friends";
             Text = "Friends";
             Load += Friends_Load;
@@ -1228,14 +1031,6 @@
             ((System.ComponentModel.ISupportInitialize)pictureBox3).EndInit();
             ((System.ComponentModel.ISupportInitialize)pictureBox2).EndInit();
             ((System.ComponentModel.ISupportInitialize)pictureBox1).EndInit();
-            pn_OnlineFriends.ResumeLayout(false);
-            pn_OnlineFriends.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)pictureBox7).EndInit();
-            ((System.ComponentModel.ISupportInitialize)pictureBox8).EndInit();
-            ((System.ComponentModel.ISupportInitialize)pictureBox9).EndInit();
-            ((System.ComponentModel.ISupportInitialize)pictureBox10).EndInit();
-            ((System.ComponentModel.ISupportInitialize)pictureBox11).EndInit();
-            ((System.ComponentModel.ISupportInitialize)pictureBox12).EndInit();
             pnFriendRequests.ResumeLayout(false);
             pnFriendRequests.PerformLayout();
             pnFindFriends.ResumeLayout(false);
@@ -1265,17 +1060,6 @@
         private PictureBox pictureBox4;
         private PictureBox pictureBox3;
         private PictureBox pictureBox2;
-        private SiticoneNetCoreUI.SiticonePanel pn_OnlineFriends;
-        private PictureBox pictureBox7;
-        private PictureBox pictureBox8;
-        private PictureBox pictureBox9;
-        private PictureBox pictureBox10;
-        private PictureBox pictureBox11;
-        private PictureBox pictureBox12;
-        private Label label1;
-        private Label label6;
-        private Label label7;
-        private Label label8;
         private SiticoneNetCoreUI.SiticonePanel pnFriendRequests;
         private PictureBox pictureBox18;
         private Label label11;

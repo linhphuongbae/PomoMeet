@@ -745,6 +745,7 @@
             // 
             AutoScaleDimensions = new SizeF(8F, 20F);
             AutoScaleMode = AutoScaleMode.Font;
+            BackColor = Color.FromArgb(252, 255, 224);
             ClientSize = new Size(1422, 977);
             Controls.Add(sideBar1);
             Controls.Add(siticoneButton13);
