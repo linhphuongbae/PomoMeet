@@ -21,6 +21,7 @@ namespace PomoMeetApp.View
             fadeTimer.Interval = 50; // Mỗi 50ms giảm độ mờ
             fadeTimer.Tick += FadeOutLogo;
             fadeTimer.Start(); // Bắt đầu hiệu ứng mờ dần
+            this.FormClosed += (s, e) => Application.Exit();
         }
 
         private void FadeOutLogo(object sender, EventArgs e)
@@ -63,5 +64,9 @@ namespace PomoMeetApp.View
             return bmp;
         }
 
+        private void StartApp_Load(object sender, EventArgs e)
+        {
+
+        }
     }
 }

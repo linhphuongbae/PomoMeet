@@ -37,17 +37,18 @@ namespace PomoMeetApp.View
             var db = FirebaseConfig.database;
             try
             {
-                DocumentReference docRef = db.Collection("User").Document(username);
-                DocumentSnapshot snapshot = await docRef.GetSnapshotAsync();
+                var userQuery = db.Collection("User").WhereEqualTo("Username", username);
+                QuerySnapshot qr = await userQuery.GetSnapshotAsync();
 
-                if (!snapshot.Exists)
+                if (qr.Count == 0)
                 {
                     MessageBox.Show("Username doesn't exist", "Warning", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                     return;
-                } 
-                    
+                }
 
-                UserData data = await docRef.GetSnapshotAsync().ContinueWith(task => task.Result.ConvertTo<UserData>());
+                DocumentSnapshot snapshot = qr.Documents[0];
+                UserData data = snapshot.ConvertTo<UserData>();
+
 
                 if (data != null)
                 {
@@ -122,16 +123,34 @@ namespace PomoMeetApp.View
                             MessageBox.Show("Success Login using Gmail!", "Success", MessageBoxButtons.OK, MessageBoxIcon.Information);
                         }
                     }
-                }  
+                }
                 else
                 {
                     MessageBox.Show("Success Login using Gmail!", "Success", MessageBoxButtons.OK, MessageBoxIcon.Information);
                 }
                 await FormTransition.FadeTo(this, new Dashboard());
-            } 
+            }
             catch (Exception ex)
             {
                 MessageBox.Show($"Login failed: {ex.Message}", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+        }
+
+        private void tbUsername_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.KeyCode == Keys.Enter)
+            {
+                btnLogIn.PerformClick();
+                e.SuppressKeyPress = true;
+            }
+        }
+
+        private void tbPassword_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.KeyCode == Keys.Enter)
+            {
+                btnLogIn.PerformClick();
+                e.SuppressKeyPress = true;
             }
         }
     }

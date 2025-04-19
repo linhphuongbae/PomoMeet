@@ -135,6 +135,7 @@
             tbUsername.TextPadding = new Padding(16, 0, 6, 0);
             tbUsername.ValidationErrorMessage = "Invalid input.";
             tbUsername.ValidationFunction = null;
+            tbUsername.KeyDown += tbUsername_KeyDown;
             // 
             // label2
             // 
@@ -204,6 +205,7 @@
             tbPassword.UseSystemPasswordChar = true;
             tbPassword.ValidationErrorMessage = "Invalid input.";
             tbPassword.ValidationFunction = null;
+            tbPassword.KeyDown += tbPassword_KeyDown;
             // 
             // btnSignInGG
             // 

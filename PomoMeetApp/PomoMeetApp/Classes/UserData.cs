@@ -10,6 +10,8 @@ namespace PomoMeetApp.Classes
     internal class UserData
     {
         [FirestoreProperty]
+        public string UserID { get; set; }
+        [FirestoreProperty]
         public string Username { get; set; }
 
         [FirestoreProperty]

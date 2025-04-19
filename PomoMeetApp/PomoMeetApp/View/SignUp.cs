@@ -61,36 +61,63 @@ namespace PomoMeetApp.View
             }
             try
             {
-                DocumentReference docRef = db.Collection("User").Document(data.Username);
-                DocumentSnapshot snapshot = await docRef.GetSnapshotAsync();
-
-                if (snapshot.Exists)
+                var userQuery = db.Collection("User").WhereEqualTo("Username", data.Username);
+                var snapshot = await userQuery.GetSnapshotAsync();
+                if (snapshot.Count > 0)
                 {
                     MessageBox.Show("This username is already registered!", "Warning", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                     return;
                 }
+                DocumentReference docRef = db.Collection("User").Document(data.UserID);
                 await docRef.SetAsync(data);
 
                 MessageBox.Show("Registration successful!", "Success", MessageBoxButtons.OK, MessageBoxIcon.Information);
 
                 await FormTransition.FadeTo(this, new SingIn());
             }
-            catch (Exception ex) 
+            catch (Exception ex)
             {
                 MessageBox.Show($"Registration failed: {ex.Message}", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
-
         }
         private UserData getData()
         {
             string username = tbUsername.Text.Trim();
             string passwd = Security.Encrypt(tbPassword.Text);
-
+            string userID = Guid.NewGuid().ToString();
             return new UserData()
             {
+                UserID = userID,
                 Username = username,
                 Password = passwd
             };
+        }
+
+        private void tbUsername_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.KeyCode == Keys.Enter)
+            {
+                btnSignUp.PerformClick();
+                e.SuppressKeyPress = true;
+            }
+        }
+
+        private void tbPassword_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.KeyCode == Keys.Enter)
+            {
+                btnSignUp.PerformClick();
+                e.SuppressKeyPress = true;
+            }
+        }
+
+        private void tbPasswordConfirm_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.KeyCode == Keys.Enter)
+            {
+                btnSignUp.PerformClick();
+                e.SuppressKeyPress = true;
+            }
         }
     }
 }

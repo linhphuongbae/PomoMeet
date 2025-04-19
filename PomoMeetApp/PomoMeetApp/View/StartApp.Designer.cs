@@ -28,7 +28,6 @@
         /// </summary>
         private void InitializeComponent()
         {
-            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(StartApp));
             LogoPomoMeet = new SiticoneNetCoreUI.SiticonePictureBox();
             SuspendLayout();
             // 
@@ -59,7 +58,7 @@
             LogoPomoMeet.Grayscale = false;
             LogoPomoMeet.Image = Properties.Resources.LogoPomoMeet;
             LogoPomoMeet.ImageOpacity = 1F;
-            LogoPomoMeet.Images = (List<Image>)resources.GetObject("LogoPomoMeet.Images");
+            LogoPomoMeet.Images = null;
             LogoPomoMeet.InterpolationMode = System.Drawing.Drawing2D.InterpolationMode.HighQualityBicubic;
             LogoPomoMeet.IsCircular = false;
             LogoPomoMeet.Location = new Point(555, 278);
@@ -83,6 +82,7 @@
             Controls.Add(LogoPomoMeet);
             Name = "StartApp";
             Text = "StartApp";
+            Load += StartApp_Load;
             ResumeLayout(false);
         }
 
