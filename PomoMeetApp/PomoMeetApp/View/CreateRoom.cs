@@ -99,7 +99,7 @@ namespace PomoMeetApp.View
                     invite_code = Guid.NewGuid().ToString().Substring(0, 6), // Mã mời phòng ngẫu nhiên
                     host_id = "guest",  // Tạm thời lưu host_id là "guest"
                     type = roomMode,
-                    password = hashedPassword, 
+                    password = hashedPassword,
                     created_at = DateTime.Now.ToString("yyyy-MM-ddTHH:mm:ss")
                 };
 
@@ -117,7 +117,7 @@ namespace PomoMeetApp.View
         }
         private void Private_CheckedChanged(object sender, SiticoneNetCoreUI.SiticoneCheckBox.CheckedChangedEventArgs e)
         {
-            if(scb_Private.Checked)
+            if (scb_Private.Checked)
             {
                 scb_Public.Checked = false;
                 scb_Public.Enabled = false; // Khóa lại

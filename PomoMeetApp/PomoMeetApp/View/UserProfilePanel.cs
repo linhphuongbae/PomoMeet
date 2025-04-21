@@ -13,6 +13,15 @@ namespace PomoMeetApp.View
         private Label lblUserName;
         private SiticoneButton btnProfile;
         private Panel dropdownPanel;
+        private Action<string> profileClickCallback; // Callback now expects userId
+
+        // Store current userId
+        private string currentUserId;
+
+        public void SetProfileClickCallback(Action<string> callback)
+        {
+            profileClickCallback = callback;
+        }
 
         public UserProfilePanel()
         {
@@ -93,7 +102,11 @@ namespace PomoMeetApp.View
                 BorderColor = Color.DarkSeaGreen,
                 PressedBackColor = Color.SeaGreen
             };
-            btnProfile.Click += (sender, e) => MessageBox.Show("Bạn đã chọn View Profile!");
+            btnProfile.Click += (sender, e) =>
+            {
+                profileClickCallback?.Invoke(currentUserId); // Pass userId instead of username
+                dropdownPanel.Visible = false;
+            };
             dropdownPanel.Controls.Add(btnProfile);
 
             this.Controls.Add(dropdownPanel);
@@ -107,8 +120,9 @@ namespace PomoMeetApp.View
         }
 
         // Cập nhật thông tin người dùng
-        public void UpdateUserInfo(string userName, Image avatarImage)
+        public void UpdateUserInfo(string userId, string userName, Image avatarImage)
         {
+            currentUserId = userId; // Store the userId
             lblUserName.Text = userName;
             avatar.Image = avatarImage ?? Properties.Resources.avatar;
         }

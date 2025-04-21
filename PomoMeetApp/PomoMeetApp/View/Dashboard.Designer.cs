@@ -43,6 +43,7 @@
             siticoneButton13 = new SiticoneNetCoreUI.SiticoneButton();
             mySiticoneLicenseSettings3 = new SiticoneNetCoreUI.MySiticoneLicenseSettings();
             sideBar1 = new SideBar();
+            userProfilePanel2 = new UserProfilePanel();
             SuspendLayout();
             // 
             // siticoneLabel1
@@ -741,12 +742,21 @@
             sideBar1.Size = new Size(278, 1250);
             sideBar1.TabIndex = 18;
             // 
+            // userProfilePanel2
+            // 
+            userProfilePanel2.BackColor = Color.Transparent;
+            userProfilePanel2.Location = new Point(1111, 13);
+            userProfilePanel2.Name = "userProfilePanel2";
+            userProfilePanel2.Size = new Size(312, 75);
+            userProfilePanel2.TabIndex = 19;
+            // 
             // Dashboard
             // 
             AutoScaleDimensions = new SizeF(8F, 20F);
             AutoScaleMode = AutoScaleMode.Font;
             BackColor = Color.FromArgb(252, 255, 224);
             ClientSize = new Size(1422, 977);
+            Controls.Add(userProfilePanel2);
             Controls.Add(sideBar1);
             Controls.Add(siticoneButton13);
             Controls.Add(siticoneButton12);
@@ -761,7 +771,6 @@
             Controls.Add(siticoneLabel1);
             Name = "Dashboard";
             Text = "Dashboard";
-            Load += Dashboard_Load;
             ResumeLayout(false);
         }
 
@@ -782,5 +791,6 @@
         private UserProfilePanel userProfilePanel1;
         private SiticoneNetCoreUI.MySiticoneLicenseSettings mySiticoneLicenseSettings3;
         private SideBar sideBar1;
+        private UserProfilePanel userProfilePanel2;
     }
 }

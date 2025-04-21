@@ -32,7 +32,9 @@ namespace PomoMeetApp.Classes
             File.SetAttributes(filepath, FileAttributes.Hidden);
             Environment.SetEnvironmentVariable("GOOGLE_APPLICATION_CREDENTIALS", filepath);
             database = FirestoreDb.Create("pomomeet");
+
             //File.Delete(filepath);
         }
+        public static string StorageBucket = "pomomeet.appspot.com";
     }
 }

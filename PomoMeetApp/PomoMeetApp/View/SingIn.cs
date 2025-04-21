@@ -14,11 +14,13 @@ using Google.Apis.Services;
 using Google.Apis.Util.Store;
 using Google.Apis.Oauth2.v2;
 using Google.Apis.Oauth2.v2.Data;
+using Microsoft.VisualBasic.ApplicationServices;
 
 namespace PomoMeetApp.View
 {
     public partial class SingIn : Form
     {
+        private string username = "";
         public SingIn()
         {
             InitializeComponent();
@@ -31,7 +33,7 @@ namespace PomoMeetApp.View
 
         private async void btnLogIn_Click(object sender, EventArgs e)
         {
-            string username = tbUsername.Text.Trim();
+            username = tbUsername.Text.Trim();
             string password = tbPassword.Text;
 
             var db = FirebaseConfig.database;
@@ -48,6 +50,7 @@ namespace PomoMeetApp.View
 
                 DocumentSnapshot snapshot = qr.Documents[0];
                 UserData data = snapshot.ConvertTo<UserData>();
+                string userId = snapshot.Id; // Lấy document ID (sẽ là userId)
 
 
                 if (data != null)
@@ -61,7 +64,7 @@ namespace PomoMeetApp.View
                         MessageBox.Show("Wrong password", "Warning", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                     }
                 }
-                await FormTransition.FadeTo(this, new Dashboard());
+                await FormTransition.FadeTo(this, new Dashboard(userId));
             }
             catch (Exception ex)
             {
@@ -71,37 +74,33 @@ namespace PomoMeetApp.View
 
         private async void btnSignInGG_Click(object sender, EventArgs e)
         {
-
             try
             {
                 using var stream = new FileStream("client_secret.json", FileMode.Open, FileAccess.Read);
 
-
                 var credential = await GoogleWebAuthorizationBroker.AuthorizeAsync(
                     GoogleClientSecrets.FromStream(stream).Secrets,
                     new[] { "https://www.googleapis.com/auth/userinfo.email", "https://www.googleapis.com/auth/userinfo.profile" },
-                     Guid.NewGuid().ToString(), CancellationToken.None, new FileDataStore("Google0AuthToken", false) // ko lưu token
-                );
+                    Guid.NewGuid().ToString(), CancellationToken.None, new FileDataStore("Google0AuthToken", false));
 
                 if (credential?.Token != null && credential.Token.IsStale)
                 {
                     await credential.RefreshTokenAsync(CancellationToken.None);
                 }
 
-
                 var oAuthService = new Oauth2Service(new BaseClientService.Initializer()
                 {
                     HttpClientInitializer = credential,
                     ApplicationName = "PomoMeet"
                 });
-                // gửi yêu cầu tới google để lấy thông tin user
-                var userInfo = await oAuthService.Userinfo.Get().ExecuteAsync();
 
-                // Xử lí các kiểu nè
+                var userInfo = await oAuthService.Userinfo.Get().ExecuteAsync();
                 string email = userInfo.Email;
                 var db = FirebaseConfig.database;
                 Query emailQuery = db.Collection("User").WhereEqualTo("Email", email);
                 QuerySnapshot emailQuerySnapshot = await emailQuery.GetSnapshotAsync();
+
+                string userId = ""; // Khai báo userId ở phạm vi lớn hơn
 
                 if (emailQuerySnapshot.Count == 0)
                 {
@@ -109,26 +108,34 @@ namespace PomoMeetApp.View
                     {
                         if (EnterUsername.ShowDialog() == DialogResult.OK)
                         {
-
-                            string username = EnterUsername.EnteredUsername;
+                            userId = Guid.NewGuid().ToString();
+                            string username = EnterUsername.EnteredUsername; // Lấy username từ dialog
 
                             UserData userData = new UserData()
                             {
+                                UserId = userId,
                                 Username = username,
                                 Password = null,
                                 Email = email
                             };
 
-                            await db.Collection("User").Document(username).SetAsync(userData);
+                            await db.Collection("User").Document(userId).SetAsync(userData);
                             MessageBox.Show("Success Login using Gmail!", "Success", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                        }
+                        else
+                        {
+                            return; // Người dùng hủy bỏ
                         }
                     }
                 }
                 else
                 {
+                    // Lấy userId từ tài liệu hiện có
+                    userId = emailQuerySnapshot.Documents[0].Id;
                     MessageBox.Show("Success Login using Gmail!", "Success", MessageBoxButtons.OK, MessageBoxIcon.Information);
                 }
-                await FormTransition.FadeTo(this, new Dashboard());
+
+                await FormTransition.FadeTo(this, new Dashboard(userId));
             }
             catch (Exception ex)
             {

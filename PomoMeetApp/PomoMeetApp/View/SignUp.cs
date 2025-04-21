@@ -68,7 +68,7 @@ namespace PomoMeetApp.View
                     MessageBox.Show("This username is already registered!", "Warning", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                     return;
                 }
-                DocumentReference docRef = db.Collection("User").Document(data.UserID);
+                DocumentReference docRef = db.Collection("User").Document(data.UserId);
                 await docRef.SetAsync(data);
 
                 MessageBox.Show("Registration successful!", "Success", MessageBoxButtons.OK, MessageBoxIcon.Information);
@@ -87,7 +87,7 @@ namespace PomoMeetApp.View
             string userID = Guid.NewGuid().ToString();
             return new UserData()
             {
-                UserID = userID,
+                UserId = userID,
                 Username = username,
                 Password = passwd
             };
