@@ -56,12 +56,8 @@
             siticoneImageButton6 = new SiticoneNetCoreUI.SiticoneImageButton();
             panel5 = new Panel();
             siticoneImageButton7 = new SiticoneNetCoreUI.SiticoneImageButton();
-            siticoneLabel1 = new SiticoneNetCoreUI.SiticoneLabel();
             btn_add_participants = new SiticoneNetCoreUI.SiticoneImageButton();
-            btn_members = new SiticoneNetCoreUI.SiticoneImageButton();
-            label2 = new Label();
             panel6 = new Panel();
-            siticoneImageButton2 = new SiticoneNetCoreUI.SiticoneImageButton();
             lb_participant = new SiticoneNetCoreUI.SiticoneLabel();
             participants_panel = new TableLayoutPanel();
             siticoneTextBox1 = new SiticoneNetCoreUI.SiticoneTextBox();
@@ -904,17 +900,6 @@
             siticoneImageButton7.Text = "btn_mic";
             siticoneImageButton7.TrackSystemTheme = false;
             // 
-            // siticoneLabel1
-            // 
-            siticoneLabel1.BackColor = Color.Transparent;
-            siticoneLabel1.Font = new Font("Inter", 13F);
-            siticoneLabel1.Location = new Point(769, 110);
-            siticoneLabel1.Name = "siticoneLabel1";
-            siticoneLabel1.Size = new Size(168, 28);
-            siticoneLabel1.TabIndex = 9;
-            siticoneLabel1.Text = "Add Participants";
-            siticoneLabel1.TextAlign = ContentAlignment.MiddleCenter;
-            // 
             // btn_add_participants
             // 
             btn_add_participants.AnimationSpeed = 0.15F;
@@ -931,80 +916,32 @@
             btn_add_participants.BorderThickness = 2;
             btn_add_participants.CanBeep = true;
             btn_add_participants.CanShake = true;
-            btn_add_participants.CornerRadiusBottomLeft = 24F;
-            btn_add_participants.CornerRadiusBottomRight = 24F;
-            btn_add_participants.CornerRadiusTopLeft = 24F;
-            btn_add_participants.CornerRadiusTopRight = 24F;
+            btn_add_participants.CornerRadiusBottomLeft = 22F;
+            btn_add_participants.CornerRadiusBottomRight = 22F;
+            btn_add_participants.CornerRadiusTopLeft = 22F;
+            btn_add_participants.CornerRadiusTopRight = 22F;
             btn_add_participants.ImageDown = null;
             btn_add_participants.ImageHover = null;
             btn_add_participants.ImageNormal = Properties.Resources.group_add;
             btn_add_participants.ImageSizing = SiticoneNetCoreUI.ImageSizingMode.Original;
             btn_add_participants.IsReadOnly = false;
-            btn_add_participants.Location = new Point(717, 99);
+            btn_add_participants.Location = new Point(204, -3);
             btn_add_participants.MakeRadial = true;
             btn_add_participants.Name = "btn_add_participants";
             btn_add_participants.PlaceholderImage = null;
             btn_add_participants.RippleColor = Color.FromArgb(50, 0, 0, 0);
             btn_add_participants.RippleEnabled = true;
-            btn_add_participants.Size = new Size(60, 51);
+            btn_add_participants.Size = new Size(60, 47);
             btn_add_participants.SpringEffectEnabled = true;
             btn_add_participants.TabIndex = 10;
             btn_add_participants.Text = "siticoneImageButton8";
             btn_add_participants.TrackSystemTheme = false;
             // 
-            // btn_members
-            // 
-            btn_members.AnimationSpeed = 0.15F;
-            btn_members.BackColor = Color.Transparent;
-            btn_members.BackgroundFillColor = Color.White;
-            btn_members.BadgeAnimationEnabled = true;
-            btn_members.BadgeAnimationSpeed = 0.15F;
-            btn_members.BadgeColor = Color.Red;
-            btn_members.BadgeFont = new Font("Segoe UI", 8F, FontStyle.Bold);
-            btn_members.BadgePosition = SiticoneNetCoreUI.BadgePosition.TopRight;
-            btn_members.BadgeTextColor = Color.White;
-            btn_members.BadgeValue = 0;
-            btn_members.BorderColor = Color.Transparent;
-            btn_members.BorderThickness = 2;
-            btn_members.CanBeep = true;
-            btn_members.CanShake = true;
-            btn_members.CornerRadiusBottomLeft = 16.5F;
-            btn_members.CornerRadiusBottomRight = 16.5F;
-            btn_members.CornerRadiusTopLeft = 16.5F;
-            btn_members.CornerRadiusTopRight = 16.5F;
-            btn_members.ImageDown = null;
-            btn_members.ImageHover = null;
-            btn_members.ImageNormal = Properties.Resources.group;
-            btn_members.ImageSizing = SiticoneNetCoreUI.ImageSizingMode.Original;
-            btn_members.IsReadOnly = false;
-            btn_members.Location = new Point(676, 103);
-            btn_members.MakeRadial = true;
-            btn_members.Name = "btn_members";
-            btn_members.PlaceholderImage = null;
-            btn_members.RippleColor = Color.FromArgb(50, 0, 0, 0);
-            btn_members.RippleEnabled = true;
-            btn_members.Size = new Size(36, 38);
-            btn_members.SpringEffectEnabled = true;
-            btn_members.TabIndex = 11;
-            btn_members.Text = "siticoneImageButton8";
-            btn_members.TrackSystemTheme = false;
-            // 
-            // label2
-            // 
-            label2.AutoSize = true;
-            label2.BackColor = Color.Transparent;
-            label2.Font = new Font("Inter", 9.6F);
-            label2.Location = new Point(699, 89);
-            label2.Name = "label2";
-            label2.Size = new Size(27, 23);
-            label2.TabIndex = 12;
-            label2.Text = "10";
-            // 
             // panel6
             // 
             panel6.BackColor = Color.DarkSeaGreen;
-            panel6.Controls.Add(siticoneImageButton2);
             panel6.Controls.Add(lb_participant);
+            panel6.Controls.Add(btn_add_participants);
             panel6.Location = new Point(3, 3);
             panel6.Name = "panel6";
             panel6.Size = new Size(264, 44);
@@ -1013,43 +950,6 @@
             layoutState1.Size = new Size(302, 61);
             layoutState1.Visible = true;
             panel6.Tag = layoutState1;
-            // 
-            // siticoneImageButton2
-            // 
-            siticoneImageButton2.AnimationSpeed = 0.15F;
-            siticoneImageButton2.BackColor = Color.Transparent;
-            siticoneImageButton2.BackgroundFillColor = Color.Transparent;
-            siticoneImageButton2.BadgeAnimationEnabled = true;
-            siticoneImageButton2.BadgeAnimationSpeed = 0.15F;
-            siticoneImageButton2.BadgeColor = Color.Red;
-            siticoneImageButton2.BadgeFont = new Font("Segoe UI", 8F, FontStyle.Bold);
-            siticoneImageButton2.BadgePosition = SiticoneNetCoreUI.BadgePosition.TopRight;
-            siticoneImageButton2.BadgeTextColor = Color.White;
-            siticoneImageButton2.BadgeValue = 0;
-            siticoneImageButton2.BorderColor = Color.Transparent;
-            siticoneImageButton2.BorderThickness = 2;
-            siticoneImageButton2.CanBeep = true;
-            siticoneImageButton2.CanShake = true;
-            siticoneImageButton2.CornerRadiusBottomLeft = 16.5F;
-            siticoneImageButton2.CornerRadiusBottomRight = 16.5F;
-            siticoneImageButton2.CornerRadiusTopLeft = 16.5F;
-            siticoneImageButton2.CornerRadiusTopRight = 16.5F;
-            siticoneImageButton2.ImageDown = null;
-            siticoneImageButton2.ImageHover = null;
-            siticoneImageButton2.ImageNormal = Properties.Resources.group;
-            siticoneImageButton2.ImageSizing = SiticoneNetCoreUI.ImageSizingMode.Original;
-            siticoneImageButton2.IsReadOnly = false;
-            siticoneImageButton2.Location = new Point(222, 6);
-            siticoneImageButton2.MakeRadial = true;
-            siticoneImageButton2.Name = "siticoneImageButton2";
-            siticoneImageButton2.PlaceholderImage = null;
-            siticoneImageButton2.RippleColor = Color.FromArgb(50, 0, 0, 0);
-            siticoneImageButton2.RippleEnabled = true;
-            siticoneImageButton2.Size = new Size(36, 38);
-            siticoneImageButton2.SpringEffectEnabled = true;
-            siticoneImageButton2.TabIndex = 14;
-            siticoneImageButton2.Text = "siticoneImageButton8";
-            siticoneImageButton2.TrackSystemTheme = false;
             // 
             // lb_participant
             // 
@@ -1387,7 +1287,7 @@
             // 
             sideBar1.Location = new Point(0, -2);
             sideBar1.Name = "sideBar1";
-            sideBar1.Size = new Size(345, 1250);
+            sideBar1.Size = new Size(277, 1250);
             sideBar1.TabIndex = 32;
             // 
             // MeetingRoom
@@ -1400,9 +1300,6 @@
             Controls.Add(userProfilePanel1);
             Controls.Add(tableLayoutPanel1);
             Controls.Add(participants_panel);
-            Controls.Add(label2);
-            Controls.Add(btn_members);
-            Controls.Add(siticoneLabel1);
             Controls.Add(panel5);
             Controls.Add(panel4);
             Controls.Add(siticoneAdvancedPanel2);
@@ -1410,8 +1307,7 @@
             Controls.Add(panel2);
             Controls.Add(panel1);
             Controls.Add(siticoneAdvancedPanel1);
-            Controls.Add(btn_add_participants);
-            this.Text = "Meeting Room";
+            Text = "Meeting Room";
             siticoneAdvancedPanel1.ResumeLayout(false);
             panel1.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)pictureBox1).EndInit();
@@ -1429,7 +1325,6 @@
             panel7.ResumeLayout(false);
             panel8.ResumeLayout(false);
             ResumeLayout(false);
-            PerformLayout();
         }
 
         #endregion
@@ -1456,15 +1351,11 @@
         private SiticoneNetCoreUI.SiticoneImageButton siticoneImageButton6;
         private Panel panel5;
         private SiticoneNetCoreUI.SiticoneImageButton siticoneImageButton7;
-        private SiticoneNetCoreUI.SiticoneLabel siticoneLabel1;
         private SiticoneNetCoreUI.SiticoneImageButton btn_add_participants;
-        private SiticoneNetCoreUI.SiticoneImageButton btn_members;
-        private Label label2;
         private Label label3;
         private SiticoneNetCoreUI.SiticoneImageButton siticoneImageButton8;
         private Panel panel6;
         private SiticoneNetCoreUI.SiticoneLabel lb_participant;
-        private SiticoneNetCoreUI.SiticoneImageButton siticoneImageButton2;
         private TableLayoutPanel participants_panel;
         private SiticoneNetCoreUI.SiticoneTextBox siticoneTextBox1;
         private ListView listViewParticipants;

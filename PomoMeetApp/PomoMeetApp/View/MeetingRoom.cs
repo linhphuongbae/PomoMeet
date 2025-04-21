@@ -64,6 +64,5 @@ namespace PomoMeetApp.View
                 e.DrawDefault = true; // Vẽ mặc định cho các cột khác
             }
         }
-
     }
 }
