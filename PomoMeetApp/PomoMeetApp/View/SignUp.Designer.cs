@@ -42,6 +42,7 @@
             pictureBox1 = new PictureBox();
             pictureBox2 = new PictureBox();
             pictureBox3 = new PictureBox();
+            siticoneCheckBox1 = new SiticoneNetCoreUI.SiticoneCheckBox();
             ((System.ComponentModel.ISupportInitialize)Rectangle).BeginInit();
             ((System.ComponentModel.ISupportInitialize)pictureBox1).BeginInit();
             ((System.ComponentModel.ISupportInitialize)pictureBox2).BeginInit();
@@ -202,6 +203,7 @@
             tbPassword.SolidFillColor = Color.White;
             tbPassword.TabIndex = 5;
             tbPassword.TextPadding = new Padding(16, 0, 6, 0);
+            tbPassword.UseSystemPasswordChar = true;
             tbPassword.ValidationErrorMessage = "Invalid input.";
             tbPassword.ValidationFunction = null;
             tbPassword.KeyDown += tbPassword_KeyDown;
@@ -323,7 +325,7 @@
             btnSignUp.IsReadOnly = false;
             btnSignUp.IsToggleButton = false;
             btnSignUp.IsToggled = false;
-            btnSignUp.Location = new Point(437, 677);
+            btnSignUp.Location = new Point(437, 703);
             btnSignUp.LongPressDurationMS = 1000;
             btnSignUp.Name = "btnSignUp";
             btnSignUp.NormalFontStyle = FontStyle.Regular;
@@ -358,7 +360,7 @@
             label4.BackColor = Color.FromArgb(233, 240, 201);
             label4.Font = new Font("Inter", 9F, FontStyle.Bold, GraphicsUnit.Point, 0);
             label4.ForeColor = Color.Black;
-            label4.Location = new Point(582, 764);
+            label4.Location = new Point(582, 789);
             label4.Name = "label4";
             label4.Size = new Size(161, 22);
             label4.TabIndex = 9;
@@ -413,7 +415,7 @@
             siticoneButton2.IsReadOnly = false;
             siticoneButton2.IsToggleButton = false;
             siticoneButton2.IsToggled = false;
-            siticoneButton2.Location = new Point(749, 756);
+            siticoneButton2.Location = new Point(763, 781);
             siticoneButton2.LongPressDurationMS = 1000;
             siticoneButton2.Name = "siticoneButton2";
             siticoneButton2.NormalFontStyle = FontStyle.Regular;
@@ -469,12 +471,71 @@
             pictureBox3.TabIndex = 13;
             pictureBox3.TabStop = false;
             // 
+            // siticoneCheckBox1
+            // 
+            siticoneCheckBox1.AccessibleName = "Show password";
+            siticoneCheckBox1.AccessibleRole = AccessibleRole.CheckButton;
+            siticoneCheckBox1.AllowIndeterminate = false;
+            siticoneCheckBox1.BackColor = Color.FromArgb(233, 240, 201);
+            siticoneCheckBox1.BorderColor = Color.Transparent;
+            siticoneCheckBox1.BorderWidth = 2;
+            siticoneCheckBox1.BottomLeftRadius = 3;
+            siticoneCheckBox1.BottomRightRadius = 3;
+            siticoneCheckBox1.CanBeep = true;
+            siticoneCheckBox1.CanShake = true;
+            siticoneCheckBox1.CheckBoxSize = 20;
+            siticoneCheckBox1.Checked = false;
+            siticoneCheckBox1.CheckedBackColor = Color.FromArgb(186, 205, 146);
+            siticoneCheckBox1.CheckedBorderColor = Color.FromArgb(186, 205, 146);
+            siticoneCheckBox1.CheckmarkColor = Color.White;
+            siticoneCheckBox1.CheckState = SiticoneNetCoreUI.CheckState.Unchecked;
+            siticoneCheckBox1.ContainerBackColor = Color.FromArgb(252, 255, 224);
+            siticoneCheckBox1.ContainerBorderColor = Color.FromArgb(50, 0, 0, 0);
+            siticoneCheckBox1.ContainerBorderWidth = 1;
+            siticoneCheckBox1.ContainerBottomLeftRadius = 8;
+            siticoneCheckBox1.ContainerBottomRightRadius = 8;
+            siticoneCheckBox1.ContainerCheckedBorderColor = Color.Transparent;
+            siticoneCheckBox1.ContainerCheckedColor = Color.FromArgb(252, 255, 224);
+            siticoneCheckBox1.ContainerCheckedHoverColor = Color.FromArgb(25, 56, 128, 255);
+            siticoneCheckBox1.ContainerCheckedPressedColor = Color.FromArgb(186, 205, 146);
+            siticoneCheckBox1.ContainerHoverBackColor = Color.FromArgb(25, 0, 0, 0);
+            siticoneCheckBox1.ContainerPadding = 8;
+            siticoneCheckBox1.ContainerPressedBackColor = Color.FromArgb(30, 0, 0, 0);
+            siticoneCheckBox1.ContainerTopLeftRadius = 8;
+            siticoneCheckBox1.ContainerTopRightRadius = 8;
+            siticoneCheckBox1.EnableRippleEffect = true;
+            siticoneCheckBox1.FocusBorderWidth = 2;
+            siticoneCheckBox1.FocusColor = Color.FromArgb(252, 255, 224);
+            siticoneCheckBox1.Font = new Font("Segoe UI", 9F);
+            siticoneCheckBox1.ForeColor = Color.FromArgb(117, 164, 127);
+            siticoneCheckBox1.HoverBackColor = Color.Gainsboro;
+            siticoneCheckBox1.IndeterminateBorderColor = Color.FromArgb(160, 160, 160);
+            siticoneCheckBox1.IndeterminateColor = Color.FromArgb(180, 180, 180);
+            siticoneCheckBox1.IsContained = false;
+            siticoneCheckBox1.IsReadOnly = false;
+            siticoneCheckBox1.Location = new Point(437, 653);
+            siticoneCheckBox1.MinimumSize = new Size(178, 24);
+            siticoneCheckBox1.Name = "siticoneCheckBox1";
+            siticoneCheckBox1.PressedBackColor = Color.DarkGray;
+            siticoneCheckBox1.ShowFocusCue = false;
+            siticoneCheckBox1.Size = new Size(222, 30);
+            siticoneCheckBox1.Style = SiticoneNetCoreUI.CheckBoxStyle.Classic;
+            siticoneCheckBox1.SwitchCheckedTrackColor = Color.FromArgb(100, 56, 128, 255);
+            siticoneCheckBox1.SwitchTrackColor = Color.FromArgb(200, 200, 200);
+            siticoneCheckBox1.TabIndex = 14;
+            siticoneCheckBox1.Text = "Show password";
+            siticoneCheckBox1.TopLeftRadius = 3;
+            siticoneCheckBox1.TopRightRadius = 3;
+            siticoneCheckBox1.UncheckedBackColor = Color.FromArgb(250, 250, 250);
+            siticoneCheckBox1.Click += siticoneCheckBox1_Click;
+            // 
             // SignUp
             // 
             AutoScaleDimensions = new SizeF(8F, 20F);
             AutoScaleMode = AutoScaleMode.Font;
             BackColor = Color.FromArgb(252, 255, 224);
             ClientSize = new Size(1422, 977);
+            Controls.Add(siticoneCheckBox1);
             Controls.Add(pictureBox3);
             Controls.Add(pictureBox2);
             Controls.Add(pictureBox1);
@@ -515,5 +576,6 @@
         private PictureBox pictureBox1;
         private PictureBox pictureBox2;
         private PictureBox pictureBox3;
+        private SiticoneNetCoreUI.SiticoneCheckBox siticoneCheckBox1;
     }
 }

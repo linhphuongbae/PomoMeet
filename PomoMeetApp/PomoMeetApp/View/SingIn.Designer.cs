@@ -42,6 +42,7 @@
             pictureBox3 = new PictureBox();
             pictureBox1 = new PictureBox();
             btnLogIn = new SiticoneNetCoreUI.SiticoneButton();
+            ShowPass = new SiticoneNetCoreUI.SiticoneCheckBox();
             ((System.ComponentModel.ISupportInitialize)Rectangle).BeginInit();
             ((System.ComponentModel.ISupportInitialize)pictureBox2).BeginInit();
             ((System.ComponentModel.ISupportInitialize)pictureBox3).BeginInit();
@@ -51,11 +52,12 @@
             // Rectangle
             // 
             Rectangle.Image = Properties.Resources.Rectangle;
-            Rectangle.Location = new Point(389, 121);
+            Rectangle.Location = new Point(385, 122);
             Rectangle.Name = "Rectangle";
             Rectangle.Size = new Size(645, 735);
             Rectangle.TabIndex = 1;
             Rectangle.TabStop = false;
+            Rectangle.Click += Rectangle_Click;
             // 
             // label1
             // 
@@ -494,12 +496,71 @@
             btnLogIn.UseParticles = false;
             btnLogIn.Click += btnLogIn_Click;
             // 
+            // ShowPass
+            // 
+            ShowPass.AccessibleName = "Show password";
+            ShowPass.AccessibleRole = AccessibleRole.CheckButton;
+            ShowPass.AllowIndeterminate = false;
+            ShowPass.BackColor = Color.FromArgb(233, 240, 201);
+            ShowPass.BorderColor = Color.Transparent;
+            ShowPass.BorderWidth = 2;
+            ShowPass.BottomLeftRadius = 3;
+            ShowPass.BottomRightRadius = 3;
+            ShowPass.CanBeep = true;
+            ShowPass.CanShake = true;
+            ShowPass.CheckBoxSize = 20;
+            ShowPass.Checked = false;
+            ShowPass.CheckedBackColor = Color.FromArgb(186, 205, 146);
+            ShowPass.CheckedBorderColor = Color.FromArgb(186, 205, 146);
+            ShowPass.CheckmarkColor = Color.White;
+            ShowPass.CheckState = SiticoneNetCoreUI.CheckState.Unchecked;
+            ShowPass.ContainerBackColor = Color.FromArgb(20, 0, 0, 0);
+            ShowPass.ContainerBorderColor = Color.FromArgb(50, 0, 0, 0);
+            ShowPass.ContainerBorderWidth = 1;
+            ShowPass.ContainerBottomLeftRadius = 8;
+            ShowPass.ContainerBottomRightRadius = 8;
+            ShowPass.ContainerCheckedBorderColor = Color.FromArgb(50, 56, 128, 255);
+            ShowPass.ContainerCheckedColor = Color.FromArgb(20, 56, 128, 255);
+            ShowPass.ContainerCheckedHoverColor = Color.FromArgb(25, 56, 128, 255);
+            ShowPass.ContainerCheckedPressedColor = Color.FromArgb(30, 56, 128, 255);
+            ShowPass.ContainerHoverBackColor = Color.FromArgb(25, 0, 0, 0);
+            ShowPass.ContainerPadding = 8;
+            ShowPass.ContainerPressedBackColor = Color.FromArgb(30, 0, 0, 0);
+            ShowPass.ContainerTopLeftRadius = 8;
+            ShowPass.ContainerTopRightRadius = 8;
+            ShowPass.EnableRippleEffect = true;
+            ShowPass.FocusBorderWidth = 2;
+            ShowPass.FocusColor = Color.FromArgb(252, 255, 224);
+            ShowPass.Font = new Font("Segoe UI", 9F);
+            ShowPass.ForeColor = Color.FromArgb(117, 164, 127);
+            ShowPass.HoverBackColor = Color.Gainsboro;
+            ShowPass.IndeterminateBorderColor = Color.FromArgb(160, 160, 160);
+            ShowPass.IndeterminateColor = Color.FromArgb(180, 180, 180);
+            ShowPass.IsContained = false;
+            ShowPass.IsReadOnly = false;
+            ShowPass.Location = new Point(437, 500);
+            ShowPass.MinimumSize = new Size(178, 24);
+            ShowPass.Name = "ShowPass";
+            ShowPass.PressedBackColor = Color.DarkGray;
+            ShowPass.ShowFocusCue = false;
+            ShowPass.Size = new Size(222, 30);
+            ShowPass.Style = SiticoneNetCoreUI.CheckBoxStyle.Classic;
+            ShowPass.SwitchCheckedTrackColor = Color.FromArgb(100, 56, 128, 255);
+            ShowPass.SwitchTrackColor = Color.FromArgb(200, 200, 200);
+            ShowPass.TabIndex = 20;
+            ShowPass.Text = "Show password";
+            ShowPass.TopLeftRadius = 3;
+            ShowPass.TopRightRadius = 3;
+            ShowPass.UncheckedBackColor = Color.FromArgb(250, 250, 250);
+            ShowPass.Click += ShowPass_Click;
+            // 
             // SingIn
             // 
             AutoScaleDimensions = new SizeF(8F, 20F);
             AutoScaleMode = AutoScaleMode.Font;
             BackColor = Color.FromArgb(252, 255, 224);
             ClientSize = new Size(1422, 977);
+            Controls.Add(ShowPass);
             Controls.Add(btnLogIn);
             Controls.Add(pictureBox1);
             Controls.Add(pictureBox3);
@@ -540,5 +601,6 @@
         private PictureBox pictureBox3;
         private PictureBox pictureBox1;
         private SiticoneNetCoreUI.SiticoneButton btnLogIn;
+        private SiticoneNetCoreUI.SiticoneCheckBox ShowPass;
     }
 }

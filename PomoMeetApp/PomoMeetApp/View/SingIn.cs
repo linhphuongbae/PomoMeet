@@ -15,6 +15,7 @@ using Google.Apis.Util.Store;
 using Google.Apis.Oauth2.v2;
 using Google.Apis.Oauth2.v2.Data;
 using Microsoft.VisualBasic.ApplicationServices;
+using SiticoneNetCoreUI;
 
 namespace PomoMeetApp.View
 {
@@ -158,6 +159,28 @@ namespace PomoMeetApp.View
             {
                 btnLogIn.PerformClick();
                 e.SuppressKeyPress = true;
+            }
+        }
+
+        private void Rectangle_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void SingIn_Load(object sender, EventArgs e)
+        {
+
+        }
+
+        private void ShowPass_Click(object sender, EventArgs e)
+        {
+            if (!ShowPass.Checked)
+            {
+                tbPassword.UseSystemPasswordChar = false;
+            }
+            else
+            {
+                tbPassword.UseSystemPasswordChar = true;
             }
         }
     }
