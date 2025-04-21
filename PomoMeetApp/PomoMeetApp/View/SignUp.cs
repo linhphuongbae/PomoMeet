@@ -119,5 +119,19 @@ namespace PomoMeetApp.View
                 e.SuppressKeyPress = true;
             }
         }
+
+        private void siticoneCheckBox1_Click(object sender, EventArgs e)
+        {
+            if (!siticoneCheckBox1.Checked)
+            {
+                tbPassword.UseSystemPasswordChar = false;
+                tbPasswordConfirm.UseSystemPasswordChar = false;
+            }
+            else
+            {
+                tbPasswordConfirm.UseSystemPasswordChar = true;
+                tbPassword.UseSystemPasswordChar = true;
+            }
+        }
     }
 }
