@@ -58,6 +58,7 @@ namespace PomoMeetApp.View
                 {
                     Dictionary<string, object> userData = snapshot.ToDictionary();
                     string username = userData.ContainsKey("Username") ? userData["Username"].ToString() : "";
+                    string avatarName = userData.ContainsKey("Avatar") ? userData["Avatar"].ToString() : null;
 
                     // Cập nhật UI
                     tbUsername.Text = username;
@@ -68,10 +69,12 @@ namespace PomoMeetApp.View
                         tbEmail.Text = userData["Email"].ToString();
                     }
 
-                    pictureBox_avatar.Image = Properties.Resources.avatar;
+                    // Load avatar
+                    Image avatarImage = LoadAvatarImage(avatarName);
+                    pictureBox_avatar.Image = avatarImage;
 
                     // Cập nhật user profile panel
-                    userProfilePanel1.UpdateUserInfo(currentUserId, username, GetUserAvatar());
+                    userProfilePanel1.UpdateUserInfo(currentUserId, username, avatarImage);
                 }
             }
             catch (Exception ex)
@@ -80,11 +83,32 @@ namespace PomoMeetApp.View
                               MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
+        private Image LoadAvatarImage(string avatarName)
+        {
+            if (string.IsNullOrEmpty(avatarName))
+            {
+                return Properties.Resources.avatar; // Avatar mặc định
+            }
+
+            try
+            {
+                // Lấy avatar từ Resources theo tên
+                var resourceManager = Properties.Resources.ResourceManager;
+                return (Image)resourceManager.GetObject(avatarName) ?? Properties.Resources.avatar;
+            }
+            catch
+            {
+                return Properties.Resources.avatar; // Fallback nếu có lỗi
+            }
+        }
 
         private void InitializeProfileComponents()
         {
             btnSave.Click += BtnSave_Click;
             editAvatarButton.Click += BtnEditAvatar_Click;
+            // Set password textbox to mask characters
+            tbNewPassword.UseSystemPasswordChar = true;
+            tbConfirmPassword.UseSystemPasswordChar = true;
         }
 
         private async void BtnSave_Click(object sender, EventArgs e)
@@ -105,13 +129,6 @@ namespace PomoMeetApp.View
                 if (newPassword != confirmPassword)
                 {
                     MessageBox.Show("Passwords do not match", "Error",
-                                  MessageBoxButtons.OK, MessageBoxIcon.Error);
-                    return;
-                }
-
-                if (newPassword.Length < 6)
-                {
-                    MessageBox.Show("Password must be at least 6 characters", "Error",
                                   MessageBoxButtons.OK, MessageBoxIcon.Error);
                     return;
                 }
@@ -138,7 +155,7 @@ namespace PomoMeetApp.View
                               MessageBoxButtons.OK, MessageBoxIcon.Information);
 
                 lbl_Username.Text = newUsername;
-                userProfilePanel1.UpdateUserInfo(currentUserId, newUsername, GetUserAvatar());
+                userProfilePanel1.UpdateUserInfo(currentUserId, newUsername, pictureBox_avatar.Image);
 
                 tbNewPassword.Text = "";
                 tbConfirmPassword.Text = "";
@@ -153,7 +170,71 @@ namespace PomoMeetApp.View
 
         private async void BtnEditAvatar_Click(object sender, EventArgs e)
         {
-            // Xử lý thay đổi avatar ở đây
+            // Tạo form chọn avatar
+            var avatarSelector = new Form
+            {
+                Text = "Select Avatar",
+                Size = new Size(400, 400),
+                FormBorderStyle = FormBorderStyle.FixedDialog,
+                StartPosition = FormStartPosition.CenterParent
+            };
+
+            FlowLayoutPanel flowPanel = new FlowLayoutPanel
+            {
+                Dock = DockStyle.Fill,
+                AutoScroll = true
+            };
+            avatarSelector.Controls.Add(flowPanel);
+
+            // Tạo 10 avatar để chọn (avt1 đến avt10)
+            for (int i = 1; i <= 10; i++)
+            {
+                string avatarName = $"avt{i}";
+                var avatarImage = LoadAvatarImage(avatarName);
+
+                var avatarButton = new Button
+                {
+                    Size = new Size(100, 100),
+                    Margin = new Padding(10),
+                    BackgroundImage = avatarImage,
+                    BackgroundImageLayout = ImageLayout.Stretch,
+                    Tag = avatarName
+                };
+
+                avatarButton.Click += (s, ev) =>
+                {
+                    // Lưu avatar được chọn vào Firestore
+                    SaveSelectedAvatar(avatarName);
+                    avatarSelector.Close();
+                };
+
+                flowPanel.Controls.Add(avatarButton);
+            }
+
+            avatarSelector.ShowDialog(this);
+        }
+
+        private async void SaveSelectedAvatar(string avatarName)
+        {
+            try
+            {
+                // Cập nhật avatar trong Firestore
+                await db.Collection("User").Document(currentUserId)
+                    .UpdateAsync("Avatar", avatarName);
+
+                // Cập nhật UI
+                Image selectedAvatar = LoadAvatarImage(avatarName);
+                pictureBox_avatar.Image = selectedAvatar;
+                userProfilePanel1.UpdateUserInfo(currentUserId, lbl_Username.Text, selectedAvatar);
+
+                MessageBox.Show("Avatar updated successfully!", "Success",
+                              MessageBoxButtons.OK, MessageBoxIcon.Information);
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"Error updating avatar: {ex.Message}", "Error",
+                              MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
         }
     }
 }

@@ -316,4 +316,34 @@
   <data name="PauseMusic" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\PauseMusic.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
+  <data name="avt1" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\avt1.jpg;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="avt10" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\avt10.jpg;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="avt2" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\avt2.jpg;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="avt3" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\avt3.jpg;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="avt4" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\avt4.jpg;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="avt5" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\avt5.jpg;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="avt6" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\avt6.jpg;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="avt7" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\avt7.jpg;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="avt8" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\avt8.jpg;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="avt9" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\avt9.jpg;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
 </root>

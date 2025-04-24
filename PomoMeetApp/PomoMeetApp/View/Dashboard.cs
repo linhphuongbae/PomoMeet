@@ -25,13 +25,15 @@ namespace PomoMeetApp.View
         }
         private async void InitializeUserProfile()
         {
-            // Lấy username từ Firestore dựa trên userId
             var db = FirebaseConfig.database;
             DocumentSnapshot snapshot = await db.Collection("User").Document(currentUserId).GetSnapshotAsync();
             string username = snapshot.GetValue<string>("Username");
+            string avatarName = snapshot.ContainsField("Avatar") ? snapshot.GetValue<string>("Avatar") : null;
 
-            // Truyền cả userId và username
-            userProfilePanel2.UpdateUserInfo(currentUserId, username, GetUserAvatar());
+            // Load avatar đúng từ Resources
+            Image avatarImage = LoadAvatarImage(avatarName);
+
+            userProfilePanel2.UpdateUserInfo(currentUserId, username, avatarImage);
 
             userProfilePanel2.SetProfileClickCallback(async (userId) =>
             {
@@ -41,9 +43,31 @@ namespace PomoMeetApp.View
                 // Refresh sau khi đóng profile
                 snapshot = await db.Collection("User").Document(currentUserId).GetSnapshotAsync();
                 username = snapshot.GetValue<string>("Username");
-                userProfilePanel2.UpdateUserInfo(currentUserId, username, GetUserAvatar());
+                avatarName = snapshot.ContainsField("Avatar") ? snapshot.GetValue<string>("Avatar") : null;
+                avatarImage = LoadAvatarImage(avatarName);
+
+                userProfilePanel2.UpdateUserInfo(currentUserId, username, avatarImage);
             });
         }
+
+        private Image LoadAvatarImage(string avatarName)
+        {
+            if (string.IsNullOrEmpty(avatarName))
+            {
+                return Properties.Resources.avatar; // fallback
+            }
+
+            try
+            {
+                var resourceManager = Properties.Resources.ResourceManager;
+                return (Image)resourceManager.GetObject(avatarName) ?? Properties.Resources.avatar;
+            }
+            catch
+            {
+                return Properties.Resources.avatar;
+            }
+        }
+
         private Image GetUserAvatar()
         {
             return Properties.Resources.avatar; // Fallback image

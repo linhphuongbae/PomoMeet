@@ -56,9 +56,9 @@
             pictureBox_avatar.BackColor = Color.Transparent;
             pictureBox_avatar.BorderStyle = BorderStyle.FixedSingle;
             pictureBox_avatar.Image = (Image)resources.GetObject("pictureBox_avatar.Image");
-            pictureBox_avatar.Location = new Point(901, 136);
+            pictureBox_avatar.Location = new Point(891, 136);
             pictureBox_avatar.Name = "pictureBox_avatar";
-            pictureBox_avatar.Size = new Size(141, 156);
+            pictureBox_avatar.Size = new Size(151, 156);
             pictureBox_avatar.SizeMode = PictureBoxSizeMode.StretchImage;
             pictureBox_avatar.TabIndex = 6;
             pictureBox_avatar.TabStop = false;
@@ -368,7 +368,7 @@
             editAvatarButton.Cursor = Cursors.Hand;
             editAvatarButton.Image = (Image)resources.GetObject("editAvatarButton.Image");
             editAvatarButton.InitialImage = (Image)resources.GetObject("editAvatarButton.InitialImage");
-            editAvatarButton.Location = new Point(874, 267);
+            editAvatarButton.Location = new Point(864, 269);
             editAvatarButton.Name = "editAvatarButton";
             editAvatarButton.Size = new Size(21, 23);
             editAvatarButton.SizeMode = PictureBoxSizeMode.Zoom;
