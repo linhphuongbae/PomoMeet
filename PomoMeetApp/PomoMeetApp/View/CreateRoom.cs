@@ -53,8 +53,6 @@ namespace PomoMeetApp.View
             isPlaying = false;
         }
 
-
-
         private void CreateRoom_Load(object sender, EventArgs e)
         {
             backgroundImages = new Image[]
@@ -159,6 +157,9 @@ namespace PomoMeetApp.View
                 // Tạo roomId tự động
                 string roomId = Guid.NewGuid().ToString();
 
+                int pomodoro = (int)numUpDown_Pomodoro.Value;
+                int shortBreak = (int)numUpDown_Break.Value;
+
                 // Mã hóa password
                 string hashedPassword = string.IsNullOrEmpty(password) ? "" : HashPassword(password);
 
@@ -173,6 +174,9 @@ namespace PomoMeetApp.View
                     type = roomMode,
                     password = hashedPassword,
                     currentImageIndex = currentImageIndex,
+                    pomodoro = pomodoro,
+                    short_break = shortBreak,
+                    currentIndex = currentIndex,
                     created_at = DateTime.Now.ToString("yyyy-MM-ddTHH:mm:ss")
                 };
 
@@ -195,11 +199,14 @@ namespace PomoMeetApp.View
                 scb_Public.Checked = false;
                 scb_Public.Enabled = false; // Khóa lại
                 stb_RoomPassword.Visible = true;
+                btn_TogglePassword.Visible = true; // Hiện nút hiển thị mật khẩu
+                btn_TogglePassword.BringToFront();
             }
             else
             {
                 scb_Public.Enabled = true;
                 stb_RoomPassword.Visible = false;
+                btn_TogglePassword.Visible = false; // Ẩn nút hiển thị mật khẩu
             }
         }
 
@@ -210,11 +217,11 @@ namespace PomoMeetApp.View
                 scb_Private.Checked = false;
                 scb_Private.Enabled = false; // Khóa lại
                 stb_RoomPassword.Visible = false;
+                btn_TogglePassword.Visible = false; // Ẩn nút hiển thị mật khẩu
             }
             else
             {
                 scb_Private.Enabled = true;
-                stb_RoomPassword.Visible = true;
             }
         }
 
@@ -268,27 +275,31 @@ namespace PomoMeetApp.View
 
         private void stb_Play_Click(object sender, EventArgs e)
         {
-            if (outputDevice == null || outputDevice.PlaybackState == PlaybackState.Stopped)
+            if (!isPlaying)
             {
-
+                // Nếu chưa phát thì luôn load lại bài theo currentIndex
                 PlaySongFromBytes(songBytes[currentIndex]);
                 stb_Play.BackgroundImage = Properties.Resources.PauseMusic;
                 isPlaying = true;
-                return;
-            }
-
-            if (isPlaying)
-            {
-                outputDevice.Pause();
-                isPlaying = false;
-                stb_Play.BackgroundImage = Properties.Resources.play;
             }
             else
             {
-                outputDevice.Play();
-                isPlaying = true;
-                stb_Play.BackgroundImage = Properties.Resources.PauseMusic;
+                // Đang phát thì dừng
+                outputDevice.Pause();
+                stb_Play.BackgroundImage = Properties.Resources.play;
+                isPlaying = false;
             }
+        }
+
+        bool isPasswordVisible = false;
+        private void btn_TogglePassword_Click(object sender, EventArgs e)
+        {
+            isPasswordVisible = !isPasswordVisible;
+            stb_RoomPassword.UseSystemPasswordChar = !isPasswordVisible;
+
+            btn_TogglePassword.BackgroundImage = isPasswordVisible
+                ? Properties.Resources.eye_open  
+                : Properties.Resources.eye_close; 
         }
     }
 }

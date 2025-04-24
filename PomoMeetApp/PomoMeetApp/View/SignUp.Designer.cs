@@ -314,7 +314,7 @@
             btnSignUp.GradientColor = Color.White;
             btnSignUp.GradientMode = System.Drawing.Drawing2D.LinearGradientMode.Vertical;
             btnSignUp.HintText = null;
-            btnSignUp.HoverBackColor = Color.FromArgb(114, 168, 255);
+            btnSignUp.HoverBackColor = Color.FromArgb(117, 164, 127);
             btnSignUp.HoverFontStyle = FontStyle.Regular;
             btnSignUp.HoverTextColor = Color.White;
             btnSignUp.HoverTransitionDuration = 250;
@@ -332,7 +332,7 @@
             btnSignUp.ParticleColor = Color.FromArgb(200, 200, 200);
             btnSignUp.ParticleCount = 15;
             btnSignUp.PressAnimationScale = 0.97F;
-            btnSignUp.PressedBackColor = Color.FromArgb(74, 128, 235);
+            btnSignUp.PressedBackColor = Color.FromArgb(117, 164, 127);
             btnSignUp.PressedFontStyle = FontStyle.Regular;
             btnSignUp.PressTransitionDuration = 150;
             btnSignUp.ReadOnlyTextColor = Color.FromArgb(100, 100, 100);
