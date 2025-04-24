@@ -246,7 +246,7 @@
             btnSignInGG.GradientColor = Color.White;
             btnSignInGG.GradientMode = System.Drawing.Drawing2D.LinearGradientMode.Vertical;
             btnSignInGG.HintText = null;
-            btnSignInGG.HoverBackColor = Color.FromArgb(114, 168, 255);
+            btnSignInGG.HoverBackColor = Color.FromArgb(117, 164, 127);
             btnSignInGG.HoverFontStyle = FontStyle.Regular;
             btnSignInGG.HoverTextColor = Color.White;
             btnSignInGG.HoverTransitionDuration = 250;
@@ -264,7 +264,7 @@
             btnSignInGG.ParticleColor = Color.FromArgb(200, 200, 200);
             btnSignInGG.ParticleCount = 15;
             btnSignInGG.PressAnimationScale = 0.97F;
-            btnSignInGG.PressedBackColor = Color.FromArgb(74, 128, 235);
+            btnSignInGG.PressedBackColor = Color.FromArgb(117, 164, 127);
             btnSignInGG.PressedFontStyle = FontStyle.Regular;
             btnSignInGG.PressTransitionDuration = 150;
             btnSignInGG.ReadOnlyTextColor = Color.FromArgb(100, 100, 100);
@@ -333,10 +333,10 @@
             BackToRegs.GlowIntensity = 100;
             BackToRegs.GlowRadius = 20F;
             BackToRegs.GradientBackground = false;
-            BackToRegs.GradientColor = Color.FromArgb(114, 168, 255);
+            BackToRegs.GradientColor = Color.FromArgb(117, 164, 127);
             BackToRegs.GradientMode = System.Drawing.Drawing2D.LinearGradientMode.Vertical;
             BackToRegs.HintText = null;
-            BackToRegs.HoverBackColor = Color.FromArgb(114, 168, 255);
+            BackToRegs.HoverBackColor = Color.FromArgb(117, 164, 127);
             BackToRegs.HoverFontStyle = FontStyle.Regular;
             BackToRegs.HoverTextColor = Color.White;
             BackToRegs.HoverTransitionDuration = 250;
@@ -354,7 +354,7 @@
             BackToRegs.ParticleColor = Color.FromArgb(200, 200, 200);
             BackToRegs.ParticleCount = 15;
             BackToRegs.PressAnimationScale = 0.97F;
-            BackToRegs.PressedBackColor = Color.FromArgb(74, 128, 235);
+            BackToRegs.PressedBackColor = Color.FromArgb(117, 164, 127);
             BackToRegs.PressedFontStyle = FontStyle.Regular;
             BackToRegs.PressTransitionDuration = 150;
             BackToRegs.ReadOnlyTextColor = Color.FromArgb(100, 100, 100);
@@ -456,7 +456,7 @@
             btnLogIn.GradientColor = Color.White;
             btnLogIn.GradientMode = System.Drawing.Drawing2D.LinearGradientMode.Vertical;
             btnLogIn.HintText = null;
-            btnLogIn.HoverBackColor = Color.FromArgb(114, 168, 255);
+            btnLogIn.HoverBackColor = Color.FromArgb(117, 164, 127);
             btnLogIn.HoverFontStyle = FontStyle.Regular;
             btnLogIn.HoverTextColor = Color.White;
             btnLogIn.HoverTransitionDuration = 250;
@@ -474,7 +474,7 @@
             btnLogIn.ParticleColor = Color.FromArgb(200, 200, 200);
             btnLogIn.ParticleCount = 15;
             btnLogIn.PressAnimationScale = 0.97F;
-            btnLogIn.PressedBackColor = Color.FromArgb(74, 128, 235);
+            btnLogIn.PressedBackColor = Color.FromArgb(117, 164, 127);
             btnLogIn.PressedFontStyle = FontStyle.Regular;
             btnLogIn.PressTransitionDuration = 150;
             btnLogIn.ReadOnlyTextColor = Color.FromArgb(100, 100, 100);
