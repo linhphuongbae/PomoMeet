@@ -90,6 +90,8 @@ namespace PomoMeetApp.View
         private async void BtnSave_Click(object sender, EventArgs e)
         {
             string newUsername = tbUsername.Text.Trim();
+            string newPassword = tbNewPassword.Text;
+            string confirmPassword = tbConfirmPassword.Text;
 
             if (string.IsNullOrEmpty(newUsername))
             {
@@ -98,24 +100,48 @@ namespace PomoMeetApp.View
                 return;
             }
 
+            if (!string.IsNullOrEmpty(newPassword) || !string.IsNullOrEmpty(confirmPassword))
+            {
+                if (newPassword != confirmPassword)
+                {
+                    MessageBox.Show("Passwords do not match", "Error",
+                                  MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    return;
+                }
+
+                if (newPassword.Length < 6)
+                {
+                    MessageBox.Show("Password must be at least 6 characters", "Error",
+                                  MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    return;
+                }
+            }
+
             try
             {
                 var updates = new Dictionary<string, object>
-                {
-                    { "Username", newUsername },
-                    { "lastUpdated", FieldValue.ServerTimestamp }
-                };
+        {
+            { "Username", newUsername },
+            { "lastUpdated", FieldValue.ServerTimestamp }
+        };
 
-                // Cập nhật document hiện tại bằng currentUserId
+                if (!string.IsNullOrEmpty(newPassword) && newPassword == confirmPassword)
+                {
+                    string encryptedPassword = Security.Encrypt(newPassword);
+                    updates.Add("Password", encryptedPassword);
+                }
+
                 await db.Collection("User").Document(currentUserId)
                           .UpdateAsync(updates);
 
                 MessageBox.Show("Profile updated successfully!", "Success",
                               MessageBoxButtons.OK, MessageBoxIcon.Information);
 
-                // Cập nhật UI
                 lbl_Username.Text = newUsername;
                 userProfilePanel1.UpdateUserInfo(currentUserId, newUsername, GetUserAvatar());
+
+                tbNewPassword.Text = "";
+                tbConfirmPassword.Text = "";
             }
             catch (Exception ex)
             {
@@ -123,6 +149,7 @@ namespace PomoMeetApp.View
                               MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
+
 
         private async void BtnEditAvatar_Click(object sender, EventArgs e)
         {
