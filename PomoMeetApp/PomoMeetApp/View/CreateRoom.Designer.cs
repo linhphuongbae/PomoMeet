@@ -30,6 +30,7 @@
         {
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(CreateRoom));
             siticonePanel1 = new SiticoneNetCoreUI.SiticonePanel();
+            btn_TogglePassword = new Button();
             stb_RoomPassword = new SiticoneNetCoreUI.SiticoneTextBox();
             stb_RoomName = new SiticoneNetCoreUI.SiticoneTextBox();
             label1 = new Label();
@@ -38,9 +39,9 @@
             label4 = new Label();
             label5 = new Label();
             label6 = new Label();
-            numericUpDown1 = new NumericUpDown();
+            numUpDown_Break = new NumericUpDown();
             label7 = new Label();
-            numericUpDown2 = new NumericUpDown();
+            numUpDown_Pomodoro = new NumericUpDown();
             label8 = new Label();
             label9 = new Label();
             sbtn_CreateRoom = new SiticoneNetCoreUI.SiticoneButton();
@@ -58,8 +59,8 @@
             pb_picMusic = new PictureBox();
             lbl_SongName = new Label();
             siticonePanel1.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)numericUpDown1).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)numericUpDown2).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)numUpDown_Break).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)numUpDown_Pomodoro).BeginInit();
             ((System.ComponentModel.ISupportInitialize)pb_Background).BeginInit();
             siticonePanel2.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)pictureBox2).BeginInit();
@@ -75,6 +76,7 @@
             siticonePanel1.BorderGradientEndColor = Color.Purple;
             siticonePanel1.BorderGradientStartColor = Color.Blue;
             siticonePanel1.BorderThickness = 2F;
+            siticonePanel1.Controls.Add(btn_TogglePassword);
             siticonePanel1.Controls.Add(stb_RoomPassword);
             siticonePanel1.Controls.Add(stb_RoomName);
             siticonePanel1.Controls.Add(label1);
@@ -115,6 +117,20 @@
             siticonePanel1.UseMultiGradient = false;
             siticonePanel1.UsePatternTexture = false;
             siticonePanel1.UseRadialGradient = false;
+            // 
+            // btn_TogglePassword
+            // 
+            btn_TogglePassword.BackColor = Color.White;
+            btn_TogglePassword.BackgroundImage = Properties.Resources.eye_close;
+            btn_TogglePassword.FlatAppearance.BorderSize = 0;
+            btn_TogglePassword.FlatStyle = FlatStyle.Flat;
+            btn_TogglePassword.Location = new Point(698, 109);
+            btn_TogglePassword.Name = "btn_TogglePassword";
+            btn_TogglePassword.Size = new Size(27, 29);
+            btn_TogglePassword.TabIndex = 6;
+            btn_TogglePassword.UseVisualStyleBackColor = false;
+            btn_TogglePassword.Visible = false;
+            btn_TogglePassword.Click += btn_TogglePassword_Click;
             // 
             // stb_RoomPassword
             // 
@@ -167,6 +183,7 @@
             stb_RoomPassword.SolidFillColor = Color.White;
             stb_RoomPassword.TabIndex = 5;
             stb_RoomPassword.TextPadding = new Padding(16, 0, 6, 0);
+            stb_RoomPassword.UseSystemPasswordChar = true;
             stb_RoomPassword.ValidationErrorMessage = "Invalid input.";
             stb_RoomPassword.ValidationFunction = null;
             stb_RoomPassword.Visible = false;
@@ -287,13 +304,17 @@
             label6.TabIndex = 14;
             label6.Text = "Pomodoro";
             // 
-            // numericUpDown1
+            // numUpDown_Break
             // 
-            numericUpDown1.BackColor = Color.FromArgb(117, 164, 127);
-            numericUpDown1.Location = new Point(169, 471);
-            numericUpDown1.Name = "numericUpDown1";
-            numericUpDown1.Size = new Size(51, 27);
-            numericUpDown1.TabIndex = 15;
+            numUpDown_Break.BackColor = Color.FromArgb(117, 164, 127);
+            numUpDown_Break.Increment = new decimal(new int[] { 5, 0, 0, 0 });
+            numUpDown_Break.Location = new Point(169, 471);
+            numUpDown_Break.Maximum = new decimal(new int[] { 25, 0, 0, 0 });
+            numUpDown_Break.Minimum = new decimal(new int[] { 5, 0, 0, 0 });
+            numUpDown_Break.Name = "numUpDown_Break";
+            numUpDown_Break.Size = new Size(51, 27);
+            numUpDown_Break.TabIndex = 15;
+            numUpDown_Break.Value = new decimal(new int[] { 5, 0, 0, 0 });
             // 
             // label7
             // 
@@ -305,13 +326,17 @@
             label7.TabIndex = 16;
             label7.Text = "Nghỉ ngơi";
             // 
-            // numericUpDown2
+            // numUpDown_Pomodoro
             // 
-            numericUpDown2.BackColor = Color.FromArgb(117, 164, 127);
-            numericUpDown2.Location = new Point(169, 418);
-            numericUpDown2.Name = "numericUpDown2";
-            numericUpDown2.Size = new Size(51, 27);
-            numericUpDown2.TabIndex = 17;
+            numUpDown_Pomodoro.BackColor = Color.FromArgb(117, 164, 127);
+            numUpDown_Pomodoro.Increment = new decimal(new int[] { 15, 0, 0, 0 });
+            numUpDown_Pomodoro.Location = new Point(169, 418);
+            numUpDown_Pomodoro.Maximum = new decimal(new int[] { 90, 0, 0, 0 });
+            numUpDown_Pomodoro.Minimum = new decimal(new int[] { 15, 0, 0, 0 });
+            numUpDown_Pomodoro.Name = "numUpDown_Pomodoro";
+            numUpDown_Pomodoro.Size = new Size(51, 27);
+            numUpDown_Pomodoro.TabIndex = 17;
+            numUpDown_Pomodoro.Value = new decimal(new int[] { 15, 0, 0, 0 });
             // 
             // label8
             // 
@@ -811,9 +836,9 @@
             lbl_SongName.ForeColor = SystemColors.ButtonHighlight;
             lbl_SongName.Location = new Point(112, 22);
             lbl_SongName.Name = "lbl_SongName";
-            lbl_SongName.Size = new Size(85, 24);
+            lbl_SongName.Size = new Size(92, 24);
             lbl_SongName.TabIndex = 30;
-            lbl_SongName.Text = "Lofi Chill";
+            lbl_SongName.Text = "4'O Clock";
             // 
             // CreateRoom
             // 
@@ -831,9 +856,9 @@
             Controls.Add(sbtn_CreateRoom);
             Controls.Add(label9);
             Controls.Add(label8);
-            Controls.Add(numericUpDown2);
+            Controls.Add(numUpDown_Pomodoro);
             Controls.Add(label7);
-            Controls.Add(numericUpDown1);
+            Controls.Add(numUpDown_Break);
             Controls.Add(label6);
             Controls.Add(scb_Public);
             Controls.Add(scb_Private);
@@ -847,8 +872,8 @@
             Load += CreateRoom_Load;
             siticonePanel1.ResumeLayout(false);
             siticonePanel1.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)numericUpDown1).EndInit();
-            ((System.ComponentModel.ISupportInitialize)numericUpDown2).EndInit();
+            ((System.ComponentModel.ISupportInitialize)numUpDown_Break).EndInit();
+            ((System.ComponentModel.ISupportInitialize)numUpDown_Pomodoro).EndInit();
             ((System.ComponentModel.ISupportInitialize)pb_Background).EndInit();
             siticonePanel2.ResumeLayout(false);
             siticonePanel2.PerformLayout();
@@ -862,16 +887,15 @@
 
         private SiticoneNetCoreUI.SiticonePanel siticonePanel1;
         private Label label1;
-        private SiticoneNetCoreUI.SiticoneTextBox stb_RoomPassword;
         private SiticoneNetCoreUI.SiticoneTextBox stb_RoomName;
         private Label label3;
         private Label label2;
         private Label label4;
         private Label label5;
         private Label label6;
-        private NumericUpDown numericUpDown1;
+        private NumericUpDown numUpDown_Break;
         private Label label7;
-        private NumericUpDown numericUpDown2;
+        private NumericUpDown numUpDown_Pomodoro;
         private Label label8;
         private Label label9;
         private SiticoneNetCoreUI.SiticoneButton sbtn_CreateRoom;
@@ -888,5 +912,7 @@
         private PictureBox pb_picMusic;
         private SiticoneNetCoreUI.SiticoneButton stb_Play;
         private PictureBox pictureBox2;
+        private SiticoneNetCoreUI.SiticoneTextBox stb_RoomPassword;
+        private Button btn_TogglePassword;
     }
 }
