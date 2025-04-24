@@ -9,15 +9,87 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.Security.Cryptography;
+using System.Media;
+using NAudio.Wave;
 
 
 namespace PomoMeetApp.View
 {
     public partial class CreateRoom : Form
     {
+
+        private WaveOutEvent outputDevice;
+        private WaveFileReader audioFile;
+        private Image[] backgroundImages;
+        private int currentIndex = 0;
+        private int currentImageIndex = 0;
+        private string[] songNames;
+        private Image[] songImages;
+        private byte[][] songBytes;
+        private SoundPlayer[] songAudios;
+
         public CreateRoom()
         {
             InitializeComponent();
+        }
+
+        private void PlaySongFromBytes(byte[] audioData)
+        {
+            StopMusic();
+
+            var stream = new MemoryStream(audioData);
+            audioFile = new WaveFileReader(stream);
+            outputDevice = new WaveOutEvent();
+            outputDevice.Init(audioFile);
+            outputDevice.Play();
+            isPlaying = true;
+        }
+
+        private void StopMusic()
+        {
+            outputDevice?.Stop();
+            audioFile?.Dispose();
+            outputDevice?.Dispose();
+            isPlaying = false;
+        }
+
+
+
+        private void CreateRoom_Load(object sender, EventArgs e)
+        {
+            backgroundImages = new Image[]
+            {
+                Properties.Resources.Image,
+                Properties.Resources.studyBackground1,
+                Properties.Resources.studyBackground2,
+                Properties.Resources.studyBackground3,
+            };
+
+            pb_Background.SizeMode = PictureBoxSizeMode.StretchImage;
+            pb_Background.Image = backgroundImages[currentIndex];
+
+            songNames = new string[] { "4'O Clock", "5-32PM", "Alone", "Beneath the Rain", "Better Days", "Childhood Dreams", "Your Smile" };
+            songImages = new Image[] {
+                Properties.Resources.musicImage1,
+                Properties.Resources.musicImage2,
+                Properties.Resources.musicImage3,
+                Properties.Resources.musicImage4,
+                Properties.Resources.musicImage5,
+                Properties.Resources.musicImage6,
+                Properties.Resources.musicImage7
+            };
+            songBytes = new byte[][] {
+                Properties.Resources._4_O_Clock,
+                Properties.Resources._5_32PM,
+                Properties.Resources.Alone,
+                Properties.Resources.BeneathTheRain,
+                Properties.Resources.BetterDays,
+                Properties.Resources.ChildhoodDreams,
+                Properties.Resources.YourSmile
+            };
+
+            // Khởi tạo SoundPlayer ban đầu
+            songAudios = songBytes.Select(b => new SoundPlayer(new MemoryStream(b))).ToArray();
         }
 
         private void sbtn_CreateRoom_Click(object sender, EventArgs e)
@@ -100,6 +172,7 @@ namespace PomoMeetApp.View
                     host_id = "guest",  // Tạm thời lưu host_id là "guest"
                     type = roomMode,
                     password = hashedPassword,
+                    currentImageIndex = currentImageIndex,
                     created_at = DateTime.Now.ToString("yyyy-MM-ddTHH:mm:ss")
                 };
 
@@ -142,6 +215,79 @@ namespace PomoMeetApp.View
             {
                 scb_Private.Enabled = true;
                 stb_RoomPassword.Visible = true;
+            }
+        }
+
+        private void btn_Next_Click(object sender, EventArgs e)
+        {
+            currentImageIndex++;
+            if (currentImageIndex >= backgroundImages.Length)
+                currentImageIndex = 0;
+            pb_Background.Image = backgroundImages[currentImageIndex];
+        }
+
+        private void btn_Pre_Click(object sender, EventArgs e)
+        {
+            currentImageIndex--;
+            if (currentImageIndex < 0)
+                currentImageIndex = backgroundImages.Length - 1;
+            pb_Background.Image = backgroundImages[currentImageIndex];
+        }
+
+        bool isPlaying = false;
+
+        private void btn_NextMusic_Click(object sender, EventArgs e)
+        {
+            if (isPlaying)
+            {
+                outputDevice.Stop();
+                stb_Play.BackgroundImage = Properties.Resources.play;
+                isPlaying = false;
+            }
+            currentIndex = (currentIndex + 1) % songNames.Length;
+            UpdateUI();
+        }
+
+        private void btn_PrevMusic_Click(object sender, EventArgs e)
+        {
+            if (isPlaying)
+            {
+                outputDevice.Stop();
+                stb_Play.BackgroundImage = Properties.Resources.play;
+                isPlaying = false;
+            }
+            currentIndex = (currentIndex - 1 + songNames.Length) % songNames.Length;
+            UpdateUI();
+        }
+
+        private void UpdateUI()
+        {
+            lbl_SongName.Text = songNames[currentIndex];
+            pb_picMusic.Image = songImages[currentIndex];
+        }
+
+        private void stb_Play_Click(object sender, EventArgs e)
+        {
+            if (outputDevice == null || outputDevice.PlaybackState == PlaybackState.Stopped)
+            {
+
+                PlaySongFromBytes(songBytes[currentIndex]);
+                stb_Play.BackgroundImage = Properties.Resources.PauseMusic;
+                isPlaying = true;
+                return;
+            }
+
+            if (isPlaying)
+            {
+                outputDevice.Pause();
+                isPlaying = false;
+                stb_Play.BackgroundImage = Properties.Resources.play;
+            }
+            else
+            {
+                outputDevice.Play();
+                isPlaying = true;
+                stb_Play.BackgroundImage = Properties.Resources.PauseMusic;
             }
         }
     }

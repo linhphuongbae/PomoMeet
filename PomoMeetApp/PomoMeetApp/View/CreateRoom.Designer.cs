@@ -45,19 +45,25 @@
             label9 = new Label();
             sbtn_CreateRoom = new SiticoneNetCoreUI.SiticoneButton();
             sbtn_InviteFriends = new SiticoneNetCoreUI.SiticoneButton();
-            pictureBox1 = new PictureBox();
-            pictureBox2 = new PictureBox();
-            button1 = new Button();
-            button2 = new Button();
-            button3 = new Button();
-            button4 = new Button();
+            pb_Background = new PictureBox();
+            btn_Next = new Button();
+            btn_Pre = new Button();
+            btn_PrevMusic = new Button();
+            btn_NextMusic = new Button();
             scb_Private = new SiticoneNetCoreUI.SiticoneCheckBox();
             scb_Public = new SiticoneNetCoreUI.SiticoneCheckBox();
+            siticonePanel2 = new SiticoneNetCoreUI.SiticonePanel();
+            pictureBox2 = new PictureBox();
+            stb_Play = new SiticoneNetCoreUI.SiticoneButton();
+            pb_picMusic = new PictureBox();
+            lbl_SongName = new Label();
             siticonePanel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)numericUpDown1).BeginInit();
             ((System.ComponentModel.ISupportInitialize)numericUpDown2).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)pictureBox1).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)pb_Background).BeginInit();
+            siticonePanel2.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)pictureBox2).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)pb_picMusic).BeginInit();
             SuspendLayout();
             // 
             // siticonePanel1
@@ -484,63 +490,58 @@
             sbtn_InviteFriends.UseAdvancedRendering = true;
             sbtn_InviteFriends.UseParticles = false;
             // 
-            // pictureBox1
+            // pb_Background
             // 
-            pictureBox1.Image = (Image)resources.GetObject("pictureBox1.Image");
-            pictureBox1.Location = new Point(383, 269);
-            pictureBox1.Name = "pictureBox1";
-            pictureBox1.Size = new Size(330, 230);
-            pictureBox1.TabIndex = 22;
-            pictureBox1.TabStop = false;
+            pb_Background.Image = Properties.Resources.studyBackground3;
+            pb_Background.Location = new Point(383, 269);
+            pb_Background.Name = "pb_Background";
+            pb_Background.Size = new Size(330, 230);
+            pb_Background.TabIndex = 22;
+            pb_Background.TabStop = false;
             // 
-            // pictureBox2
+            // btn_Next
             // 
-            pictureBox2.Image = (Image)resources.GetObject("pictureBox2.Image");
-            pictureBox2.Location = new Point(116, 596);
-            pictureBox2.Name = "pictureBox2";
-            pictureBox2.Size = new Size(485, 64);
-            pictureBox2.TabIndex = 23;
-            pictureBox2.TabStop = false;
+            btn_Next.BackColor = Color.Transparent;
+            btn_Next.Image = (Image)resources.GetObject("btn_Next.Image");
+            btn_Next.Location = new Point(719, 356);
+            btn_Next.Name = "btn_Next";
+            btn_Next.Size = new Size(48, 48);
+            btn_Next.TabIndex = 24;
+            btn_Next.UseVisualStyleBackColor = false;
+            btn_Next.Click += btn_Next_Click;
             // 
-            // button1
+            // btn_Pre
             // 
-            button1.BackColor = Color.Transparent;
-            button1.Image = (Image)resources.GetObject("button1.Image");
-            button1.Location = new Point(719, 356);
-            button1.Name = "button1";
-            button1.Size = new Size(48, 48);
-            button1.TabIndex = 24;
-            button1.UseVisualStyleBackColor = false;
+            btn_Pre.BackColor = Color.Transparent;
+            btn_Pre.Image = (Image)resources.GetObject("btn_Pre.Image");
+            btn_Pre.Location = new Point(329, 356);
+            btn_Pre.Name = "btn_Pre";
+            btn_Pre.Size = new Size(48, 48);
+            btn_Pre.TabIndex = 25;
+            btn_Pre.UseVisualStyleBackColor = false;
+            btn_Pre.Click += btn_Pre_Click;
             // 
-            // button2
+            // btn_PrevMusic
             // 
-            button2.BackColor = Color.Transparent;
-            button2.Image = (Image)resources.GetObject("button2.Image");
-            button2.Location = new Point(329, 356);
-            button2.Name = "button2";
-            button2.Size = new Size(48, 48);
-            button2.TabIndex = 25;
-            button2.UseVisualStyleBackColor = false;
+            btn_PrevMusic.BackColor = Color.Transparent;
+            btn_PrevMusic.Image = (Image)resources.GetObject("btn_PrevMusic.Image");
+            btn_PrevMusic.Location = new Point(72, 616);
+            btn_PrevMusic.Name = "btn_PrevMusic";
+            btn_PrevMusic.Size = new Size(24, 24);
+            btn_PrevMusic.TabIndex = 26;
+            btn_PrevMusic.UseVisualStyleBackColor = false;
+            btn_PrevMusic.Click += btn_PrevMusic_Click;
             // 
-            // button3
+            // btn_NextMusic
             // 
-            button3.BackColor = Color.Transparent;
-            button3.Image = (Image)resources.GetObject("button3.Image");
-            button3.Location = new Point(72, 616);
-            button3.Name = "button3";
-            button3.Size = new Size(24, 24);
-            button3.TabIndex = 26;
-            button3.UseVisualStyleBackColor = false;
-            // 
-            // button4
-            // 
-            button4.BackColor = Color.Transparent;
-            button4.Image = (Image)resources.GetObject("button4.Image");
-            button4.Location = new Point(618, 616);
-            button4.Name = "button4";
-            button4.Size = new Size(24, 24);
-            button4.TabIndex = 27;
-            button4.UseVisualStyleBackColor = false;
+            btn_NextMusic.BackColor = Color.Transparent;
+            btn_NextMusic.Image = (Image)resources.GetObject("btn_NextMusic.Image");
+            btn_NextMusic.Location = new Point(618, 616);
+            btn_NextMusic.Name = "btn_NextMusic";
+            btn_NextMusic.Size = new Size(24, 24);
+            btn_NextMusic.TabIndex = 27;
+            btn_NextMusic.UseVisualStyleBackColor = false;
+            btn_NextMusic.Click += btn_NextMusic_Click;
             // 
             // scb_Private
             // 
@@ -658,18 +659,174 @@
             scb_Public.UncheckedBackColor = Color.FromArgb(117, 164, 127);
             scb_Public.CheckedChanged += Public_CheckedChanged;
             // 
+            // siticonePanel2
+            // 
+            siticonePanel2.AcrylicTintColor = Color.FromArgb(128, 255, 255, 255);
+            siticonePanel2.BackColor = Color.Transparent;
+            siticonePanel2.BorderAlignment = System.Drawing.Drawing2D.PenAlignment.Center;
+            siticonePanel2.BorderDashPattern = null;
+            siticonePanel2.BorderGradientEndColor = Color.Purple;
+            siticonePanel2.BorderGradientStartColor = Color.Blue;
+            siticonePanel2.BorderThickness = 2F;
+            siticonePanel2.Controls.Add(pictureBox2);
+            siticonePanel2.Controls.Add(stb_Play);
+            siticonePanel2.Controls.Add(pb_picMusic);
+            siticonePanel2.Controls.Add(lbl_SongName);
+            siticonePanel2.CornerRadiusBottomLeft = 10F;
+            siticonePanel2.CornerRadiusBottomRight = 10F;
+            siticonePanel2.CornerRadiusTopLeft = 10F;
+            siticonePanel2.CornerRadiusTopRight = 10F;
+            siticonePanel2.EnableAcrylicEffect = false;
+            siticonePanel2.EnableMicaEffect = false;
+            siticonePanel2.EnableRippleEffect = false;
+            siticonePanel2.FillColor = Color.Black;
+            siticonePanel2.GradientColors = new Color[]
+    {
+    Color.White,
+    Color.LightGray,
+    Color.Gray
+    };
+            siticonePanel2.GradientPositions = new float[]
+    {
+    0F,
+    0.5F,
+    1F
+    };
+            siticonePanel2.Location = new Point(127, 593);
+            siticonePanel2.Name = "siticonePanel2";
+            siticonePanel2.PatternStyle = System.Drawing.Drawing2D.HatchStyle.Max;
+            siticonePanel2.RippleAlpha = 50;
+            siticonePanel2.RippleAlphaDecrement = 3;
+            siticonePanel2.RippleColor = Color.FromArgb(50, 255, 255, 255);
+            siticonePanel2.RippleMaxSize = 600F;
+            siticonePanel2.RippleSpeed = 15F;
+            siticonePanel2.ShowBorder = true;
+            siticonePanel2.Size = new Size(474, 64);
+            siticonePanel2.TabIndex = 28;
+            siticonePanel2.TabStop = true;
+            siticonePanel2.UseBorderGradient = false;
+            siticonePanel2.UseMultiGradient = false;
+            siticonePanel2.UsePatternTexture = false;
+            siticonePanel2.UseRadialGradient = false;
+            // 
+            // pictureBox2
+            // 
+            pictureBox2.BackgroundImage = Properties.Resources.sound;
+            pictureBox2.Location = new Point(335, 18);
+            pictureBox2.Name = "pictureBox2";
+            pictureBox2.Size = new Size(45, 28);
+            pictureBox2.TabIndex = 32;
+            pictureBox2.TabStop = false;
+            // 
+            // stb_Play
+            // 
+            stb_Play.AccessibleDescription = "The default button control that accept input though the mouse, touch and keyboard";
+            stb_Play.AccessibleName = "";
+            stb_Play.AutoSizeBasedOnText = false;
+            stb_Play.BackColor = Color.Transparent;
+            stb_Play.BackgroundImage = Properties.Resources.play;
+            stb_Play.BadgeBackColor = Color.Red;
+            stb_Play.BadgeFont = new Font("Segoe UI", 8F, FontStyle.Bold);
+            stb_Play.BadgeValue = 0;
+            stb_Play.BadgeValueForeColor = Color.White;
+            stb_Play.BorderColor = Color.Transparent;
+            stb_Play.BorderWidth = 2;
+            stb_Play.ButtonBackColor = Color.Transparent;
+            stb_Play.ButtonImage = null;
+            stb_Play.CanBeep = true;
+            stb_Play.CanGlow = false;
+            stb_Play.CanShake = true;
+            stb_Play.ContextMenuStripEx = null;
+            stb_Play.CornerRadiusBottomLeft = 0;
+            stb_Play.CornerRadiusBottomRight = 0;
+            stb_Play.CornerRadiusTopLeft = 0;
+            stb_Play.CornerRadiusTopRight = 0;
+            stb_Play.CustomCursor = Cursors.Default;
+            stb_Play.DisabledTextColor = Color.FromArgb(150, 150, 150);
+            stb_Play.EnableLongPress = false;
+            stb_Play.EnablePressAnimation = true;
+            stb_Play.EnableRippleEffect = true;
+            stb_Play.EnableShadow = false;
+            stb_Play.EnableTextWrapping = false;
+            stb_Play.Font = new Font("Segoe UI", 9F);
+            stb_Play.GlowColor = Color.FromArgb(100, 255, 255, 255);
+            stb_Play.GlowIntensity = 100;
+            stb_Play.GlowRadius = 20F;
+            stb_Play.GradientBackground = false;
+            stb_Play.GradientColor = Color.Transparent;
+            stb_Play.GradientMode = System.Drawing.Drawing2D.LinearGradientMode.Vertical;
+            stb_Play.HintText = null;
+            stb_Play.HoverBackColor = Color.Transparent;
+            stb_Play.HoverFontStyle = FontStyle.Regular;
+            stb_Play.HoverTextColor = Color.White;
+            stb_Play.HoverTransitionDuration = 250;
+            stb_Play.ImageAlign = ContentAlignment.MiddleLeft;
+            stb_Play.ImagePadding = 5;
+            stb_Play.ImageSize = new Size(16, 16);
+            stb_Play.IsRadial = false;
+            stb_Play.IsReadOnly = false;
+            stb_Play.IsToggleButton = false;
+            stb_Play.IsToggled = false;
+            stb_Play.Location = new Point(400, 22);
+            stb_Play.LongPressDurationMS = 1000;
+            stb_Play.Name = "stb_Play";
+            stb_Play.NormalFontStyle = FontStyle.Regular;
+            stb_Play.ParticleColor = Color.FromArgb(200, 200, 200);
+            stb_Play.ParticleCount = 15;
+            stb_Play.PressAnimationScale = 0.97F;
+            stb_Play.PressedBackColor = Color.Transparent;
+            stb_Play.PressedFontStyle = FontStyle.Regular;
+            stb_Play.PressTransitionDuration = 150;
+            stb_Play.ReadOnlyTextColor = Color.FromArgb(100, 100, 100);
+            stb_Play.RippleColor = Color.FromArgb(255, 255, 255);
+            stb_Play.RippleOpacity = 0.3F;
+            stb_Play.RippleRadiusMultiplier = 0.6F;
+            stb_Play.ShadowBlur = 5;
+            stb_Play.ShadowColor = Color.FromArgb(100, 0, 0, 0);
+            stb_Play.ShadowOffset = new Point(2, 2);
+            stb_Play.ShakeDuration = 500;
+            stb_Play.ShakeIntensity = 5;
+            stb_Play.Size = new Size(38, 24);
+            stb_Play.TabIndex = 31;
+            stb_Play.TextAlign = ContentAlignment.MiddleCenter;
+            stb_Play.TextColor = Color.White;
+            stb_Play.TooltipText = null;
+            stb_Play.UseAdvancedRendering = true;
+            stb_Play.UseParticles = false;
+            stb_Play.Click += stb_Play_Click;
+            // 
+            // pb_picMusic
+            // 
+            pb_picMusic.Image = Properties.Resources.musicImage1;
+            pb_picMusic.Location = new Point(13, 12);
+            pb_picMusic.Name = "pb_picMusic";
+            pb_picMusic.Size = new Size(80, 46);
+            pb_picMusic.TabIndex = 29;
+            pb_picMusic.TabStop = false;
+            // 
+            // lbl_SongName
+            // 
+            lbl_SongName.AutoSize = true;
+            lbl_SongName.Font = new Font("Inter", 10.2F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            lbl_SongName.ForeColor = SystemColors.ButtonHighlight;
+            lbl_SongName.Location = new Point(112, 22);
+            lbl_SongName.Name = "lbl_SongName";
+            lbl_SongName.Size = new Size(85, 24);
+            lbl_SongName.TabIndex = 30;
+            lbl_SongName.Text = "Lofi Chill";
+            // 
             // CreateRoom
             // 
             AutoScaleDimensions = new SizeF(8F, 20F);
             AutoScaleMode = AutoScaleMode.Font;
             BackColor = Color.White;
             ClientSize = new Size(782, 795);
-            Controls.Add(button4);
-            Controls.Add(button3);
-            Controls.Add(button2);
-            Controls.Add(button1);
-            Controls.Add(pictureBox2);
-            Controls.Add(pictureBox1);
+            Controls.Add(siticonePanel2);
+            Controls.Add(btn_NextMusic);
+            Controls.Add(btn_PrevMusic);
+            Controls.Add(btn_Pre);
+            Controls.Add(btn_Next);
+            Controls.Add(pb_Background);
             Controls.Add(sbtn_InviteFriends);
             Controls.Add(sbtn_CreateRoom);
             Controls.Add(label9);
@@ -687,12 +844,16 @@
             Controls.Add(siticonePanel1);
             Name = "CreateRoom";
             Text = "CreateRoom";
+            Load += CreateRoom_Load;
             siticonePanel1.ResumeLayout(false);
             siticonePanel1.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)numericUpDown1).EndInit();
             ((System.ComponentModel.ISupportInitialize)numericUpDown2).EndInit();
-            ((System.ComponentModel.ISupportInitialize)pictureBox1).EndInit();
+            ((System.ComponentModel.ISupportInitialize)pb_Background).EndInit();
+            siticonePanel2.ResumeLayout(false);
+            siticonePanel2.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)pictureBox2).EndInit();
+            ((System.ComponentModel.ISupportInitialize)pb_picMusic).EndInit();
             ResumeLayout(false);
             PerformLayout();
         }
@@ -715,13 +876,17 @@
         private Label label9;
         private SiticoneNetCoreUI.SiticoneButton sbtn_CreateRoom;
         private SiticoneNetCoreUI.SiticoneButton sbtn_InviteFriends;
-        private PictureBox pictureBox1;
-        private PictureBox pictureBox2;
-        private Button button1;
-        private Button button2;
-        private Button button3;
-        private Button button4;
+        private PictureBox pb_Background;
+        private Button btn_Next;
+        private Button btn_Pre;
+        private Button btn_PrevMusic;
+        private Button btn_NextMusic;
         private SiticoneNetCoreUI.SiticoneCheckBox scb_Private;
         private SiticoneNetCoreUI.SiticoneCheckBox scb_Public;
+        private SiticoneNetCoreUI.SiticonePanel siticonePanel2;
+        private Label lbl_SongName;
+        private PictureBox pb_picMusic;
+        private SiticoneNetCoreUI.SiticoneButton stb_Play;
+        private PictureBox pictureBox2;
     }
 }
