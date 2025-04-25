@@ -57,23 +57,23 @@ namespace PomoMeetApp.View
                 if (snapshot.Exists)
                 {
                     Dictionary<string, object> userData = snapshot.ToDictionary();
-                    string username = userData.ContainsKey("Username") ? userData["Username"].ToString() : "";
-                    string avatarName = userData.ContainsKey("Avatar") ? userData["Avatar"].ToString() : null;
+                    string username = userData.ContainsKey("Username") ? userData["Username"]?.ToString() ?? "" : "";
+                    string avatarName = userData.ContainsKey("Avatar") ? userData["Avatar"]?.ToString() ?? null : null;
 
-                    // Cập nhật UI
+                    // Update UI
                     tbUsername.Text = username;
                     lbl_Username.Text = username;
 
                     if (userData.ContainsKey("Email") && userData["Email"] != null)
                     {
-                        tbEmail.Text = userData["Email"].ToString();
+                        tbEmail.Text = userData["Email"].ToString(); // Reload the email
                     }
 
                     // Load avatar
                     Image avatarImage = LoadAvatarImage(avatarName);
                     pictureBox_avatar.Image = avatarImage;
 
-                    // Cập nhật user profile panel
+                    // Update user profile panel
                     userProfilePanel1.UpdateUserInfo(currentUserId, username, avatarImage);
                 }
             }
@@ -114,6 +114,7 @@ namespace PomoMeetApp.View
         private async void BtnSave_Click(object sender, EventArgs e)
         {
             string newUsername = tbUsername.Text.Trim();
+            string newEmail = tbEmail.Text.Trim(); // Get the updated email
             string newPassword = tbNewPassword.Text;
             string confirmPassword = tbConfirmPassword.Text;
 
@@ -139,6 +140,7 @@ namespace PomoMeetApp.View
                 var updates = new Dictionary<string, object>
         {
             { "Username", newUsername },
+            { "Email", newEmail }, // Include the email in the update
             { "lastUpdated", FieldValue.ServerTimestamp }
         };
 

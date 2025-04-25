@@ -298,8 +298,103 @@ namespace PomoMeetApp.View
             stb_RoomPassword.UseSystemPasswordChar = !isPasswordVisible;
 
             btn_TogglePassword.BackgroundImage = isPasswordVisible
-                ? Properties.Resources.eye_open  
-                : Properties.Resources.eye_close; 
+                ? Properties.Resources.eye_open
+                : Properties.Resources.eye_close;
+        }
+
+        private async void sbtn_InviteFriends_Click(object sender, EventArgs e)
+        {
+            // Tạo phòng trước
+            string roomName = stb_RoomName.Text;
+            string roomMode = GetRoomMode();
+
+            if (string.IsNullOrEmpty(roomName))
+            {
+                MessageBox.Show("Vui lòng nhập tên phòng.");
+                return;
+            }
+
+            if (string.IsNullOrEmpty(roomMode))
+            {
+                MessageBox.Show("Vui lòng chọn chế độ phòng (Private hoặc Public).");
+                return;
+            }
+
+            string password = "";
+            if (roomMode == "Private" && !string.IsNullOrEmpty(stb_RoomPassword.Text))
+            {
+                password = stb_RoomPassword.Text;
+            }
+            else if (roomMode == "Private" && string.IsNullOrEmpty(stb_RoomPassword.Text))
+            {
+                MessageBox.Show("Vui lòng nhập mật khẩu");
+                return;
+            }
+
+            // Tạo phòng và lấy thông tin phòng vừa tạo
+            var roomInfo = await CreateNewRoomAndGetInfo(roomName, roomMode, password);
+
+            if (roomInfo != null)
+            {
+                // Giả sử có userId của người dùng hiện tại
+                string currentUserId = "0246e34e-ed31-4f97-92e4-dae673c48955"; // Thay bằng ID thực tế
+
+                // Mở form mời bạn bè và truyền thông tin
+                RoomRequests roomRequestsForm = new RoomRequests(
+                    roomInfo.InviteCode,
+                    roomInfo.RoomId,
+                    currentUserId);
+
+                await FormTransition.FadeTo(this, roomRequestsForm);
+            }
+        }
+
+        private async Task<RoomInfo> CreateNewRoomAndGetInfo(string roomName, string roomMode, string password)
+        {
+            try
+            {
+                var db = FirebaseConfig.database;
+                string roomId = Guid.NewGuid().ToString();
+
+                int pomodoro = (int)numUpDown_Pomodoro.Value;
+                int shortBreak = (int)numUpDown_Break.Value;
+                string hashedPassword = string.IsNullOrEmpty(password) ? "" : HashPassword(password);
+
+                // Tạo mã mời ngẫu nhiên
+                string inviteCode = Guid.NewGuid().ToString().Substring(0, 6).ToUpper();
+
+                var room = new
+                {
+                    roomId = roomId,
+                    room_name = roomName,
+                    invite_code = inviteCode,
+                    host_id = "guest", // Thay bằng user ID thực tế
+                    type = roomMode,
+                    password = hashedPassword,
+                    currentImageIndex = currentImageIndex,
+                    pomodoro = pomodoro,
+                    short_break = shortBreak,
+                    currentIndex = currentIndex,
+                    created_at = DateTime.Now.ToString("yyyy-MM-ddTHH:mm:ss")
+                };
+
+                var roomRef = db.Collection("Room").Document(roomId);
+                await roomRef.SetAsync(room);
+
+                return new RoomInfo { RoomId = roomId, InviteCode = inviteCode };
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"Có lỗi khi tạo phòng: {ex.Message}");
+                return null;
+            }
+        }
+
+        // Lớp helper để lưu thông tin phòng
+        public class RoomInfo
+        {
+            public string RoomId { get; set; }
+            public string InviteCode { get; set; }
         }
     }
 }

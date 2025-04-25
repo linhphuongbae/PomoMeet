@@ -514,6 +514,7 @@
             sbtn_InviteFriends.TooltipText = null;
             sbtn_InviteFriends.UseAdvancedRendering = true;
             sbtn_InviteFriends.UseParticles = false;
+            sbtn_InviteFriends.Click += sbtn_InviteFriends_Click;
             // 
             // pb_Background
             // 
