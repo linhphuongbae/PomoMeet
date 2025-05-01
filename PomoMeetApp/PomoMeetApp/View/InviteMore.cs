@@ -17,6 +17,24 @@ namespace PomoMeetApp.View
             InitializeComponent();
         }
 
+        private void siticonePanel2_Paint(object sender, PaintEventArgs e)
+        {
 
+        }
+
+        private void siticoneButton2_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void siticoneLabel3_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void siticonePanel1_Paint(object sender, PaintEventArgs e)
+        {
+
+        }
     }
 }
