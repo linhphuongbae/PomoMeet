@@ -253,16 +253,6 @@ namespace PomoMeetApp.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
-        internal static System.Drawing.Bitmap call_end {
-            get {
-                object obj = ResourceManager.GetObject("call_end", resourceCulture);
-                return ((System.Drawing.Bitmap)(obj));
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized resource of type System.Drawing.Bitmap.
-        /// </summary>
         internal static System.Drawing.Bitmap cam_off {
             get {
                 object obj = ResourceManager.GetObject("cam_off", resourceCulture);
@@ -283,9 +273,9 @@ namespace PomoMeetApp.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
-        internal static System.Drawing.Bitmap change_host {
+        internal static System.Drawing.Bitmap cancel_end {
             get {
-                object obj = ResourceManager.GetObject("change_host", resourceCulture);
+                object obj = ResourceManager.GetObject("cancel_end", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
@@ -293,9 +283,9 @@ namespace PomoMeetApp.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
-        internal static System.Drawing.Bitmap change_host_2 {
+        internal static System.Drawing.Bitmap change_host1 {
             get {
-                object obj = ResourceManager.GetObject("change_host_2", resourceCulture);
+                object obj = ResourceManager.GetObject("change_host1", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
@@ -503,6 +493,16 @@ namespace PomoMeetApp.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
+        internal static System.Drawing.Bitmap mic {
+            get {
+                object obj = ResourceManager.GetObject("mic", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
         internal static System.Drawing.Bitmap mic_off {
             get {
                 object obj = ResourceManager.GetObject("mic_off", resourceCulture);
@@ -626,6 +626,16 @@ namespace PomoMeetApp.Properties {
         internal static System.Drawing.Bitmap next_button {
             get {
                 object obj = ResourceManager.GetObject("next_button", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap panel {
+            get {
+                object obj = ResourceManager.GetObject("panel", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
@@ -826,6 +836,16 @@ namespace PomoMeetApp.Properties {
         internal static System.Drawing.Bitmap studyBackground3 {
             get {
                 object obj = ResourceManager.GetObject("studyBackground3", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap videocam {
+            get {
+                object obj = ResourceManager.GetObject("videocam", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }

@@ -40,7 +40,7 @@ namespace PomoMeetApp.View
 
         private void OpenSignInForm()
         {
-            SingIn signinForm = new SingIn();
+            SignIn signinForm = new SignIn();
             signinForm.FormClosed += (sender, e) =>
             {
                 this.Close(); // Đóng Form Logo khi Form Đăng Ký đóng
@@ -62,11 +62,6 @@ namespace PomoMeetApp.View
                 g.DrawImage(img, new Rectangle(0, 0, img.Width, img.Height), 0, 0, img.Width, img.Height, GraphicsUnit.Pixel, attributes);
             }
             return bmp;
-        }
-
-        private void StartApp_Load(object sender, EventArgs e)
-        {
-
         }
     }
 }

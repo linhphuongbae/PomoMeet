@@ -15,10 +15,12 @@ namespace PomoMeetApp.View
     public partial class MeetingRoom : Form
     {
         private ImageList imageListAvatars;
+        private string currentUserId;
 
-        public MeetingRoom()
+        public MeetingRoom(string userId)
         {
             InitializeComponent();
+            currentUserId = userId;
             InitializeMeetingRoomComponents();
         }
 

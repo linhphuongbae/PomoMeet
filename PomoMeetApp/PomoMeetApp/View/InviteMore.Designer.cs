@@ -681,7 +681,7 @@
             // 
             AutoScaleDimensions = new SizeF(8F, 20F);
             AutoScaleMode = AutoScaleMode.Font;
-            ClientSize = new Size(1180, 721);
+            ClientSize = new Size(1023, 721);
             Controls.Add(siticonePanel1);
             Controls.Add(siticonePanel2);
             Name = "InviteMore";

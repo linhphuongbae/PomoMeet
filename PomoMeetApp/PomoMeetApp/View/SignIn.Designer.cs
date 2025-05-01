@@ -1,6 +1,6 @@
 ﻿namespace PomoMeetApp.View
 {
-    partial class SingIn
+    partial class SignIn
     {
         /// <summary>
         /// Required designer variable.

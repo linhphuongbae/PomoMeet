@@ -24,9 +24,7 @@ namespace PomoMeetApp.View
 
         private void siticoneButton4_Click(object sender, EventArgs e)
         {
-            CreateRoom cr = new CreateRoom();
-            cr.StartPosition = FormStartPosition.CenterScreen; // cho nó vào giữa màn hình
-            cr.Show();
+
         }
 
         private void siticoneButton7_Click(object sender, EventArgs e)

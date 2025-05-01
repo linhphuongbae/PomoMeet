@@ -30,8 +30,8 @@
         {
             components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(MeetingRoom));
-            SiticoneNetCoreUI.SiticoneFlowPanel.LayoutState layoutState1 = new SiticoneNetCoreUI.SiticoneFlowPanel.LayoutState();
-            SiticoneNetCoreUI.SiticoneFlowPanel.LayoutState layoutState2 = new SiticoneNetCoreUI.SiticoneFlowPanel.LayoutState();
+            SiticoneNetCoreUI.SiticoneFlowPanel.LayoutState layoutState3 = new SiticoneNetCoreUI.SiticoneFlowPanel.LayoutState();
+            SiticoneNetCoreUI.SiticoneFlowPanel.LayoutState layoutState4 = new SiticoneNetCoreUI.SiticoneFlowPanel.LayoutState();
             siticoneAdvancedPanel1 = new SiticoneNetCoreUI.SiticoneAdvancedPanel();
             btn_break = new SiticoneNetCoreUI.SiticoneButton();
             btn_pomodoro = new SiticoneNetCoreUI.SiticoneButton();
@@ -48,14 +48,6 @@
             label3 = new Label();
             pictureBox3 = new PictureBox();
             siticoneImageButton8 = new SiticoneNetCoreUI.SiticoneImageButton();
-            siticoneAdvancedPanel2 = new SiticoneNetCoreUI.SiticoneAdvancedPanel();
-            siticoneImageButton5 = new SiticoneNetCoreUI.SiticoneImageButton();
-            siticoneImageButton4 = new SiticoneNetCoreUI.SiticoneImageButton();
-            siticoneImageButton3 = new SiticoneNetCoreUI.SiticoneImageButton();
-            panel4 = new Panel();
-            siticoneImageButton6 = new SiticoneNetCoreUI.SiticoneImageButton();
-            panel5 = new Panel();
-            siticoneImageButton7 = new SiticoneNetCoreUI.SiticoneImageButton();
             btn_add_participants = new SiticoneNetCoreUI.SiticoneImageButton();
             panel6 = new Panel();
             lb_participant = new SiticoneNetCoreUI.SiticoneLabel();
@@ -68,7 +60,7 @@
             colCamera = new ColumnHeader();
             imageListAvatar = new ImageList(components);
             Avatar = new ColumnHeader();
-            Name = new ColumnHeader();
+            Ten = new ColumnHeader();
             Mic = new ColumnHeader();
             Camera = new ColumnHeader();
             tableLayoutPanel1 = new TableLayoutPanel();
@@ -80,6 +72,12 @@
             siticoneTextBox2 = new SiticoneNetCoreUI.SiticoneTextBox();
             userProfilePanel1 = new UserProfilePanel();
             sideBar1 = new SideBar();
+            siticoneButton1 = new SiticoneNetCoreUI.SiticoneButton();
+            sbtn_CancelCall = new SiticoneNetCoreUI.SiticoneButton();
+            siticonePanel1 = new SiticoneNetCoreUI.SiticonePanel();
+            siticoneButton4 = new SiticoneNetCoreUI.SiticoneButton();
+            siticoneButton3 = new SiticoneNetCoreUI.SiticoneButton();
+            siticoneButton2 = new SiticoneNetCoreUI.SiticoneButton();
             siticoneAdvancedPanel1.SuspendLayout();
             panel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)pictureBox1).BeginInit();
@@ -87,14 +85,12 @@
             ((System.ComponentModel.ISupportInitialize)pictureBox2).BeginInit();
             panel3.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)pictureBox3).BeginInit();
-            siticoneAdvancedPanel2.SuspendLayout();
-            panel4.SuspendLayout();
-            panel5.SuspendLayout();
             panel6.SuspendLayout();
             participants_panel.SuspendLayout();
             tableLayoutPanel1.SuspendLayout();
             panel7.SuspendLayout();
             panel8.SuspendLayout();
+            siticonePanel1.SuspendLayout();
             SuspendLayout();
             // 
             // siticoneAdvancedPanel1
@@ -632,274 +628,6 @@
             siticoneImageButton8.Text = "siticoneImageButton8";
             siticoneImageButton8.TrackSystemTheme = false;
             // 
-            // siticoneAdvancedPanel2
-            // 
-            siticoneAdvancedPanel2.ActiveBackColor = Color.Empty;
-            siticoneAdvancedPanel2.ActiveBorderColor = Color.Empty;
-            siticoneAdvancedPanel2.AdvancedBorderStyle = SiticoneNetCoreUI.SiticoneAdvancedPanel.BorderStyleEx.Solid;
-            siticoneAdvancedPanel2.AnimationDuration = 500;
-            siticoneAdvancedPanel2.AnimationType = SiticoneNetCoreUI.SiticoneAdvancedPanel.AnimationTypeEx.Fade;
-            siticoneAdvancedPanel2.BackColor = Color.DarkSeaGreen;
-            siticoneAdvancedPanel2.BackgroundImageCustom = null;
-            siticoneAdvancedPanel2.BackgroundImageOpacity = 1F;
-            siticoneAdvancedPanel2.BackgroundImageSizeMode = SiticoneNetCoreUI.SiticoneAdvancedPanel.ImageSizeModeEx.Stretch;
-            siticoneAdvancedPanel2.BackgroundOverlayColor = Color.FromArgb(0, 0, 0, 0);
-            siticoneAdvancedPanel2.BorderColor = Color.Gray;
-            siticoneAdvancedPanel2.BorderDashPattern = null;
-            siticoneAdvancedPanel2.BorderGlowColor = Color.Cyan;
-            siticoneAdvancedPanel2.BorderGlowSize = 3F;
-            siticoneAdvancedPanel2.BorderWidth = 1F;
-            siticoneAdvancedPanel2.BottomLeftRadius = 5;
-            siticoneAdvancedPanel2.BottomRightRadius = 5;
-            siticoneAdvancedPanel2.ContentAlignmentCustom = ContentAlignment.MiddleCenter;
-            siticoneAdvancedPanel2.Controls.Add(siticoneImageButton5);
-            siticoneAdvancedPanel2.Controls.Add(siticoneImageButton4);
-            siticoneAdvancedPanel2.Controls.Add(siticoneImageButton3);
-            siticoneAdvancedPanel2.CornerPadding = new Padding(5);
-            siticoneAdvancedPanel2.DisabledBackColor = Color.Empty;
-            siticoneAdvancedPanel2.DisabledBorderColor = Color.Empty;
-            siticoneAdvancedPanel2.DoubleBorderSpacing = 2F;
-            siticoneAdvancedPanel2.EasingType = SiticoneNetCoreUI.SiticoneAdvancedPanel.EasingTypeEx.Linear;
-            siticoneAdvancedPanel2.EnableAnimation = false;
-            siticoneAdvancedPanel2.EnableBackgroundImage = false;
-            siticoneAdvancedPanel2.EnableBorderGlow = false;
-            siticoneAdvancedPanel2.EnableDoubleBorder = false;
-            siticoneAdvancedPanel2.EnableGradient = true;
-            siticoneAdvancedPanel2.EnableInnerShadow = false;
-            siticoneAdvancedPanel2.EnableShadow = false;
-            siticoneAdvancedPanel2.EnableSmartPadding = true;
-            siticoneAdvancedPanel2.EnableStateStyles = false;
-            siticoneAdvancedPanel2.FlowDirectionCustom = FlowDirection.LeftToRight;
-            siticoneAdvancedPanel2.GradientAngle = 90F;
-            siticoneAdvancedPanel2.GradientEndColor = Color.DarkSeaGreen;
-            siticoneAdvancedPanel2.GradientStartColor = Color.DarkSeaGreen;
-            siticoneAdvancedPanel2.GradientType = SiticoneNetCoreUI.SiticoneAdvancedPanel.GradientTypeEx.Linear;
-            siticoneAdvancedPanel2.HoverBackColor = Color.Empty;
-            siticoneAdvancedPanel2.HoverBorderColor = Color.Empty;
-            siticoneAdvancedPanel2.InnerShadowColor = Color.Black;
-            siticoneAdvancedPanel2.InnerShadowDepth = 3;
-            siticoneAdvancedPanel2.InnerShadowOpacity = 0.2F;
-            siticoneAdvancedPanel2.Location = new Point(428, 772);
-            siticoneAdvancedPanel2.Name = "siticoneAdvancedPanel2";
-            siticoneAdvancedPanel2.Padding = new Padding(9, 10, 9, 10);
-            siticoneAdvancedPanel2.RadialGradientCenter = (PointF)resources.GetObject("siticoneAdvancedPanel2.RadialGradientCenter");
-            siticoneAdvancedPanel2.RadialGradientRadius = 1F;
-            siticoneAdvancedPanel2.ScaleRatio = 0.8F;
-            siticoneAdvancedPanel2.SecondaryBorderColor = Color.DarkGray;
-            siticoneAdvancedPanel2.ShadowBlur = 10;
-            siticoneAdvancedPanel2.ShadowColor = Color.Black;
-            siticoneAdvancedPanel2.ShadowDepth = 5;
-            siticoneAdvancedPanel2.ShadowOffset = new Point(2, 2);
-            siticoneAdvancedPanel2.ShadowOpacity = 0.3F;
-            siticoneAdvancedPanel2.Size = new Size(364, 50);
-            siticoneAdvancedPanel2.SlideDirection = new Point(0, -30);
-            siticoneAdvancedPanel2.TabIndex = 5;
-            siticoneAdvancedPanel2.TopLeftRadius = 5;
-            siticoneAdvancedPanel2.TopRightRadius = 5;
-            // 
-            // siticoneImageButton5
-            // 
-            siticoneImageButton5.AnimationSpeed = 0.15F;
-            siticoneImageButton5.BackColor = Color.Transparent;
-            siticoneImageButton5.BackgroundFillColor = Color.Transparent;
-            siticoneImageButton5.BadgeAnimationEnabled = true;
-            siticoneImageButton5.BadgeAnimationSpeed = 0.15F;
-            siticoneImageButton5.BadgeColor = Color.Transparent;
-            siticoneImageButton5.BadgeFont = new Font("Segoe UI", 8F, FontStyle.Bold);
-            siticoneImageButton5.BadgePosition = SiticoneNetCoreUI.BadgePosition.TopRight;
-            siticoneImageButton5.BadgeTextColor = Color.Transparent;
-            siticoneImageButton5.BadgeValue = 0;
-            siticoneImageButton5.BorderColor = Color.Transparent;
-            siticoneImageButton5.BorderThickness = 2;
-            siticoneImageButton5.CanBeep = true;
-            siticoneImageButton5.CanShake = true;
-            siticoneImageButton5.CornerRadiusBottomLeft = 15F;
-            siticoneImageButton5.CornerRadiusBottomRight = 15F;
-            siticoneImageButton5.CornerRadiusTopLeft = 15F;
-            siticoneImageButton5.CornerRadiusTopRight = 15F;
-            siticoneImageButton5.ImageDown = null;
-            siticoneImageButton5.ImageHover = null;
-            siticoneImageButton5.ImageNormal = Properties.Resources.icon_sound_on;
-            siticoneImageButton5.ImageSizing = SiticoneNetCoreUI.ImageSizingMode.Zoom;
-            siticoneImageButton5.IsReadOnly = false;
-            siticoneImageButton5.Location = new Point(302, 7);
-            siticoneImageButton5.MakeRadial = true;
-            siticoneImageButton5.Name = "siticoneImageButton5";
-            siticoneImageButton5.PlaceholderImage = null;
-            siticoneImageButton5.RippleColor = Color.FromArgb(50, 0, 0, 0);
-            siticoneImageButton5.RippleEnabled = true;
-            siticoneImageButton5.Size = new Size(33, 35);
-            siticoneImageButton5.SpringEffectEnabled = true;
-            siticoneImageButton5.TabIndex = 2;
-            siticoneImageButton5.Text = "btn_mic";
-            siticoneImageButton5.TrackSystemTheme = false;
-            // 
-            // siticoneImageButton4
-            // 
-            siticoneImageButton4.AnimationSpeed = 0.15F;
-            siticoneImageButton4.BackColor = Color.Transparent;
-            siticoneImageButton4.BackgroundFillColor = Color.Transparent;
-            siticoneImageButton4.BadgeAnimationEnabled = true;
-            siticoneImageButton4.BadgeAnimationSpeed = 0.15F;
-            siticoneImageButton4.BadgeColor = Color.Transparent;
-            siticoneImageButton4.BadgeFont = new Font("Segoe UI", 8F, FontStyle.Bold);
-            siticoneImageButton4.BadgePosition = SiticoneNetCoreUI.BadgePosition.TopRight;
-            siticoneImageButton4.BadgeTextColor = Color.Transparent;
-            siticoneImageButton4.BadgeValue = 0;
-            siticoneImageButton4.BorderColor = Color.Transparent;
-            siticoneImageButton4.BorderThickness = 2;
-            siticoneImageButton4.CanBeep = true;
-            siticoneImageButton4.CanShake = true;
-            siticoneImageButton4.CornerRadiusBottomLeft = 16.5F;
-            siticoneImageButton4.CornerRadiusBottomRight = 16.5F;
-            siticoneImageButton4.CornerRadiusTopLeft = 16.5F;
-            siticoneImageButton4.CornerRadiusTopRight = 16.5F;
-            siticoneImageButton4.ImageDown = null;
-            siticoneImageButton4.ImageHover = null;
-            siticoneImageButton4.ImageNormal = Properties.Resources.cam_on;
-            siticoneImageButton4.ImageSizing = SiticoneNetCoreUI.ImageSizingMode.Zoom;
-            siticoneImageButton4.IsReadOnly = false;
-            siticoneImageButton4.Location = new Point(173, 7);
-            siticoneImageButton4.MakeRadial = true;
-            siticoneImageButton4.Name = "siticoneImageButton4";
-            siticoneImageButton4.PlaceholderImage = null;
-            siticoneImageButton4.RippleColor = Color.FromArgb(50, 0, 0, 0);
-            siticoneImageButton4.RippleEnabled = true;
-            siticoneImageButton4.Size = new Size(36, 38);
-            siticoneImageButton4.SpringEffectEnabled = true;
-            siticoneImageButton4.TabIndex = 1;
-            siticoneImageButton4.Text = "btn_mic";
-            siticoneImageButton4.TrackSystemTheme = false;
-            // 
-            // siticoneImageButton3
-            // 
-            siticoneImageButton3.AnimationSpeed = 0.15F;
-            siticoneImageButton3.BackColor = Color.Transparent;
-            siticoneImageButton3.BackgroundFillColor = Color.Transparent;
-            siticoneImageButton3.BadgeAnimationEnabled = true;
-            siticoneImageButton3.BadgeAnimationSpeed = 0.15F;
-            siticoneImageButton3.BadgeColor = Color.Transparent;
-            siticoneImageButton3.BadgeFont = new Font("Segoe UI", 8F, FontStyle.Bold);
-            siticoneImageButton3.BadgePosition = SiticoneNetCoreUI.BadgePosition.TopRight;
-            siticoneImageButton3.BadgeTextColor = Color.Transparent;
-            siticoneImageButton3.BadgeValue = 0;
-            siticoneImageButton3.BorderColor = Color.Transparent;
-            siticoneImageButton3.BorderThickness = 2;
-            siticoneImageButton3.CanBeep = true;
-            siticoneImageButton3.CanShake = true;
-            siticoneImageButton3.CornerRadiusBottomLeft = 16.5F;
-            siticoneImageButton3.CornerRadiusBottomRight = 16.5F;
-            siticoneImageButton3.CornerRadiusTopLeft = 16.5F;
-            siticoneImageButton3.CornerRadiusTopRight = 16.5F;
-            siticoneImageButton3.ImageDown = null;
-            siticoneImageButton3.ImageHover = null;
-            siticoneImageButton3.ImageNormal = Properties.Resources.mic_on;
-            siticoneImageButton3.ImageSizing = SiticoneNetCoreUI.ImageSizingMode.Zoom;
-            siticoneImageButton3.IsReadOnly = false;
-            siticoneImageButton3.Location = new Point(40, 8);
-            siticoneImageButton3.MakeRadial = true;
-            siticoneImageButton3.Name = "siticoneImageButton3";
-            siticoneImageButton3.PlaceholderImage = null;
-            siticoneImageButton3.RippleColor = Color.FromArgb(50, 0, 0, 0);
-            siticoneImageButton3.RippleEnabled = true;
-            siticoneImageButton3.Size = new Size(36, 38);
-            siticoneImageButton3.SpringEffectEnabled = true;
-            siticoneImageButton3.TabIndex = 0;
-            siticoneImageButton3.Text = "btn_mic";
-            siticoneImageButton3.TrackSystemTheme = false;
-            // 
-            // panel4
-            // 
-            panel4.BackColor = Color.Red;
-            panel4.Controls.Add(siticoneImageButton6);
-            panel4.Location = new Point(822, 772);
-            panel4.Name = "panel4";
-            panel4.Size = new Size(100, 50);
-            panel4.TabIndex = 6;
-            // 
-            // siticoneImageButton6
-            // 
-            siticoneImageButton6.AnimationSpeed = 0.15F;
-            siticoneImageButton6.BackColor = Color.Transparent;
-            siticoneImageButton6.BackgroundFillColor = Color.Transparent;
-            siticoneImageButton6.BadgeAnimationEnabled = true;
-            siticoneImageButton6.BadgeAnimationSpeed = 0.15F;
-            siticoneImageButton6.BadgeColor = Color.Transparent;
-            siticoneImageButton6.BadgeFont = new Font("Segoe UI", 8F, FontStyle.Bold);
-            siticoneImageButton6.BadgePosition = SiticoneNetCoreUI.BadgePosition.TopRight;
-            siticoneImageButton6.BadgeTextColor = Color.Transparent;
-            siticoneImageButton6.BadgeValue = 0;
-            siticoneImageButton6.BorderColor = Color.Transparent;
-            siticoneImageButton6.BorderThickness = 2;
-            siticoneImageButton6.CanBeep = true;
-            siticoneImageButton6.CanShake = true;
-            siticoneImageButton6.CornerRadiusBottomLeft = 17F;
-            siticoneImageButton6.CornerRadiusBottomRight = 17F;
-            siticoneImageButton6.CornerRadiusTopLeft = 17F;
-            siticoneImageButton6.CornerRadiusTopRight = 17F;
-            siticoneImageButton6.ImageDown = null;
-            siticoneImageButton6.ImageHover = null;
-            siticoneImageButton6.ImageNormal = Properties.Resources.call_end;
-            siticoneImageButton6.ImageSizing = SiticoneNetCoreUI.ImageSizingMode.Zoom;
-            siticoneImageButton6.IsReadOnly = false;
-            siticoneImageButton6.Location = new Point(31, 8);
-            siticoneImageButton6.MakeRadial = true;
-            siticoneImageButton6.Name = "siticoneImageButton6";
-            siticoneImageButton6.PlaceholderImage = null;
-            siticoneImageButton6.RippleColor = Color.FromArgb(50, 0, 0, 0);
-            siticoneImageButton6.RippleEnabled = true;
-            siticoneImageButton6.Size = new Size(37, 40);
-            siticoneImageButton6.SpringEffectEnabled = true;
-            siticoneImageButton6.TabIndex = 3;
-            siticoneImageButton6.Text = "btn_mic";
-            siticoneImageButton6.TrackSystemTheme = false;
-            // 
-            // panel5
-            // 
-            panel5.BackColor = Color.Yellow;
-            panel5.Controls.Add(siticoneImageButton7);
-            panel5.Location = new Point(313, 772);
-            panel5.Name = "panel5";
-            panel5.Size = new Size(77, 50);
-            panel5.TabIndex = 7;
-            // 
-            // siticoneImageButton7
-            // 
-            siticoneImageButton7.AnimationSpeed = 0.15F;
-            siticoneImageButton7.BackColor = Color.Transparent;
-            siticoneImageButton7.BackgroundFillColor = Color.Transparent;
-            siticoneImageButton7.BadgeAnimationEnabled = true;
-            siticoneImageButton7.BadgeAnimationSpeed = 0.15F;
-            siticoneImageButton7.BadgeColor = Color.Transparent;
-            siticoneImageButton7.BadgeFont = new Font("Segoe UI", 8F, FontStyle.Bold);
-            siticoneImageButton7.BadgePosition = SiticoneNetCoreUI.BadgePosition.TopRight;
-            siticoneImageButton7.BadgeTextColor = Color.Transparent;
-            siticoneImageButton7.BadgeValue = 0;
-            siticoneImageButton7.BorderColor = Color.Transparent;
-            siticoneImageButton7.BorderThickness = 2;
-            siticoneImageButton7.CanBeep = true;
-            siticoneImageButton7.CanShake = true;
-            siticoneImageButton7.CornerRadiusBottomLeft = 16.5F;
-            siticoneImageButton7.CornerRadiusBottomRight = 16.5F;
-            siticoneImageButton7.CornerRadiusTopLeft = 16.5F;
-            siticoneImageButton7.CornerRadiusTopRight = 16.5F;
-            siticoneImageButton7.ImageDown = null;
-            siticoneImageButton7.ImageHover = null;
-            siticoneImageButton7.ImageNormal = Properties.Resources.change_host_2;
-            siticoneImageButton7.ImageSizing = SiticoneNetCoreUI.ImageSizingMode.Zoom;
-            siticoneImageButton7.IsReadOnly = false;
-            siticoneImageButton7.Location = new Point(20, 8);
-            siticoneImageButton7.MakeRadial = true;
-            siticoneImageButton7.Name = "siticoneImageButton7";
-            siticoneImageButton7.PlaceholderImage = null;
-            siticoneImageButton7.RippleColor = Color.FromArgb(50, 0, 0, 0);
-            siticoneImageButton7.RippleEnabled = true;
-            siticoneImageButton7.Size = new Size(36, 38);
-            siticoneImageButton7.SpringEffectEnabled = true;
-            siticoneImageButton7.TabIndex = 3;
-            siticoneImageButton7.Text = "btn_mic";
-            siticoneImageButton7.TrackSystemTheme = false;
-            // 
             // btn_add_participants
             // 
             btn_add_participants.AnimationSpeed = 0.15F;
@@ -939,17 +667,17 @@
             // 
             // panel6
             // 
-            panel6.BackColor = Color.DarkSeaGreen;
+            panel6.BackColor = Color.FromArgb(117, 164, 127);
             panel6.Controls.Add(lb_participant);
             panel6.Controls.Add(btn_add_participants);
             panel6.Location = new Point(3, 3);
             panel6.Name = "panel6";
             panel6.Size = new Size(264, 44);
             panel6.TabIndex = 0;
-            layoutState1.Location = new Point(3, 3);
-            layoutState1.Size = new Size(302, 61);
-            layoutState1.Visible = true;
-            panel6.Tag = layoutState1;
+            layoutState3.Location = new Point(3, 3);
+            layoutState3.Size = new Size(302, 61);
+            layoutState3.Visible = true;
+            panel6.Tag = layoutState3;
             // 
             // lb_participant
             // 
@@ -1084,7 +812,7 @@
             // 
             // Name
             // 
-            Name.Width = 150;
+            Ten.Width = 150;
             // 
             // Mic
             // 
@@ -1114,17 +842,17 @@
             // 
             // panel7
             // 
-            panel7.BackColor = Color.DarkSeaGreen;
+            panel7.BackColor = Color.FromArgb(117, 164, 127);
             panel7.Controls.Add(siticoneImageButton9);
             panel7.Controls.Add(siticoneLabel2);
             panel7.Location = new Point(3, 3);
             panel7.Name = "panel7";
             panel7.Size = new Size(264, 53);
             panel7.TabIndex = 0;
-            layoutState2.Location = new Point(3, 3);
-            layoutState2.Size = new Size(302, 61);
-            layoutState2.Visible = true;
-            panel7.Tag = layoutState2;
+            layoutState4.Location = new Point(3, 3);
+            layoutState4.Size = new Size(302, 61);
+            layoutState4.Visible = true;
+            panel7.Tag = layoutState4;
             // 
             // siticoneImageButton9
             // 
@@ -1290,19 +1018,450 @@
             sideBar1.Size = new Size(277, 1250);
             sideBar1.TabIndex = 32;
             // 
+            // siticoneButton1
+            // 
+            siticoneButton1.AccessibleDescription = "The default button control that accept input though the mouse, touch and keyboard";
+            siticoneButton1.AccessibleName = "";
+            siticoneButton1.AutoSizeBasedOnText = false;
+            siticoneButton1.BackColor = Color.Transparent;
+            siticoneButton1.BackgroundImage = Properties.Resources.change_host1;
+            siticoneButton1.BadgeBackColor = Color.Transparent;
+            siticoneButton1.BadgeFont = new Font("Segoe UI", 8F, FontStyle.Bold);
+            siticoneButton1.BadgeValue = 0;
+            siticoneButton1.BadgeValueForeColor = Color.White;
+            siticoneButton1.BorderColor = Color.Transparent;
+            siticoneButton1.BorderWidth = 2;
+            siticoneButton1.ButtonBackColor = Color.Transparent;
+            siticoneButton1.ButtonImage = null;
+            siticoneButton1.CanBeep = true;
+            siticoneButton1.CanGlow = false;
+            siticoneButton1.CanShake = true;
+            siticoneButton1.ContextMenuStripEx = null;
+            siticoneButton1.CornerRadiusBottomLeft = 10;
+            siticoneButton1.CornerRadiusBottomRight = 10;
+            siticoneButton1.CornerRadiusTopLeft = 10;
+            siticoneButton1.CornerRadiusTopRight = 10;
+            siticoneButton1.CustomCursor = Cursors.Default;
+            siticoneButton1.DisabledTextColor = Color.FromArgb(150, 150, 150);
+            siticoneButton1.EnableLongPress = false;
+            siticoneButton1.EnablePressAnimation = true;
+            siticoneButton1.EnableRippleEffect = true;
+            siticoneButton1.EnableShadow = false;
+            siticoneButton1.EnableTextWrapping = false;
+            siticoneButton1.Font = new Font("Segoe UI", 9F);
+            siticoneButton1.GlowColor = Color.FromArgb(100, 255, 255, 255);
+            siticoneButton1.GlowIntensity = 100;
+            siticoneButton1.GlowRadius = 20F;
+            siticoneButton1.GradientBackground = false;
+            siticoneButton1.GradientColor = Color.Transparent;
+            siticoneButton1.GradientMode = System.Drawing.Drawing2D.LinearGradientMode.Vertical;
+            siticoneButton1.HintText = null;
+            siticoneButton1.HoverBackColor = Color.Transparent;
+            siticoneButton1.HoverFontStyle = FontStyle.Regular;
+            siticoneButton1.HoverTextColor = Color.White;
+            siticoneButton1.HoverTransitionDuration = 250;
+            siticoneButton1.ImageAlign = ContentAlignment.MiddleLeft;
+            siticoneButton1.ImagePadding = 5;
+            siticoneButton1.ImageSize = new Size(16, 16);
+            siticoneButton1.IsRadial = false;
+            siticoneButton1.IsReadOnly = false;
+            siticoneButton1.IsToggleButton = false;
+            siticoneButton1.IsToggled = false;
+            siticoneButton1.Location = new Point(313, 772);
+            siticoneButton1.LongPressDurationMS = 1000;
+            siticoneButton1.Name = "siticoneButton1";
+            siticoneButton1.NormalFontStyle = FontStyle.Regular;
+            siticoneButton1.ParticleColor = Color.FromArgb(200, 200, 200);
+            siticoneButton1.ParticleCount = 15;
+            siticoneButton1.PressAnimationScale = 0.97F;
+            siticoneButton1.PressedBackColor = Color.Transparent;
+            siticoneButton1.PressedFontStyle = FontStyle.Regular;
+            siticoneButton1.PressTransitionDuration = 150;
+            siticoneButton1.ReadOnlyTextColor = Color.FromArgb(100, 100, 100);
+            siticoneButton1.RippleColor = Color.FromArgb(255, 255, 255);
+            siticoneButton1.RippleOpacity = 0.3F;
+            siticoneButton1.RippleRadiusMultiplier = 0.6F;
+            siticoneButton1.ShadowBlur = 5;
+            siticoneButton1.ShadowColor = Color.FromArgb(100, 0, 0, 0);
+            siticoneButton1.ShadowOffset = new Point(2, 2);
+            siticoneButton1.ShakeDuration = 500;
+            siticoneButton1.ShakeIntensity = 5;
+            siticoneButton1.Size = new Size(72, 53);
+            siticoneButton1.TabIndex = 33;
+            siticoneButton1.TextAlign = ContentAlignment.MiddleCenter;
+            siticoneButton1.TextColor = Color.White;
+            siticoneButton1.TooltipText = null;
+            siticoneButton1.UseAdvancedRendering = true;
+            siticoneButton1.UseParticles = false;
+            // 
+            // sbtn_CancelCall
+            // 
+            sbtn_CancelCall.AccessibleDescription = "The default button control that accept input though the mouse, touch and keyboard";
+            sbtn_CancelCall.AccessibleName = "";
+            sbtn_CancelCall.AutoSizeBasedOnText = false;
+            sbtn_CancelCall.BackColor = Color.Transparent;
+            sbtn_CancelCall.BackgroundImage = Properties.Resources.cancel_end;
+            sbtn_CancelCall.BadgeBackColor = Color.Transparent;
+            sbtn_CancelCall.BadgeFont = new Font("Segoe UI", 8F, FontStyle.Bold);
+            sbtn_CancelCall.BadgeValue = 0;
+            sbtn_CancelCall.BadgeValueForeColor = Color.White;
+            sbtn_CancelCall.BorderColor = Color.Transparent;
+            sbtn_CancelCall.BorderWidth = 2;
+            sbtn_CancelCall.ButtonBackColor = Color.Transparent;
+            sbtn_CancelCall.ButtonImage = null;
+            sbtn_CancelCall.CanBeep = true;
+            sbtn_CancelCall.CanGlow = false;
+            sbtn_CancelCall.CanShake = true;
+            sbtn_CancelCall.ContextMenuStripEx = null;
+            sbtn_CancelCall.CornerRadiusBottomLeft = 10;
+            sbtn_CancelCall.CornerRadiusBottomRight = 10;
+            sbtn_CancelCall.CornerRadiusTopLeft = 10;
+            sbtn_CancelCall.CornerRadiusTopRight = 10;
+            sbtn_CancelCall.CustomCursor = Cursors.Default;
+            sbtn_CancelCall.DisabledTextColor = Color.FromArgb(150, 150, 150);
+            sbtn_CancelCall.EnableLongPress = false;
+            sbtn_CancelCall.EnablePressAnimation = true;
+            sbtn_CancelCall.EnableRippleEffect = true;
+            sbtn_CancelCall.EnableShadow = false;
+            sbtn_CancelCall.EnableTextWrapping = false;
+            sbtn_CancelCall.Font = new Font("Segoe UI", 9F);
+            sbtn_CancelCall.GlowColor = Color.FromArgb(100, 255, 255, 255);
+            sbtn_CancelCall.GlowIntensity = 100;
+            sbtn_CancelCall.GlowRadius = 20F;
+            sbtn_CancelCall.GradientBackground = false;
+            sbtn_CancelCall.GradientColor = Color.Transparent;
+            sbtn_CancelCall.GradientMode = System.Drawing.Drawing2D.LinearGradientMode.Vertical;
+            sbtn_CancelCall.HintText = null;
+            sbtn_CancelCall.HoverBackColor = Color.Transparent;
+            sbtn_CancelCall.HoverFontStyle = FontStyle.Regular;
+            sbtn_CancelCall.HoverTextColor = Color.White;
+            sbtn_CancelCall.HoverTransitionDuration = 250;
+            sbtn_CancelCall.ImageAlign = ContentAlignment.MiddleLeft;
+            sbtn_CancelCall.ImagePadding = 5;
+            sbtn_CancelCall.ImageSize = new Size(16, 16);
+            sbtn_CancelCall.IsRadial = false;
+            sbtn_CancelCall.IsReadOnly = false;
+            sbtn_CancelCall.IsToggleButton = false;
+            sbtn_CancelCall.IsToggled = false;
+            sbtn_CancelCall.Location = new Point(853, 772);
+            sbtn_CancelCall.LongPressDurationMS = 1000;
+            sbtn_CancelCall.Name = "sbtn_CancelCall";
+            sbtn_CancelCall.NormalFontStyle = FontStyle.Regular;
+            sbtn_CancelCall.ParticleColor = Color.FromArgb(200, 200, 200);
+            sbtn_CancelCall.ParticleCount = 15;
+            sbtn_CancelCall.PressAnimationScale = 0.97F;
+            sbtn_CancelCall.PressedBackColor = Color.Transparent;
+            sbtn_CancelCall.PressedFontStyle = FontStyle.Regular;
+            sbtn_CancelCall.PressTransitionDuration = 150;
+            sbtn_CancelCall.ReadOnlyTextColor = Color.FromArgb(100, 100, 100);
+            sbtn_CancelCall.RippleColor = Color.FromArgb(255, 255, 255);
+            sbtn_CancelCall.RippleOpacity = 0.3F;
+            sbtn_CancelCall.RippleRadiusMultiplier = 0.6F;
+            sbtn_CancelCall.ShadowBlur = 5;
+            sbtn_CancelCall.ShadowColor = Color.FromArgb(100, 0, 0, 0);
+            sbtn_CancelCall.ShadowOffset = new Point(2, 2);
+            sbtn_CancelCall.ShakeDuration = 500;
+            sbtn_CancelCall.ShakeIntensity = 5;
+            sbtn_CancelCall.Size = new Size(72, 53);
+            sbtn_CancelCall.TabIndex = 34;
+            sbtn_CancelCall.TextAlign = ContentAlignment.MiddleCenter;
+            sbtn_CancelCall.TextColor = Color.White;
+            sbtn_CancelCall.TooltipText = null;
+            sbtn_CancelCall.UseAdvancedRendering = true;
+            sbtn_CancelCall.UseParticles = false;
+            // 
+            // siticonePanel1
+            // 
+            siticonePanel1.AcrylicTintColor = Color.Transparent;
+            siticonePanel1.BackColor = Color.Transparent;
+            siticonePanel1.BackgroundImage = Properties.Resources.panel;
+            siticonePanel1.BackgroundImageLayout = ImageLayout.None;
+            siticonePanel1.BorderAlignment = System.Drawing.Drawing2D.PenAlignment.Center;
+            siticonePanel1.BorderDashPattern = null;
+            siticonePanel1.BorderGradientEndColor = Color.Purple;
+            siticonePanel1.BorderGradientStartColor = Color.Blue;
+            siticonePanel1.BorderThickness = 2F;
+            siticonePanel1.Controls.Add(siticoneButton4);
+            siticonePanel1.Controls.Add(siticoneButton3);
+            siticonePanel1.Controls.Add(siticoneButton2);
+            siticonePanel1.CornerRadiusBottomLeft = 10F;
+            siticonePanel1.CornerRadiusBottomRight = 10F;
+            siticonePanel1.CornerRadiusTopLeft = 10F;
+            siticonePanel1.CornerRadiusTopRight = 10F;
+            siticonePanel1.EnableAcrylicEffect = false;
+            siticonePanel1.EnableMicaEffect = false;
+            siticonePanel1.EnableRippleEffect = false;
+            siticonePanel1.FillColor = Color.Transparent;
+            siticonePanel1.GradientColors = new Color[]
+    {
+    Color.White,
+    Color.LightGray,
+    Color.Gray
+    };
+            siticonePanel1.GradientPositions = new float[]
+    {
+    0F,
+    0.5F,
+    1F
+    };
+            siticonePanel1.Location = new Point(405, 772);
+            siticonePanel1.Name = "siticonePanel1";
+            siticonePanel1.PatternStyle = System.Drawing.Drawing2D.HatchStyle.Max;
+            siticonePanel1.RippleAlpha = 50;
+            siticonePanel1.RippleAlphaDecrement = 3;
+            siticonePanel1.RippleColor = Color.FromArgb(50, 255, 255, 255);
+            siticonePanel1.RippleMaxSize = 600F;
+            siticonePanel1.RippleSpeed = 15F;
+            siticonePanel1.ShowBorder = false;
+            siticonePanel1.Size = new Size(416, 58);
+            siticonePanel1.TabIndex = 35;
+            siticonePanel1.TabStop = true;
+            siticonePanel1.UseBorderGradient = false;
+            siticonePanel1.UseMultiGradient = false;
+            siticonePanel1.UsePatternTexture = false;
+            siticonePanel1.UseRadialGradient = false;
+            // 
+            // siticoneButton4
+            // 
+            siticoneButton4.AccessibleDescription = "The default button control that accept input though the mouse, touch and keyboard";
+            siticoneButton4.AccessibleName = "";
+            siticoneButton4.AutoSizeBasedOnText = false;
+            siticoneButton4.BackColor = Color.Transparent;
+            siticoneButton4.BackgroundImage = Properties.Resources.icon_sound_on;
+            siticoneButton4.BadgeBackColor = Color.Red;
+            siticoneButton4.BadgeFont = new Font("Segoe UI", 8F, FontStyle.Bold);
+            siticoneButton4.BadgeValue = 0;
+            siticoneButton4.BadgeValueForeColor = Color.White;
+            siticoneButton4.BorderColor = Color.Transparent;
+            siticoneButton4.BorderWidth = 2;
+            siticoneButton4.ButtonBackColor = Color.Transparent;
+            siticoneButton4.ButtonImage = null;
+            siticoneButton4.CanBeep = true;
+            siticoneButton4.CanGlow = false;
+            siticoneButton4.CanShake = true;
+            siticoneButton4.ContextMenuStripEx = null;
+            siticoneButton4.CornerRadiusBottomLeft = 0;
+            siticoneButton4.CornerRadiusBottomRight = 0;
+            siticoneButton4.CornerRadiusTopLeft = 0;
+            siticoneButton4.CornerRadiusTopRight = 0;
+            siticoneButton4.CustomCursor = Cursors.Default;
+            siticoneButton4.DisabledTextColor = Color.FromArgb(150, 150, 150);
+            siticoneButton4.EnableLongPress = false;
+            siticoneButton4.EnablePressAnimation = true;
+            siticoneButton4.EnableRippleEffect = true;
+            siticoneButton4.EnableShadow = false;
+            siticoneButton4.EnableTextWrapping = false;
+            siticoneButton4.Font = new Font("Segoe UI", 9F);
+            siticoneButton4.GlowColor = Color.FromArgb(100, 255, 255, 255);
+            siticoneButton4.GlowIntensity = 100;
+            siticoneButton4.GlowRadius = 20F;
+            siticoneButton4.GradientBackground = false;
+            siticoneButton4.GradientColor = Color.Transparent;
+            siticoneButton4.GradientMode = System.Drawing.Drawing2D.LinearGradientMode.Vertical;
+            siticoneButton4.HintText = null;
+            siticoneButton4.HoverBackColor = Color.Transparent;
+            siticoneButton4.HoverFontStyle = FontStyle.Regular;
+            siticoneButton4.HoverTextColor = Color.White;
+            siticoneButton4.HoverTransitionDuration = 250;
+            siticoneButton4.ImageAlign = ContentAlignment.MiddleLeft;
+            siticoneButton4.ImagePadding = 5;
+            siticoneButton4.ImageSize = new Size(16, 16);
+            siticoneButton4.IsRadial = false;
+            siticoneButton4.IsReadOnly = false;
+            siticoneButton4.IsToggleButton = false;
+            siticoneButton4.IsToggled = false;
+            siticoneButton4.Location = new Point(350, 14);
+            siticoneButton4.LongPressDurationMS = 1000;
+            siticoneButton4.Name = "siticoneButton4";
+            siticoneButton4.NormalFontStyle = FontStyle.Regular;
+            siticoneButton4.ParticleColor = Color.FromArgb(200, 200, 200);
+            siticoneButton4.ParticleCount = 15;
+            siticoneButton4.PressAnimationScale = 0.97F;
+            siticoneButton4.PressedBackColor = Color.Transparent;
+            siticoneButton4.PressedFontStyle = FontStyle.Regular;
+            siticoneButton4.PressTransitionDuration = 150;
+            siticoneButton4.ReadOnlyTextColor = Color.FromArgb(100, 100, 100);
+            siticoneButton4.RippleColor = Color.FromArgb(255, 255, 255);
+            siticoneButton4.RippleOpacity = 0.3F;
+            siticoneButton4.RippleRadiusMultiplier = 0.6F;
+            siticoneButton4.ShadowBlur = 5;
+            siticoneButton4.ShadowColor = Color.FromArgb(100, 0, 0, 0);
+            siticoneButton4.ShadowOffset = new Point(2, 2);
+            siticoneButton4.ShakeDuration = 500;
+            siticoneButton4.ShakeIntensity = 5;
+            siticoneButton4.Size = new Size(32, 30);
+            siticoneButton4.TabIndex = 2;
+            siticoneButton4.TextAlign = ContentAlignment.MiddleCenter;
+            siticoneButton4.TextColor = Color.White;
+            siticoneButton4.TooltipText = null;
+            siticoneButton4.UseAdvancedRendering = true;
+            siticoneButton4.UseParticles = false;
+            // 
+            // siticoneButton3
+            // 
+            siticoneButton3.AccessibleDescription = "The default button control that accept input though the mouse, touch and keyboard";
+            siticoneButton3.AccessibleName = "";
+            siticoneButton3.AutoSizeBasedOnText = false;
+            siticoneButton3.BackColor = Color.Transparent;
+            siticoneButton3.BackgroundImage = Properties.Resources.videocam;
+            siticoneButton3.BadgeBackColor = Color.Red;
+            siticoneButton3.BadgeFont = new Font("Segoe UI", 8F, FontStyle.Bold);
+            siticoneButton3.BadgeValue = 0;
+            siticoneButton3.BadgeValueForeColor = Color.White;
+            siticoneButton3.BorderColor = Color.Transparent;
+            siticoneButton3.BorderWidth = 2;
+            siticoneButton3.ButtonBackColor = Color.Transparent;
+            siticoneButton3.ButtonImage = null;
+            siticoneButton3.CanBeep = true;
+            siticoneButton3.CanGlow = false;
+            siticoneButton3.CanShake = true;
+            siticoneButton3.ContextMenuStripEx = null;
+            siticoneButton3.CornerRadiusBottomLeft = 0;
+            siticoneButton3.CornerRadiusBottomRight = 0;
+            siticoneButton3.CornerRadiusTopLeft = 0;
+            siticoneButton3.CornerRadiusTopRight = 0;
+            siticoneButton3.CustomCursor = Cursors.Default;
+            siticoneButton3.DisabledTextColor = Color.FromArgb(150, 150, 150);
+            siticoneButton3.EnableLongPress = false;
+            siticoneButton3.EnablePressAnimation = true;
+            siticoneButton3.EnableRippleEffect = true;
+            siticoneButton3.EnableShadow = false;
+            siticoneButton3.EnableTextWrapping = false;
+            siticoneButton3.Font = new Font("Segoe UI", 9F);
+            siticoneButton3.GlowColor = Color.FromArgb(100, 255, 255, 255);
+            siticoneButton3.GlowIntensity = 100;
+            siticoneButton3.GlowRadius = 20F;
+            siticoneButton3.GradientBackground = false;
+            siticoneButton3.GradientColor = Color.Transparent;
+            siticoneButton3.GradientMode = System.Drawing.Drawing2D.LinearGradientMode.Vertical;
+            siticoneButton3.HintText = null;
+            siticoneButton3.HoverBackColor = Color.Transparent;
+            siticoneButton3.HoverFontStyle = FontStyle.Regular;
+            siticoneButton3.HoverTextColor = Color.White;
+            siticoneButton3.HoverTransitionDuration = 250;
+            siticoneButton3.ImageAlign = ContentAlignment.MiddleLeft;
+            siticoneButton3.ImagePadding = 5;
+            siticoneButton3.ImageSize = new Size(16, 16);
+            siticoneButton3.IsRadial = false;
+            siticoneButton3.IsReadOnly = false;
+            siticoneButton3.IsToggleButton = false;
+            siticoneButton3.IsToggled = false;
+            siticoneButton3.Location = new Point(193, 10);
+            siticoneButton3.LongPressDurationMS = 1000;
+            siticoneButton3.Name = "siticoneButton3";
+            siticoneButton3.NormalFontStyle = FontStyle.Regular;
+            siticoneButton3.ParticleColor = Color.FromArgb(200, 200, 200);
+            siticoneButton3.ParticleCount = 15;
+            siticoneButton3.PressAnimationScale = 0.97F;
+            siticoneButton3.PressedBackColor = Color.Transparent;
+            siticoneButton3.PressedFontStyle = FontStyle.Regular;
+            siticoneButton3.PressTransitionDuration = 150;
+            siticoneButton3.ReadOnlyTextColor = Color.FromArgb(100, 100, 100);
+            siticoneButton3.RippleColor = Color.FromArgb(255, 255, 255);
+            siticoneButton3.RippleOpacity = 0.3F;
+            siticoneButton3.RippleRadiusMultiplier = 0.6F;
+            siticoneButton3.ShadowBlur = 5;
+            siticoneButton3.ShadowColor = Color.FromArgb(100, 0, 0, 0);
+            siticoneButton3.ShadowOffset = new Point(2, 2);
+            siticoneButton3.ShakeDuration = 500;
+            siticoneButton3.ShakeIntensity = 5;
+            siticoneButton3.Size = new Size(40, 40);
+            siticoneButton3.TabIndex = 1;
+            siticoneButton3.TextAlign = ContentAlignment.MiddleCenter;
+            siticoneButton3.TextColor = Color.White;
+            siticoneButton3.TooltipText = null;
+            siticoneButton3.UseAdvancedRendering = true;
+            siticoneButton3.UseParticles = false;
+            // 
+            // siticoneButton2
+            // 
+            siticoneButton2.AccessibleDescription = "The default button control that accept input though the mouse, touch and keyboard";
+            siticoneButton2.AccessibleName = "";
+            siticoneButton2.AutoSizeBasedOnText = false;
+            siticoneButton2.BackColor = Color.Transparent;
+            siticoneButton2.BackgroundImage = Properties.Resources.mic;
+            siticoneButton2.BadgeBackColor = Color.Red;
+            siticoneButton2.BadgeFont = new Font("Segoe UI", 8F, FontStyle.Bold);
+            siticoneButton2.BadgeValue = 0;
+            siticoneButton2.BadgeValueForeColor = Color.White;
+            siticoneButton2.BorderColor = Color.Transparent;
+            siticoneButton2.BorderWidth = 2;
+            siticoneButton2.ButtonBackColor = Color.Transparent;
+            siticoneButton2.ButtonImage = null;
+            siticoneButton2.CanBeep = true;
+            siticoneButton2.CanGlow = false;
+            siticoneButton2.CanShake = true;
+            siticoneButton2.ContextMenuStripEx = null;
+            siticoneButton2.CornerRadiusBottomLeft = 0;
+            siticoneButton2.CornerRadiusBottomRight = 0;
+            siticoneButton2.CornerRadiusTopLeft = 0;
+            siticoneButton2.CornerRadiusTopRight = 0;
+            siticoneButton2.CustomCursor = Cursors.Default;
+            siticoneButton2.DisabledTextColor = Color.FromArgb(150, 150, 150);
+            siticoneButton2.EnableLongPress = false;
+            siticoneButton2.EnablePressAnimation = true;
+            siticoneButton2.EnableRippleEffect = true;
+            siticoneButton2.EnableShadow = false;
+            siticoneButton2.EnableTextWrapping = false;
+            siticoneButton2.Font = new Font("Segoe UI", 9F);
+            siticoneButton2.GlowColor = Color.FromArgb(100, 255, 255, 255);
+            siticoneButton2.GlowIntensity = 100;
+            siticoneButton2.GlowRadius = 20F;
+            siticoneButton2.GradientBackground = false;
+            siticoneButton2.GradientColor = Color.Transparent;
+            siticoneButton2.GradientMode = System.Drawing.Drawing2D.LinearGradientMode.Vertical;
+            siticoneButton2.HintText = null;
+            siticoneButton2.HoverBackColor = Color.Transparent;
+            siticoneButton2.HoverFontStyle = FontStyle.Regular;
+            siticoneButton2.HoverTextColor = Color.White;
+            siticoneButton2.HoverTransitionDuration = 250;
+            siticoneButton2.ImageAlign = ContentAlignment.MiddleLeft;
+            siticoneButton2.ImagePadding = 5;
+            siticoneButton2.ImageSize = new Size(16, 16);
+            siticoneButton2.IsRadial = false;
+            siticoneButton2.IsReadOnly = false;
+            siticoneButton2.IsToggleButton = false;
+            siticoneButton2.IsToggled = false;
+            siticoneButton2.Location = new Point(47, 10);
+            siticoneButton2.LongPressDurationMS = 1000;
+            siticoneButton2.Name = "siticoneButton2";
+            siticoneButton2.NormalFontStyle = FontStyle.Regular;
+            siticoneButton2.ParticleColor = Color.FromArgb(200, 200, 200);
+            siticoneButton2.ParticleCount = 15;
+            siticoneButton2.PressAnimationScale = 0.97F;
+            siticoneButton2.PressedBackColor = Color.Transparent;
+            siticoneButton2.PressedFontStyle = FontStyle.Regular;
+            siticoneButton2.PressTransitionDuration = 150;
+            siticoneButton2.ReadOnlyTextColor = Color.FromArgb(100, 100, 100);
+            siticoneButton2.RippleColor = Color.FromArgb(255, 255, 255);
+            siticoneButton2.RippleOpacity = 0.3F;
+            siticoneButton2.RippleRadiusMultiplier = 0.6F;
+            siticoneButton2.ShadowBlur = 5;
+            siticoneButton2.ShadowColor = Color.FromArgb(100, 0, 0, 0);
+            siticoneButton2.ShadowOffset = new Point(2, 2);
+            siticoneButton2.ShakeDuration = 500;
+            siticoneButton2.ShakeIntensity = 5;
+            siticoneButton2.Size = new Size(40, 40);
+            siticoneButton2.TabIndex = 0;
+            siticoneButton2.TextAlign = ContentAlignment.MiddleCenter;
+            siticoneButton2.TextColor = Color.White;
+            siticoneButton2.TooltipText = null;
+            siticoneButton2.UseAdvancedRendering = true;
+            siticoneButton2.UseParticles = false;
+            // 
             // MeetingRoom
             // 
             AutoScaleDimensions = new SizeF(8F, 20F);
             AutoScaleMode = AutoScaleMode.Font;
             BackColor = Color.FromArgb(252, 255, 224);
             ClientSize = new Size(1264, 930);
+            Controls.Add(siticonePanel1);
+            Controls.Add(sbtn_CancelCall);
+            Controls.Add(siticoneButton1);
             Controls.Add(sideBar1);
             Controls.Add(userProfilePanel1);
             Controls.Add(tableLayoutPanel1);
             Controls.Add(participants_panel);
-            Controls.Add(panel5);
-            Controls.Add(panel4);
-            Controls.Add(siticoneAdvancedPanel2);
             Controls.Add(panel3);
             Controls.Add(panel2);
             Controls.Add(panel1);
@@ -1316,14 +1475,12 @@
             panel3.ResumeLayout(false);
             panel3.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)pictureBox3).EndInit();
-            siticoneAdvancedPanel2.ResumeLayout(false);
-            panel4.ResumeLayout(false);
-            panel5.ResumeLayout(false);
             panel6.ResumeLayout(false);
             participants_panel.ResumeLayout(false);
             tableLayoutPanel1.ResumeLayout(false);
             panel7.ResumeLayout(false);
             panel8.ResumeLayout(false);
+            siticonePanel1.ResumeLayout(false);
             ResumeLayout(false);
         }
 
@@ -1343,14 +1500,6 @@
         private SiticoneNetCoreUI.SiticoneImageButton siticoneImageButton1;
         private Panel panel3;
         private PictureBox pictureBox3;
-        private SiticoneNetCoreUI.SiticoneAdvancedPanel siticoneAdvancedPanel2;
-        private SiticoneNetCoreUI.SiticoneImageButton siticoneImageButton4;
-        private SiticoneNetCoreUI.SiticoneImageButton siticoneImageButton3;
-        private SiticoneNetCoreUI.SiticoneImageButton siticoneImageButton5;
-        private Panel panel4;
-        private SiticoneNetCoreUI.SiticoneImageButton siticoneImageButton6;
-        private Panel panel5;
-        private SiticoneNetCoreUI.SiticoneImageButton siticoneImageButton7;
         private SiticoneNetCoreUI.SiticoneImageButton btn_add_participants;
         private Label label3;
         private SiticoneNetCoreUI.SiticoneImageButton siticoneImageButton8;
@@ -1361,7 +1510,7 @@
         private ListView listViewParticipants;
         private ImageList imageListAvatar;
         private ColumnHeader Avatar;
-        private new ColumnHeader Name;
+        private ColumnHeader Ten;
         private ColumnHeader Mic;
         private ColumnHeader Camera;
         private ColumnHeader colAvatar;
@@ -1377,5 +1526,11 @@
         private SiticoneNetCoreUI.SiticoneImageButton siticoneImageButton10;
         private UserProfilePanel userProfilePanel1;
         private SideBar sideBar1;
+        private SiticoneNetCoreUI.SiticoneButton siticoneButton1;
+        private SiticoneNetCoreUI.SiticoneButton sbtn_CancelCall;
+        private SiticoneNetCoreUI.SiticonePanel siticonePanel1;
+        private SiticoneNetCoreUI.SiticoneButton siticoneButton2;
+        private SiticoneNetCoreUI.SiticoneButton siticoneButton4;
+        private SiticoneNetCoreUI.SiticoneButton siticoneButton3;
     }
 }

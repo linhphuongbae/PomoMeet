@@ -19,10 +19,10 @@ using SiticoneNetCoreUI;
 
 namespace PomoMeetApp.View
 {
-    public partial class SingIn : Form
+    public partial class SignIn : Form
     {
         private string username = "";
-        public SingIn()
+        public SignIn()
         {
             InitializeComponent();
         }

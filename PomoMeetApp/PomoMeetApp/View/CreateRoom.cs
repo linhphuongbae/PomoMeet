@@ -27,10 +27,12 @@ namespace PomoMeetApp.View
         private Image[] songImages;
         private byte[][] songBytes;
         private SoundPlayer[] songAudios;
+        private string currentUserId;  // Biến lưu trữ userId
 
-        public CreateRoom()
+        public CreateRoom(string userId)
         {
             InitializeComponent();
+            currentUserId = userId;   
         }
 
         private void PlaySongFromBytes(byte[] audioData)
@@ -90,7 +92,7 @@ namespace PomoMeetApp.View
             songAudios = songBytes.Select(b => new SoundPlayer(new MemoryStream(b))).ToArray();
         }
 
-        private void sbtn_CreateRoom_Click(object sender, EventArgs e)
+        private async void sbtn_CreateRoom_Click(object sender, EventArgs e)
         {
             string roomName = stb_RoomName.Text; // Lấy tên phòng từ TextBox
             string roomMode = GetRoomMode();    // Lấy chế độ phòng đã chọn
@@ -120,7 +122,10 @@ namespace PomoMeetApp.View
             }
 
             // Tạo phòng với thông tin đã nhập
-            CreateNewRoom(roomName, roomMode, password);
+            await CreateNewRoomAndGetInfo(roomName, roomMode, password);
+
+            MeetingRoom meetingRoom = new MeetingRoom(currentUserId);
+            meetingRoom.ShowDialog();
         }
 
         private string GetRoomMode()
@@ -145,52 +150,6 @@ namespace PomoMeetApp.View
                 byte[] hash = sha256.ComputeHash(bytes);
                 return BitConverter.ToString(hash).Replace("-", "").ToLower();
             }
-        }
-        // Hàm tạo phòng (kết nối cơ sở dữ liệu hoặc hệ thống khác)
-        private async void CreateNewRoom(string roomName, string roomMode, string password)
-        {
-            try
-            {
-                // Khởi tạo Firestore
-                var db = FirebaseConfig.database;
-
-                // Tạo roomId tự động
-                string roomId = Guid.NewGuid().ToString();
-
-                int pomodoro = (int)numUpDown_Pomodoro.Value;
-                int shortBreak = (int)numUpDown_Break.Value;
-
-                // Mã hóa password
-                string hashedPassword = string.IsNullOrEmpty(password) ? "" : HashPassword(password);
-
-
-                // Tạo thông tin phòng
-                var room = new
-                {
-                    roomId = roomId,
-                    room_name = roomName,
-                    invite_code = Guid.NewGuid().ToString().Substring(0, 6), // Mã mời phòng ngẫu nhiên
-                    host_id = "guest",  // Tạm thời lưu host_id là "guest"
-                    type = roomMode,
-                    password = hashedPassword,
-                    currentImageIndex = currentImageIndex,
-                    pomodoro = pomodoro,
-                    short_break = shortBreak,
-                    currentIndex = currentIndex,
-                    created_at = DateTime.Now.ToString("yyyy-MM-ddTHH:mm:ss")
-                };
-
-                // Lưu vào Firestore
-                var roomRef = db.Collection("Room").Document(roomId);
-                await roomRef.SetAsync(room);
-
-                MessageBox.Show($"Phòng '{roomName}' đã được tạo với chế độ {roomMode}.");
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show($"Có lỗi khi tạo phòng: {ex.Message}");
-            }
-
         }
         private void Private_CheckedChanged(object sender, SiticoneNetCoreUI.SiticoneCheckBox.CheckedChangedEventArgs e)
         {
@@ -336,9 +295,6 @@ namespace PomoMeetApp.View
 
             if (roomInfo != null)
             {
-                // Giả sử có userId của người dùng hiện tại
-                string currentUserId = "0246e34e-ed31-4f97-92e4-dae673c48955"; // Thay bằng ID thực tế
-
                 // Mở form mời bạn bè và truyền thông tin
                 RoomRequests roomRequestsForm = new RoomRequests(
                     roomInfo.InviteCode,
@@ -354,6 +310,7 @@ namespace PomoMeetApp.View
             try
             {
                 var db = FirebaseConfig.database;
+
                 string roomId = Guid.NewGuid().ToString();
 
                 int pomodoro = (int)numUpDown_Pomodoro.Value;
@@ -368,7 +325,7 @@ namespace PomoMeetApp.View
                     roomId = roomId,
                     room_name = roomName,
                     invite_code = inviteCode,
-                    host_id = "guest", // Thay bằng user ID thực tế
+                    host_id = currentUserId, // Thay bằng user ID thực tế
                     type = roomMode,
                     password = hashedPassword,
                     currentImageIndex = currentImageIndex,

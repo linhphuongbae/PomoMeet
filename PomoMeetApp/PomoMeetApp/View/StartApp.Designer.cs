@@ -82,7 +82,6 @@
             Controls.Add(LogoPomoMeet);
             Name = "StartApp";
             Text = "StartApp";
-            Load += StartApp_Load;
             ResumeLayout(false);
         }
 

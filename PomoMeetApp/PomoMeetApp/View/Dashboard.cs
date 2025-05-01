@@ -72,5 +72,11 @@ namespace PomoMeetApp.View
         {
             return Properties.Resources.avatar; // Fallback image
         }
+
+        private void sbtn_CreateNewRoom_Click(object sender, EventArgs e)
+        {
+            CreateRoom createRoom = new CreateRoom(currentUserId);
+            createRoom.ShowDialog();
+        }
     }
 }
