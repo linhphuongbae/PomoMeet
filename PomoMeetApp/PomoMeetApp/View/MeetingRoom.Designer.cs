@@ -52,13 +52,13 @@
             panel6 = new Panel();
             lb_participant = new SiticoneNetCoreUI.SiticoneLabel();
             participants_panel = new TableLayoutPanel();
-            siticoneTextBox1 = new SiticoneNetCoreUI.SiticoneTextBox();
             listViewParticipants = new ListView();
             colAvatar = new ColumnHeader();
             colName = new ColumnHeader();
             colMic = new ColumnHeader();
             colCamera = new ColumnHeader();
             imageListAvatar = new ImageList(components);
+            siticoneTextBox1 = new SiticoneNetCoreUI.SiticoneTextBox();
             Avatar = new ColumnHeader();
             Ten = new ColumnHeader();
             Mic = new ColumnHeader();
@@ -709,6 +709,52 @@
             participants_panel.Size = new Size(270, 340);
             participants_panel.TabIndex = 14;
             // 
+            // listViewParticipants
+            // 
+            listViewParticipants.BorderStyle = BorderStyle.None;
+            listViewParticipants.Columns.AddRange(new ColumnHeader[] { colAvatar, colName, colMic, colCamera });
+            listViewParticipants.FullRowSelect = true;
+            listViewParticipants.Location = new Point(3, 130);
+            listViewParticipants.Name = "listViewParticipants";
+            listViewParticipants.OwnerDraw = true;
+            listViewParticipants.Size = new Size(264, 207);
+            listViewParticipants.SmallImageList = imageListAvatar;
+            listViewParticipants.TabIndex = 15;
+            listViewParticipants.UseCompatibleStateImageBehavior = false;
+            listViewParticipants.View = System.Windows.Forms.View.Details;
+            // 
+            // colAvatar
+            // 
+            colAvatar.Text = "Avatar";
+            // 
+            // colName
+            // 
+            colName.Text = "Tên";
+            colName.Width = 150;
+            // 
+            // colMic
+            // 
+            colMic.Text = "Mic";
+            colMic.Width = 50;
+            // 
+            // colCamera
+            // 
+            colCamera.Text = "Camera";
+            // 
+            // imageListAvatar
+            // 
+            imageListAvatar.ColorDepth = ColorDepth.Depth32Bit;
+            imageListAvatar.ImageStream = (ImageListStreamer)resources.GetObject("imageListAvatar.ImageStream");
+            imageListAvatar.TransparentColor = Color.Transparent;
+            imageListAvatar.Images.SetKeyName(0, "avatar1");
+            imageListAvatar.Images.SetKeyName(1, "avatar2");
+            imageListAvatar.Images.SetKeyName(2, "avatar3");
+            imageListAvatar.Images.SetKeyName(3, "avatar4");
+            imageListAvatar.Images.SetKeyName(4, "mic_on");
+            imageListAvatar.Images.SetKeyName(5, "cam_off");
+            imageListAvatar.Images.SetKeyName(6, "cam_on");
+            imageListAvatar.Images.SetKeyName(7, "mic_off");
+            // 
             // siticoneTextBox1
             // 
             siticoneTextBox1.AccessibleDescription = "A customizable text input field.";
@@ -763,52 +809,6 @@
             siticoneTextBox1.TextPadding = new Padding(16, 0, 6, 0);
             siticoneTextBox1.ValidationErrorMessage = "Invalid input.";
             siticoneTextBox1.ValidationFunction = null;
-            // 
-            // listViewParticipants
-            // 
-            listViewParticipants.BorderStyle = BorderStyle.None;
-            listViewParticipants.Columns.AddRange(new ColumnHeader[] { colAvatar, colName, colMic, colCamera });
-            listViewParticipants.FullRowSelect = true;
-            listViewParticipants.Location = new Point(3, 130);
-            listViewParticipants.Name = "listViewParticipants";
-            listViewParticipants.OwnerDraw = true;
-            listViewParticipants.Size = new Size(264, 207);
-            listViewParticipants.SmallImageList = imageListAvatar;
-            listViewParticipants.TabIndex = 15;
-            listViewParticipants.UseCompatibleStateImageBehavior = false;
-            listViewParticipants.View = System.Windows.Forms.View.Details;
-            // 
-            // colAvatar
-            // 
-            colAvatar.Text = "Avatar";
-            // 
-            // colName
-            // 
-            colName.Text = "Tên";
-            colName.Width = 150;
-            // 
-            // colMic
-            // 
-            colMic.Text = "Mic";
-            colMic.Width = 50;
-            // 
-            // colCamera
-            // 
-            colCamera.Text = "Camera";
-            // 
-            // imageListAvatar
-            // 
-            imageListAvatar.ColorDepth = ColorDepth.Depth32Bit;
-            imageListAvatar.ImageStream = (ImageListStreamer)resources.GetObject("imageListAvatar.ImageStream");
-            imageListAvatar.TransparentColor = Color.Transparent;
-            imageListAvatar.Images.SetKeyName(0, "avatar1");
-            imageListAvatar.Images.SetKeyName(1, "avatar2");
-            imageListAvatar.Images.SetKeyName(2, "avatar3");
-            imageListAvatar.Images.SetKeyName(3, "avatar4");
-            imageListAvatar.Images.SetKeyName(4, "mic_on");
-            imageListAvatar.Images.SetKeyName(5, "cam_off");
-            imageListAvatar.Images.SetKeyName(6, "cam_on");
-            imageListAvatar.Images.SetKeyName(7, "mic_off");
             // 
             // Ten
             // 
@@ -1469,6 +1469,7 @@
             Controls.Add(siticoneAdvancedPanel1);
             Name = "MeetingRoom";
             Text = "Meeting Room";
+            Load += MeetingRoom_Load;
             siticoneAdvancedPanel1.ResumeLayout(false);
             panel1.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)pictureBox1).EndInit();

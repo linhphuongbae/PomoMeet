@@ -213,5 +213,10 @@ namespace PomoMeetApp.View
                 MessageBox.Show($"Lỗi khi gửi lời mời: {ex.Message}");
             }
         }
+
+        private void stbn_Back_Click(object sender, EventArgs e)
+        {
+
+        }
     }
 }

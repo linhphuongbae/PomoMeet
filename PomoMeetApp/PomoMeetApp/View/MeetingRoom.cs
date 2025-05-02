@@ -16,11 +16,13 @@ namespace PomoMeetApp.View
     {
         private ImageList imageListAvatars;
         private string currentUserId;
+        private string currentroomId;
 
-        public MeetingRoom(string userId)
+        public MeetingRoom(string userId, string roomId)
         {
             InitializeComponent();
             currentUserId = userId;
+            currentroomId = roomId;
             InitializeMeetingRoomComponents();
         }
 
@@ -68,6 +70,11 @@ namespace PomoMeetApp.View
         }
 
         private void panel7_Paint(object sender, PaintEventArgs e)
+        {
+
+        }
+
+        private void MeetingRoom_Load(object sender, EventArgs e)
         {
 
         }
