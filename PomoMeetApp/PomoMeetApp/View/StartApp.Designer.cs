@@ -72,6 +72,7 @@
             LogoPomoMeet.SizeMode = SiticoneNetCoreUI.SiticonePictureBoxSizeMode.Normal;
             LogoPomoMeet.TabIndex = 0;
             LogoPomoMeet.Text = "siticonePictureBox1";
+            LogoPomoMeet.Click += LogoPomoMeet_Click;
             // 
             // StartApp
             // 

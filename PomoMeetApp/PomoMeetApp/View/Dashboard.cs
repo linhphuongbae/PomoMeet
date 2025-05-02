@@ -22,6 +22,8 @@ namespace PomoMeetApp.View
             InitializeComponent();
             currentUserId = userId;
             InitializeUserProfile();
+            this.FormClosed += Dashboard_FormClosed;
+
         }
         private async void InitializeUserProfile()
         {
@@ -77,6 +79,15 @@ namespace PomoMeetApp.View
         {
             CreateRoom createRoom = new CreateRoom(currentUserId);
             createRoom.ShowDialog();
+        }
+
+        private void Dashboard_Load(object sender, EventArgs e)
+        {
+        }
+
+        private void Dashboard_FormClosed(object sender, FormClosedEventArgs e)
+        {
+            Application.Exit(); // Đảm bảo thoát toàn bộ ứng dụng
         }
     }
 }

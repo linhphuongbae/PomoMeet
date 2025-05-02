@@ -30,8 +30,8 @@
         {
             components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(MeetingRoom));
-            SiticoneNetCoreUI.SiticoneFlowPanel.LayoutState layoutState3 = new SiticoneNetCoreUI.SiticoneFlowPanel.LayoutState();
-            SiticoneNetCoreUI.SiticoneFlowPanel.LayoutState layoutState4 = new SiticoneNetCoreUI.SiticoneFlowPanel.LayoutState();
+            SiticoneNetCoreUI.SiticoneFlowPanel.LayoutState layoutState1 = new SiticoneNetCoreUI.SiticoneFlowPanel.LayoutState();
+            SiticoneNetCoreUI.SiticoneFlowPanel.LayoutState layoutState2 = new SiticoneNetCoreUI.SiticoneFlowPanel.LayoutState();
             siticoneAdvancedPanel1 = new SiticoneNetCoreUI.SiticoneAdvancedPanel();
             btn_break = new SiticoneNetCoreUI.SiticoneButton();
             btn_pomodoro = new SiticoneNetCoreUI.SiticoneButton();
@@ -142,7 +142,7 @@
             siticoneAdvancedPanel1.InnerShadowColor = Color.Black;
             siticoneAdvancedPanel1.InnerShadowDepth = 3;
             siticoneAdvancedPanel1.InnerShadowOpacity = 0.2F;
-            siticoneAdvancedPanel1.Location = new Point(313, 147);
+            siticoneAdvancedPanel1.Location = new Point(313, 174);
             siticoneAdvancedPanel1.Name = "siticoneAdvancedPanel1";
             siticoneAdvancedPanel1.Padding = new Padding(9, 10, 9, 10);
             siticoneAdvancedPanel1.RadialGradientCenter = (PointF)resources.GetObject("siticoneAdvancedPanel1.RadialGradientCenter");
@@ -154,7 +154,7 @@
             siticoneAdvancedPanel1.ShadowDepth = 5;
             siticoneAdvancedPanel1.ShadowOffset = new Point(2, 2);
             siticoneAdvancedPanel1.ShadowOpacity = 0.3F;
-            siticoneAdvancedPanel1.Size = new Size(612, 389);
+            siticoneAdvancedPanel1.Size = new Size(747, 402);
             siticoneAdvancedPanel1.SlideDirection = new Point(0, -30);
             siticoneAdvancedPanel1.TabIndex = 0;
             siticoneAdvancedPanel1.TopLeftRadius = 5;
@@ -208,7 +208,7 @@
             btn_break.IsReadOnly = false;
             btn_break.IsToggleButton = false;
             btn_break.IsToggled = false;
-            btn_break.Location = new Point(330, 63);
+            btn_break.Location = new Point(396, 64);
             btn_break.LongPressDurationMS = 1000;
             btn_break.Name = "btn_break";
             btn_break.NormalFontStyle = FontStyle.Regular;
@@ -285,7 +285,7 @@
             btn_pomodoro.IsReadOnly = false;
             btn_pomodoro.IsToggleButton = false;
             btn_pomodoro.IsToggled = false;
-            btn_pomodoro.Location = new Point(204, 63);
+            btn_pomodoro.Location = new Point(265, 64);
             btn_pomodoro.LongPressDurationMS = 1000;
             btn_pomodoro.Name = "btn_pomodoro";
             btn_pomodoro.NormalFontStyle = FontStyle.Regular;
@@ -339,7 +339,7 @@
             siticonehProgressBar1.IsReadonly = false;
             siticonehProgressBar1.LabelColor = Color.White;
             siticonehProgressBar1.LabelFont = new Font("Segoe UI", 10F, FontStyle.Bold);
-            siticonehProgressBar1.Location = new Point(43, 307);
+            siticonehProgressBar1.Location = new Point(128, 318);
             siticonehProgressBar1.MakeRadial = true;
             siticonehProgressBar1.Maximum = 100;
             siticonehProgressBar1.Minimum = 0;
@@ -406,7 +406,7 @@
             btn_start.IsReadOnly = false;
             btn_start.IsToggleButton = false;
             btn_start.IsToggled = false;
-            btn_start.Location = new Point(234, 216);
+            btn_start.Location = new Point(307, 221);
             btn_start.LongPressDurationMS = 1000;
             btn_start.Name = "btn_start";
             btn_start.NormalFontStyle = FontStyle.Regular;
@@ -438,7 +438,7 @@
             // 
             lb_time_counter.BackColor = Color.Transparent;
             lb_time_counter.Font = new Font("Inter", 33F);
-            lb_time_counter.Location = new Point(213, 127);
+            lb_time_counter.Location = new Point(287, 122);
             lb_time_counter.Name = "lb_time_counter";
             lb_time_counter.Size = new Size(196, 67);
             lb_time_counter.TabIndex = 0;
@@ -450,9 +450,9 @@
             panel1.BackColor = Color.DarkSeaGreen;
             panel1.Controls.Add(pictureBox1);
             panel1.Controls.Add(avatar_btn);
-            panel1.Location = new Point(313, 563);
+            panel1.Location = new Point(313, 617);
             panel1.Name = "panel1";
-            panel1.Size = new Size(194, 151);
+            panel1.Size = new Size(207, 151);
             panel1.TabIndex = 2;
             // 
             // pictureBox1
@@ -507,9 +507,9 @@
             panel2.BackColor = Color.DarkSeaGreen;
             panel2.Controls.Add(pictureBox2);
             panel2.Controls.Add(siticoneImageButton1);
-            panel2.Location = new Point(520, 563);
+            panel2.Location = new Point(589, 618);
             panel2.Name = "panel2";
-            panel2.Size = new Size(194, 151);
+            panel2.Size = new Size(207, 151);
             panel2.TabIndex = 4;
             // 
             // pictureBox2
@@ -565,9 +565,9 @@
             panel3.Controls.Add(label3);
             panel3.Controls.Add(pictureBox3);
             panel3.Controls.Add(siticoneImageButton8);
-            panel3.Location = new Point(731, 563);
+            panel3.Location = new Point(853, 618);
             panel3.Name = "panel3";
-            panel3.Size = new Size(194, 151);
+            panel3.Size = new Size(207, 151);
             panel3.TabIndex = 4;
             // 
             // label3
@@ -672,12 +672,12 @@
             panel6.Controls.Add(btn_add_participants);
             panel6.Location = new Point(3, 3);
             panel6.Name = "panel6";
-            panel6.Size = new Size(264, 44);
+            panel6.Size = new Size(264, 48);
             panel6.TabIndex = 0;
-            layoutState3.Location = new Point(3, 3);
-            layoutState3.Size = new Size(302, 61);
-            layoutState3.Visible = true;
-            panel6.Tag = layoutState3;
+            layoutState1.Location = new Point(3, 3);
+            layoutState1.Size = new Size(302, 61);
+            layoutState1.Visible = true;
+            panel6.Tag = layoutState1;
             // 
             // lb_participant
             // 
@@ -696,17 +696,17 @@
             participants_panel.ColumnCount = 1;
             participants_panel.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 50F));
             participants_panel.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 50F));
+            participants_panel.Controls.Add(listViewParticipants, 0, 2);
             participants_panel.Controls.Add(panel6, 0, 0);
             participants_panel.Controls.Add(siticoneTextBox1, 0, 1);
-            participants_panel.Controls.Add(listViewParticipants, 0, 2);
-            participants_panel.Location = new Point(953, 150);
+            participants_panel.Location = new Point(1118, 117);
             participants_panel.Name = "participants_panel";
             participants_panel.RowCount = 3;
-            participants_panel.RowStyles.Add(new RowStyle(SizeType.Percent, 59.8540154F));
-            participants_panel.RowStyles.Add(new RowStyle(SizeType.Percent, 40.1459846F));
-            participants_panel.RowStyles.Add(new RowStyle(SizeType.Absolute, 221F));
+            participants_panel.RowStyles.Add(new RowStyle(SizeType.Percent, 45.8333321F));
+            participants_panel.RowStyles.Add(new RowStyle(SizeType.Percent, 54.1666679F));
+            participants_panel.RowStyles.Add(new RowStyle(SizeType.Absolute, 212F));
             participants_panel.RowStyles.Add(new RowStyle(SizeType.Absolute, 19F));
-            participants_panel.Size = new Size(270, 323);
+            participants_panel.Size = new Size(270, 340);
             participants_panel.TabIndex = 14;
             // 
             // siticoneTextBox1
@@ -740,7 +740,7 @@
             siticoneTextBox1.HoverBorderColor1 = Color.Gray;
             siticoneTextBox1.HoverBorderColor2 = Color.Gray;
             siticoneTextBox1.IsEnabled = true;
-            siticoneTextBox1.Location = new Point(3, 64);
+            siticoneTextBox1.Location = new Point(3, 61);
             siticoneTextBox1.Name = "siticoneTextBox1";
             siticoneTextBox1.PlaceholderColor = Color.Gray;
             siticoneTextBox1.PlaceholderText = "Enter text here...";
@@ -753,7 +753,7 @@
             siticoneTextBox1.ShadowAnimationDuration = 1;
             siticoneTextBox1.ShadowBlur = 10;
             siticoneTextBox1.ShadowColor = Color.FromArgb(15, 0, 0, 0);
-            siticoneTextBox1.Size = new Size(264, 27);
+            siticoneTextBox1.Size = new Size(264, 34);
             siticoneTextBox1.SolidBorderColor = Color.LightSlateGray;
             siticoneTextBox1.SolidBorderFocusColor = Color.FromArgb(77, 77, 255);
             siticoneTextBox1.SolidBorderHoverColor = Color.Gray;
@@ -769,10 +769,10 @@
             listViewParticipants.BorderStyle = BorderStyle.None;
             listViewParticipants.Columns.AddRange(new ColumnHeader[] { colAvatar, colName, colMic, colCamera });
             listViewParticipants.FullRowSelect = true;
-            listViewParticipants.Location = new Point(3, 104);
+            listViewParticipants.Location = new Point(3, 130);
             listViewParticipants.Name = "listViewParticipants";
             listViewParticipants.OwnerDraw = true;
-            listViewParticipants.Size = new Size(264, 215);
+            listViewParticipants.Size = new Size(264, 207);
             listViewParticipants.SmallImageList = imageListAvatar;
             listViewParticipants.TabIndex = 15;
             listViewParticipants.UseCompatibleStateImageBehavior = false;
@@ -810,7 +810,7 @@
             imageListAvatar.Images.SetKeyName(6, "cam_on");
             imageListAvatar.Images.SetKeyName(7, "mic_off");
             // 
-            // Name
+            // Ten
             // 
             Ten.Width = 150;
             // 
@@ -830,14 +830,14 @@
             tableLayoutPanel1.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 50F));
             tableLayoutPanel1.Controls.Add(panel7, 0, 0);
             tableLayoutPanel1.Controls.Add(panel8, 0, 2);
-            tableLayoutPanel1.Location = new Point(953, 499);
+            tableLayoutPanel1.Location = new Point(1118, 499);
             tableLayoutPanel1.Name = "tableLayoutPanel1";
             tableLayoutPanel1.RowCount = 3;
-            tableLayoutPanel1.RowStyles.Add(new RowStyle(SizeType.Percent, 21.602787F));
-            tableLayoutPanel1.RowStyles.Add(new RowStyle(SizeType.Percent, 78.39721F));
+            tableLayoutPanel1.RowStyles.Add(new RowStyle(SizeType.Percent, 15.6862745F));
+            tableLayoutPanel1.RowStyles.Add(new RowStyle(SizeType.Percent, 84.31373F));
             tableLayoutPanel1.RowStyles.Add(new RowStyle(SizeType.Absolute, 49F));
             tableLayoutPanel1.RowStyles.Add(new RowStyle(SizeType.Absolute, 19F));
-            tableLayoutPanel1.Size = new Size(270, 323);
+            tableLayoutPanel1.Size = new Size(270, 407);
             tableLayoutPanel1.TabIndex = 15;
             // 
             // panel7
@@ -847,12 +847,13 @@
             panel7.Controls.Add(siticoneLabel2);
             panel7.Location = new Point(3, 3);
             panel7.Name = "panel7";
-            panel7.Size = new Size(264, 53);
+            panel7.Size = new Size(264, 50);
             panel7.TabIndex = 0;
-            layoutState4.Location = new Point(3, 3);
-            layoutState4.Size = new Size(302, 61);
-            layoutState4.Visible = true;
-            panel7.Tag = layoutState4;
+            layoutState2.Location = new Point(3, 3);
+            layoutState2.Size = new Size(302, 61);
+            layoutState2.Visible = true;
+            panel7.Tag = layoutState2;
+            panel7.Paint += panel7_Paint;
             // 
             // siticoneImageButton9
             // 
@@ -895,7 +896,7 @@
             // 
             siticoneLabel2.BackColor = Color.Transparent;
             siticoneLabel2.Font = new Font("Inter", 11F, FontStyle.Bold);
-            siticoneLabel2.Location = new Point(0, 12);
+            siticoneLabel2.Location = new Point(0, 11);
             siticoneLabel2.Name = "siticoneLabel2";
             siticoneLabel2.Size = new Size(92, 28);
             siticoneLabel2.TabIndex = 0;
@@ -906,7 +907,7 @@
             // 
             panel8.Controls.Add(siticoneImageButton10);
             panel8.Controls.Add(siticoneTextBox2);
-            panel8.Location = new Point(3, 276);
+            panel8.Location = new Point(3, 360);
             panel8.Name = "panel8";
             panel8.Size = new Size(264, 44);
             panel8.TabIndex = 17;
@@ -1006,7 +1007,7 @@
             // userProfilePanel1
             // 
             userProfilePanel1.BackColor = Color.Transparent;
-            userProfilePanel1.Location = new Point(988, 11);
+            userProfilePanel1.Location = new Point(1111, 12);
             userProfilePanel1.Name = "userProfilePanel1";
             userProfilePanel1.Size = new Size(277, 71);
             userProfilePanel1.TabIndex = 31;
@@ -1067,7 +1068,7 @@
             siticoneButton1.IsReadOnly = false;
             siticoneButton1.IsToggleButton = false;
             siticoneButton1.IsToggled = false;
-            siticoneButton1.Location = new Point(313, 772);
+            siticoneButton1.Location = new Point(366, 822);
             siticoneButton1.LongPressDurationMS = 1000;
             siticoneButton1.Name = "siticoneButton1";
             siticoneButton1.NormalFontStyle = FontStyle.Regular;
@@ -1143,7 +1144,7 @@
             sbtn_CancelCall.IsReadOnly = false;
             sbtn_CancelCall.IsToggleButton = false;
             sbtn_CancelCall.IsToggled = false;
-            sbtn_CancelCall.Location = new Point(853, 772);
+            sbtn_CancelCall.Location = new Point(949, 822);
             sbtn_CancelCall.LongPressDurationMS = 1000;
             sbtn_CancelCall.Name = "sbtn_CancelCall";
             sbtn_CancelCall.NormalFontStyle = FontStyle.Regular;
@@ -1204,7 +1205,7 @@
     0.5F,
     1F
     };
-            siticonePanel1.Location = new Point(405, 772);
+            siticonePanel1.Location = new Point(480, 822);
             siticonePanel1.Name = "siticonePanel1";
             siticonePanel1.PatternStyle = System.Drawing.Drawing2D.HatchStyle.Max;
             siticonePanel1.RippleAlpha = 50;
@@ -1454,7 +1455,7 @@
             AutoScaleDimensions = new SizeF(8F, 20F);
             AutoScaleMode = AutoScaleMode.Font;
             BackColor = Color.FromArgb(252, 255, 224);
-            ClientSize = new Size(1264, 930);
+            ClientSize = new Size(1422, 977);
             Controls.Add(siticonePanel1);
             Controls.Add(sbtn_CancelCall);
             Controls.Add(siticoneButton1);
@@ -1466,6 +1467,7 @@
             Controls.Add(panel2);
             Controls.Add(panel1);
             Controls.Add(siticoneAdvancedPanel1);
+            Name = "MeetingRoom";
             Text = "Meeting Room";
             siticoneAdvancedPanel1.ResumeLayout(false);
             panel1.ResumeLayout(false);

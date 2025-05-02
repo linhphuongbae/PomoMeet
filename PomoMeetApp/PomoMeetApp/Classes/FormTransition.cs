@@ -27,7 +27,7 @@ namespace PomoMeetApp.Classes
             {
                 next.Opacity = i;
                 await Task.Delay(20);
-            }    
+            }
         }
     }
 }

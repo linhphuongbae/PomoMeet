@@ -63,5 +63,10 @@ namespace PomoMeetApp.View
             }
             return bmp;
         }
+
+        private void LogoPomoMeet_Click(object sender, EventArgs e)
+        {
+
+        }
     }
 }
