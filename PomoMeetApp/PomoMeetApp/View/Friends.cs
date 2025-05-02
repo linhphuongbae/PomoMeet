@@ -21,37 +21,30 @@ namespace PomoMeetApp.View
         private void btn_AllFriends_Click(object sender, EventArgs e)
         {
             lbAllFriends.Text = "All Friends";
-            pnAllFriends.Visible = true;
-            pnFriendRequests.Visible = false;
-            pnFindFriends.Visible = false;
+            pnFriends.Visible = true;
 
         }
 
         private void btn_OnlineFriends_Click(object sender, EventArgs e)
         {
             lbAllFriends.Text = "Online Friends";
-            pnAllFriends.Visible = false;
-            pnFriendRequests.Visible = false;
-            pnFindFriends.Visible = false;
+            pnFriends.Visible = true;
         }
 
         private void btn_FriendRequests_Click(object sender, EventArgs e)
         {
             lbAllFriends.Text = "Friends Requests";
-            pnAllFriends.Visible = false;
-            pnFriendRequests.Visible = true;
-            pnFindFriends.Visible = false;
+            pnFriends.Visible = true;
         }
 
         private async void btn_FindFriends_Click(object sender, EventArgs e)
         {
             lbAllFriends.Text = "Results";
-            pnAllFriends.Visible = false;
-            pnFriendRequests.Visible = false;
-            pnFindFriends.Visible = true;
+            pnFriends.Visible = true;
+
 
             // bắt đầu logic tìm người dùng từ đây
-            pnFindFriends.Controls.Clear();
+            pnFriends.Controls.Clear();
             string searchQuery = txtFindFriends.Text.Trim();
             if (string.IsNullOrEmpty(searchQuery))
             {
@@ -133,7 +126,7 @@ namespace PomoMeetApp.View
                 card.Controls.Add(btnAdd);
 
                 // Thêm vào pnFindFriends
-                pnFindFriends.Controls.Add(card);
+                pnFriends.Controls.Add(card);
             }
         }
 
