@@ -16,6 +16,7 @@ namespace PomoMeetApp.View
         public Friends()
         {
             InitializeComponent();
+            txtFindFriends.TextChanged += txtFindFriends_TextChanged;
         }
 
         private void btn_AllFriends_Click(object sender, EventArgs e)
@@ -142,6 +143,14 @@ namespace PomoMeetApp.View
                 return Properties.Resources.avt1;
             }
 
+        }
+        // lắng nghe sự kiện text changed
+        private void txtFindFriends_TextChanged(object sender, EventArgs e)
+        {
+            if (string.IsNullOrWhiteSpace(txtFindFriends.Text))
+            {
+                pnFriends.Controls.Clear();
+            }
         }
 
 
