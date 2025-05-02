@@ -89,5 +89,11 @@ namespace PomoMeetApp.View
         {
             Application.Exit(); // Đảm bảo thoát toàn bộ ứng dụng
         }
+
+        private void tbtn_JoinRoom_Click(object sender, EventArgs e)
+        {
+            Joinroom joinroom = new Joinroom(currentUserId);
+            joinroom.ShowDialog();
+        }
     }
 }

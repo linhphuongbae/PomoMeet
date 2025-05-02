@@ -11,6 +11,7 @@ using System.Windows.Forms;
 using System.Security.Cryptography;
 using System.Media;
 using NAudio.Wave;
+using static PomoMeetApp.View.CreateRoom;
 
 
 namespace PomoMeetApp.View
@@ -122,10 +123,15 @@ namespace PomoMeetApp.View
             }
 
             // Tạo phòng với thông tin đã nhập
-            await CreateNewRoomAndGetInfo(roomName, roomMode, password);
+            var roomInfo = await CreateNewRoomAndGetInfo(roomName, roomMode, password);
+           
+            if(roomInfo != null)
+            {
+                MeetingRoom meetingRoom = new MeetingRoom(currentUserId, roomInfo.RoomId);
+                meetingRoom.ShowDialog();
+            }
 
-            MeetingRoom meetingRoom = new MeetingRoom(currentUserId);
-            meetingRoom.ShowDialog();
+
         }
 
         private string GetRoomMode()
@@ -311,7 +317,7 @@ namespace PomoMeetApp.View
             {
                 var db = FirebaseConfig.database;
 
-                string roomId = Guid.NewGuid().ToString();
+                string roomId = Guid.NewGuid().ToString("N").Substring(0, 6).ToUpper();
 
                 int pomodoro = (int)numUpDown_Pomodoro.Value;
                 int shortBreak = (int)numUpDown_Break.Value;
@@ -332,7 +338,8 @@ namespace PomoMeetApp.View
                     pomodoro = pomodoro,
                     short_break = shortBreak,
                     currentIndex = currentIndex,
-                    created_at = DateTime.Now.ToString("yyyy-MM-ddTHH:mm:ss")
+                    created_at = DateTime.Now.ToString("yyyy-MM-ddTHH:mm:ss"),
+                    members = new string[] { currentUserId }
                 };
 
                 var roomRef = db.Collection("Room").Document(roomId);

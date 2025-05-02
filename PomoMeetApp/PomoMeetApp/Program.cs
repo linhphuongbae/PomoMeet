@@ -15,7 +15,7 @@ namespace PomoMeetApp
             // see https://aka.ms/applicationconfiguration.
             FirebaseConfig.SetEnviromentVariable();
             ApplicationConfiguration.Initialize();
-            Application.Run(new Friends());
+            Application.Run(new StartApp());
         }
     }
 }
