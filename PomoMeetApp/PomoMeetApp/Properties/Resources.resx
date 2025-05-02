@@ -148,9 +148,6 @@
   <data name="cam_on" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\videocam.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="cam_off" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\Group 2032.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
   <data name="musicImage4" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\musicImage4.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
@@ -175,14 +172,11 @@
   <data name="mute_mic" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\mute_mic.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="avt8" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\avt8.jpg;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
   <data name="avt4" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\avt4.jpg;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="Rectangle_5" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\Rectangle_5.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  <data name="mic" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\mic.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="avt9" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\avt9.jpg;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
@@ -223,6 +217,9 @@
   <data name="avt2" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\avt2.jpg;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
+  <data name="videocam" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\videocam.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
   <data name="Image" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\Image.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
@@ -237,6 +234,9 @@
   </data>
   <data name="studyBackground3" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\studyBackground3.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="musicImage1" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\musicImage1.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="previous_button" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\previous_button.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
@@ -259,8 +259,8 @@
   <data name="cancel_end" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\cancel_end.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="mic" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\mic.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  <data name="Rectangle_5" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Rectangle_5.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="BetterDays" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\BetterDays.wav;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
@@ -300,6 +300,9 @@
   </data>
   <data name="studyBackground2" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\studyBackground2.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="search" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\search.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="musicImage2" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\musicImage2.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
@@ -343,19 +346,19 @@
   <data name="create_Room1" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\create_Room1.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="search" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\search.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  <data name="cam_off" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Group 2032.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="avt7" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\avt7.jpg;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="musicImage1" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\musicImage1.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  <data name="avt8" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\avt8.jpg;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="LogoPomoMeet" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\LogoPomoMeet.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="videocam" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\videocam.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  <data name="Arrowright" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Arrowright.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
 </root>
