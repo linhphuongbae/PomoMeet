@@ -33,7 +33,7 @@
             btn_OnlineFriends = new SiticoneNetCoreUI.SiticoneButton();
             btn_FriendRequests = new SiticoneNetCoreUI.SiticoneButton();
             btn_FindFriends = new SiticoneNetCoreUI.SiticoneButton();
-            siticoneTextBox1 = new SiticoneNetCoreUI.SiticoneTextBox();
+            txtFindFriends = new SiticoneNetCoreUI.SiticoneTextBox();
             pnAllFriends = new SiticoneNetCoreUI.SiticonePanel();
             pnFriendRequests = new SiticoneNetCoreUI.SiticonePanel();
             siticoneButton2 = new SiticoneNetCoreUI.SiticoneButton();
@@ -53,10 +53,11 @@
             label2 = new Label();
             lbAllFriends = new Label();
             pnFindFriends = new SiticoneNetCoreUI.SiticonePanel();
+            stbn_AddFriend = new SiticoneNetCoreUI.SiticoneButton();
             pictureBox13 = new PictureBox();
             label9 = new Label();
             label10 = new Label();
-            stbn_AddFriend = new SiticoneNetCoreUI.SiticoneButton();
+            sideBar2 = new SideBar();
             pnAllFriends.SuspendLayout();
             pnFriendRequests.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)pictureBox18).BeginInit();
@@ -386,59 +387,60 @@
             btn_FindFriends.UseParticles = false;
             btn_FindFriends.Click += btn_FindFriends_Click;
             // 
-            // siticoneTextBox1
+            // txtFindFriends
             // 
-            siticoneTextBox1.AccessibleDescription = "A customizable text input field.";
-            siticoneTextBox1.AccessibleName = "Text Box";
-            siticoneTextBox1.AccessibleRole = AccessibleRole.Text;
-            siticoneTextBox1.BackColor = Color.Transparent;
-            siticoneTextBox1.BlinkCount = 3;
-            siticoneTextBox1.BlinkShadow = false;
-            siticoneTextBox1.BorderColor1 = Color.LightSlateGray;
-            siticoneTextBox1.BorderColor2 = Color.LightSlateGray;
-            siticoneTextBox1.BorderFocusColor1 = Color.FromArgb(77, 77, 255);
-            siticoneTextBox1.BorderFocusColor2 = Color.FromArgb(77, 77, 255);
-            siticoneTextBox1.CanShake = true;
-            siticoneTextBox1.ContinuousBlink = false;
-            siticoneTextBox1.CursorBlinkRate = 500;
-            siticoneTextBox1.CursorColor = Color.Black;
-            siticoneTextBox1.CursorHeight = 26;
-            siticoneTextBox1.CursorOffset = 0;
-            siticoneTextBox1.CursorStyle = SiticoneNetCoreUI.Helpers.DrawingStyle.SiticoneDrawingStyle.Solid;
-            siticoneTextBox1.CursorWidth = 1;
-            siticoneTextBox1.DisabledBackColor = Color.WhiteSmoke;
-            siticoneTextBox1.DisabledBorderColor = Color.LightGray;
-            siticoneTextBox1.DisabledTextColor = Color.Gray;
-            siticoneTextBox1.EnableDropShadow = false;
-            siticoneTextBox1.FillColor1 = Color.White;
-            siticoneTextBox1.FillColor2 = Color.White;
-            siticoneTextBox1.Font = new Font("Inter", 10.2F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            siticoneTextBox1.ForeColor = Color.DimGray;
-            siticoneTextBox1.HoverBorderColor1 = Color.Gray;
-            siticoneTextBox1.HoverBorderColor2 = Color.Gray;
-            siticoneTextBox1.IsEnabled = true;
-            siticoneTextBox1.Location = new Point(995, 63);
-            siticoneTextBox1.Name = "siticoneTextBox1";
-            siticoneTextBox1.PlaceholderColor = Color.Gray;
-            siticoneTextBox1.PlaceholderText = "Tìm bạn bè";
-            siticoneTextBox1.ReadOnlyBorderColor1 = Color.LightGray;
-            siticoneTextBox1.ReadOnlyBorderColor2 = Color.LightGray;
-            siticoneTextBox1.ReadOnlyFillColor1 = Color.WhiteSmoke;
-            siticoneTextBox1.ReadOnlyFillColor2 = Color.WhiteSmoke;
-            siticoneTextBox1.ReadOnlyPlaceholderColor = Color.DarkGray;
-            siticoneTextBox1.SelectionBackColor = Color.FromArgb(77, 77, 255);
-            siticoneTextBox1.ShadowAnimationDuration = 1;
-            siticoneTextBox1.ShadowBlur = 10;
-            siticoneTextBox1.ShadowColor = Color.FromArgb(15, 0, 0, 0);
-            siticoneTextBox1.Size = new Size(357, 33);
-            siticoneTextBox1.SolidBorderColor = Color.LightSlateGray;
-            siticoneTextBox1.SolidBorderFocusColor = Color.FromArgb(77, 77, 255);
-            siticoneTextBox1.SolidBorderHoverColor = Color.Gray;
-            siticoneTextBox1.SolidFillColor = Color.White;
-            siticoneTextBox1.TabIndex = 9;
-            siticoneTextBox1.TextPadding = new Padding(16, 0, 6, 0);
-            siticoneTextBox1.ValidationErrorMessage = "Invalid input.";
-            siticoneTextBox1.ValidationFunction = null;
+            txtFindFriends.AccessibleDescription = "A customizable text input field.";
+            txtFindFriends.AccessibleName = "Text Box";
+            txtFindFriends.AccessibleRole = AccessibleRole.Text;
+            txtFindFriends.BackColor = Color.Transparent;
+            txtFindFriends.BlinkCount = 3;
+            txtFindFriends.BlinkShadow = false;
+            txtFindFriends.BorderColor1 = Color.LightSlateGray;
+            txtFindFriends.BorderColor2 = Color.LightSlateGray;
+            txtFindFriends.BorderFocusColor1 = Color.FromArgb(77, 77, 255);
+            txtFindFriends.BorderFocusColor2 = Color.FromArgb(77, 77, 255);
+            txtFindFriends.CanShake = true;
+            txtFindFriends.ContinuousBlink = false;
+            txtFindFriends.CursorBlinkRate = 500;
+            txtFindFriends.CursorColor = Color.Black;
+            txtFindFriends.CursorHeight = 26;
+            txtFindFriends.CursorOffset = 0;
+            txtFindFriends.CursorStyle = SiticoneNetCoreUI.Helpers.DrawingStyle.SiticoneDrawingStyle.Solid;
+            txtFindFriends.CursorWidth = 1;
+            txtFindFriends.DisabledBackColor = Color.WhiteSmoke;
+            txtFindFriends.DisabledBorderColor = Color.LightGray;
+            txtFindFriends.DisabledTextColor = Color.Gray;
+            txtFindFriends.EnableDropShadow = false;
+            txtFindFriends.FillColor1 = Color.White;
+            txtFindFriends.FillColor2 = Color.White;
+            txtFindFriends.Font = new Font("Inter", 10.2F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            txtFindFriends.ForeColor = Color.DimGray;
+            txtFindFriends.HoverBorderColor1 = Color.Gray;
+            txtFindFriends.HoverBorderColor2 = Color.Gray;
+            txtFindFriends.IsEnabled = true;
+            txtFindFriends.Location = new Point(995, 63);
+            txtFindFriends.Name = "txtFindFriends";
+            txtFindFriends.PlaceholderColor = Color.Gray;
+            txtFindFriends.PlaceholderText = "Tìm bạn bè";
+            txtFindFriends.ReadOnlyBorderColor1 = Color.LightGray;
+            txtFindFriends.ReadOnlyBorderColor2 = Color.LightGray;
+            txtFindFriends.ReadOnlyFillColor1 = Color.WhiteSmoke;
+            txtFindFriends.ReadOnlyFillColor2 = Color.WhiteSmoke;
+            txtFindFriends.ReadOnlyPlaceholderColor = Color.DarkGray;
+            txtFindFriends.SelectionBackColor = Color.FromArgb(77, 77, 255);
+            txtFindFriends.ShadowAnimationDuration = 1;
+            txtFindFriends.ShadowBlur = 10;
+            txtFindFriends.ShadowColor = Color.FromArgb(15, 0, 0, 0);
+            txtFindFriends.Size = new Size(357, 33);
+            txtFindFriends.SolidBorderColor = Color.LightSlateGray;
+            txtFindFriends.SolidBorderFocusColor = Color.FromArgb(77, 77, 255);
+            txtFindFriends.SolidBorderHoverColor = Color.Gray;
+            txtFindFriends.SolidFillColor = Color.White;
+            txtFindFriends.TabIndex = 9;
+            txtFindFriends.TextPadding = new Padding(16, 0, 6, 0);
+            txtFindFriends.ValidationErrorMessage = "Invalid input.";
+            txtFindFriends.ValidationFunction = null;
+            txtFindFriends.Click += siticoneTextBox1_Click;
             // 
             // pnAllFriends
             // 
@@ -898,38 +900,6 @@
             pnFindFriends.UseRadialGradient = false;
             pnFindFriends.Visible = false;
             // 
-            // pictureBox13
-            // 
-            pictureBox13.Image = (Image)resources.GetObject("pictureBox13.Image");
-            pictureBox13.Location = new Point(69, 57);
-            pictureBox13.Name = "pictureBox13";
-            pictureBox13.Size = new Size(204, 206);
-            pictureBox13.TabIndex = 20;
-            pictureBox13.TabStop = false;
-            // 
-            // label9
-            // 
-            label9.AutoSize = true;
-            label9.BackColor = Color.Transparent;
-            label9.Font = new Font("Inter", 13.8F, FontStyle.Bold, GraphicsUnit.Point, 0);
-            label9.ForeColor = Color.Black;
-            label9.Location = new Point(78, 298);
-            label9.Name = "label9";
-            label9.Size = new Size(0, 32);
-            label9.TabIndex = 13;
-            // 
-            // label10
-            // 
-            label10.AutoSize = true;
-            label10.BackColor = Color.Transparent;
-            label10.Font = new Font("Inter", 16.2F, FontStyle.Bold, GraphicsUnit.Point, 0);
-            label10.ForeColor = Color.Black;
-            label10.Location = new Point(132, 266);
-            label10.Name = "label10";
-            label10.Size = new Size(78, 40);
-            label10.TabIndex = 12;
-            label10.Text = "Alex";
-            // 
             // stbn_AddFriend
             // 
             stbn_AddFriend.AccessibleDescription = "The default button control that accept input though the mouse, touch and keyboard";
@@ -1006,15 +976,55 @@
             stbn_AddFriend.UseAdvancedRendering = true;
             stbn_AddFriend.UseParticles = false;
             // 
+            // pictureBox13
+            // 
+            pictureBox13.Image = (Image)resources.GetObject("pictureBox13.Image");
+            pictureBox13.Location = new Point(69, 57);
+            pictureBox13.Name = "pictureBox13";
+            pictureBox13.Size = new Size(204, 206);
+            pictureBox13.TabIndex = 20;
+            pictureBox13.TabStop = false;
+            // 
+            // label9
+            // 
+            label9.AutoSize = true;
+            label9.BackColor = Color.Transparent;
+            label9.Font = new Font("Inter", 13.8F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            label9.ForeColor = Color.Black;
+            label9.Location = new Point(78, 298);
+            label9.Name = "label9";
+            label9.Size = new Size(0, 32);
+            label9.TabIndex = 13;
+            // 
+            // label10
+            // 
+            label10.AutoSize = true;
+            label10.BackColor = Color.Transparent;
+            label10.Font = new Font("Inter", 16.2F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            label10.ForeColor = Color.Black;
+            label10.Location = new Point(132, 266);
+            label10.Name = "label10";
+            label10.Size = new Size(78, 40);
+            label10.TabIndex = 12;
+            label10.Text = "Alex";
+            // 
+            // sideBar2
+            // 
+            sideBar2.Location = new Point(0, 0);
+            sideBar2.Name = "sideBar2";
+            sideBar2.Size = new Size(271, 1250);
+            sideBar2.TabIndex = 29;
+            // 
             // Friends
             // 
             AutoScaleDimensions = new SizeF(8F, 20F);
             AutoScaleMode = AutoScaleMode.Font;
             BackColor = Color.FromArgb(252, 255, 224);
             ClientSize = new Size(1422, 977);
+            Controls.Add(sideBar2);
             Controls.Add(lbAllFriends);
             Controls.Add(pnFindFriends);
-            Controls.Add(siticoneTextBox1);
+            Controls.Add(txtFindFriends);
             Controls.Add(pnAllFriends);
             Controls.Add(btn_FindFriends);
             Controls.Add(btn_FriendRequests);
@@ -1047,7 +1057,7 @@
         private SiticoneNetCoreUI.SiticoneButton btn_OnlineFriends;
         private SiticoneNetCoreUI.SiticoneButton btn_FriendRequests;
         private SiticoneNetCoreUI.SiticoneButton btn_FindFriends;
-        private SiticoneNetCoreUI.SiticoneTextBox siticoneTextBox1;
+        private SiticoneNetCoreUI.SiticoneTextBox txtFindFriends;
         private SiticoneNetCoreUI.SiticonePanel pnAllFriends;
         private Label lbAllFriends;
         private Label label3;
@@ -1073,5 +1083,6 @@
         private UserProfilePanel userProfilePanel1;
         private SideBar sideBar1;
         private SiticoneNetCoreUI.SiticoneButton stbn_AddFriend;
+        private SideBar sideBar2;
     }
 }
