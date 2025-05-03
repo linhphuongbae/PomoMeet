@@ -1,4 +1,6 @@
-﻿using SiticoneNetCoreUI;
+﻿using Google.Cloud.Firestore;
+using PomoMeetApp.Classes;
+using SiticoneNetCoreUI;
 using System;
 using System.Drawing;
 using System.Windows.Forms;
@@ -14,6 +16,8 @@ namespace PomoMeetApp.View
         private SiticoneButton btnProfile;
         private Panel dropdownPanel;
         private Action<string> profileClickCallback; // Callback now expects userId
+        private FirestoreChangeListener _notificationListener;
+        private Label lblBadgeCount;
 
         // Store current userId
         private string currentUserId;
@@ -44,10 +48,32 @@ namespace PomoMeetApp.View
                 Size = new Size(50, 50),
                 Location = new Point(0, 5),
                 BellColor = Color.Black,
-                Text = "",
+                Text = string.Empty, // No notifications initially
                 Cursor = Cursors.Hand
             };
             this.Controls.Add(btnNotify);
+
+            btnNotify.Click += BtnNotify_Click;
+
+
+            // Badge label to show count
+            lblBadgeCount = new Label
+            {
+                Size = new Size(15, 15),
+                Location = new Point(btnNotify.Right - 20, btnNotify.Top), // Nằm gần góc phải
+                BackColor = Color.Transparent,
+                ForeColor = Color.Red,
+                Font = new Font("Segoe UI", 8, FontStyle.Bold),
+                TextAlign = ContentAlignment.MiddleCenter,
+                Visible = false,
+                BorderStyle = BorderStyle.None,
+                AutoSize = false,
+                Cursor = Cursors.Hand
+            };
+            lblBadgeCount.Click += BtnNotify_Click; // Cho phép bấm vào badge cũng mở thông báo
+            lblBadgeCount.BringToFront();
+            this.Controls.Add(lblBadgeCount);
+
 
             // 2. Avatar (Ảnh đại diện)
             avatar = new PictureBox
@@ -119,12 +145,129 @@ namespace PomoMeetApp.View
             this.Height = dropdownPanel.Visible ? 110 : 60; // Điều chỉnh chiều cao
         }
 
-        // Cập nhật thông tin người dùng
-        public void UpdateUserInfo(string userId, string userName, Image avatarImage)
+
+        private ReqNotification _notificationForm;
+        private void BtnNotify_Click(object sender, EventArgs e)
         {
-            currentUserId = userId; // Store the userId
+            if (!string.IsNullOrEmpty(currentUserId))
+            {
+                if (_notificationForm == null || _notificationForm.IsDisposed)
+                {
+                    _notificationForm = new ReqNotification(currentUserId);
+                    _notificationForm.FormClosed += (s, args) => _notificationForm = null;
+                    _notificationForm.Show();
+                }
+                else
+                {
+                    _notificationForm.BringToFront();
+                }
+            }
+            else
+            {
+                MessageBox.Show("User ID is not set. Please log in first.");
+            }
+        }
+        private int _notificationCountBackingField = 0;
+        private int NotificationCount
+        {
+            get => _notificationCountBackingField;
+            set
+            {
+                _notificationCountBackingField = value;
+
+                if (btnNotify.IsHandleCreated)
+                {
+                    btnNotify.Invoke((MethodInvoker)delegate
+                    {
+                        // Update badge
+                        lblBadgeCount.Text = _notificationCountBackingField.ToString();
+                        lblBadgeCount.Visible = _notificationCountBackingField > 0;
+                        lblBadgeCount.BringToFront();
+
+                        btnNotify.BellColor = _notificationCountBackingField > 0 ? Color.Red : Color.Black;
+                    });
+                }
+            }
+        }
+
+        private async Task UpdateNotificationBadge()
+        {
+            try
+            {
+                var db = FirebaseConfig.database;
+                if (db == null || string.IsNullOrEmpty(currentUserId)) return;
+
+                // Query to count pending invitations for the current user
+                var query = db.Collection("Invitations")
+                    .WhereEqualTo("receiver_id", currentUserId)
+                    .WhereEqualTo("status", "Pending");
+
+                var snapshot = await query.GetSnapshotAsync();
+
+                // Update the notification count
+                NotificationCount = snapshot.Count;
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine($"Error updating notification badge: {ex.Message}");
+            }
+        }
+
+        private async void StartListeningForNotifications()
+        {
+            try
+            {
+                var db = FirebaseConfig.database;
+                if (db == null || string.IsNullOrEmpty(currentUserId)) return;
+
+                // Stop the previous listener if it exists
+                if (_notificationListener != null)
+                {
+                    await _notificationListener.StopAsync();
+                }
+
+                var query = db.Collection("Invitations")
+                    .WhereEqualTo("receiver_id", currentUserId)
+                    .WhereEqualTo("status", "Pending");
+
+                _notificationListener = query.Listen(snapshot =>
+                {
+                    if (this.IsHandleCreated)
+                    {
+                        this.Invoke((MethodInvoker)delegate
+                        {
+                            NotificationCount = snapshot.Count;
+
+                            // Visual feedback when new notifications arrive
+                            if (snapshot.Count > 0 && snapshot.Count > NotificationCount)
+                            {
+                                btnNotify.BellColor = Color.Red;
+                                Task.Delay(500).ContinueWith(t =>
+                                {
+                                    this.Invoke((MethodInvoker)delegate
+                                    {
+                                        btnNotify.BellColor = Color.Black;
+                                    });
+                                });
+                            }
+                        });
+                    }
+                });
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine($"Error setting up listener: {ex.Message}");
+            }
+        }
+
+        // Update user info
+        public async void UpdateUserInfo(string userId, string userName, Image avatarImage)
+        {
+            currentUserId = userId;
             lblUserName.Text = userName;
             avatar.Image = avatarImage ?? Properties.Resources.avatar;
+            await UpdateNotificationBadge().ConfigureAwait(false);
+            StartListeningForNotifications();
         }
     }
 }
