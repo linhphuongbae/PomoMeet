@@ -1,4 +1,4 @@
-﻿using System;
+﻿    using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
@@ -7,6 +7,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using Google.Cloud.Firestore;
 using PomoMeetApp.Classes;
 
 namespace PomoMeetApp.View
@@ -103,6 +104,8 @@ namespace PomoMeetApp.View
                 var btnAdd = new SiticoneNetCoreUI.SiticoneButton
                 {
                     Text = "Add Friend",
+
+                    // thiết kế
                     Width = 100,
                     Height = 30,
                     Location = new Point((card.Width - 100) / 2, 150),
@@ -121,7 +124,51 @@ namespace PomoMeetApp.View
                     Font = new Font("Segoe UI", 9, FontStyle.Bold)
                 };
 
+                // logic bấm nút
 
+                btnAdd.Click += async (s, args) =>
+                {
+                    if (userId == UserSession.CurrentUser.UserId)
+                    {
+                        MessageBox.Show("Bạn không thể kết bạn với chính mình.");
+                        return;
+                    };
+
+                        var existing = await db.Collection("FriendShips")
+                        .WhereEqualTo("requester_id", UserSession.CurrentUser.UserId)
+                        .WhereEqualTo("receiver_id", userId)
+                        .GetSnapshotAsync();
+
+                        var reverse = await db.Collection("FriendShips")
+                            .WhereEqualTo("requester_id", userId)
+                            .WhereEqualTo("receiver_id", UserSession.CurrentUser.UserId)
+                            .GetSnapshotAsync();
+                        if (existing.Count > 0 || reverse.Count > 0)
+                        {
+                            MessageBox.Show("Đã tồn tại yêu cầu kết bạn hoặc đã là bạn bè.");
+                            return;
+                        }
+
+                    string friendshipId = Guid.NewGuid().ToString();
+
+                    // data
+                    var data = new Dictionary<string, object>
+                    {
+                        { "friendship_id", friendshipId },
+                        { "requester_id", UserSession.CurrentUser.UserId },
+                        { "receiver_id", userId },
+                        { "status", "Pending" },
+                        { "created_at", FieldValue.ServerTimestamp },
+                        { "removed_at", "" }
+                    };
+
+                    await db.Collection("FriendShips").Document(friendshipId).SetAsync(data);
+
+                    btnAdd.Text = "Đã gửi";
+                    btnAdd.Enabled = false;
+
+                    MessageBox.Show("Đã gửi lời mời kết bạn!");
+                };
                 card.Controls.Add(pic);
                 card.Controls.Add(lbl);
                 card.Controls.Add(btnAdd);

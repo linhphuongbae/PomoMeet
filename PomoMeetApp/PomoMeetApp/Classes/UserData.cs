@@ -7,7 +7,7 @@ using Google.Cloud.Firestore;
 namespace PomoMeetApp.Classes
 {
     [FirestoreData]
-    internal class UserData
+    public class UserData
     {
         [FirestoreProperty]
         public string UserId { get; set; }

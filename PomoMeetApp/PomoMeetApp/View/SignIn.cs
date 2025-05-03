@@ -52,7 +52,7 @@ namespace PomoMeetApp.View
                 DocumentSnapshot snapshot = qr.Documents[0];
                 UserData data = snapshot.ConvertTo<UserData>();
                 string userId = snapshot.Id; // Lấy document ID (sẽ là userId)
-
+                UserSession.CurrentUser = data;
 
                 if (data != null)
                 {
