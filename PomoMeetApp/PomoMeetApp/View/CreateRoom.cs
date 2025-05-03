@@ -145,7 +145,7 @@ namespace PomoMeetApp.View
                 return "Public";
             }
             else
-                return "Unknown";
+                return null;
         }
 
         private string HashPassword(string password)

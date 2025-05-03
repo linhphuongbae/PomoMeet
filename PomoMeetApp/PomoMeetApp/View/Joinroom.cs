@@ -61,6 +61,10 @@ namespace PomoMeetApp.View
             }
             else if (room.Type == "Private")
             {
+                lb_Password.Visible = true; // Hiện label mật khẩu
+                stb_Password.Visible = true; // Hiện textbox mật khẩu
+                btn_TogglePassword.Visible = true; // Hiện nút hiện mật khẩu
+                btn_TogglePassword.BringToFront();
                 // Nếu phòng là Private, yêu cầu nhập mật khẩu
                 string enteredPassword = stb_Password.Text.Trim(); // Nhận mật khẩu từ textbox
 
@@ -98,6 +102,9 @@ namespace PomoMeetApp.View
             var doc = snapshot.Documents.First();
             var data = doc.ToDictionary();
 
+            MessageBox.Show($"RoomId: {roomId}, Snapshot Count: {snapshot.Count}");
+
+
             return new RoomData
             {
                 RoomId = doc.Id,
@@ -129,11 +136,30 @@ namespace PomoMeetApp.View
             var roomRef = db.Collection("Room").Document(roomId);
 
             // Cập nhật mảng members, thêm ID người tham gia vào
-            await roomRef.UpdateAsync("members", FieldValue.ArrayUnion(currentUserId));
+            try
+            {
+                await roomRef.UpdateAsync("members", FieldValue.ArrayUnion(currentUserId));
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Lỗi khi thêm thành viên vào phòng: " + ex.Message);
+            }
 
             MeetingRoom meetingRoom = new MeetingRoom(userId, roomId);
             meetingRoom.ShowDialog();
             this.Close();
+        }
+
+        bool isPasswordVisible = false;
+
+        private void btn_TogglePassword_Click(object sender, EventArgs e)
+        {
+            isPasswordVisible = !isPasswordVisible;
+            stb_Password.UseSystemPasswordChar = !isPasswordVisible;
+
+            btn_TogglePassword.BackgroundImage = isPasswordVisible
+                ? Properties.Resources.eye_open
+                : Properties.Resources.eye_close;
         }
     }
 

@@ -35,6 +35,7 @@
             lb_Password = new Label();
             stb_Password = new SiticoneNetCoreUI.SiticoneTextBox();
             sbtn_JoinRoom = new SiticoneNetCoreUI.SiticoneButton();
+            btn_TogglePassword = new Button();
             siticonePanel1.SuspendLayout();
             SuspendLayout();
             // 
@@ -170,6 +171,7 @@
             lb_Password.Size = new Size(143, 25);
             lb_Password.TabIndex = 4;
             lb_Password.Text = "Nhập mật khẩu";
+            lb_Password.Visible = false;
             // 
             // stb_Password
             // 
@@ -222,6 +224,7 @@
             stb_Password.SolidFillColor = Color.White;
             stb_Password.TabIndex = 5;
             stb_Password.TextPadding = new Padding(16, 0, 6, 0);
+            stb_Password.UseSystemPasswordChar = true;
             stb_Password.ValidationErrorMessage = "Invalid input.";
             stb_Password.ValidationFunction = null;
             stb_Password.Visible = false;
@@ -304,12 +307,27 @@
             sbtn_JoinRoom.UseParticles = false;
             sbtn_JoinRoom.Click += sbtn_JoinRoom_Click;
             // 
+            // btn_TogglePassword
+            // 
+            btn_TogglePassword.BackColor = Color.White;
+            btn_TogglePassword.BackgroundImage = Properties.Resources.eye_close;
+            btn_TogglePassword.FlatAppearance.BorderSize = 0;
+            btn_TogglePassword.FlatStyle = FlatStyle.Flat;
+            btn_TogglePassword.Location = new Point(689, 294);
+            btn_TogglePassword.Name = "btn_TogglePassword";
+            btn_TogglePassword.Size = new Size(27, 29);
+            btn_TogglePassword.TabIndex = 11;
+            btn_TogglePassword.UseVisualStyleBackColor = false;
+            btn_TogglePassword.Visible = false;
+            btn_TogglePassword.Click += btn_TogglePassword_Click;
+            // 
             // Joinroom
             // 
             AutoScaleDimensions = new SizeF(8F, 20F);
             AutoScaleMode = AutoScaleMode.Font;
             BackColor = Color.White;
             ClientSize = new Size(796, 457);
+            Controls.Add(btn_TogglePassword);
             Controls.Add(sbtn_JoinRoom);
             Controls.Add(stb_Password);
             Controls.Add(lb_Password);
@@ -334,5 +352,6 @@
         private Label lb_Password;
         private SiticoneNetCoreUI.SiticoneTextBox stb_Password;
         private SiticoneNetCoreUI.SiticoneButton sbtn_JoinRoom;
+        private Button btn_TogglePassword;
     }
 }
