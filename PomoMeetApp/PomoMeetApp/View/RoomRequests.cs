@@ -11,28 +11,34 @@ using System.Windows.Forms;
 using FirebaseAdmin;
 using Google.Cloud.Firestore;
 using PomoMeetApp.Classes;
+using static PomoMeetApp.View.CreateRoom;
 
 namespace PomoMeetApp.View
 {
     public partial class RoomRequests : Form
     {
-        private string _inviteCode;
-        private string _roomId;
         private string _currentUserId;
+        private string _roomId;
+        private string _roomName;
+        private string _roomMode;
+        private string _password;
+        private CreateRoom _createRoom; // Tham chiếu đến CreateRoom
 
-        public RoomRequests(string inviteCode, string roomId, string currentUserId)
+        public RoomRequests(string roomId, string roomName, string roomMode, string password, string currentUserId, CreateRoom createRoom)
         {
             InitializeComponent();
-            _inviteCode = inviteCode;
-            _roomId = roomId;
             _currentUserId = currentUserId;
+            _roomId = roomId;
+            _roomName = roomName;
+            _roomMode = roomMode;
+            _password = password;
+            _createRoom = createRoom; // Gán tham chiếu
 
-            tbMamoi.Text = _inviteCode;
+            tbMamoi.Text = roomId;
             btCopy.TargetControl = tbMamoi;
-            siticoneButton2.Click += siticoneButton2_Click;
             siticonePanel2.BringToFront();
             siticonePanel2.Visible = true;
-            // Load danh sách bạn bè khi form khởi tạo
+
             LoadFriendsList();
         }
 
@@ -129,36 +135,6 @@ namespace PomoMeetApp.View
             }
         }
 
-
-
-        private async void siticoneButton2_Click(object? sender, EventArgs e)
-        {
-            var selectedFriends = new List<string>();
-
-            foreach (Control control in siticonePanel2.Controls)
-            {
-                if (control is SiticoneCheckBox checkbox && checkbox.Checked)
-                {
-                    if (checkbox.Tag != null)
-                    {
-                        selectedFriends.Add(checkbox.Tag.ToString());
-                    }
-                    else
-                    {
-                        MessageBox.Show("A selected friend's ID is missing.");
-                    }
-                }
-            }
-
-            if (selectedFriends.Count == 0)
-            {
-                MessageBox.Show("Vui lòng chọn ít nhất một người bạn để mời");
-                return;
-            }
-
-            await SendInvitations(selectedFriends);
-        }
-
         private async Task SendInvitations(List<string> friendIds)
         {
             try
@@ -193,7 +169,6 @@ namespace PomoMeetApp.View
                     var invitation = new
                     {
                         invite_id = invitationId,
-                        invite_code = _inviteCode,
                         room_id = _roomId,
                         sender_id = _currentUserId,
                         receiver_id = receiverId,
@@ -214,9 +189,38 @@ namespace PomoMeetApp.View
             }
         }
 
-        private void stbn_Back_Click(object sender, EventArgs e)
+        private async void btnSendInvitation_Click(object sender, EventArgs e)
         {
+            var selectedFriends = new List<string>();
 
+            foreach (Control control in siticonePanel2.Controls)
+            {
+                if (control is SiticoneCheckBox checkbox && checkbox.Checked)
+                {
+                    if (checkbox.Tag != null)
+                    {
+                        selectedFriends.Add(checkbox.Tag.ToString());
+                    }
+                    else
+                    {
+                        MessageBox.Show("A selected friend's ID is missing.");
+                    }
+                }
+            }
+
+            if (selectedFriends.Count == 0)
+            {
+                MessageBox.Show("Vui lòng chọn ít nhất một người bạn để mời");
+                return;
+            }
+
+            // Gửi lời mời
+            await SendInvitations(selectedFriends);
+
+            // Không tạo lại phòng ở đây. RoomId đã được truyền từ CreateRoom.cs.
+            MessageBox.Show($"Lời mời đã được gửi thành công cho phòng: {_roomId}");
+            MeetingRoom meetingRoom = new MeetingRoom(_currentUserId, _roomId);
+            meetingRoom.ShowDialog();
         }
     }
 }

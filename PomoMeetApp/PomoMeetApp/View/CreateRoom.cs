@@ -12,6 +12,7 @@ using System.Security.Cryptography;
 using System.Media;
 using NAudio.Wave;
 using static PomoMeetApp.View.CreateRoom;
+using Microsoft.VisualBasic.ApplicationServices;
 
 
 namespace PomoMeetApp.View
@@ -295,23 +296,22 @@ namespace PomoMeetApp.View
                 MessageBox.Show("Vui lòng nhập mật khẩu");
                 return;
             }
-
-            // Tạo phòng và lấy thông tin phòng vừa tạo
+            // Tạo phòng và lấy thông tin
             var roomInfo = await CreateNewRoomAndGetInfo(roomName, roomMode, password);
 
             if (roomInfo != null)
             {
-                // Mở form mời bạn bè và truyền thông tin
-                RoomRequests roomRequestsForm = new RoomRequests(
-                    roomInfo.InviteCode,
-                    roomInfo.RoomId,
-                    currentUserId);
-
-                await FormTransition.FadeTo(this, roomRequestsForm);
+                // Truyền RoomId vào RoomRequests
+                var roomRequests = new RoomRequests(roomInfo.RoomId, roomName, roomMode, password, currentUserId, this);
+                await FormTransition.FadeTo(this, roomRequests);
+            }
+            else
+            {
+                MessageBox.Show("Không thể tạo phòng. Vui lòng thử lại.");
             }
         }
 
-        private async Task<RoomInfo> CreateNewRoomAndGetInfo(string roomName, string roomMode, string password)
+        public async Task<RoomInfo> CreateNewRoomAndGetInfo(string roomName, string roomMode, string password)
         {
             try
             {
@@ -323,14 +323,10 @@ namespace PomoMeetApp.View
                 int shortBreak = (int)numUpDown_Break.Value;
                 string hashedPassword = string.IsNullOrEmpty(password) ? "" : HashPassword(password);
 
-                // Tạo mã mời ngẫu nhiên
-                string inviteCode = Guid.NewGuid().ToString().Substring(0, 6).ToUpper();
-
                 var room = new
                 {
                     roomId = roomId,
                     room_name = roomName,
-                    invite_code = inviteCode,
                     host_id = currentUserId, // Thay bằng user ID thực tế
                     type = roomMode,
                     password = hashedPassword,
@@ -345,7 +341,7 @@ namespace PomoMeetApp.View
                 var roomRef = db.Collection("Room").Document(roomId);
                 await roomRef.SetAsync(room);
 
-                return new RoomInfo { RoomId = roomId, InviteCode = inviteCode };
+                return new RoomInfo { RoomId = roomId};
             }
             catch (Exception ex)
             {
@@ -358,7 +354,6 @@ namespace PomoMeetApp.View
         public class RoomInfo
         {
             public string RoomId { get; set; }
-            public string InviteCode { get; set; }
         }
     }
 }
