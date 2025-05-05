@@ -63,6 +63,7 @@ namespace PomoMeetApp.View
                     else
                     {
                         MessageBox.Show("Wrong password", "Warning", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                        return;
                     }
                 }
                 await FormTransition.FadeTo(this, new Dashboard(userId));

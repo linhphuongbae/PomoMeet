@@ -8,6 +8,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using Google.Cloud.Firestore;
+using Microsoft.VisualBasic.ApplicationServices;
 using PomoMeetApp.Classes;
 using static System.Windows.Forms.VisualStyles.VisualStyleElement.StartPanel;
 
@@ -21,11 +22,85 @@ namespace PomoMeetApp.View
             txtFindFriends.TextChanged += txtFindFriends_TextChanged;
         }
 
-        private void btn_AllFriends_Click(object sender, EventArgs e)
+        private async void btn_AllFriends_Click(object sender, EventArgs e)
         {
             lbAllFriends.Text = "All Friends";
             pnFriends.Visible = true;
 
+            pnFriends.Controls.Clear(); 
+            // logic sẽ dùng query những đứa trong friendship mà status : accepted
+            var db = FirebaseConfig.database;
+            string curUserId = UserSession.CurrentUser.UserId;
+            // Lấy những mối quan hệ bạn bè đã accepted, gồm cả 2 chiều
+            var Requester = await db.Collection("FriendShips")
+                .WhereEqualTo("requester_id", curUserId)
+                .WhereEqualTo("status", "accepted")
+                .GetSnapshotAsync();
+
+            var Receiver = await db.Collection("FriendShips")
+                .WhereEqualTo("receiver_id", curUserId)
+                .WhereEqualTo("status", "accepted")
+                .GetSnapshotAsync();
+            var friend = Requester.Documents.Concat(Receiver.Documents).ToList();
+            int x = 10;
+            foreach (var item in friend)
+            {
+                string requesterId = item.GetValue<string>("requester_id");
+                string receiverId = item.GetValue<string>("receiver_id");
+                string friendId = requesterId == curUserId ? receiverId : requesterId;
+
+                // Lấy thông tin người gửi từ bảng User
+                var userSnap = await db.Collection("User").Document(requesterId).GetSnapshotAsync();
+                if (!userSnap.Exists) continue;
+
+                string fromUsername = userSnap.GetValue<string>("Username");
+                string avatarId = userSnap.ContainsField("Avatar") ? userSnap.GetValue<string>("Avatar") : "avt1"; // fallback
+
+
+                // Load ảnh avatar từ Firebase Storage nếu có, hoặc từ local nếu là mã như "avt1"
+                Image avatarImage = LoadLocalAvatar(avatarId);
+
+                // Panel chứa avatar và tên
+                Panel card = new Panel
+                {
+                    Width = 200,
+                    Height = 400,
+                    Location = new Point(x, 10),
+                    BackColor = Color.Transparent,
+                    BorderStyle = BorderStyle.None,
+                    Margin = new Padding(5)
+                };
+                // Tạo SiticoneCirclePictureBox
+                PictureBox pic = new PictureBox
+                {
+                    Width = 100,
+                    Height = 100,
+                    Location = new Point((card.Width - 100) / 2, 10),
+                    Image = avatarImage,
+                    SizeMode = PictureBoxSizeMode.Zoom,
+                    BackColor = Color.Transparent,
+                };
+
+
+                // Tạo Label tên người dùng
+                Label lbl = new Label
+                {
+                    Text = fromUsername,
+                    Location = new Point((card.Width - TextRenderer.MeasureText(fromUsername, new Font("Segoe UI", 10, FontStyle.Bold)).Width) / 2, 120),
+                    AutoSize = true,
+                    Font = new Font("Segoe UI", 10, FontStyle.Bold)
+                };
+
+
+
+                card.Controls.Add(pic);
+                card.Controls.Add(lbl);
+
+
+                // Thêm vào pnFindFriends
+                pnFriends.Controls.Add(card);
+                x += card.Width + 10;
+            }
         }
 
         private void btn_OnlineFriends_Click(object sender, EventArgs e)
@@ -156,6 +231,20 @@ namespace PomoMeetApp.View
                         MessageBox.Show("Error: " + ex.Message);
                     } 
                     
+                };
+                btnDecline.Click += async (s, args) =>
+                {
+                    try
+                    {
+                        await db.Collection("FriendShips").Document(item.Id).DeleteAsync();
+                        MessageBox.Show("Đã từ chối kết bạn!");
+                        pnFriends.Controls.Remove(card);
+                    }
+                    catch (Exception ex)
+                    {
+                        MessageBox.Show("Error: " + ex.Message);
+                    }
+
                 };
                 card.Controls.Add(pic);
                 card.Controls.Add(lbl);
