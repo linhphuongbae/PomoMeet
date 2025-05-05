@@ -35,12 +35,15 @@
             btn_FindFriends = new SiticoneNetCoreUI.SiticoneButton();
             txtFindFriends = new SiticoneNetCoreUI.SiticoneTextBox();
             pnFriends = new SiticoneNetCoreUI.SiticonePanel();
+            stbn_AddFriend = new SiticoneNetCoreUI.SiticoneButton();
             siticoneButton2 = new SiticoneNetCoreUI.SiticoneButton();
+            pictureBox13 = new PictureBox();
+            label10 = new Label();
             siticoneButton1 = new SiticoneNetCoreUI.SiticoneButton();
-            pictureBox18 = new PictureBox();
-            label12 = new Label();
             pictureBox6 = new PictureBox();
             pictureBox5 = new PictureBox();
+            pictureBox18 = new PictureBox();
+            label12 = new Label();
             pictureBox4 = new PictureBox();
             pictureBox3 = new PictureBox();
             pictureBox2 = new PictureBox();
@@ -50,19 +53,16 @@
             label3 = new Label();
             label2 = new Label();
             lbAllFriends = new Label();
-            stbn_AddFriend = new SiticoneNetCoreUI.SiticoneButton();
-            pictureBox13 = new PictureBox();
-            label10 = new Label();
             sideBar2 = new SideBar();
             pnFriends.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)pictureBox18).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)pictureBox13).BeginInit();
             ((System.ComponentModel.ISupportInitialize)pictureBox6).BeginInit();
             ((System.ComponentModel.ISupportInitialize)pictureBox5).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)pictureBox18).BeginInit();
             ((System.ComponentModel.ISupportInitialize)pictureBox4).BeginInit();
             ((System.ComponentModel.ISupportInitialize)pictureBox3).BeginInit();
             ((System.ComponentModel.ISupportInitialize)pictureBox2).BeginInit();
             ((System.ComponentModel.ISupportInitialize)pictureBox1).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)pictureBox13).BeginInit();
             SuspendLayout();
             // 
             // btn_AllFriends
@@ -439,6 +439,7 @@
             // pnFriends
             // 
             pnFriends.AcrylicTintColor = Color.FromArgb(128, 255, 255, 255);
+            pnFriends.AutoScroll = true;
             pnFriends.BackColor = Color.Transparent;
             pnFriends.BorderAlignment = System.Drawing.Drawing2D.PenAlignment.Center;
             pnFriends.BorderDashPattern = null;
@@ -498,6 +499,82 @@
             pnFriends.UseMultiGradient = false;
             pnFriends.UsePatternTexture = false;
             pnFriends.UseRadialGradient = false;
+            // 
+            // stbn_AddFriend
+            // 
+            stbn_AddFriend.AccessibleDescription = "The default button control that accept input though the mouse, touch and keyboard";
+            stbn_AddFriend.AccessibleName = "Add Friend";
+            stbn_AddFriend.AutoSizeBasedOnText = false;
+            stbn_AddFriend.BackColor = Color.Transparent;
+            stbn_AddFriend.BadgeBackColor = Color.Red;
+            stbn_AddFriend.BadgeFont = new Font("Segoe UI", 8F, FontStyle.Bold);
+            stbn_AddFriend.BadgeValue = 0;
+            stbn_AddFriend.BadgeValueForeColor = Color.Violet;
+            stbn_AddFriend.BorderColor = Color.FromArgb(117, 164, 127);
+            stbn_AddFriend.BorderWidth = 2;
+            stbn_AddFriend.ButtonBackColor = Color.Transparent;
+            stbn_AddFriend.ButtonImage = null;
+            stbn_AddFriend.CanBeep = true;
+            stbn_AddFriend.CanGlow = false;
+            stbn_AddFriend.CanShake = true;
+            stbn_AddFriend.ContextMenuStripEx = null;
+            stbn_AddFriend.CornerRadiusBottomLeft = 5;
+            stbn_AddFriend.CornerRadiusBottomRight = 5;
+            stbn_AddFriend.CornerRadiusTopLeft = 5;
+            stbn_AddFriend.CornerRadiusTopRight = 5;
+            stbn_AddFriend.CustomCursor = Cursors.Default;
+            stbn_AddFriend.DisabledTextColor = Color.FromArgb(150, 150, 150);
+            stbn_AddFriend.EnableLongPress = false;
+            stbn_AddFriend.EnablePressAnimation = true;
+            stbn_AddFriend.EnableRippleEffect = true;
+            stbn_AddFriend.EnableShadow = false;
+            stbn_AddFriend.EnableTextWrapping = false;
+            stbn_AddFriend.Font = new Font("Inter", 9F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            stbn_AddFriend.GlowColor = Color.FromArgb(100, 255, 255, 255);
+            stbn_AddFriend.GlowIntensity = 100;
+            stbn_AddFriend.GlowRadius = 20F;
+            stbn_AddFriend.GradientBackground = false;
+            stbn_AddFriend.GradientColor = Color.FromArgb(114, 168, 255);
+            stbn_AddFriend.GradientMode = System.Drawing.Drawing2D.LinearGradientMode.Vertical;
+            stbn_AddFriend.HintText = null;
+            stbn_AddFriend.HoverBackColor = Color.Transparent;
+            stbn_AddFriend.HoverFontStyle = FontStyle.Regular;
+            stbn_AddFriend.HoverTextColor = Color.FromArgb(117, 164, 127);
+            stbn_AddFriend.HoverTransitionDuration = 250;
+            stbn_AddFriend.ImageAlign = ContentAlignment.MiddleLeft;
+            stbn_AddFriend.ImagePadding = 5;
+            stbn_AddFriend.ImageSize = new Size(16, 16);
+            stbn_AddFriend.IsRadial = false;
+            stbn_AddFriend.IsReadOnly = false;
+            stbn_AddFriend.IsToggleButton = false;
+            stbn_AddFriend.IsToggled = false;
+            stbn_AddFriend.Location = new Point(475, 594);
+            stbn_AddFriend.LongPressDurationMS = 1000;
+            stbn_AddFriend.Name = "stbn_AddFriend";
+            stbn_AddFriend.NormalFontStyle = FontStyle.Regular;
+            stbn_AddFriend.ParticleColor = Color.FromArgb(200, 200, 200);
+            stbn_AddFriend.ParticleCount = 15;
+            stbn_AddFriend.PressAnimationScale = 0.97F;
+            stbn_AddFriend.PressedBackColor = Color.Transparent;
+            stbn_AddFriend.PressedFontStyle = FontStyle.Regular;
+            stbn_AddFriend.PressTransitionDuration = 150;
+            stbn_AddFriend.ReadOnlyTextColor = Color.FromArgb(100, 100, 100);
+            stbn_AddFriend.RippleColor = Color.FromArgb(255, 255, 255);
+            stbn_AddFriend.RippleOpacity = 0.3F;
+            stbn_AddFriend.RippleRadiusMultiplier = 0.6F;
+            stbn_AddFriend.ShadowBlur = 5;
+            stbn_AddFriend.ShadowColor = Color.FromArgb(100, 0, 0, 0);
+            stbn_AddFriend.ShadowOffset = new Point(2, 2);
+            stbn_AddFriend.ShakeDuration = 500;
+            stbn_AddFriend.ShakeIntensity = 5;
+            stbn_AddFriend.Size = new Size(117, 32);
+            stbn_AddFriend.TabIndex = 29;
+            stbn_AddFriend.Text = "Add Friend";
+            stbn_AddFriend.TextAlign = ContentAlignment.MiddleCenter;
+            stbn_AddFriend.TextColor = Color.FromArgb(117, 164, 127);
+            stbn_AddFriend.TooltipText = null;
+            stbn_AddFriend.UseAdvancedRendering = true;
+            stbn_AddFriend.UseParticles = false;
             // 
             // siticoneButton2
             // 
@@ -575,6 +652,27 @@
             siticoneButton2.UseAdvancedRendering = true;
             siticoneButton2.UseParticles = false;
             // 
+            // pictureBox13
+            // 
+            pictureBox13.Image = (Image)resources.GetObject("pictureBox13.Image");
+            pictureBox13.Location = new Point(428, 342);
+            pictureBox13.Name = "pictureBox13";
+            pictureBox13.Size = new Size(204, 206);
+            pictureBox13.TabIndex = 20;
+            pictureBox13.TabStop = false;
+            // 
+            // label10
+            // 
+            label10.AutoSize = true;
+            label10.BackColor = Color.Transparent;
+            label10.Font = new Font("Inter", 16.2F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            label10.ForeColor = Color.Black;
+            label10.Location = new Point(493, 551);
+            label10.Name = "label10";
+            label10.Size = new Size(78, 40);
+            label10.TabIndex = 12;
+            label10.Text = "Alex";
+            // 
             // siticoneButton1
             // 
             siticoneButton1.AccessibleDescription = "The default button control that accept input though the mouse, touch and keyboard";
@@ -651,6 +749,24 @@
             siticoneButton1.UseAdvancedRendering = true;
             siticoneButton1.UseParticles = false;
             // 
+            // pictureBox6
+            // 
+            pictureBox6.Image = (Image)resources.GetObject("pictureBox6.Image");
+            pictureBox6.Location = new Point(895, 237);
+            pictureBox6.Name = "pictureBox6";
+            pictureBox6.Size = new Size(28, 26);
+            pictureBox6.TabIndex = 25;
+            pictureBox6.TabStop = false;
+            // 
+            // pictureBox5
+            // 
+            pictureBox5.Image = (Image)resources.GetObject("pictureBox5.Image");
+            pictureBox5.Location = new Point(576, 237);
+            pictureBox5.Name = "pictureBox5";
+            pictureBox5.Size = new Size(28, 26);
+            pictureBox5.TabIndex = 24;
+            pictureBox5.TabStop = false;
+            // 
             // pictureBox18
             // 
             pictureBox18.Image = (Image)resources.GetObject("pictureBox18.Image");
@@ -671,24 +787,6 @@
             label12.Size = new Size(78, 40);
             label12.TabIndex = 12;
             label12.Text = "Alex";
-            // 
-            // pictureBox6
-            // 
-            pictureBox6.Image = (Image)resources.GetObject("pictureBox6.Image");
-            pictureBox6.Location = new Point(895, 237);
-            pictureBox6.Name = "pictureBox6";
-            pictureBox6.Size = new Size(28, 26);
-            pictureBox6.TabIndex = 25;
-            pictureBox6.TabStop = false;
-            // 
-            // pictureBox5
-            // 
-            pictureBox5.Image = (Image)resources.GetObject("pictureBox5.Image");
-            pictureBox5.Location = new Point(576, 237);
-            pictureBox5.Name = "pictureBox5";
-            pictureBox5.Size = new Size(28, 26);
-            pictureBox5.TabIndex = 24;
-            pictureBox5.TabStop = false;
             // 
             // pictureBox4
             // 
@@ -786,103 +884,6 @@
             lbAllFriends.TabIndex = 11;
             lbAllFriends.Text = "All Friends (10)";
             // 
-            // stbn_AddFriend
-            // 
-            stbn_AddFriend.AccessibleDescription = "The default button control that accept input though the mouse, touch and keyboard";
-            stbn_AddFriend.AccessibleName = "Add Friend";
-            stbn_AddFriend.AutoSizeBasedOnText = false;
-            stbn_AddFriend.BackColor = Color.Transparent;
-            stbn_AddFriend.BadgeBackColor = Color.Red;
-            stbn_AddFriend.BadgeFont = new Font("Segoe UI", 8F, FontStyle.Bold);
-            stbn_AddFriend.BadgeValue = 0;
-            stbn_AddFriend.BadgeValueForeColor = Color.Violet;
-            stbn_AddFriend.BorderColor = Color.FromArgb(117, 164, 127);
-            stbn_AddFriend.BorderWidth = 2;
-            stbn_AddFriend.ButtonBackColor = Color.Transparent;
-            stbn_AddFriend.ButtonImage = null;
-            stbn_AddFriend.CanBeep = true;
-            stbn_AddFriend.CanGlow = false;
-            stbn_AddFriend.CanShake = true;
-            stbn_AddFriend.ContextMenuStripEx = null;
-            stbn_AddFriend.CornerRadiusBottomLeft = 5;
-            stbn_AddFriend.CornerRadiusBottomRight = 5;
-            stbn_AddFriend.CornerRadiusTopLeft = 5;
-            stbn_AddFriend.CornerRadiusTopRight = 5;
-            stbn_AddFriend.CustomCursor = Cursors.Default;
-            stbn_AddFriend.DisabledTextColor = Color.FromArgb(150, 150, 150);
-            stbn_AddFriend.EnableLongPress = false;
-            stbn_AddFriend.EnablePressAnimation = true;
-            stbn_AddFriend.EnableRippleEffect = true;
-            stbn_AddFriend.EnableShadow = false;
-            stbn_AddFriend.EnableTextWrapping = false;
-            stbn_AddFriend.Font = new Font("Inter", 9F, FontStyle.Bold, GraphicsUnit.Point, 0);
-            stbn_AddFriend.GlowColor = Color.FromArgb(100, 255, 255, 255);
-            stbn_AddFriend.GlowIntensity = 100;
-            stbn_AddFriend.GlowRadius = 20F;
-            stbn_AddFriend.GradientBackground = false;
-            stbn_AddFriend.GradientColor = Color.FromArgb(114, 168, 255);
-            stbn_AddFriend.GradientMode = System.Drawing.Drawing2D.LinearGradientMode.Vertical;
-            stbn_AddFriend.HintText = null;
-            stbn_AddFriend.HoverBackColor = Color.Transparent;
-            stbn_AddFriend.HoverFontStyle = FontStyle.Regular;
-            stbn_AddFriend.HoverTextColor = Color.FromArgb(117, 164, 127);
-            stbn_AddFriend.HoverTransitionDuration = 250;
-            stbn_AddFriend.ImageAlign = ContentAlignment.MiddleLeft;
-            stbn_AddFriend.ImagePadding = 5;
-            stbn_AddFriend.ImageSize = new Size(16, 16);
-            stbn_AddFriend.IsRadial = false;
-            stbn_AddFriend.IsReadOnly = false;
-            stbn_AddFriend.IsToggleButton = false;
-            stbn_AddFriend.IsToggled = false;
-            stbn_AddFriend.Location = new Point(475, 594);
-            stbn_AddFriend.LongPressDurationMS = 1000;
-            stbn_AddFriend.Name = "stbn_AddFriend";
-            stbn_AddFriend.NormalFontStyle = FontStyle.Regular;
-            stbn_AddFriend.ParticleColor = Color.FromArgb(200, 200, 200);
-            stbn_AddFriend.ParticleCount = 15;
-            stbn_AddFriend.PressAnimationScale = 0.97F;
-            stbn_AddFriend.PressedBackColor = Color.Transparent;
-            stbn_AddFriend.PressedFontStyle = FontStyle.Regular;
-            stbn_AddFriend.PressTransitionDuration = 150;
-            stbn_AddFriend.ReadOnlyTextColor = Color.FromArgb(100, 100, 100);
-            stbn_AddFriend.RippleColor = Color.FromArgb(255, 255, 255);
-            stbn_AddFriend.RippleOpacity = 0.3F;
-            stbn_AddFriend.RippleRadiusMultiplier = 0.6F;
-            stbn_AddFriend.ShadowBlur = 5;
-            stbn_AddFriend.ShadowColor = Color.FromArgb(100, 0, 0, 0);
-            stbn_AddFriend.ShadowOffset = new Point(2, 2);
-            stbn_AddFriend.ShakeDuration = 500;
-            stbn_AddFriend.ShakeIntensity = 5;
-            stbn_AddFriend.Size = new Size(117, 32);
-            stbn_AddFriend.TabIndex = 29;
-            stbn_AddFriend.Text = "Add Friend";
-            stbn_AddFriend.TextAlign = ContentAlignment.MiddleCenter;
-            stbn_AddFriend.TextColor = Color.FromArgb(117, 164, 127);
-            stbn_AddFriend.TooltipText = null;
-            stbn_AddFriend.UseAdvancedRendering = true;
-            stbn_AddFriend.UseParticles = false;
-            // 
-            // pictureBox13
-            // 
-            pictureBox13.Image = (Image)resources.GetObject("pictureBox13.Image");
-            pictureBox13.Location = new Point(428, 342);
-            pictureBox13.Name = "pictureBox13";
-            pictureBox13.Size = new Size(204, 206);
-            pictureBox13.TabIndex = 20;
-            pictureBox13.TabStop = false;
-            // 
-            // label10
-            // 
-            label10.AutoSize = true;
-            label10.BackColor = Color.Transparent;
-            label10.Font = new Font("Inter", 16.2F, FontStyle.Bold, GraphicsUnit.Point, 0);
-            label10.ForeColor = Color.Black;
-            label10.Location = new Point(493, 551);
-            label10.Name = "label10";
-            label10.Size = new Size(78, 40);
-            label10.TabIndex = 12;
-            label10.Text = "Alex";
-            // 
             // sideBar2
             // 
             sideBar2.Location = new Point(0, 0);
@@ -909,14 +910,14 @@
             Load += Friends_Load;
             pnFriends.ResumeLayout(false);
             pnFriends.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)pictureBox18).EndInit();
+            ((System.ComponentModel.ISupportInitialize)pictureBox13).EndInit();
             ((System.ComponentModel.ISupportInitialize)pictureBox6).EndInit();
             ((System.ComponentModel.ISupportInitialize)pictureBox5).EndInit();
+            ((System.ComponentModel.ISupportInitialize)pictureBox18).EndInit();
             ((System.ComponentModel.ISupportInitialize)pictureBox4).EndInit();
             ((System.ComponentModel.ISupportInitialize)pictureBox3).EndInit();
             ((System.ComponentModel.ISupportInitialize)pictureBox2).EndInit();
             ((System.ComponentModel.ISupportInitialize)pictureBox1).EndInit();
-            ((System.ComponentModel.ISupportInitialize)pictureBox13).EndInit();
             ResumeLayout(false);
             PerformLayout();
         }

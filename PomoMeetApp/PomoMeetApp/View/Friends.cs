@@ -44,8 +44,9 @@ namespace PomoMeetApp.View
             string curUserId = UserSession.CurrentUser.UserId;
             var db = FirebaseConfig.database;
             // lấy receiver_id == current user id
-            var request = await db.Collection("FriendShips").WhereEqualTo("receiver_id", curUserId).GetSnapshotAsync();
+            var request = await db.Collection("FriendShips").WhereEqualTo("receiver_id", curUserId).WhereEqualTo("status", "Pending").GetSnapshotAsync();
 
+            int x = 10;
             foreach ( var item in request.Documents)
             {
                 string requesterId = item.GetValue<string>("requester_id");
@@ -66,6 +67,7 @@ namespace PomoMeetApp.View
                 {
                     Width = 200,
                     Height = 400,
+                    Location = new Point(x, 10),
                     BackColor = Color.Transparent,
                     BorderStyle = BorderStyle.None,
                     Margin = new Padding(5)
@@ -134,6 +136,27 @@ namespace PomoMeetApp.View
                     TextColor = Color.FromArgb(240, 128, 128),
                     Font = new Font("Segoe UI", 9, FontStyle.Bold)
                 };
+
+                btnAccept.Click += async (s, args) =>
+                {
+                    try
+                    {
+                        await db.Collection("FriendShips").Document(item.Id).UpdateAsync(new Dictionary<string, object>
+                        {
+                            { "status", "accepted" }
+                        });
+
+                        MessageBox.Show($"You are now friends with {fromUsername}!", "Friend Accepted", MessageBoxButtons.OK, MessageBoxIcon.Information);
+
+                        // xóa card khỏi giao diện
+                        pnFriends.Controls.Remove(card);
+                    } 
+                    catch(Exception ex)
+                    {
+                        MessageBox.Show("Error: " + ex.Message);
+                    } 
+                    
+                };
                 card.Controls.Add(pic);
                 card.Controls.Add(lbl);
                 card.Controls.Add(btnAccept);
@@ -141,8 +164,8 @@ namespace PomoMeetApp.View
 
                 // Thêm vào pnFindFriends
                 pnFriends.Controls.Add(card);
-            } 
-                
+                x += card.Width + 10;
+            }     
         }
 
         private async void btn_FindFriends_Click(object sender, EventArgs e)
