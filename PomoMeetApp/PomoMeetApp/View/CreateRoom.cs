@@ -23,8 +23,8 @@ namespace PomoMeetApp.View
         private WaveOutEvent outputDevice;
         private WaveFileReader audioFile;
         private Image[] backgroundImages;
-        private int currentIndex = 0;
-        private int currentImageIndex = 0;
+        private int MusicIndex = 0;
+        private int BackgroundIndex = 0;
         private string[] songNames;
         private Image[] songImages;
         private byte[][] songBytes;
@@ -68,7 +68,7 @@ namespace PomoMeetApp.View
             };
 
             pb_Background.SizeMode = PictureBoxSizeMode.StretchImage;
-            pb_Background.Image = backgroundImages[currentIndex];
+            pb_Background.Image = backgroundImages[MusicIndex];
 
             songNames = new string[] { "4'O Clock", "5-32PM", "Alone", "Beneath the Rain", "Better Days", "Childhood Dreams", "Your Smile" };
             songImages = new Image[] {
@@ -193,18 +193,18 @@ namespace PomoMeetApp.View
 
         private void btn_Next_Click(object sender, EventArgs e)
         {
-            currentImageIndex++;
-            if (currentImageIndex >= backgroundImages.Length)
-                currentImageIndex = 0;
-            pb_Background.Image = backgroundImages[currentImageIndex];
+            BackgroundIndex++;
+            if (BackgroundIndex >= backgroundImages.Length)
+                BackgroundIndex = 0;
+            pb_Background.Image = backgroundImages[BackgroundIndex];
         }
 
         private void btn_Pre_Click(object sender, EventArgs e)
         {
-            currentImageIndex--;
-            if (currentImageIndex < 0)
-                currentImageIndex = backgroundImages.Length - 1;
-            pb_Background.Image = backgroundImages[currentImageIndex];
+            BackgroundIndex--;
+            if (BackgroundIndex < 0)
+                BackgroundIndex = backgroundImages.Length - 1;
+            pb_Background.Image = backgroundImages[BackgroundIndex];
         }
 
         bool isPlaying = false;
@@ -217,7 +217,7 @@ namespace PomoMeetApp.View
                 stb_Play.BackgroundImage = Properties.Resources.play;
                 isPlaying = false;
             }
-            currentIndex = (currentIndex + 1) % songNames.Length;
+            MusicIndex = (MusicIndex + 1) % songNames.Length;
             UpdateUI();
         }
 
@@ -229,22 +229,22 @@ namespace PomoMeetApp.View
                 stb_Play.BackgroundImage = Properties.Resources.play;
                 isPlaying = false;
             }
-            currentIndex = (currentIndex - 1 + songNames.Length) % songNames.Length;
+            MusicIndex = (MusicIndex - 1 + songNames.Length) % songNames.Length;
             UpdateUI();
         }
 
         private void UpdateUI()
         {
-            lbl_SongName.Text = songNames[currentIndex];
-            pb_picMusic.Image = songImages[currentIndex];
+            lbl_SongName.Text = songNames[MusicIndex];
+            pb_picMusic.Image = songImages[MusicIndex];
         }
 
         private void stb_Play_Click(object sender, EventArgs e)
         {
             if (!isPlaying)
             {
-                // Nếu chưa phát thì luôn load lại bài theo currentIndex
-                PlaySongFromBytes(songBytes[currentIndex]);
+                // Nếu chưa phát thì luôn load lại bài theo MusicIndex
+                PlaySongFromBytes(songBytes[MusicIndex]);
                 stb_Play.BackgroundImage = Properties.Resources.PauseMusic;
                 isPlaying = true;
             }
@@ -301,7 +301,7 @@ namespace PomoMeetApp.View
 
             if (roomInfo != null)
             {
-                // Truyền RoomId vào RoomRequests
+                // Truyền room_id vào RoomRequests
                 var roomRequests = new RoomRequests(roomInfo.RoomId, roomName, roomMode, password, currentUserId, this);
                 await FormTransition.FadeTo(this, roomRequests);
             }
@@ -330,16 +330,25 @@ namespace PomoMeetApp.View
                     host_id = currentUserId, // Thay bằng user ID thực tế
                     type = roomMode,
                     password = hashedPassword,
-                    currentImageIndex = currentImageIndex,
-                    pomodoro = pomodoro,
-                    short_break = shortBreak,
-                    currentIndex = currentIndex,
                     created_at = DateTime.Now.ToString("yyyy-MM-ddTHH:mm:ss"),
                     members = new string[] { currentUserId }
                 };
 
                 var roomRef = db.Collection("Room").Document(roomId);
                 await roomRef.SetAsync(room);
+
+                var Pomodoro_Sessions = new
+                {
+                    roomId = roomId,
+                    countdown_time = pomodoro,
+                    break_time = shortBreak,
+                    music_id = MusicIndex,
+                    background_id = BackgroundIndex,
+                    created_at = DateTime.Now.ToString("yyyy-MM-ddTHH:mm:ss"),
+                };
+
+                var pomodoroRef = db.Collection("Pomodoro_Sessions").Document(roomId);
+                await pomodoroRef.SetAsync(Pomodoro_Sessions);
 
                 return new RoomInfo { RoomId = roomId};
             }

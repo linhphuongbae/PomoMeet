@@ -151,9 +151,6 @@
   <data name="cam_off" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\Group 2032.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="musicImage4" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\musicImage4.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
   <data name="BeneathTheRain" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\BeneathTheRain.wav;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
@@ -232,9 +229,6 @@
   <data name="Image" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\Image.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="musicImage7" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\musicImage7.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
   <data name="avatar" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\icons8-user-24.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
@@ -249,9 +243,6 @@
   </data>
   <data name="dashboard" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\dashboard.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="musicImage3" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\musicImage3.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="Rectangle_4" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\Rectangle_4.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
@@ -276,9 +267,6 @@
   </data>
   <data name="pomomeet1" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\pomomeet1.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="musicImage6" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\musicImage6.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="group_add" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\group_add.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
@@ -307,9 +295,6 @@
   <data name="studyBackground2" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\studyBackground2.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="musicImage2" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\musicImage2.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
   <data name="pause" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\pause.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
@@ -330,9 +315,6 @@
   </data>
   <data name="ChildhoodDreams" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\ChildhoodDreams.wav;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="musicImage5" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\musicImage5.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="forward" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\forward.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
@@ -363,5 +345,23 @@
   </data>
   <data name="Search_1" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\Search_1.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="musicImage7" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\musicImage7.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="musicImage4" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\musicImage4.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="musicImage3" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\musicImage3.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="musicImage6" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\musicImage6.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="musicImage2" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\musicImage2.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="musicImage5" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\musicImage5.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
 </root>

@@ -56,7 +56,7 @@ namespace PomoMeetApp.View
             // check confirmed password
             if (passwordConfirm != Security.Decrypt(data.Password))
             {
-                MessageBox.Show("Password does not match. Try again", "Warning", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                MessageBox.Show("password does not match. Try again", "Warning", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                 return;
             }
             try
