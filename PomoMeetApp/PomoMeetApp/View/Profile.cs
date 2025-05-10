@@ -147,7 +147,7 @@ namespace PomoMeetApp.View
                 if (!string.IsNullOrEmpty(newPassword) && newPassword == confirmPassword)
                 {
                     string encryptedPassword = Security.Encrypt(newPassword);
-                    updates.Add("Password", encryptedPassword);
+                    updates.Add("password", encryptedPassword);
                 }
 
                 await db.Collection("User").Document(currentUserId)

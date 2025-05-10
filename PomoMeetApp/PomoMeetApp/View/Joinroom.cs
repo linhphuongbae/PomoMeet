@@ -54,12 +54,12 @@ namespace PomoMeetApp.View
 
             joinedRoomData = room;
 
-            if (room.Type == "Public")
+            if (room.type == "Public")
             {
                 // Nếu phòng là Public thì vào luôn
-                OpenMeetingRoom(currentUserId, joinedRoomData.RoomId);
+                OpenMeetingRoom(currentUserId, joinedRoomData.room_id);
             }
-            else if (room.Type == "Private")
+            else if (room.type == "Private")
             {
                 lb_Password.Visible = true; // Hiện label mật khẩu
                 stb_Password.Visible = true; // Hiện textbox mật khẩu
@@ -77,10 +77,10 @@ namespace PomoMeetApp.View
                 // So sánh mật khẩu đã nhập với mật khẩu trong phòng
                 string hashedPassword = HashPassword(enteredPassword);
 
-                if (hashedPassword == joinedRoomData.Password)
+                if (hashedPassword == joinedRoomData.password)
                 {
                     // Mật khẩu đúng, vào phòng
-                    OpenMeetingRoom(currentUserId, joinedRoomData.RoomId);
+                    OpenMeetingRoom(currentUserId, joinedRoomData.room_id);
                 }
                 else
                 {
@@ -102,20 +102,16 @@ namespace PomoMeetApp.View
             var doc = snapshot.Documents.First();
             var data = doc.ToDictionary();
 
-            MessageBox.Show($"RoomId: {roomId}, Snapshot Count: {snapshot.Count}");
+            MessageBox.Show($"room_id: {roomId}, Snapshot Count: {snapshot.Count}");
 
 
             return new RoomData
             {
-                RoomId = doc.Id,
-                RoomName = data["room_name"]?.ToString(),
-                Type = data["type"]?.ToString(),
-                Password = data["password"]?.ToString(),
-                HostId = data["host_id"]?.ToString(),
-                CurrentImageIndex = Convert.ToInt32(data["currentImageIndex"]),
-                Pomodoro = Convert.ToInt32(data["pomodoro"]),
-                ShortBreak = Convert.ToInt32(data["short_break"]),
-                CurrentIndex = Convert.ToInt32(data["currentIndex"])
+                room_id = doc.Id,
+                room_name = data["room_name"]?.ToString(),
+                type = data["type"]?.ToString(),
+                password = data["password"]?.ToString(),
+                host_id = data["host_id"]?.ToString()
             };
         }
 
@@ -165,14 +161,10 @@ namespace PomoMeetApp.View
 
     public class RoomData
     {
-        public string RoomId { get; set; }
-        public string RoomName { get; set; }
-        public string Type { get; set; }
-        public string Password { get; set; }
-        public string HostId { get; set; }
-        public int CurrentImageIndex { get; set; }
-        public int Pomodoro { get; set; }
-        public int ShortBreak { get; set; }
-        public int CurrentIndex { get; set; }
+        public string room_id { get; set; }
+        public string room_name { get; set; }
+        public string type { get; set; }
+        public string password { get; set; }
+        public string host_id { get; set; }
     }
 }
