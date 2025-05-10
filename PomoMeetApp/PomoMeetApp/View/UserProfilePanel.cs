@@ -17,7 +17,6 @@ namespace PomoMeetApp.View
         private Panel dropdownPanel;
         private Action<string> profileClickCallback; // Callback now expects userId
         private FirestoreChangeListener _notificationListener;
-        private Label lblBadgeCount;
 
         // Store current userId
         private string currentUserId;
@@ -47,33 +46,26 @@ namespace PomoMeetApp.View
             {
                 Size = new Size(50, 50),
                 Location = new Point(0, 5),
+                // Enable the badge display and set a notification count
+                ShowBadge = true,
+                BadgeValue = 0,
+                BadgeBackColor = Color.Red,
+                BadgeTextColor = Color.White,
+                BadgeFont = new Font("Inter", 8f, FontStyle.Bold),
+                BadgeBorderColor = Color.White,
+                BadgeBorderThickness = 1,
+                // Configure animation settings
+                BadgeAnimationSpeed = 200,
+                BadgeAnimationType = BadgeAnimationType.ScaleInOut,
+                // Optional: Refresh badge on click
+                RefreshBadgeOnClick = true,
+                NotificationTooltip = "You have new notifications",
                 BellColor = Color.Black,
                 Text = string.Empty, // No notifications initially
                 Cursor = Cursors.Hand
             };
             this.Controls.Add(btnNotify);
-
             btnNotify.Click += BtnNotify_Click;
-
-
-            // Badge label to show count
-            lblBadgeCount = new Label
-            {
-                Size = new Size(15, 15),
-                Location = new Point(btnNotify.Right - 20, btnNotify.Top), // Nằm gần góc phải
-                BackColor = Color.Transparent,
-                ForeColor = Color.Red,
-                Font = new Font("Segoe UI", 8, FontStyle.Bold),
-                TextAlign = ContentAlignment.MiddleCenter,
-                Visible = false,
-                BorderStyle = BorderStyle.None,
-                AutoSize = false,
-                Cursor = Cursors.Hand
-            };
-            lblBadgeCount.Click += BtnNotify_Click; // Cho phép bấm vào badge cũng mở thông báo
-            lblBadgeCount.BringToFront();
-            this.Controls.Add(lblBadgeCount);
-
 
             // 2. Avatar (Ảnh đại diện)
             avatar = new PictureBox
@@ -179,12 +171,14 @@ namespace PomoMeetApp.View
                 {
                     btnNotify.Invoke((MethodInvoker)delegate
                     {
-                        // Update badge
-                        lblBadgeCount.Text = _notificationCountBackingField.ToString();
-                        lblBadgeCount.Visible = _notificationCountBackingField > 0;
-                        lblBadgeCount.BringToFront();
+                        // Update badge value
+                        btnNotify.BadgeValue = _notificationCountBackingField;
 
-                        btnNotify.BellColor = _notificationCountBackingField > 0 ? Color.Red : Color.Black;
+                        // Only show badge if there are notifications
+                        btnNotify.ShowBadge = _notificationCountBackingField > 0;
+
+                        btnNotify.BellColor = _notificationCountBackingField > 0 ?
+                            Color.Red : Color.Black;
                     });
                 }
             }
