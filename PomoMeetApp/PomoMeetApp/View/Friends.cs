@@ -90,12 +90,50 @@ namespace PomoMeetApp.View
                     AutoSize = true,
                     Font = new Font("Segoe UI", 10, FontStyle.Bold)
                 };
+                var btnRemove = new SiticoneNetCoreUI.SiticoneButton
+                {
+                    Text = "Remove",
 
+                    // thiết kế
+                    Width = 100,
+                    Height = 30,
+                    Location = new Point((card.Width - 100) / 2, 150),
+                    ForeColor = Color.Black,
+                    GlowColor = Color.FromArgb(117, 164, 127),
+                    CornerRadiusBottomLeft = 10,
+                    CornerRadiusBottomRight = 10,
+                    CornerRadiusTopLeft = 10,
+                    CornerRadiusTopRight = 10,
+                    BorderWidth = 2,
+                    ButtonBackColor = Color.White,
+                    HoverBackColor = Color.FromArgb(252, 255, 224),
+                    GradientColor = Color.FromArgb(117, 164, 127),
+                    BorderColor = Color.FromArgb(240, 128, 128),
+                    TextColor = Color.FromArgb(240, 128, 128),
+                    Font = new Font("Segoe UI", 9, FontStyle.Bold)
+                };
+                var currentCard = card;
+                btnRemove.Click += async (s, args) =>
+                {
+                    try
+                    {
+                        await db.Collection("FriendShips").Document(item.Id).DeleteAsync();
 
+                        MessageBox.Show("Đã xóa bạn!");
+
+                        // xóa card khỏi giao diện
+                        pnFriends.Controls.Remove(currentCard);
+                    }
+                    catch (Exception ex)
+                    {
+                        MessageBox.Show("Error: " + ex.Message);
+                    }
+
+                };
 
                 card.Controls.Add(pic);
                 card.Controls.Add(lbl);
-
+                card.Controls.Add(btnRemove);
 
                 // Thêm vào pnFindFriends
                 pnFriends.Controls.Add(card);
