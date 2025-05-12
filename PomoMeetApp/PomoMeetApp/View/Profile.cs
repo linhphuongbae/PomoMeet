@@ -17,6 +17,9 @@ namespace PomoMeetApp.View
         public Profile(string userId) // Thay đổi tham số từ username sang userId
         {
             InitializeComponent();
+            // Clear the password fields
+            tbNewPassword.Text = string.Empty;
+            tbConfirmPassword.Text = string.Empty;
             currentUserId = userId; // Sửa từ currentUserId = userId (trước đó sai)
             db = FirebaseConfig.database;
             InitializeProfileComponents();
@@ -147,7 +150,7 @@ namespace PomoMeetApp.View
                 if (!string.IsNullOrEmpty(newPassword) && newPassword == confirmPassword)
                 {
                     string encryptedPassword = Security.Encrypt(newPassword);
-                    updates.Add("password", encryptedPassword);
+                    updates.Add("Password", encryptedPassword);
                 }
 
                 await db.Collection("User").Document(currentUserId)
