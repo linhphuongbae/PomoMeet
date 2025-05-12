@@ -37,7 +37,7 @@
             btnSignInGG = new SiticoneNetCoreUI.SiticoneButton();
             label4 = new Label();
             BackToRegs = new SiticoneNetCoreUI.SiticoneButton();
-            linkLabel1 = new LinkLabel();
+            lbForget = new LinkLabel();
             pictureBox2 = new PictureBox();
             pictureBox3 = new PictureBox();
             pictureBox1 = new PictureBox();
@@ -376,21 +376,22 @@
             BackToRegs.UseParticles = false;
             BackToRegs.Click += BackToRegs_Click;
             // 
-            // linkLabel1
+            // lbForget
             // 
-            linkLabel1.ActiveLinkColor = Color.FromArgb(117, 164, 127);
-            linkLabel1.AutoSize = true;
-            linkLabel1.BackColor = Color.FromArgb(233, 240, 201);
-            linkLabel1.DisabledLinkColor = Color.FromArgb(117, 164, 127);
-            linkLabel1.Font = new Font("Inter", 10.2F, FontStyle.Bold, GraphicsUnit.Point, 0);
-            linkLabel1.LinkColor = Color.FromArgb(117, 164, 127);
-            linkLabel1.Location = new Point(828, 500);
-            linkLabel1.Name = "linkLabel1";
-            linkLabel1.Size = new Size(147, 24);
-            linkLabel1.TabIndex = 15;
-            linkLabel1.TabStop = true;
-            linkLabel1.Text = "Quên mật khẩu?";
-            linkLabel1.VisitedLinkColor = Color.FromArgb(117, 164, 127);
+            lbForget.ActiveLinkColor = Color.FromArgb(117, 164, 127);
+            lbForget.AutoSize = true;
+            lbForget.BackColor = Color.FromArgb(233, 240, 201);
+            lbForget.DisabledLinkColor = Color.FromArgb(117, 164, 127);
+            lbForget.Font = new Font("Inter", 10.2F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            lbForget.LinkColor = Color.FromArgb(117, 164, 127);
+            lbForget.Location = new Point(828, 500);
+            lbForget.Name = "lbForget";
+            lbForget.Size = new Size(147, 24);
+            lbForget.TabIndex = 15;
+            lbForget.TabStop = true;
+            lbForget.Text = "Quên mật khẩu?";
+            lbForget.VisitedLinkColor = Color.FromArgb(117, 164, 127);
+            lbForget.LinkClicked += linkLabel1_LinkClicked;
             // 
             // pictureBox2
             // 
@@ -554,7 +555,7 @@
             ShowPass.UncheckedBackColor = Color.FromArgb(250, 250, 250);
             ShowPass.Click += ShowPass_Click;
             // 
-            // SingIn
+            // SignIn
             // 
             AutoScaleDimensions = new SizeF(8F, 20F);
             AutoScaleMode = AutoScaleMode.Font;
@@ -565,7 +566,7 @@
             Controls.Add(pictureBox1);
             Controls.Add(pictureBox3);
             Controls.Add(pictureBox2);
-            Controls.Add(linkLabel1);
+            Controls.Add(lbForget);
             Controls.Add(BackToRegs);
             Controls.Add(label4);
             Controls.Add(btnSignInGG);
@@ -575,7 +576,7 @@
             Controls.Add(email);
             Controls.Add(label1);
             Controls.Add(Rectangle);
-            Name = "SingIn";
+            Name = "SignIn";
             Text = "SingIn";
             ((System.ComponentModel.ISupportInitialize)Rectangle).EndInit();
             ((System.ComponentModel.ISupportInitialize)pictureBox2).EndInit();
@@ -596,7 +597,7 @@
         private SiticoneNetCoreUI.SiticoneButton btnSignInGG;
         private Label label4;
         private SiticoneNetCoreUI.SiticoneButton BackToRegs;
-        private LinkLabel linkLabel1;
+        private LinkLabel lbForget;
         private PictureBox pictureBox2;
         private PictureBox pictureBox3;
         private PictureBox pictureBox1;
