@@ -184,5 +184,13 @@ namespace PomoMeetApp.View
                 tbPassword.UseSystemPasswordChar = true;
             }
         }
+
+        private void linkLabel1_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
+        {
+
+            // mở form nhập email
+            ForgetPasswd fg = new ForgetPasswd();
+            fg.Show(this);
+        }
     }
 }
