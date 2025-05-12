@@ -25,9 +25,14 @@ namespace PomoMeetApp.View
 
         }
 
+        private string sentOTP = "";
+        private string sentEmail = "";
+
         private async void btnSendOTP_Click(object sender, EventArgs e)
         {
+
             string email = tbToEmail.Text.Trim();
+            sentEmail = email;
             if (string.IsNullOrEmpty(email))
             {
                 MessageBox.Show("Vui lòng nhập email.");
@@ -43,15 +48,48 @@ namespace PomoMeetApp.View
             }
             // tạo otp
             string otp = new Random().Next(100000, 999999).ToString();
+            sentOTP = otp;
             try
             {
                 SendOTP(email, otp);
                 MessageBox.Show($"Đã gửi OTP tới email: {email}");
+                lbEmail.Visible = false;
+                tbToEmail.Visible = false;
+                lbOTP.Visible = true;
+                tbOTP.Visible = true;
+                btnSendOTP.Text = "Xác nhận OTP";
+                btnSendOTP.Click -= btnSendOTP_Click;  // Hủy sự kiện cũ
+                btnSendOTP.Click += btnConfirmOTP_Click; // Thêm sự kiện mới
             }
             catch (Exception ex) {
                 MessageBox.Show("Gửi thất bại: " + ex.Message);
             }
                 
+        }
+        private void btnConfirmOTP_Click(object sender, EventArgs e)
+        {
+            string otpEntered = tbOTP.Text.Trim();  // Lấy OTP người dùng nhập vào
+            if (string.IsNullOrEmpty(otpEntered))
+            {
+                MessageBox.Show("Vui lòng nhập OTP.");
+                return;
+            }
+
+            // Kiểm tra OTP
+            if (otpEntered == sentOTP)
+            {
+                MessageBox.Show("OTP xác nhận thành công!");
+                lbOTP.Visible = false;
+                tbOTP.Visible = false;
+                tbNewPass.Visible = true;
+                lbNewpass.Visible = true;
+                btnSendOTP.Click -= btnConfirmOTP_Click;  // Hủy sự kiện cũ
+                btnSendOTP.Click += btnChangePassword_Click; // Thêm sự kiện mới để thay đổi mật khẩu
+            }
+            else
+            {
+                MessageBox.Show("OTP không khớp, vui lòng thử lại.");
+            }
         }
 
         private void SendOTP(string email, string otp)
@@ -75,6 +113,38 @@ namespace PomoMeetApp.View
                 MessageBox.Show(ex.Message);    
             }
 
+        }
+        // event đổi mk
+        private async void btnChangePassword_Click(object sender, EventArgs e)
+        {
+            string newPasswd = tbNewPass.Text.Trim();   
+            if (string.IsNullOrEmpty(newPasswd) )
+            {
+                MessageBox.Show("Vui lòng nhập mật khẩu mới.");
+                return;
+            }
+
+            var db = FirebaseConfig.database;
+            var email = sentEmail;
+            var docs = await db.Collection("User").WhereEqualTo("Email", email).GetSnapshotAsync();
+            string encryptedPassword = Security.Encrypt(newPasswd);
+            if (docs.Documents.Count > 0)
+            {
+                try
+                {
+                    var updateData = new Dictionary<string, object>
+                    {
+                        { "Password", encryptedPassword }
+                    };
+                    await docs.Documents[0].Reference.UpdateAsync(updateData);
+                    MessageBox.Show("Đã cập nhật mật khẩu!");
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show(ex.Message);
+                    return;
+                }
+            }
         }
     }
 }

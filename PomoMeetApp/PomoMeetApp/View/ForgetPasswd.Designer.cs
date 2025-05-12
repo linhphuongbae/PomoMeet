@@ -29,10 +29,14 @@
         private void InitializeComponent()
         {
             Rectangle = new PictureBox();
-            email = new Label();
+            lbEmail = new Label();
             label1 = new Label();
             btnSendOTP = new SiticoneNetCoreUI.SiticoneButton();
             tbToEmail = new SiticoneNetCoreUI.SiticoneTextBox();
+            tbOTP = new SiticoneNetCoreUI.SiticoneTextBox();
+            lbOTP = new Label();
+            lbNewpass = new Label();
+            tbNewPass = new SiticoneNetCoreUI.SiticoneTextBox();
             ((System.ComponentModel.ISupportInitialize)Rectangle).BeginInit();
             SuspendLayout();
             // 
@@ -47,17 +51,17 @@
             Rectangle.TabStop = false;
             Rectangle.Click += Rectangle_Click;
             // 
-            // email
+            // lbEmail
             // 
-            email.AutoSize = true;
-            email.BackColor = Color.FromArgb(220, 229, 185);
-            email.Font = new Font("Inter", 16.2F, FontStyle.Bold, GraphicsUnit.Point, 0);
-            email.ForeColor = Color.FromArgb(117, 164, 127);
-            email.Location = new Point(53, 118);
-            email.Name = "email";
-            email.Size = new Size(285, 40);
-            email.TabIndex = 5;
-            email.Text = "Nhập email của bạn";
+            lbEmail.AutoSize = true;
+            lbEmail.BackColor = Color.FromArgb(220, 229, 185);
+            lbEmail.Font = new Font("Inter", 16.2F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            lbEmail.ForeColor = Color.FromArgb(117, 164, 127);
+            lbEmail.Location = new Point(53, 118);
+            lbEmail.Name = "lbEmail";
+            lbEmail.Size = new Size(285, 40);
+            lbEmail.TabIndex = 5;
+            lbEmail.Text = "Nhập email của bạn";
             // 
             // label1
             // 
@@ -203,15 +207,157 @@
             tbToEmail.ValidationErrorMessage = "Invalid input.";
             tbToEmail.ValidationFunction = null;
             // 
+            // tbOTP
+            // 
+            tbOTP.AccessibleDescription = "A customizable text input field.";
+            tbOTP.AccessibleName = "Text Box";
+            tbOTP.AccessibleRole = AccessibleRole.Text;
+            tbOTP.BackColor = Color.Transparent;
+            tbOTP.BlinkCount = 3;
+            tbOTP.BlinkShadow = false;
+            tbOTP.BorderColor1 = Color.LightSlateGray;
+            tbOTP.BorderColor2 = Color.LightSlateGray;
+            tbOTP.BorderFocusColor1 = Color.FromArgb(77, 77, 255);
+            tbOTP.BorderFocusColor2 = Color.FromArgb(77, 77, 255);
+            tbOTP.CanShake = true;
+            tbOTP.ContinuousBlink = false;
+            tbOTP.CursorBlinkRate = 500;
+            tbOTP.CursorColor = Color.Black;
+            tbOTP.CursorHeight = 26;
+            tbOTP.CursorOffset = 0;
+            tbOTP.CursorStyle = SiticoneNetCoreUI.Helpers.DrawingStyle.SiticoneDrawingStyle.Solid;
+            tbOTP.CursorWidth = 1;
+            tbOTP.DisabledBackColor = Color.WhiteSmoke;
+            tbOTP.DisabledBorderColor = Color.LightGray;
+            tbOTP.DisabledTextColor = Color.Gray;
+            tbOTP.EnableDropShadow = false;
+            tbOTP.FillColor1 = Color.White;
+            tbOTP.FillColor2 = Color.White;
+            tbOTP.Font = new Font("Inter", 7.8F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            tbOTP.ForeColor = Color.DimGray;
+            tbOTP.HoverBorderColor1 = Color.Gray;
+            tbOTP.HoverBorderColor2 = Color.Gray;
+            tbOTP.IsEnabled = true;
+            tbOTP.Location = new Point(51, 187);
+            tbOTP.Name = "tbOTP";
+            tbOTP.PlaceholderColor = Color.Gray;
+            tbOTP.PlaceholderText = "Enter text here...";
+            tbOTP.ReadOnlyBorderColor1 = Color.LightGray;
+            tbOTP.ReadOnlyBorderColor2 = Color.LightGray;
+            tbOTP.ReadOnlyFillColor1 = Color.WhiteSmoke;
+            tbOTP.ReadOnlyFillColor2 = Color.WhiteSmoke;
+            tbOTP.ReadOnlyPlaceholderColor = Color.DarkGray;
+            tbOTP.SelectionBackColor = Color.FromArgb(77, 77, 255);
+            tbOTP.ShadowAnimationDuration = 1;
+            tbOTP.ShadowBlur = 10;
+            tbOTP.ShadowColor = Color.FromArgb(15, 0, 0, 0);
+            tbOTP.ShowBorder = false;
+            tbOTP.Size = new Size(537, 63);
+            tbOTP.SolidBorderColor = Color.LightSlateGray;
+            tbOTP.SolidBorderFocusColor = Color.FromArgb(77, 77, 255);
+            tbOTP.SolidBorderHoverColor = Color.Gray;
+            tbOTP.SolidFillColor = Color.White;
+            tbOTP.TabIndex = 22;
+            tbOTP.TextPadding = new Padding(16, 0, 6, 0);
+            tbOTP.ValidationErrorMessage = "Invalid input.";
+            tbOTP.ValidationFunction = null;
+            tbOTP.Visible = false;
+            // 
+            // lbOTP
+            // 
+            lbOTP.AutoSize = true;
+            lbOTP.BackColor = Color.FromArgb(220, 229, 185);
+            lbOTP.Font = new Font("Inter", 16.2F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            lbOTP.ForeColor = Color.FromArgb(117, 164, 127);
+            lbOTP.Location = new Point(51, 118);
+            lbOTP.Name = "lbOTP";
+            lbOTP.Size = new Size(154, 40);
+            lbOTP.TabIndex = 23;
+            lbOTP.Text = "Nhập OTP";
+            lbOTP.Visible = false;
+            // 
+            // lbNewpass
+            // 
+            lbNewpass.AutoSize = true;
+            lbNewpass.BackColor = Color.FromArgb(220, 229, 185);
+            lbNewpass.Font = new Font("Inter", 16.2F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            lbNewpass.ForeColor = Color.FromArgb(117, 164, 127);
+            lbNewpass.Location = new Point(196, 118);
+            lbNewpass.Name = "lbNewpass";
+            lbNewpass.Size = new Size(279, 40);
+            lbNewpass.TabIndex = 24;
+            lbNewpass.Text = "Nhập Mật khẩu mới";
+            lbNewpass.Visible = false;
+            // 
+            // tbNewPass
+            // 
+            tbNewPass.AccessibleDescription = "A customizable text input field.";
+            tbNewPass.AccessibleName = "Text Box";
+            tbNewPass.AccessibleRole = AccessibleRole.Text;
+            tbNewPass.BackColor = Color.Transparent;
+            tbNewPass.BlinkCount = 3;
+            tbNewPass.BlinkShadow = false;
+            tbNewPass.BorderColor1 = Color.LightSlateGray;
+            tbNewPass.BorderColor2 = Color.LightSlateGray;
+            tbNewPass.BorderFocusColor1 = Color.FromArgb(77, 77, 255);
+            tbNewPass.BorderFocusColor2 = Color.FromArgb(77, 77, 255);
+            tbNewPass.CanShake = true;
+            tbNewPass.ContinuousBlink = false;
+            tbNewPass.CursorBlinkRate = 500;
+            tbNewPass.CursorColor = Color.Black;
+            tbNewPass.CursorHeight = 26;
+            tbNewPass.CursorOffset = 0;
+            tbNewPass.CursorStyle = SiticoneNetCoreUI.Helpers.DrawingStyle.SiticoneDrawingStyle.Solid;
+            tbNewPass.CursorWidth = 1;
+            tbNewPass.DisabledBackColor = Color.WhiteSmoke;
+            tbNewPass.DisabledBorderColor = Color.LightGray;
+            tbNewPass.DisabledTextColor = Color.Gray;
+            tbNewPass.EnableDropShadow = false;
+            tbNewPass.FillColor1 = Color.White;
+            tbNewPass.FillColor2 = Color.White;
+            tbNewPass.Font = new Font("Inter", 7.8F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            tbNewPass.ForeColor = Color.DimGray;
+            tbNewPass.HoverBorderColor1 = Color.Gray;
+            tbNewPass.HoverBorderColor2 = Color.Gray;
+            tbNewPass.IsEnabled = true;
+            tbNewPass.Location = new Point(53, 187);
+            tbNewPass.Name = "tbNewPass";
+            tbNewPass.PlaceholderColor = Color.Gray;
+            tbNewPass.PlaceholderText = "Enter text here...";
+            tbNewPass.ReadOnlyBorderColor1 = Color.LightGray;
+            tbNewPass.ReadOnlyBorderColor2 = Color.LightGray;
+            tbNewPass.ReadOnlyFillColor1 = Color.WhiteSmoke;
+            tbNewPass.ReadOnlyFillColor2 = Color.WhiteSmoke;
+            tbNewPass.ReadOnlyPlaceholderColor = Color.DarkGray;
+            tbNewPass.SelectionBackColor = Color.FromArgb(77, 77, 255);
+            tbNewPass.ShadowAnimationDuration = 1;
+            tbNewPass.ShadowBlur = 10;
+            tbNewPass.ShadowColor = Color.FromArgb(15, 0, 0, 0);
+            tbNewPass.ShowBorder = false;
+            tbNewPass.Size = new Size(537, 63);
+            tbNewPass.SolidBorderColor = Color.LightSlateGray;
+            tbNewPass.SolidBorderFocusColor = Color.FromArgb(77, 77, 255);
+            tbNewPass.SolidBorderHoverColor = Color.Gray;
+            tbNewPass.SolidFillColor = Color.White;
+            tbNewPass.TabIndex = 25;
+            tbNewPass.TextPadding = new Padding(16, 0, 6, 0);
+            tbNewPass.ValidationErrorMessage = "Invalid input.";
+            tbNewPass.ValidationFunction = null;
+            tbNewPass.Visible = false;
+            // 
             // ForgetPasswd
             // 
             AutoScaleDimensions = new SizeF(8F, 20F);
             AutoScaleMode = AutoScaleMode.Font;
             ClientSize = new Size(639, 437);
+            Controls.Add(tbNewPass);
+            Controls.Add(lbNewpass);
+            Controls.Add(lbOTP);
+            Controls.Add(tbOTP);
             Controls.Add(tbToEmail);
             Controls.Add(btnSendOTP);
             Controls.Add(label1);
-            Controls.Add(email);
+            Controls.Add(lbEmail);
             Controls.Add(Rectangle);
             Name = "ForgetPasswd";
             Text = "ForgetPasswd";
@@ -223,9 +369,13 @@
         #endregion
 
         private PictureBox Rectangle;
-        private Label email;
+        private Label lbEmail;
         private Label label1;
         private SiticoneNetCoreUI.SiticoneButton btnSendOTP;
         private SiticoneNetCoreUI.SiticoneTextBox tbToEmail;
+        private SiticoneNetCoreUI.SiticoneTextBox tbOTP;
+        private Label lbOTP;
+        private Label lbNewpass;
+        private SiticoneNetCoreUI.SiticoneTextBox tbNewPass;
     }
 }

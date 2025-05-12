@@ -189,6 +189,7 @@ namespace PomoMeetApp.View
         {
 
             // mở form nhập email
+
             ForgetPasswd fg = new ForgetPasswd();
             fg.Show(this);
         }
