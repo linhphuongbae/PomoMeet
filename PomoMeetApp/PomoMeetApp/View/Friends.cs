@@ -28,18 +28,18 @@ namespace PomoMeetApp.View
             pnFriends.Visible = true;
 
             pnFriends.Controls.Clear(); 
-            // logic sẽ dùng query những đứa trong friendship mà status : accepted
+            // logic sẽ dùng query những đứa trong friendship mà status : Accepted
             var db = FirebaseConfig.database;
             string curUserId = UserSession.CurrentUser.UserId;
             // Lấy những mối quan hệ bạn bè đã accepted, gồm cả 2 chiều
             var Requester = await db.Collection("FriendShips")
                 .WhereEqualTo("requester_id", curUserId)
-                .WhereEqualTo("status", "accepted")
+                .WhereEqualTo("status", "Accepted")
                 .GetSnapshotAsync();
 
             var Receiver = await db.Collection("FriendShips")
                 .WhereEqualTo("receiver_id", curUserId)
-                .WhereEqualTo("status", "accepted")
+                .WhereEqualTo("status", "Accepted")
                 .GetSnapshotAsync();
             var friend = Requester.Documents.Concat(Receiver.Documents).ToList();
             int x = 10;
@@ -218,7 +218,7 @@ namespace PomoMeetApp.View
                     {
                         await db.Collection("FriendShips").Document(item.Id).UpdateAsync(new Dictionary<string, object>
                         {
-                            { "status", "accepted" }
+                            { "status", "Accepted" }
                         });
 
                         MessageBox.Show($"You are now friends with {fromUsername}!", "Friend Accepted", MessageBoxButtons.OK, MessageBoxIcon.Information);
