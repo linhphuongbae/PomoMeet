@@ -50,7 +50,7 @@ namespace PomoMeetApp.View
                 string friendId = requesterId == curUserId ? receiverId : requesterId;
 
                 // Lấy thông tin người gửi từ bảng User
-                var userSnap = await db.Collection("User").Document(requesterId).GetSnapshotAsync();
+                var userSnap = await db.Collection("User").Document(friendId).GetSnapshotAsync();
                 if (!userSnap.Exists) continue;
 
                 string fromUsername = userSnap.GetValue<string>("Username");
