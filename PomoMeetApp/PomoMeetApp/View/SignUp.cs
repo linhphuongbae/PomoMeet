@@ -85,11 +85,13 @@ namespace PomoMeetApp.View
             string username = tbUsername.Text.Trim();
             string passwd = Security.Encrypt(tbPassword.Text);
             string userID = Guid.NewGuid().ToString();
+            string email = txtEmail.Text.Trim();
             return new UserData()
             {
                 UserId = userID,
                 Username = username,
-                Password = passwd
+                Password = passwd,
+                Email = email
             };
         }
 

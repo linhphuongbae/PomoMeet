@@ -43,6 +43,8 @@
             pictureBox2 = new PictureBox();
             pictureBox3 = new PictureBox();
             siticoneCheckBox1 = new SiticoneNetCoreUI.SiticoneCheckBox();
+            txtEmail = new SiticoneNetCoreUI.SiticoneTextBox();
+            label5 = new Label();
             ((System.ComponentModel.ISupportInitialize)Rectangle).BeginInit();
             ((System.ComponentModel.ISupportInitialize)pictureBox1).BeginInit();
             ((System.ComponentModel.ISupportInitialize)pictureBox2).BeginInit();
@@ -52,9 +54,9 @@
             // Rectangle
             // 
             Rectangle.Image = Properties.Resources.Rectangle;
-            Rectangle.Location = new Point(385, 124);
+            Rectangle.Location = new Point(385, 36);
             Rectangle.Name = "Rectangle";
-            Rectangle.Size = new Size(645, 735);
+            Rectangle.Size = new Size(645, 823);
             Rectangle.TabIndex = 0;
             Rectangle.TabStop = false;
             Rectangle.Click += Rectangle_Click;
@@ -65,7 +67,7 @@
             email.BackColor = Color.FromArgb(233, 240, 201);
             email.Font = new Font("Inter", 16.2F, FontStyle.Bold, GraphicsUnit.Point, 0);
             email.ForeColor = Color.FromArgb(117, 164, 127);
-            email.Location = new Point(428, 233);
+            email.Location = new Point(428, 144);
             email.Name = "email";
             email.Size = new Size(157, 40);
             email.TabIndex = 1;
@@ -77,7 +79,7 @@
             label1.BackColor = Color.FromArgb(233, 240, 201);
             label1.Font = new Font("Inter", 22.2F, FontStyle.Bold, GraphicsUnit.Point, 0);
             label1.ForeColor = Color.FromArgb(117, 164, 127);
-            label1.Location = new Point(618, 157);
+            label1.Location = new Point(618, 88);
             label1.Name = "label1";
             label1.Size = new Size(170, 53);
             label1.TabIndex = 2;
@@ -114,7 +116,7 @@
             tbUsername.HoverBorderColor1 = Color.Gray;
             tbUsername.HoverBorderColor2 = Color.Gray;
             tbUsername.IsEnabled = true;
-            tbUsername.Location = new Point(437, 276);
+            tbUsername.Location = new Point(437, 187);
             tbUsername.Name = "tbUsername";
             tbUsername.PlaceholderColor = Color.Gray;
             tbUsername.PlaceholderText = "Enter text here...";
@@ -145,7 +147,7 @@
             label2.BackColor = Color.FromArgb(233, 240, 201);
             label2.Font = new Font("Inter", 16.2F, FontStyle.Bold, GraphicsUnit.Point, 0);
             label2.ForeColor = Color.FromArgb(117, 164, 127);
-            label2.Location = new Point(428, 377);
+            label2.Location = new Point(428, 395);
             label2.Name = "label2";
             label2.Size = new Size(142, 40);
             label2.TabIndex = 4;
@@ -182,7 +184,7 @@
             tbPassword.HoverBorderColor1 = Color.Gray;
             tbPassword.HoverBorderColor2 = Color.Gray;
             tbPassword.IsEnabled = true;
-            tbPassword.Location = new Point(437, 420);
+            tbPassword.Location = new Point(437, 438);
             tbPassword.Name = "tbPassword";
             tbPassword.PlaceholderColor = Color.Gray;
             tbPassword.PlaceholderText = "Enter text here...";
@@ -529,12 +531,81 @@
             siticoneCheckBox1.UncheckedBackColor = Color.FromArgb(250, 250, 250);
             siticoneCheckBox1.Click += siticoneCheckBox1_Click;
             // 
+            // txtEmail
+            // 
+            txtEmail.AccessibleDescription = "A customizable text input field.";
+            txtEmail.AccessibleName = "Text Box";
+            txtEmail.AccessibleRole = AccessibleRole.Text;
+            txtEmail.BackColor = Color.Transparent;
+            txtEmail.BlinkCount = 3;
+            txtEmail.BlinkShadow = false;
+            txtEmail.BorderColor1 = Color.LightSlateGray;
+            txtEmail.BorderColor2 = Color.LightSlateGray;
+            txtEmail.BorderFocusColor1 = Color.FromArgb(77, 77, 255);
+            txtEmail.BorderFocusColor2 = Color.FromArgb(77, 77, 255);
+            txtEmail.CanShake = true;
+            txtEmail.ContinuousBlink = false;
+            txtEmail.CursorBlinkRate = 500;
+            txtEmail.CursorColor = Color.Black;
+            txtEmail.CursorHeight = 26;
+            txtEmail.CursorOffset = 0;
+            txtEmail.CursorStyle = SiticoneNetCoreUI.Helpers.DrawingStyle.SiticoneDrawingStyle.Solid;
+            txtEmail.CursorWidth = 1;
+            txtEmail.DisabledBackColor = Color.WhiteSmoke;
+            txtEmail.DisabledBorderColor = Color.LightGray;
+            txtEmail.DisabledTextColor = Color.Gray;
+            txtEmail.EnableDropShadow = false;
+            txtEmail.FillColor1 = Color.White;
+            txtEmail.FillColor2 = Color.White;
+            txtEmail.Font = new Font("Inter", 7.8F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            txtEmail.ForeColor = Color.DimGray;
+            txtEmail.HoverBorderColor1 = Color.Gray;
+            txtEmail.HoverBorderColor2 = Color.Gray;
+            txtEmail.IsEnabled = true;
+            txtEmail.Location = new Point(437, 311);
+            txtEmail.Name = "txtEmail";
+            txtEmail.PlaceholderColor = Color.Gray;
+            txtEmail.PlaceholderText = "Enter text here...";
+            txtEmail.ReadOnlyBorderColor1 = Color.LightGray;
+            txtEmail.ReadOnlyBorderColor2 = Color.LightGray;
+            txtEmail.ReadOnlyFillColor1 = Color.WhiteSmoke;
+            txtEmail.ReadOnlyFillColor2 = Color.WhiteSmoke;
+            txtEmail.ReadOnlyPlaceholderColor = Color.DarkGray;
+            txtEmail.SelectionBackColor = Color.FromArgb(77, 77, 255);
+            txtEmail.ShadowAnimationDuration = 1;
+            txtEmail.ShadowBlur = 10;
+            txtEmail.ShadowColor = Color.FromArgb(15, 0, 0, 0);
+            txtEmail.ShowBorder = false;
+            txtEmail.Size = new Size(537, 63);
+            txtEmail.SolidBorderColor = Color.LightSlateGray;
+            txtEmail.SolidBorderFocusColor = Color.FromArgb(77, 77, 255);
+            txtEmail.SolidBorderHoverColor = Color.Gray;
+            txtEmail.SolidFillColor = Color.White;
+            txtEmail.TabIndex = 16;
+            txtEmail.TextPadding = new Padding(16, 0, 6, 0);
+            txtEmail.ValidationErrorMessage = "Invalid input.";
+            txtEmail.ValidationFunction = null;
+            // 
+            // label5
+            // 
+            label5.AutoSize = true;
+            label5.BackColor = Color.FromArgb(233, 240, 201);
+            label5.Font = new Font("Inter", 16.2F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            label5.ForeColor = Color.FromArgb(117, 164, 127);
+            label5.Location = new Point(428, 268);
+            label5.Name = "label5";
+            label5.Size = new Size(92, 40);
+            label5.TabIndex = 15;
+            label5.Text = "Email";
+            // 
             // SignUp
             // 
             AutoScaleDimensions = new SizeF(8F, 20F);
             AutoScaleMode = AutoScaleMode.Font;
             BackColor = Color.FromArgb(252, 255, 224);
             ClientSize = new Size(1422, 977);
+            Controls.Add(txtEmail);
+            Controls.Add(label5);
             Controls.Add(siticoneCheckBox1);
             Controls.Add(pictureBox3);
             Controls.Add(pictureBox2);
@@ -577,5 +648,7 @@
         private PictureBox pictureBox2;
         private PictureBox pictureBox3;
         private SiticoneNetCoreUI.SiticoneCheckBox siticoneCheckBox1;
+        private SiticoneNetCoreUI.SiticoneTextBox txtEmail;
+        private Label label5;
     }
 }
