@@ -134,12 +134,28 @@ namespace PomoMeetApp.View
             // Cập nhật mảng members, thêm ID người tham gia vào
             try
             {
-                await roomRef.UpdateAsync("members", FieldValue.ArrayUnion(currentUserId));
+
+                // Tạo thông tin trạng thái mặc định của thành viên
+                Dictionary<string, object> memberData = new Dictionary<string, object>
+                {
+                    { "camera_on", false },
+                    { "mic_on", false },
+                    { "speaker_on", true },
+                    { "user_id", currentUserId },
+                };
+
+                Dictionary<string, object> updates = new Dictionary<string, object>
+                {
+                    { $"members_status.{currentUserId}", memberData }
+                };
+
+                await roomRef.UpdateAsync(updates);
             }
             catch (Exception ex)
             {
-                MessageBox.Show("Lỗi khi thêm thành viên vào phòng: " + ex.Message);
+                MessageBox.Show("Lỗi khi thêm trạng thái thành viên vào phòng: " + ex.Message);
             }
+
 
             MeetingRoom meetingRoom = new MeetingRoom(userId, roomId);
             meetingRoom.ShowDialog();

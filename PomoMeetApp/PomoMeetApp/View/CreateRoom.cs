@@ -322,7 +322,6 @@ namespace PomoMeetApp.View
                 int pomodoro = (int)numUpDown_Pomodoro.Value;
                 int shortBreak = (int)numUpDown_Break.Value;
                 string hashedPassword = string.IsNullOrEmpty(password) ? "" : HashPassword(password);
-
                 var room = new
                 {
                     roomId = roomId,
@@ -331,7 +330,18 @@ namespace PomoMeetApp.View
                     type = roomMode,
                     password = hashedPassword,
                     created_at = DateTime.Now.ToString("yyyy-MM-ddTHH:mm:ss"),
-                    members = new string[] { currentUserId }
+                    members_status = new Dictionary<string, object>
+                    {
+                        {
+                            currentUserId, new Dictionary<string, object>
+                            {
+                                { "user_id", currentUserId },
+                                { "camera_on", false }, // Mặc định camera là tắt
+                                { "mic_on", false },     // Mặc định mic là tắt
+                                { "speaker_on", true },  // Mặc định loa là bật
+                            }
+                        }
+                    }
                 };
 
                 var roomRef = db.Collection("Room").Document(roomId);

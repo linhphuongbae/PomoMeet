@@ -790,6 +790,7 @@
             siticoneButton8.TooltipText = null;
             siticoneButton8.UseAdvancedRendering = true;
             siticoneButton8.UseParticles = false;
+            siticoneButton8.Click += siticoneButton8_Click;
             // 
             // SideBar
             // 

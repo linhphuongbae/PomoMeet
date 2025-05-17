@@ -241,6 +241,7 @@
             sbtn_ChangeHost.TooltipText = null;
             sbtn_ChangeHost.UseAdvancedRendering = true;
             sbtn_ChangeHost.UseParticles = false;
+            sbtn_ChangeHost.Click += sbtn_ChangeHost_Click;
             // 
             // sbtn_Kick
             // 

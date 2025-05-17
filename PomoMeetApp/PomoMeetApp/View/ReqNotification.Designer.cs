@@ -55,17 +55,17 @@ namespace PomoMeetApp.View
             siticonePanel2.EnableRippleEffect = false;
             siticonePanel2.FillColor = Color.FromArgb(117, 164, 127);
             siticonePanel2.GradientColors = new Color[]
-            {
-        Color.White,
-        Color.LightGray,
-        Color.Gray
-            };
+    {
+    Color.White,
+    Color.LightGray,
+    Color.Gray
+    };
             siticonePanel2.GradientPositions = new float[]
-            {
-        0F,
-        0.5F,
-        1F
-            };
+    {
+    0F,
+    0.5F,
+    1F
+    };
             siticonePanel2.Location = new Point(-1, -1);
             siticonePanel2.Name = "siticonePanel2";
             siticonePanel2.PatternStyle = System.Drawing.Drawing2D.HatchStyle.Max;
@@ -97,6 +97,7 @@ namespace PomoMeetApp.View
             // panelNotifications
             // 
             panelNotifications.AutoScroll = true;
+            panelNotifications.BackColor = Color.White;
             panelNotifications.FlowDirection = FlowDirection.TopDown;
             panelNotifications.Location = new Point(10, 80);
             panelNotifications.Name = "panelNotifications";
@@ -108,6 +109,7 @@ namespace PomoMeetApp.View
             // 
             AutoScaleDimensions = new SizeF(8F, 20F);
             AutoScaleMode = AutoScaleMode.Font;
+            BackColor = Color.White;
             ClientSize = new Size(648, 458);
             Controls.Add(panelNotifications);
             Controls.Add(siticonePanel2);

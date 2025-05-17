@@ -1,4 +1,5 @@
-﻿using PomoMeetApp.Classes;
+﻿using Google.Cloud.Firestore;
+using PomoMeetApp.Classes;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -82,27 +83,31 @@ namespace PomoMeetApp.View
             }
         }
 
-
         private async void LoadParticipants()
         {
             var db = FirebaseConfig.database;
-            var roomRef = db.Collection("Room").WhereEqualTo("roomId", currentroomId); // Truy vấn chỉ lấy room_id đúng
+            DocumentReference roomRef = db.Collection("Room").Document(currentroomId);
+            DocumentSnapshot snapshot = await roomRef.GetSnapshotAsync();
 
-            var roomDoc = await roomRef.GetSnapshotAsync();
-
-            if (roomDoc.Count == 0)
+            if (!snapshot.Exists)
             {
                 MessageBox.Show("Không tìm thấy phòng với room_id: " + currentroomId);
-                 return;
+                return;
             }
 
-            var roomData = roomDoc.Documents[0].ToDictionary(); // Giả sử chỉ có một phòng với room_id
-            var members = roomData["members"] as List<object>;
+            // Lấy thông tin từ trường members_status
+            if (!snapshot.TryGetValue<Dictionary<string, object>>("members_status", out var membersDict))
+            {
+                MessageBox.Show("Không tìm thấy trường 'members_status' trong Firestore.");
+                return;
+            }
 
             tlp_ListMembers.Controls.Clear(); // Xóa hết các dòng cũ nếu có
 
-            foreach (string userId in members)
+            foreach (var entry in membersDict)
             {
+                string userId = entry.Key;
+
                 var userRef = db.Collection("User").Document(userId);
                 var userDoc = await userRef.GetSnapshotAsync();
                 if (!userDoc.Exists) continue;
@@ -118,6 +123,7 @@ namespace PomoMeetApp.View
                 AddMemberRow(userId, username, avatarImage);
             }
         }
+
 
 
 
@@ -221,8 +227,6 @@ namespace PomoMeetApp.View
 
                 var roomData = snapshot.ToDictionary();
                 string hostId = roomData["host_id"].ToString(); // Lấy hostId từ Firestore
-                var members = roomData["members"] as List<object>;
-
 
                 // Kiểm tra nếu người hiện tại có phải là host không
                 if (currentUserId != hostId)
@@ -237,14 +241,28 @@ namespace PomoMeetApp.View
                     return;
                 }
 
-                // Xóa thành viên khỏi danh sách
-                members.Remove(userId);
+                // Lấy trường members_status
+                if (!snapshot.TryGetValue<Dictionary<string, object>>("members_status", out var membersStatus))
+                {
+                    MessageBox.Show("Không tìm thấy trường 'members_status' trong phòng.");
+                    return;
+                }
 
-                // Cập nhật lại danh sách thành viên trong Firestore
-                await roomRef.UpdateAsync("members", members);
+                // Xóa userId khỏi members_status
+                if (membersStatus.ContainsKey(userId))
+                {
+                    membersStatus.Remove(userId);
 
-                MessageBox.Show("Thành viên đã bị đá khỏi phòng!");
-                LoadParticipants(); // Tải lại danh sách thành viên
+                    // Cập nhật lại members_status trong Firestore
+                    await roomRef.UpdateAsync("members_status", membersStatus);
+
+                    MessageBox.Show("Thành viên đã bị đá khỏi phòng!");
+                    LoadParticipants(); // Tải lại danh sách thành viên
+                }
+                else
+                {
+                    MessageBox.Show("Thành viên không tồn tại trong phòng.");
+                }
             }
             catch (Exception ex)
             {
@@ -252,53 +270,64 @@ namespace PomoMeetApp.View
             }
         }
 
+
         private async void tb_FindMembers_Changed(object sender, EventArgs e)
         {
-            string searchKeyword = tb_FindMembers.Text.ToLower(); // Lấy từ khóa tìm kiếm và chuyển thành chữ thường
+            string searchKeyword = tb_FindMembers.Text.ToLower(); // Lấy từ khóa tìm kiếm
 
             if (string.IsNullOrWhiteSpace(searchKeyword))
             {
-                LoadParticipants();
+                LoadParticipants(); // Nếu không có từ khóa, load lại toàn bộ danh sách
                 return;
             }
 
             var db = FirebaseConfig.database;
-            var roomRef = db.Collection("Room").WhereEqualTo("roomId", currentroomId); // Truy vấn chỉ lấy room_id đúng
+            DocumentReference roomRef = db.Collection("Room").Document(currentroomId);
+            var snapshot = await roomRef.GetSnapshotAsync();
 
-            var roomDoc = await roomRef.GetSnapshotAsync();
-
-            if (roomDoc.Count == 0)
+            if (!snapshot.Exists)
             {
                 MessageBox.Show("Không tìm thấy phòng với room_id: " + currentroomId);
                 return;
             }
 
-            var roomData = roomDoc.Documents[0].ToDictionary(); 
-            var members = roomData["members"] as List<object>;
-
-            tlp_ListMembers.Controls.Clear(); // Xóa hết các dòng cũ nếu có
-
-            foreach (string userId in members)
+            // Lấy danh sách thành viên từ members_status
+            if (!snapshot.TryGetValue<Dictionary<string, object>>("members_status", out var membersStatus))
             {
+                MessageBox.Show("Không tìm thấy trường 'members_status' trong Firestore.");
+                return;
+            }
+
+            tlp_ListMembers.Controls.Clear(); // Xóa danh sách cũ
+
+            foreach (var entry in membersStatus)
+            {
+                string userId = entry.Key;
+
                 var userRef = db.Collection("User").Document(userId);
                 var userDoc = await userRef.GetSnapshotAsync();
                 if (!userDoc.Exists) continue;
 
                 var userData = userDoc.ToDictionary();
-                string username = userData["Username"].ToString(); // Dữ liệu gốc giữ nguyên
+                string username = userData["Username"].ToString();
                 string compareUsername = username.ToLower();
                 string avatarKey = userData.ContainsKey("Avatar") ? userData["Avatar"]?.ToString() : null;
 
-                // Kiểm tra xem tên người dùng có khớp với từ khóa tìm kiếm không
                 if (compareUsername.Contains(searchKeyword))
                 {
                     // Lấy avatar từ resource
                     Image avatarImage = GetAvatarFromResources(avatarKey);
 
-                    // Gọi AddMemberRow để thêm thành viên vào TableLayoutPanel, truyền cả userId
-                    AddMemberRow(userId, username, avatarImage); // Truyền cả userId vào phương thức AddMemberRow
+                    // Thêm vào danh sách hiển thị
+                    AddMemberRow(userId, username, avatarImage);
                 }
             }
+        }
+
+
+        private void sbtn_ChangeHost_Click(object sender, EventArgs e)
+        {
+
         }
     }
 }
