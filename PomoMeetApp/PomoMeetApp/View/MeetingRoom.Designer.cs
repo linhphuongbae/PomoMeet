@@ -30,7 +30,7 @@
         {
             components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(MeetingRoom));
-            SiticoneNetCoreUI.SiticoneFlowPanel.LayoutState layoutState1 = new SiticoneNetCoreUI.SiticoneFlowPanel.LayoutState();
+            SiticoneNetCoreUI.SiticoneFlowPanel.LayoutState layoutState2 = new SiticoneNetCoreUI.SiticoneFlowPanel.LayoutState();
             siticoneAdvancedPanel1 = new SiticoneNetCoreUI.SiticoneAdvancedPanel();
             btn_break = new SiticoneNetCoreUI.SiticoneButton();
             btn_pomodoro = new SiticoneNetCoreUI.SiticoneButton();
@@ -73,6 +73,7 @@
             btn_Mic = new SiticoneNetCoreUI.SiticoneButton();
             siticoneImageButton1 = new SiticoneNetCoreUI.SiticoneImageButton();
             panel2 = new Panel();
+            userProfilePanel1 = new UserProfilePanel();
             siticoneAdvancedPanel1.SuspendLayout();
             panel1.SuspendLayout();
             panel3.SuspendLayout();
@@ -526,7 +527,7 @@
             siticoneImageButton8.CornerRadiusTopRight = 33.5F;
             siticoneImageButton8.ImageDown = null;
             siticoneImageButton8.ImageHover = null;
-            siticoneImageButton8.ImageNormal = Properties.Resources.group;
+            siticoneImageButton8.ImageNormal = null;
             siticoneImageButton8.ImageSizing = SiticoneNetCoreUI.ImageSizingMode.Original;
             siticoneImageButton8.IsReadOnly = false;
             siticoneImageButton8.Location = new Point(83, 44);
@@ -563,7 +564,7 @@
             btn_add_participants.CornerRadiusTopRight = 22F;
             btn_add_participants.ImageDown = null;
             btn_add_participants.ImageHover = null;
-            btn_add_participants.ImageNormal = Properties.Resources.group_add;
+            btn_add_participants.ImageNormal = null;
             btn_add_participants.ImageSizing = SiticoneNetCoreUI.ImageSizingMode.Original;
             btn_add_participants.IsReadOnly = false;
             btn_add_participants.Location = new Point(204, -3);
@@ -587,10 +588,10 @@
             panel6.Name = "panel6";
             panel6.Size = new Size(264, 46);
             panel6.TabIndex = 0;
-            layoutState1.Location = new Point(3, 3);
-            layoutState1.Size = new Size(302, 61);
-            layoutState1.Visible = true;
-            panel6.Tag = layoutState1;
+            layoutState2.Location = new Point(3, 3);
+            layoutState2.Size = new Size(302, 61);
+            layoutState2.Visible = true;
+            panel6.Tag = layoutState2;
             // 
             // lb_participant
             // 
@@ -761,13 +762,6 @@
             panel7.Name = "panel7";
             panel7.Size = new Size(264, 49);
             panel7.TabIndex = 0;
-<<<<<<< Updated upstream
-            layoutState2.Location = new Point(3, 3);
-            layoutState2.Size = new Size(302, 61);
-            layoutState2.Visible = true;
-            panel7.Tag = layoutState2;
-=======
->>>>>>> Stashed changes
             // 
             // siticoneLabel1
             // 
@@ -811,7 +805,7 @@
             siticoneImageButton10.CornerRadiusTopRight = 8.5F;
             siticoneImageButton10.ImageDown = null;
             siticoneImageButton10.ImageHover = null;
-            siticoneImageButton10.ImageNormal = Properties.Resources.Send;
+            siticoneImageButton10.ImageNormal = null;
             siticoneImageButton10.ImageSizing = SiticoneNetCoreUI.ImageSizingMode.Original;
             siticoneImageButton10.IsReadOnly = false;
             siticoneImageButton10.Location = new Point(238, 9);
@@ -903,7 +897,7 @@
             siticoneImageButton9.CornerRadiusTopRight = 16.5F;
             siticoneImageButton9.ImageDown = null;
             siticoneImageButton9.ImageHover = null;
-            siticoneImageButton9.ImageNormal = Properties.Resources.chat_bubble;
+            siticoneImageButton9.ImageNormal = null;
             siticoneImageButton9.ImageSizing = SiticoneNetCoreUI.ImageSizingMode.Original;
             siticoneImageButton9.IsReadOnly = false;
             siticoneImageButton9.Location = new Point(222, 11);
@@ -1411,12 +1405,21 @@
             panel2.Size = new Size(230, 151);
             panel2.TabIndex = 4;
             // 
+            // userProfilePanel1
+            // 
+            userProfilePanel1.BackColor = Color.Transparent;
+            userProfilePanel1.Location = new Point(1118, 12);
+            userProfilePanel1.Name = "userProfilePanel1";
+            userProfilePanel1.Size = new Size(312, 75);
+            userProfilePanel1.TabIndex = 36;
+            // 
             // MeetingRoom
             // 
             AutoScaleDimensions = new SizeF(8F, 20F);
             AutoScaleMode = AutoScaleMode.Font;
             BackColor = Color.FromArgb(252, 255, 224);
             ClientSize = new Size(1422, 977);
+            Controls.Add(userProfilePanel1);
             Controls.Add(siticonePanel1);
             Controls.Add(sbtn_CancelCall);
             Controls.Add(sbtn_ChangeHost);

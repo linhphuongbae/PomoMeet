@@ -29,15 +29,12 @@ namespace PomoMeetApp.View
         private ImageList imageListAvatars;
         private string currentUserId;
         private string currentroomId;
-<<<<<<< Updated upstream
         private FirestoreChangeListener roomListener;
-=======
 
         private string appId = "9ff5da05a52c4f6e8e33448631ecc267";
         private IRtcEngine rtcEngine;
         private string hostId;
         private Panel localVideoPanel;
->>>>>>> Stashed changes
 
         public MeetingRoom(string userId, string roomId)
         {
@@ -45,13 +42,9 @@ namespace PomoMeetApp.View
             currentUserId = userId;
             currentroomId = roomId;
 
-<<<<<<< Updated upstream
             LoadUserData();
             InitializeUserProfile();
-
-=======
             InitializeAgora();
->>>>>>> Stashed changes
             InitializeMeetingRoomComponents();
         }
         private Image GetUserAvatar()
@@ -151,50 +144,11 @@ namespace PomoMeetApp.View
 
         private uint GetUidFromId(string id)
         {
-<<<<<<< Updated upstream
-            var db = FirebaseConfig.database;
-            var docRef = db.Collection("Room").Document(roomId);
-
-            roomListener = docRef.Listen(snapshot =>
-            {
-                try
-                {
-                    if (this.IsDisposed || !this.IsHandleCreated)
-                        return;
-
-                    this.BeginInvoke((MethodInvoker)delegate
-                    {
-                        if (!this.IsDisposed)
-                        {
-                            if (!snapshot.Exists)
-                            {
-                                MessageBox.Show("Phòng đã bị xóa!");
-                                this.Close();
-                                return;
-                            }
-
-                            var roomData = snapshot.ToDictionary();
-                            var members = roomData.ContainsKey("members") ? roomData["members"] as List<object> : new List<object>();
-
-                            if (!members.Contains(currentUserId))
-                            {
-                                MessageBox.Show("Bạn đã bị chủ phòng đá!", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                                this.Close();
-                                return;
-                            }
-                        }
-                    });
-                }
-                catch (ObjectDisposedException)
-                {
-=======
             byte[] hash = SHA256.HashData(Encoding.UTF8.GetBytes(id));
             return BitConverter.ToUInt32(hash, 0); // Lấy 4 byte đầu
         }
 
         Dictionary<string, MemberState> memberStates = new Dictionary<string, MemberState>();
-
-        private FirestoreChangeListener roomChangeListener;
 
         private void ListenToRoomRealtime()
         {
@@ -210,7 +164,6 @@ namespace PomoMeetApp.View
                         MessageBox.Show("Phòng đã bị xóa!");
                         this.Close();
                     });
->>>>>>> Stashed changes
                     return;
                 }
 
@@ -294,72 +247,39 @@ namespace PomoMeetApp.View
             }
         }
 
-<<<<<<< Updated upstream
-        private async void sbtn_CancelCall_Click(object sender, EventArgs e)
-=======
         private void panel7_Paint(object sender, PaintEventArgs e)
         {
 
         }
 
-        private void sbtn_CancelCall_Click(object sender, EventArgs e)
->>>>>>> Stashed changes
+        private async void sbtn_CancelCall_Click(object sender, EventArgs e)
         {
             var db = FirebaseConfig.database;
             var roomRef = db.Collection("Room").Document(currentroomId);
 
             try
             {
-                await roomRef.UpdateAsync("members", FieldValue.ArrayRemove(currentUserId));
-                this.DialogResult = DialogResult.OK; // This will trigger form closing
+                var snapshot = await roomRef.GetSnapshotAsync();
+                if (snapshot.Exists && snapshot.TryGetValue("members_status", out Dictionary<string, object> membersStatus))
+                {
+                    if (membersStatus.ContainsKey(currentUserId))
+                    {
+                        membersStatus.Remove(currentUserId);  // Xóa key currentUserId khỏi dictionary
+                        await roomRef.UpdateAsync("members_status", membersStatus);
+                    }
+                }
+
+                this.DialogResult = DialogResult.OK; // Đóng form sau khi rời phòng
                 this.Close();
             }
             catch (Exception ex)
             {
                 MessageBox.Show("Lỗi khi rời phòng: " + ex.Message, "Lỗi", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
-        }
-<<<<<<< Updated upstream
-
-        private async void JoinRoomAndUpdateParticipants()
-        {
-            var db = FirebaseConfig.database;
-            var roomRef = db.Collection("Room").Document(currentroomId);
-
-            roomListener = roomRef.Listen(async snapshot =>
-            {
-                if (this.IsDisposed) return;
-
-                if (!snapshot.Exists)
-                {
-                    MessageBox.Show("Phòng đã bị xóa!");
-                    return;
-                }
-
-                var roomData = snapshot.ToDictionary();
-                var members = roomData["members"] as List<object> ?? new List<object>();
-
-
-                if (listViewParticipants != null && !listViewParticipants.IsDisposed && listViewParticipants.IsHandleCreated)
-                {
-                    listViewParticipants.BeginInvoke(new Action(() =>
-                    {
-                        UpdateParticipantsList(members, db);
-                    }));
-                }
-                else
-                {
-                    // Nếu đang trên UI thread, trực tiếp gọi hàm cập nhật danh sách
-                    UpdateParticipantsList(members, db);
-                }
-            });
 
         }
 
-        private async void UpdateParticipantsList(List<object> members, FirestoreDb db)
-=======
         private async void UpdateParticipantsList(Dictionary<string, MemberState> members, FirestoreDb db)
->>>>>>> Stashed changes
         {
             if (this.IsDisposed || listViewParticipants.IsDisposed) return;
 
