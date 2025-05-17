@@ -853,7 +853,6 @@
             layoutState2.Size = new Size(302, 61);
             layoutState2.Visible = true;
             panel7.Tag = layoutState2;
-            panel7.Paint += panel7_Paint;
             // 
             // siticoneImageButton9
             // 
@@ -1471,7 +1470,6 @@
             Controls.Add(siticoneAdvancedPanel1);
             Name = "MeetingRoom";
             Text = "Meeting Room";
-            Load += MeetingRoom_Load;
             siticoneAdvancedPanel1.ResumeLayout(false);
             panel1.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)pictureBox1).EndInit();

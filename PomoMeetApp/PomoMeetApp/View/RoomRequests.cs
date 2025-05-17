@@ -220,6 +220,7 @@ namespace PomoMeetApp.View
             // Không tạo lại phòng ở đây. room_id đã được truyền từ CreateRoom.cs.
             MessageBox.Show($"Lời mời đã được gửi thành công cho phòng: {_roomId}");
             MeetingRoom meetingRoom = new MeetingRoom(_currentUserId, _roomId);
+            this.Close();
             meetingRoom.ShowDialog();
         }
     }

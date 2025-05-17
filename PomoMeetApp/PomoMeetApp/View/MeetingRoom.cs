@@ -1,10 +1,12 @@
 ﻿using Google.Cloud.Firestore;
+using Microsoft.VisualBasic.ApplicationServices;
 using PomoMeetApp.Classes;
 using SiticoneNetCoreUI;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
+using System.Diagnostics;
 using System.Drawing;
 using System.Linq;
 using System.Text;
@@ -20,7 +22,7 @@ namespace PomoMeetApp.View
         private ImageList imageListAvatars;
         private string currentUserId;
         private string currentroomId;
-
+        private FirestoreChangeListener roomListener;
 
         public MeetingRoom(string userId, string roomId)
         {
@@ -28,10 +30,81 @@ namespace PomoMeetApp.View
             currentUserId = userId;
             currentroomId = roomId;
 
+            LoadUserData();
+            InitializeUserProfile();
+
             InitializeMeetingRoomComponents();
             JoinRoomAndUpdateParticipants();
             ListenToRoomChanges(currentUserId, currentroomId);
 
+        }
+        private Image GetUserAvatar()
+        {
+            return Properties.Resources.avatar; // Fallback image
+        }
+
+        private async void LoadUserData()
+        {
+            var db = FirebaseConfig.database;
+            try
+            {
+                DocumentReference docRef = db.Collection("User").Document(currentUserId);
+                DocumentSnapshot snapshot = await docRef.GetSnapshotAsync();
+
+                if (snapshot.Exists)
+                {
+                    Dictionary<string, object> userData = snapshot.ToDictionary();
+                    string username = userData.ContainsKey("Username") ? userData["Username"]?.ToString() ?? "" : "";
+                    string avatarName = userData.ContainsKey("Avatar") ? userData["Avatar"]?.ToString() ?? null : null;
+
+                    // Load avatar
+                    Image avatarImage = LoadAvatarImage(avatarName);
+
+                    // Update user profile panel
+                    userProfilePanel1.UpdateUserInfo(currentUserId, username, avatarImage);
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"Error loading user data: {ex.Message}", "Error",
+                              MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+        }
+        private Image LoadAvatarImage(string avatarName)
+        {
+            if (string.IsNullOrEmpty(avatarName))
+            {
+                return Properties.Resources.avatar; // Avatar mặc định
+            }
+
+            try
+            {
+                // Lấy avatar từ Resources theo tên
+                var resourceManager = Properties.Resources.ResourceManager;
+                return (Image)resourceManager.GetObject(avatarName) ?? Properties.Resources.avatar;
+            }
+            catch
+            {
+                return Properties.Resources.avatar; // Fallback nếu có lỗi
+            }
+        }
+
+        private void InitializeUserProfile()
+        {
+            // 1. Configure the user profile panel
+            // Cần load username trước khi gọi UpdateUserInfo
+            // Sẽ được cập nhật trong LoadUserData()
+            userProfilePanel1.UpdateUserInfo(currentUserId, "", GetUserAvatar());
+
+            // 2. Set up the profile click callback
+            userProfilePanel1.SetProfileClickCallback(userId => // Sửa từ username sang userId
+            {
+                var profileForm = new Profile(userId);
+                profileForm.ShowDialog();
+
+                // Optional: Refresh user info after returning from profile
+                LoadUserData(); // Tải lại dữ liệu sau khi đóng form profile
+            });
         }
 
         private void InitializeMeetingRoomComponents()
@@ -63,31 +136,51 @@ namespace PomoMeetApp.View
 
         private void ListenToRoomChanges(string currentUserId, string roomId)
         {
-            var db = FirebaseConfig.database; // FirestoreDb instance
+            var db = FirebaseConfig.database;
             var docRef = db.Collection("Room").Document(roomId);
 
-            docRef.Listen(snapshot =>
+            roomListener = docRef.Listen(snapshot =>
             {
-                if (snapshot.Exists)
+                try
                 {
-                    var data = snapshot.ToDictionary();
+                    if (this.IsDisposed || !this.IsHandleCreated)
+                        return;
 
-                    if (data.TryGetValue("members", out object membersObj) && membersObj is IList<object> membersList)
+                    this.BeginInvoke((MethodInvoker)delegate
                     {
-                        var members = membersList.Select(m => m.ToString()).ToList();
-
-                        if (!members.Contains(currentUserId))
+                        if (!this.IsDisposed)
                         {
-                            // Thông báo và đóng form
-                            this.Invoke((MethodInvoker)delegate
+                            if (!snapshot.Exists)
                             {
-                                MessageBox.Show("Bạn đã bị đá khỏi phòng!");
+                                MessageBox.Show("Phòng đã bị xóa!");
                                 this.Close();
-                            });
+                                return;
+                            }
+
+                            var roomData = snapshot.ToDictionary();
+                            var members = roomData.ContainsKey("members") ? roomData["members"] as List<object> : new List<object>();
+
+                            if (!members.Contains(currentUserId))
+                            {
+                                MessageBox.Show("Bạn đã bị chủ phòng đá!", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                                this.Close();
+                                return;
+                            }
                         }
-                    }
+                    });
+                }
+                catch (ObjectDisposedException)
+                {
+                    return;
                 }
             });
+        }
+
+
+        protected override void OnFormClosing(FormClosingEventArgs e)
+        {
+            roomListener?.StopAsync();
+            base.OnFormClosing(e);
         }
 
         private void listViewParticipants_DrawSubItem(object sender, DrawListViewSubItemEventArgs e)
@@ -107,19 +200,21 @@ namespace PomoMeetApp.View
             }
         }
 
-        private void panel7_Paint(object sender, PaintEventArgs e)
+        private async void sbtn_CancelCall_Click(object sender, EventArgs e)
         {
+            var db = FirebaseConfig.database;
+            var roomRef = db.Collection("Room").Document(currentroomId);
 
-        }
-
-        private void MeetingRoom_Load(object sender, EventArgs e)
-        {
-
-        }
-
-        private void sbtn_CancelCall_Click(object sender, EventArgs e)
-        {
-
+            try
+            {
+                await roomRef.UpdateAsync("members", FieldValue.ArrayRemove(currentUserId));
+                this.DialogResult = DialogResult.OK; // This will trigger form closing
+                this.Close();
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Lỗi khi rời phòng: " + ex.Message, "Lỗi", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
         }
 
         private async void JoinRoomAndUpdateParticipants()
@@ -127,8 +222,10 @@ namespace PomoMeetApp.View
             var db = FirebaseConfig.database;
             var roomRef = db.Collection("Room").Document(currentroomId);
 
-            roomRef.Listen(async snapshot =>
+            roomListener = roomRef.Listen(async snapshot =>
             {
+                if (this.IsDisposed) return;
+
                 if (!snapshot.Exists)
                 {
                     MessageBox.Show("Phòng đã bị xóa!");
@@ -138,10 +235,10 @@ namespace PomoMeetApp.View
                 var roomData = snapshot.ToDictionary();
                 var members = roomData["members"] as List<object> ?? new List<object>();
 
-                if (listViewParticipants.InvokeRequired)
+
+                if (listViewParticipants != null && !listViewParticipants.IsDisposed && listViewParticipants.IsHandleCreated)
                 {
-                    // Nếu không phải UI thread, dùng Invoke để thực thi trên UI thread
-                    listViewParticipants.Invoke(new Action(() =>
+                    listViewParticipants.BeginInvoke(new Action(() =>
                     {
                         UpdateParticipantsList(members, db);
                     }));
@@ -157,6 +254,8 @@ namespace PomoMeetApp.View
 
         private async void UpdateParticipantsList(List<object> members, FirestoreDb db)
         {
+            if (this.IsDisposed || listViewParticipants.IsDisposed) return;
+
             listViewParticipants.Items.Clear();
 
             foreach (string userId in members)

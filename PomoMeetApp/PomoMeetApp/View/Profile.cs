@@ -14,7 +14,7 @@ namespace PomoMeetApp.View
         private string currentUserId;
         private FirestoreDb db;
 
-        public Profile(string userId) // Thay đổi tham số từ username sang userId
+        public Profile(string userId)
         {
             InitializeComponent();
             // Clear the password fields
