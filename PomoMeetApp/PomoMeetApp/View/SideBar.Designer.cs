@@ -557,6 +557,7 @@
             siticoneButton5.TooltipText = null;
             siticoneButton5.UseAdvancedRendering = true;
             siticoneButton5.UseParticles = false;
+            siticoneButton5.Click += siticoneButton5_Click;
             // 
             // siticoneButton6
             // 

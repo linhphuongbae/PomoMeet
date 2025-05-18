@@ -7,6 +7,8 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using Microsoft.VisualBasic.ApplicationServices;
+using PomoMeetApp.Classes;
 
 namespace PomoMeetApp.View
 {
@@ -42,6 +44,17 @@ namespace PomoMeetApp.View
         private void siticoneButton8_Click(object sender, EventArgs e)
         {
 
+        }
+
+        private void siticoneButton5_Click(object sender, EventArgs e)
+        {
+            UserSession.CurrentUser = null;
+            Form parent = this.FindForm();
+            
+            SignIn sg = new SignIn();
+            FormTransition.FadeTo(parent, sg);
+            
+            parent.Hide();
         }
     }
 }
