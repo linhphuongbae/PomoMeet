@@ -35,7 +35,8 @@ namespace PomoMeetApp.View
 
         private void siticoneButton6_Click(object sender, EventArgs e)
         {
-
+            Setting st = new Setting();
+            st.Show();
         }
 
         private void siticoneButton8_Click(object sender, EventArgs e)
