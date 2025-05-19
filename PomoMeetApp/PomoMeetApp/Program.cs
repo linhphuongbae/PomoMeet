@@ -15,6 +15,8 @@ namespace PomoMeetApp
             // see https://aka.ms/applicationconfiguration.
             FirebaseConfig.SetEnviromentVariable();
             ApplicationConfiguration.Initialize();
+            Application.EnableVisualStyles();
+            Application.SetCompatibleTextRenderingDefault(false);
             Application.Run(new StartApp());
         }
     }

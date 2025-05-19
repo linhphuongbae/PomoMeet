@@ -79,9 +79,9 @@
             email.ForeColor = Color.FromArgb(117, 164, 127);
             email.Location = new Point(428, 233);
             email.Name = "email";
-            email.Size = new Size(157, 40);
+            email.Size = new Size(219, 40);
             email.TabIndex = 4;
-            email.Text = "Username";
+            email.Text = "Tên đăng nhập";
             // 
             // tbUsername
             // 
@@ -212,7 +212,7 @@
             // btnSignInGG
             // 
             btnSignInGG.AccessibleDescription = "The default button control that accept input though the mouse, touch and keyboard";
-            btnSignInGG.AccessibleName = "Sign In With Google";
+            btnSignInGG.AccessibleName = "Đăng nhập với Gmail";
             btnSignInGG.AutoSizeBasedOnText = false;
             btnSignInGG.BackColor = Color.Transparent;
             btnSignInGG.BadgeBackColor = Color.Red;
@@ -278,7 +278,7 @@
             btnSignInGG.ShakeIntensity = 5;
             btnSignInGG.Size = new Size(537, 47);
             btnSignInGG.TabIndex = 10;
-            btnSignInGG.Text = "Sign In With Google";
+            btnSignInGG.Text = "Đăng nhập với Gmail";
             btnSignInGG.TextAlign = ContentAlignment.MiddleCenter;
             btnSignInGG.TextColor = Color.Black;
             btnSignInGG.TooltipText = null;
