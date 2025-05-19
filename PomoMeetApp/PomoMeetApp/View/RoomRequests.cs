@@ -32,7 +32,9 @@ namespace PomoMeetApp.View
             _roomName = roomName;
             _roomMode = roomMode;
             _password = password;
-            _createRoom = createRoom; // Gán tham chiếu
+            _createRoom = createRoom;
+
+            this.BringToFront(); // Đưa form lên phía trước
 
             tbMamoi.Text = roomId;
             btCopy.TargetControl = tbMamoi;
@@ -75,9 +77,6 @@ namespace PomoMeetApp.View
                 // Combine results
                 friendships.AddRange(requesterSnapshotTask.Result.Documents);
                 friendships.AddRange(receiverSnapshotTask.Result.Documents);
-
-                // Debug: Log the number of friendships found
-                MessageBox.Show($"Found {friendships.Count} friendships.");
 
                 // Clear existing controls
                 siticonePanel2.Controls.Clear();
@@ -180,8 +179,6 @@ namespace PomoMeetApp.View
                     await db.Collection("Invitations").Document(invitationId).SetAsync(invitation);
                     successCount++;
                 }
-
-                MessageBox.Show($"Đã gửi thành công {successCount}/{friendIds.Count} lời mời");
             }
             catch (Exception ex)
             {
@@ -214,14 +211,17 @@ namespace PomoMeetApp.View
                 return;
             }
 
-            // Gửi lời mời
+            // Send invitations
             await SendInvitations(selectedFriends);
 
-            // Không tạo lại phòng ở đây. room_id đã được truyền từ CreateRoom.cs.
-            MessageBox.Show($"Lời mời đã được gửi thành công cho phòng: {_roomId}");
-            MeetingRoom meetingRoom = new MeetingRoom(_currentUserId, _roomId);
+            this.Hide(); // Ẩn RoomRequests trước
+            _createRoom.Hide(); // Ẩn CreateRoom trước
+
+            var meetingRoom = new MeetingRoom(_currentUserId, _roomId);
+            meetingRoom.ShowDialog(); // Chặn cho đến khi user đóng MeetingRoom
+
+            _createRoom.Close(); // Đóng sau khi MeetingRoom kết thúc
             this.Close();
-            meetingRoom.ShowDialog();
         }
     }
 }

@@ -773,7 +773,7 @@
             Controls.Add(siticoneLabel1);
             Name = "Dashboard";
             Text = "Dashboard";
-            Load += Dashboard_Load;
+            _userListener?.StopAsync(); // ⚠️ Dừng listener khi đóng form
             ResumeLayout(false);
         }
 

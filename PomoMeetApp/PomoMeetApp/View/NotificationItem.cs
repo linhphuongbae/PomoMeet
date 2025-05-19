@@ -38,10 +38,38 @@ namespace PomoMeetApp.View
                 var db = FirebaseConfig.database;
                 if (db == null) throw new Exception("Database connection is not initialized.");
 
+                var docRef = db.Collection("Invitations").Document(inviteId);
+                var snapshot = await docRef.GetSnapshotAsync();
+
+                if (!snapshot.Exists)
+                {
+                    throw new Exception("Invitation no longer exists.");
+                }
+
                 // Update the invitation status to "Accepted"
-                await db.Collection("Invitations").Document(inviteId).UpdateAsync("status", "Accepted");
+                await docRef.UpdateAsync("status", "Accepted");
 
                 OpenMeetingRoom(currentUserId, roomId);
+            });
+        }
+
+        private async Task HandleDeclineAsync()
+        {
+            await HandleResponseAsync("Rejected", async () =>
+            {
+                var db = FirebaseConfig.database;
+                if (db == null) throw new Exception("Database connection is not initialized.");
+
+                var docRef = db.Collection("Invitations").Document(inviteId);
+                var snapshot = await docRef.GetSnapshotAsync();
+
+                if (!snapshot.Exists)
+                {
+                    throw new Exception("Invitation no longer exists.");
+                }
+
+                // Update the invitation status to "Rejected"
+                await docRef.UpdateAsync("status", "Rejected");
             });
         }
         private async void OpenMeetingRoom(string userId, string roomId)
@@ -64,17 +92,6 @@ namespace PomoMeetApp.View
             meetingRoom.ShowDialog();
             this.Dispose();
         }
-        private async Task HandleDeclineAsync()
-        {
-            await HandleResponseAsync("Rejected", async () =>
-            {
-                var db = FirebaseConfig.database;
-                if (db == null) throw new Exception("Database connection is not initialized.");
-
-                // Update the invitation status to "Rejected"
-                await db.Collection("Invitations").Document(inviteId).UpdateAsync("status", "Rejected");
-            });
-        }
 
         private async Task HandleResponseAsync(string response, Func<Task> action)
         {
@@ -84,7 +101,21 @@ namespace PomoMeetApp.View
                 btnAccept.Enabled = false;
                 btnDecline.Enabled = false;
 
-                // Perform the action
+                var db = FirebaseConfig.database;
+                if (db == null) throw new Exception("Database connection is not initialized.");
+
+                // First check if the document exists
+                var docRef = db.Collection("Invitations").Document(inviteId);
+                var snapshot = await docRef.GetSnapshotAsync();
+
+                if (!snapshot.Exists)
+                {
+                    MessageBox.Show("This invitation no longer exists.", "Info", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    this.Dispose();
+                    return;
+                }
+
+                // Perform the action (e.g., update status)
                 await action();
 
                 // Notify the parent control about the response

@@ -184,7 +184,7 @@ namespace PomoMeetApp.View
             }
         }
 
-        private async Task UpdateNotificationBadge()
+        public async Task UpdateNotificationBadge()
         {
             try
             {
@@ -198,8 +198,20 @@ namespace PomoMeetApp.View
 
                 var snapshot = await query.GetSnapshotAsync();
 
-                // Update the notification count
-                NotificationCount = snapshot.Count;
+                // Update the notification count on UI thread
+                if (this.IsHandleCreated)
+                {
+                    this.Invoke((MethodInvoker)delegate
+                    {
+                        NotificationCount = snapshot.Count;
+                    });
+                }
+                else
+                {
+                    // If handle not created yet, try again later
+                    await Task.Delay(500);
+                    await UpdateNotificationBadge();
+                }
             }
             catch (Exception ex)
             {
@@ -258,8 +270,17 @@ namespace PomoMeetApp.View
         public async void UpdateUserInfo(string userId, string userName, Image avatarImage)
         {
             currentUserId = userId;
-            lblUserName.Text = userName;
-            avatar.Image = avatarImage ?? Properties.Resources.avatar;
+
+            if (lblUserName.IsHandleCreated && avatar.IsHandleCreated)
+            {
+                this.Invoke((MethodInvoker)delegate
+                {
+                    lblUserName.Text = userName;
+                    avatar.Image = avatarImage ?? Properties.Resources.avatar;
+                });
+            }
+
+            // Start notification updates
             await UpdateNotificationBadge().ConfigureAwait(false);
             StartListeningForNotifications();
         }
