@@ -30,6 +30,7 @@ namespace PomoMeetApp.View
         private string currentUserId;
         private string currentroomId;
         private FirestoreChangeListener roomListener;
+        private FirestoreChangeListener messageListener;
 
         private string appId = "9ff5da05a52c4f6e8e33448631ecc267";
         private IRtcEngine rtcEngine;
@@ -52,6 +53,7 @@ namespace PomoMeetApp.View
             InitializeUserProfile();
             InitializeAgora();
             InitializeMeetingRoomComponents();
+            ListenMessage();
         }
         private Image GetUserAvatar()
         {
@@ -201,9 +203,9 @@ namespace PomoMeetApp.View
                         memberData is Dictionary<string, object> data &&
                         data.ContainsKey("is_leaving") &&
                         Convert.ToBoolean(data["is_leaving"]))
-                        {
-                            return;
-                        }
+                    {
+                        return;
+                    }
 
                     SafeInvoke(() =>
                     {
@@ -317,7 +319,7 @@ namespace PomoMeetApp.View
             try
             {
                 roomListener?.StopAsync();
-
+                messageListener?.StopAsync();
                 if (rtcEngine != null)
                 {
                     rtcEngine.LeaveChannel();
@@ -543,159 +545,160 @@ namespace PomoMeetApp.View
         }
 
 
-private async void UpdateParticipantsList(Dictionary<string, MemberState> members, FirestoreDb db)
-{
-    if (this.IsDisposed || listViewParticipants.IsDisposed) return;
-
-    // Get current host ID
-    var roomRef = db.Collection("Room").Document(currentroomId);
-    var roomSnapshot = await roomRef.GetSnapshotAsync();
-    string currentHostId = roomSnapshot.Exists ? roomSnapshot.GetValue<string>("host_id") : hostId;
-
-    // Create a list of current user IDs in the ListView
-    var currentListViewIds = new HashSet<string>();
-    var itemsToKeep = new List<ListViewItem>();
-
-    // First pass: identify items to keep and remove duplicates
-    foreach (ListViewItem item in listViewParticipants.Items)
-    {
-        if (item.Tag is string userId)
+        private async void UpdateParticipantsList(Dictionary<string, MemberState> members, FirestoreDb db)
         {
-            if (members.ContainsKey(userId) && !currentListViewIds.Contains(userId))
+            if (this.IsDisposed || listViewParticipants.IsDisposed) return;
+
+            // Get current host ID
+            var roomRef = db.Collection("Room").Document(currentroomId);
+            var roomSnapshot = await roomRef.GetSnapshotAsync();
+            string currentHostId = roomSnapshot.Exists ? roomSnapshot.GetValue<string>("host_id") : hostId;
+
+            // Create a list of current user IDs in the ListView
+            var currentListViewIds = new HashSet<string>();
+            var itemsToKeep = new List<ListViewItem>();
+
+            // First pass: identify items to keep and remove duplicates
+            foreach (ListViewItem item in listViewParticipants.Items)
             {
-                // Valid user that should be kept (first occurrence)
-                currentListViewIds.Add(userId);
-                itemsToKeep.Add(item);
+                if (item.Tag is string userId)
+                {
+                    if (members.ContainsKey(userId) && !currentListViewIds.Contains(userId))
+                    {
+                        // Valid user that should be kept (first occurrence)
+                        currentListViewIds.Add(userId);
+                        itemsToKeep.Add(item);
+                    }
+                    else
+                    {
+                        // Either user no longer exists or is a duplicate
+                        listViewParticipants.Items.Remove(item);
+                    }
+                }
             }
-            else
+
+            listViewParticipants.BeginUpdate();
+
+            // Clear and reinitialize image list but preserve host avatar if exists
+            var hostAvatarKey = $"host_{currentHostId}";
+            Image hostAvatarImage = null;
+
+            if (imageListAvatars.Images.ContainsKey(hostAvatarKey))
             {
-                // Either user no longer exists or is a duplicate
-                listViewParticipants.Items.Remove(item);
+                hostAvatarImage = imageListAvatars.Images[hostAvatarKey];
             }
+
+            imageListAvatars.Images.Clear();
+
+            // Re-add standard icons
+            imageListAvatars.Images.Add("avatar", Properties.Resources.avatar);
+            imageListAvatars.Images.Add("mic_on", Properties.Resources.mic_on);
+            imageListAvatars.Images.Add("mic_off", Properties.Resources.mic_off);
+            imageListAvatars.Images.Add("cam_on", Properties.Resources.cam_on);
+            imageListAvatars.Images.Add("cam_off", Properties.Resources.cam_off);
+
+            // Re-add host avatar if it existed
+            if (hostAvatarImage != null)
+            {
+                imageListAvatars.Images.Add(hostAvatarKey, hostAvatarImage);
+            }
+
+            var memberIds = members.Keys.ToHashSet();
+            var allUsers = await db.Collection("User").GetSnapshotAsync();
+
+            Dictionary<string, (string Username, string AvatarKey)> userInfoMap = new();
+
+            // Process host first to ensure their avatar is loaded correctly
+            if (!string.IsNullOrEmpty(currentHostId) && memberIds.Contains(currentHostId))
+            {
+                var hostDoc = await db.Collection("User").Document(currentHostId).GetSnapshotAsync();
+                if (hostDoc.Exists)
+                {
+                    var hostData = hostDoc.ToDictionary();
+                    string username = hostData.ContainsKey("Username") ? hostData["Username"].ToString() : "Host";
+                    string avatar = hostData.ContainsKey("Avatar") ? hostData["Avatar"]?.ToString() : null;
+
+                    userInfoMap[currentHostId] = (username, avatar);
+
+                    // Add host avatar with special key
+                    if (!string.IsNullOrEmpty(avatar) && !imageListAvatars.Images.ContainsKey(hostAvatarKey))
+                    {
+                        Image avatarImage = GetAvatarFromResources(avatar);
+                        imageListAvatars.Images.Add(hostAvatarKey, avatarImage);
+                    }
+                }
+            }
+
+            // Process other users
+            foreach (var doc in allUsers.Documents)
+            {
+                string userId = doc.Id;
+                if (userId == currentHostId || !memberIds.Contains(userId)) continue;
+
+                var data = doc.ToDictionary();
+                string username = data.ContainsKey("Username") ? data["Username"].ToString() : "User";
+                string avatar = data.ContainsKey("Avatar") ? data["Avatar"]?.ToString() : null;
+
+                userInfoMap[userId] = (username, avatar);
+            }
+
+            // Update or add members - ensure host is first
+            var orderedUserIds = members.Keys.OrderBy(id => id == currentHostId ? 0 : 1).ToList();
+
+            foreach (var userId in orderedUserIds)
+            {
+                if (!members.TryGetValue(userId, out MemberState state)) continue;
+                if (!userInfoMap.TryGetValue(userId, out var userInfo)) continue;
+
+                string username = userInfo.Username;
+                string avatarKey = userInfo.AvatarKey;
+                string imageKey = userId == currentHostId ? hostAvatarKey :
+                                 (!string.IsNullOrEmpty(avatarKey) ? avatarKey : "default_avatar");
+
+                // Find existing item (if any)
+                ListViewItem existingItem = itemsToKeep.FirstOrDefault(item => item.Tag as string == userId);
+
+                if (existingItem != null)
+                {
+                    // Update existing item
+                    existingItem.SubItems[1].Text = username;
+
+                    // Special handling for host
+                    if (userId == currentHostId)
+                    {
+                        existingItem.ImageKey = hostAvatarKey;
+                    }
+
+                    existingItem.SubItems[2].Tag = state.MicOn ? "mic_on" : "mic_off";
+                    existingItem.SubItems[3].Tag = state.CameraOn ? "cam_on" : "cam_off";
+                }
+                else
+                {
+                    // Add new item
+                    if (!listViewParticipants.SmallImageList.Images.ContainsKey(imageKey))
+                    {
+                        Image avatarImage = !string.IsNullOrEmpty(avatarKey)
+                            ? GetAvatarFromResources(avatarKey)
+                            : Properties.Resources.avatar;
+
+                        listViewParticipants.SmallImageList.Images.Add(imageKey, avatarImage);
+                    }
+
+                    var item = new ListViewItem
+                    {
+                        ImageKey = imageKey,
+                        Tag = userId
+                    };
+                    item.SubItems.Add(username);
+                    item.SubItems.Add(""); item.SubItems[2].Tag = state.MicOn ? "mic_on" : "mic_off";
+                    item.SubItems.Add(""); item.SubItems[3].Tag = state.CameraOn ? "cam_on" : "cam_off";
+
+                    listViewParticipants.Items.Add(item);
+                }
+            }
+
+            listViewParticipants.EndUpdate();
         }
-    }
-
-    listViewParticipants.BeginUpdate();
-
-    // Clear and reinitialize image list but preserve host avatar if exists
-    var hostAvatarKey = $"host_{currentHostId}";
-    Image hostAvatarImage = null;
-    
-    if (imageListAvatars.Images.ContainsKey(hostAvatarKey))
-    {
-        hostAvatarImage = imageListAvatars.Images[hostAvatarKey];
-    }
-
-    imageListAvatars.Images.Clear();
-    
-    // Re-add standard icons
-    imageListAvatars.Images.Add("avatar", Properties.Resources.avatar);
-    imageListAvatars.Images.Add("mic_on", Properties.Resources.mic_on);
-    imageListAvatars.Images.Add("mic_off", Properties.Resources.mic_off);
-    imageListAvatars.Images.Add("cam_on", Properties.Resources.cam_on);
-    imageListAvatars.Images.Add("cam_off", Properties.Resources.cam_off);
-    
-    // Re-add host avatar if it existed
-    if (hostAvatarImage != null)
-    {
-        imageListAvatars.Images.Add(hostAvatarKey, hostAvatarImage);
-    }
-
-    var memberIds = members.Keys.ToHashSet();
-    var allUsers = await db.Collection("User").GetSnapshotAsync();
-
-    Dictionary<string, (string Username, string AvatarKey)> userInfoMap = new();
-
-    // Process host first to ensure their avatar is loaded correctly
-    if (!string.IsNullOrEmpty(currentHostId) && memberIds.Contains(currentHostId))
-    {
-        var hostDoc = await db.Collection("User").Document(currentHostId).GetSnapshotAsync();
-        if (hostDoc.Exists)
-        {
-            var hostData = hostDoc.ToDictionary();
-            string username = hostData.ContainsKey("Username") ? hostData["Username"].ToString() : "Host";
-            string avatar = hostData.ContainsKey("Avatar") ? hostData["Avatar"]?.ToString() : null;
-            
-            userInfoMap[currentHostId] = (username, avatar);
-            
-            // Add host avatar with special key
-            if (!string.IsNullOrEmpty(avatar) && !imageListAvatars.Images.ContainsKey(hostAvatarKey))
-            {
-                Image avatarImage = GetAvatarFromResources(avatar);
-                imageListAvatars.Images.Add(hostAvatarKey, avatarImage);
-            }
-        }
-    }
-
-    // Process other users
-    foreach (var doc in allUsers.Documents)
-    {
-        string userId = doc.Id;
-        if (userId == currentHostId || !memberIds.Contains(userId)) continue;
-
-        var data = doc.ToDictionary();
-        string username = data.ContainsKey("Username") ? data["Username"].ToString() : "User";
-        string avatar = data.ContainsKey("Avatar") ? data["Avatar"]?.ToString() : null;
-
-        userInfoMap[userId] = (username, avatar);
-    }
-
-    // Update or add members - ensure host is first
-    var orderedUserIds = members.Keys.OrderBy(id => id == currentHostId ? 0 : 1).ToList();
-
-    foreach (var userId in orderedUserIds)
-    {
-        if (!members.TryGetValue(userId, out MemberState state)) continue;
-        if (!userInfoMap.TryGetValue(userId, out var userInfo)) continue;
-
-        string username = userInfo.Username;
-        string avatarKey = userInfo.AvatarKey;
-        string imageKey = userId == currentHostId ? hostAvatarKey : 
-                         (!string.IsNullOrEmpty(avatarKey) ? avatarKey : "default_avatar");
-
-        // Find existing item (if any)
-        ListViewItem existingItem = itemsToKeep.FirstOrDefault(item => item.Tag as string == userId);
-
-        if (existingItem != null)
-        {
-            // Update existing item
-            existingItem.SubItems[1].Text = username;
-            
-            // Special handling for host
-            if (userId == currentHostId)
-            {
-                existingItem.ImageKey = hostAvatarKey;
-            }
-            
-            existingItem.SubItems[2].Tag = state.MicOn ? "mic_on" : "mic_off";
-            existingItem.SubItems[3].Tag = state.CameraOn ? "cam_on" : "cam_off";
-        }
-        else
-        {
-            // Add new item
-            if (!listViewParticipants.SmallImageList.Images.ContainsKey(imageKey))
-            {
-                Image avatarImage = !string.IsNullOrEmpty(avatarKey)
-                    ? GetAvatarFromResources(avatarKey)
-                    : Properties.Resources.avatar;
-
-                listViewParticipants.SmallImageList.Images.Add(imageKey, avatarImage);
-            }
-
-            var item = new ListViewItem { 
-                ImageKey = imageKey, 
-                Tag = userId 
-            };
-            item.SubItems.Add(username);
-            item.SubItems.Add(""); item.SubItems[2].Tag = state.MicOn ? "mic_on" : "mic_off";
-            item.SubItems.Add(""); item.SubItems[3].Tag = state.CameraOn ? "cam_on" : "cam_off";
-
-            listViewParticipants.Items.Add(item);
-        }
-    }
-
-    listViewParticipants.EndUpdate();
-}
 
         private Image GetAvatarFromResources(string avatarKey)
         {
@@ -1213,6 +1216,115 @@ private async void UpdateParticipantsList(Dictionary<string, MemberState> member
             {
                 rtcEngine.SetEnableSpeakerphone(false); // tắt loa ngoài, chuyển sang tai nghe nếu có
             }
+        }
+
+        private void tableLayoutPanel1_Paint(object sender, PaintEventArgs e)
+        {
+
+        }
+
+        private async void btnSendMessages_Click(object sender, EventArgs e)
+        {
+
+            string msg = tbMessages.Text;
+            if (string.IsNullOrEmpty(msg))
+            {
+                btnSendMessages.Enabled = false;
+                return;
+            }
+            var message = new Dictionary<string, object>
+            {
+                    { "message_id", Guid.NewGuid().ToString() },
+                    { "room_id", currentroomId},
+                    { "user_id", currentUserId},
+                    { "message", msg },
+                    { "created_at", Timestamp.GetCurrentTimestamp() }
+            };
+            var db = FirebaseConfig.database;
+            await db.Collection("Messages").AddAsync(message);
+            tbMessages.Clear();
+        }
+
+        // hàm lấy realtime message
+        private void ListenMessage()
+        {
+            var db = FirebaseConfig.database;
+            var messagesRef = db.Collection("Messages")
+                               .WhereEqualTo("room_id", currentroomId)
+                               .OrderBy("created_at");
+
+            Debug.WriteLine($"[ListenMessage] Starting listener for room: {currentroomId}");
+
+            messageListener = messagesRef.Listen(async snapshot =>
+            {
+                Debug.WriteLine($"[ListenMessage] Snapshot received with {snapshot.Changes.Count} changes.");
+
+                if (isLeavingRoom)
+                {
+                    Debug.WriteLine("[ListenMessage] Skipped: Room is being left.");
+                    return;
+                }
+
+                SafeInvoke(async () =>
+                {
+                    if (lbDisplayMsg == null || lbDisplayMsg.IsDisposed)
+                    {
+                        Debug.WriteLine("[ListenMessage] Error: lbDisplayMsg is null or disposed.");
+                        return;
+                    }
+
+                    Debug.WriteLine("[ListenMessage] lbDisplayMsg is valid. Processing changes...");
+
+                    foreach (var change in snapshot.Changes)
+                    {
+                        if (change.ChangeType == DocumentChange.Type.Added)
+                        {
+                            var messageData = change.Document.ToDictionary();
+                            string userId = messageData.GetValueOrDefault("user_id", "").ToString();
+                            string messageText = messageData.GetValueOrDefault("message", "").ToString();
+                            var createdAt = messageData.ContainsKey("created_at") && messageData["created_at"] is Timestamp
+                                ? ((Timestamp)messageData["created_at"]).ToDateTime().ToString("HH:mm")
+                                : DateTime.Now.ToString("HH:mm");
+
+                            Debug.WriteLine($"[ListenMessage] New message: userId={userId}, text={messageText}, time={createdAt}");
+
+                            // Lấy username bất đồng bộ
+                            string username = "Unknown";
+                            try
+                            {
+                                var userRef = db.Collection("User").Document(userId);
+                                var userDoc = await userRef.GetSnapshotAsync();
+                                if (userDoc.Exists)
+                                {
+                                    username = userDoc.GetValue<string>("Username") ?? "Unknown";
+                                    Debug.WriteLine($"[ListenMessage] Fetched username: {username}");
+                                }
+                                else
+                                {
+                                    Debug.WriteLine($"[ListenMessage] User document not found for userId: {userId}");
+                                }
+                            }
+                            catch (Exception ex)
+                            {
+                                Debug.WriteLine($"[ListenMessage] Error fetching username for userId {userId}: {ex.Message}");
+                            }
+
+                            // Thêm tin nhắn vào ListBox
+                            string messageLine = $"[{createdAt}] {username}: {messageText}";
+                            lbDisplayMsg.Items.Add(messageLine);
+                            Debug.WriteLine($"[ListenMessage] Added message to lbDisplayMsg: {messageLine}");
+
+                            // Cuộn xuống tin nhắn mới nhất
+                            lbDisplayMsg.TopIndex = lbDisplayMsg.Items.Count - 1;
+                            Debug.WriteLine("[ListenMessage] Scrolled to latest message.");
+                        }
+                        else
+                        {
+                            Debug.WriteLine($"[ListenMessage] Skipped change type: {change.ChangeType}");
+                        }
+                    }
+                });
+            });
         }
     }
 }
