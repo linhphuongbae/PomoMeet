@@ -53,7 +53,8 @@ namespace PomoMeetApp.View
             InitializeUserProfile();
             InitializeAgora();
             InitializeMeetingRoomComponents();
-            ListenMessage();
+            this.Load += MeetingRoom_Load;
+            
         }
         private Image GetUserAvatar()
         {
@@ -135,7 +136,6 @@ namespace PomoMeetApp.View
             imageListAvatars.Images.Add("cam_on", Properties.Resources.cam_on);
             imageListAvatars.Images.Add("cam_off", Properties.Resources.cam_off);
 
-            // Thiết lập ListView
             listViewParticipants.SmallImageList = imageListAvatars;
             listViewParticipants.View = System.Windows.Forms.View.Details;
             listViewParticipants.HeaderStyle = ColumnHeaderStyle.Nonclickable; // Hoặc ColumnHeaderStyle.Clickable nếu muốn có thể click vào header
@@ -1222,27 +1222,40 @@ namespace PomoMeetApp.View
         {
 
         }
-
+        private void MeetingRoom_Load(object sender, EventArgs e)
+        {
+            MessageBox.Show("Loaded");
+            ListenMessage();
+        }
         private async void btnSendMessages_Click(object sender, EventArgs e)
         {
-
-            string msg = tbMessages.Text;
+            string msg = tbMessages.Text.Trim();
             if (string.IsNullOrEmpty(msg))
             {
-                btnSendMessages.Enabled = false;
+                MessageBox.Show("Message is empty, button disabled.", "btnSendMessages_Click", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                 return;
             }
-            var message = new Dictionary<string, object>
+            try
             {
-                    { "message_id", Guid.NewGuid().ToString() },
-                    { "room_id", currentroomId},
-                    { "user_id", currentUserId},
+                string messageId = Guid.NewGuid().ToString();
+                var message = new Dictionary<string, object>
+                {
+                    { "room_id", currentroomId },
+                    { "user_id", currentUserId },
                     { "message", msg },
                     { "created_at", Timestamp.GetCurrentTimestamp() }
-            };
-            var db = FirebaseConfig.database;
-            await db.Collection("Messages").AddAsync(message);
-            tbMessages.Clear();
+                };
+                var db = FirebaseConfig.database;
+                var messageRef = db.Collection("Messages").Document(messageId);
+                await messageRef.SetAsync(message);
+                MessageBox.Show($"Sent message: {msg}, Document ID: {messageId}", "btnSendMessages_Click", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                tbMessages.Clear();
+
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"Error sending message: {ex.Message}", "btnSendMessages_Click", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
         }
 
         // hàm lấy realtime message
@@ -1265,66 +1278,50 @@ namespace PomoMeetApp.View
                     return;
                 }
 
-                SafeInvoke(async () =>
+                await Task.Run(async () =>
                 {
-                    if (lbDisplayMsg == null || lbDisplayMsg.IsDisposed)
+                    var db = FirebaseConfig.database;
+
+                    foreach (var doc in snapshot.Documents)
                     {
-                        Debug.WriteLine("[ListenMessage] Error: lbDisplayMsg is null or disposed.");
-                        return;
-                    }
+                        var messageData = doc.ToDictionary();
+                        string userId = messageData.GetValueOrDefault("user_id", "").ToString();
+                        string messageText = messageData.GetValueOrDefault("message", "").ToString();
+                        var createdAt = messageData.ContainsKey("created_at") && messageData["created_at"] is Timestamp
+                            ? ((Timestamp)messageData["created_at"]).ToDateTime().ToString("HH:mm")
+                            : DateTime.Now.ToString("HH:mm");
 
-                    Debug.WriteLine("[ListenMessage] lbDisplayMsg is valid. Processing changes...");
-
-                    foreach (var change in snapshot.Changes)
-                    {
-                        if (change.ChangeType == DocumentChange.Type.Added)
+                        // Lấy username
+                        string username = "Unknown";
+                        try
                         {
-                            var messageData = change.Document.ToDictionary();
-                            string userId = messageData.GetValueOrDefault("user_id", "").ToString();
-                            string messageText = messageData.GetValueOrDefault("message", "").ToString();
-                            var createdAt = messageData.ContainsKey("created_at") && messageData["created_at"] is Timestamp
-                                ? ((Timestamp)messageData["created_at"]).ToDateTime().ToString("HH:mm")
-                                : DateTime.Now.ToString("HH:mm");
-
-                            Debug.WriteLine($"[ListenMessage] New message: userId={userId}, text={messageText}, time={createdAt}");
-
-                            // Lấy username bất đồng bộ
-                            string username = "Unknown";
-                            try
-                            {
-                                var userRef = db.Collection("User").Document(userId);
-                                var userDoc = await userRef.GetSnapshotAsync();
-                                if (userDoc.Exists)
-                                {
-                                    username = userDoc.GetValue<string>("Username") ?? "Unknown";
-                                    Debug.WriteLine($"[ListenMessage] Fetched username: {username}");
-                                }
-                                else
-                                {
-                                    Debug.WriteLine($"[ListenMessage] User document not found for userId: {userId}");
-                                }
-                            }
-                            catch (Exception ex)
-                            {
-                                Debug.WriteLine($"[ListenMessage] Error fetching username for userId {userId}: {ex.Message}");
-                            }
-
-                            // Thêm tin nhắn vào ListBox
-                            string messageLine = $"[{createdAt}] {username}: {messageText}";
-                            lbDisplayMsg.Items.Add(messageLine);
-                            Debug.WriteLine($"[ListenMessage] Added message to lbDisplayMsg: {messageLine}");
-
-                            // Cuộn xuống tin nhắn mới nhất
-                            lbDisplayMsg.TopIndex = lbDisplayMsg.Items.Count - 1;
-                            Debug.WriteLine("[ListenMessage] Scrolled to latest message.");
+                            var userRef = db.Collection("User").Document(userId);
+                            var userDoc = await userRef.GetSnapshotAsync();
+                            if (userDoc.Exists)
+                                username = userDoc.GetValue<string>("Username") ?? "Unknown";
                         }
-                        else
+                        catch (Exception ex)
                         {
-                            Debug.WriteLine($"[ListenMessage] Skipped change type: {change.ChangeType}");
+                            Debug.WriteLine($"[ListenMessage] Error fetching username: {ex.Message}");
                         }
+
+                        
+                        this.Invoke(new Action(() =>
+                        {
+                            if (tbDisplayMsg == null || tbDisplayMsg.IsDisposed) return;
+
+                            tbDisplayMsg.SelectionStart = tbDisplayMsg.TextLength;
+                            tbDisplayMsg.SelectionColor = userId == currentUserId ? Color.Blue : Color.Black;
+                            tbDisplayMsg.AppendText($"[{createdAt}] {username}: {messageText}\n");
+
+                            tbDisplayMsg.SelectionStart = tbDisplayMsg.Text.Length;
+                            tbDisplayMsg.ScrollToCaret();
+                        }));
                     }
                 });
             });
         }
+
+
     }
 }

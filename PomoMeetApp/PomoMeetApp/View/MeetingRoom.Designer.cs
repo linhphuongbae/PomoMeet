@@ -59,9 +59,7 @@
             Camera = new ColumnHeader();
             panel7 = new Panel();
             siticoneLabel1 = new SiticoneNetCoreUI.SiticoneLabel();
-            panel8 = new Panel();
             btnSendMessages = new SiticoneNetCoreUI.SiticoneButton();
-            tbMessages = new SiticoneNetCoreUI.SiticoneTextBox();
             siticoneImageButton9 = new SiticoneNetCoreUI.SiticoneImageButton();
             siticoneLabel2 = new SiticoneNetCoreUI.SiticoneLabel();
             sbtn_ChangeHost = new SiticoneNetCoreUI.SiticoneButton();
@@ -73,14 +71,14 @@
             siticoneImageButton1 = new SiticoneNetCoreUI.SiticoneImageButton();
             panel2 = new Panel();
             userProfilePanel1 = new UserProfilePanel();
-            lbDisplayMsg = new ListBox();
+            tbMessages = new SiticoneNetCoreUI.SiticoneTextBox();
+            tbDisplayMsg = new RichTextBox();
             siticoneAdvancedPanel1.SuspendLayout();
             panel1.SuspendLayout();
             panel3.SuspendLayout();
             panel6.SuspendLayout();
             participants_panel.SuspendLayout();
             panel7.SuspendLayout();
-            panel8.SuspendLayout();
             siticonePanel1.SuspendLayout();
             panel2.SuspendLayout();
             SuspendLayout();
@@ -739,7 +737,7 @@
             // 
             panel7.BackColor = Color.FromArgb(117, 164, 127);
             panel7.Controls.Add(siticoneLabel1);
-            panel7.Location = new Point(1118, 537);
+            panel7.Location = new Point(1118, 530);
             panel7.Name = "panel7";
             panel7.Size = new Size(270, 49);
             panel7.TabIndex = 0;
@@ -754,15 +752,6 @@
             siticoneLabel1.TabIndex = 11;
             siticoneLabel1.Text = "Chat";
             siticoneLabel1.TextAlign = ContentAlignment.MiddleCenter;
-            // 
-            // panel8
-            // 
-            panel8.Controls.Add(btnSendMessages);
-            panel8.Controls.Add(tbMessages);
-            panel8.Location = new Point(1118, 855);
-            panel8.Name = "panel8";
-            panel8.Size = new Size(270, 89);
-            panel8.TabIndex = 17;
             // 
             // btnSendMessages
             // 
@@ -794,7 +783,7 @@
             btnSendMessages.EnableShadow = false;
             btnSendMessages.EnableTextWrapping = false;
             btnSendMessages.Font = new Font("Segoe UI", 9F);
-            btnSendMessages.ForeColor = Color.Chocolate;
+            btnSendMessages.ForeColor = Color.Black;
             btnSendMessages.GlowColor = Color.FromArgb(100, 255, 255, 255);
             btnSendMessages.GlowIntensity = 100;
             btnSendMessages.GlowRadius = 20F;
@@ -813,7 +802,7 @@
             btnSendMessages.IsReadOnly = false;
             btnSendMessages.IsToggleButton = false;
             btnSendMessages.IsToggled = false;
-            btnSendMessages.Location = new Point(201, 24);
+            btnSendMessages.Location = new Point(1319, 883);
             btnSendMessages.LongPressDurationMS = 1000;
             btnSendMessages.Name = "btnSendMessages";
             btnSendMessages.NormalFontStyle = FontStyle.Regular;
@@ -832,70 +821,15 @@
             btnSendMessages.ShadowOffset = new Point(2, 2);
             btnSendMessages.ShakeDuration = 500;
             btnSendMessages.ShakeIntensity = 5;
-            btnSendMessages.Size = new Size(69, 62);
+            btnSendMessages.Size = new Size(69, 56);
             btnSendMessages.TabIndex = 17;
             btnSendMessages.Text = "Gửi";
             btnSendMessages.TextAlign = ContentAlignment.MiddleCenter;
-            btnSendMessages.TextColor = Color.White;
+            btnSendMessages.TextColor = Color.Black;
             btnSendMessages.TooltipText = null;
             btnSendMessages.UseAdvancedRendering = true;
             btnSendMessages.UseParticles = false;
             btnSendMessages.Click += btnSendMessages_Click;
-            // 
-            // tbMessages
-            // 
-            tbMessages.AccessibleDescription = "A customizable text input field.";
-            tbMessages.AccessibleName = "Text Box";
-            tbMessages.AccessibleRole = AccessibleRole.Text;
-            tbMessages.BackColor = Color.Transparent;
-            tbMessages.BlinkCount = 3;
-            tbMessages.BlinkShadow = false;
-            tbMessages.BorderColor1 = Color.LightSlateGray;
-            tbMessages.BorderColor2 = Color.LightSlateGray;
-            tbMessages.BorderFocusColor1 = Color.FromArgb(77, 77, 255);
-            tbMessages.BorderFocusColor2 = Color.FromArgb(77, 77, 255);
-            tbMessages.CanShake = true;
-            tbMessages.ContinuousBlink = false;
-            tbMessages.CursorBlinkRate = 500;
-            tbMessages.CursorColor = Color.Black;
-            tbMessages.CursorHeight = 26;
-            tbMessages.CursorOffset = 0;
-            tbMessages.CursorStyle = SiticoneNetCoreUI.Helpers.DrawingStyle.SiticoneDrawingStyle.Solid;
-            tbMessages.CursorWidth = 1;
-            tbMessages.DisabledBackColor = Color.WhiteSmoke;
-            tbMessages.DisabledBorderColor = Color.LightGray;
-            tbMessages.DisabledTextColor = Color.Gray;
-            tbMessages.EnableDropShadow = false;
-            tbMessages.FillColor1 = Color.White;
-            tbMessages.FillColor2 = Color.White;
-            tbMessages.Font = new Font("Segoe UI", 9.5F);
-            tbMessages.ForeColor = Color.DimGray;
-            tbMessages.HoverBorderColor1 = Color.Gray;
-            tbMessages.HoverBorderColor2 = Color.Gray;
-            tbMessages.IsEnabled = true;
-            tbMessages.Location = new Point(-2, 24);
-            tbMessages.Name = "tbMessages";
-            tbMessages.PlaceholderColor = Color.Gray;
-            tbMessages.PlaceholderText = "Enter text here...";
-            tbMessages.ReadOnlyBorderColor1 = Color.LightGray;
-            tbMessages.ReadOnlyBorderColor2 = Color.LightGray;
-            tbMessages.ReadOnlyFillColor1 = Color.WhiteSmoke;
-            tbMessages.ReadOnlyFillColor2 = Color.WhiteSmoke;
-            tbMessages.ReadOnlyPlaceholderColor = Color.DarkGray;
-            tbMessages.SelectionBackColor = Color.FromArgb(77, 77, 255);
-            tbMessages.ShadowAnimationDuration = 1;
-            tbMessages.ShadowBlur = 10;
-            tbMessages.ShadowColor = Color.FromArgb(15, 0, 0, 0);
-            tbMessages.Size = new Size(205, 62);
-            tbMessages.SolidBorderColor = Color.LightSlateGray;
-            tbMessages.SolidBorderFocusColor = Color.FromArgb(77, 77, 255);
-            tbMessages.SolidBorderHoverColor = Color.Gray;
-            tbMessages.SolidFillColor = Color.White;
-            tbMessages.TabIndex = 16;
-            tbMessages.Text = "Start conversations";
-            tbMessages.TextPadding = new Padding(16, 0, 6, 0);
-            tbMessages.ValidationErrorMessage = "Invalid input.";
-            tbMessages.ValidationFunction = null;
             // 
             // siticoneImageButton9
             // 
@@ -1435,13 +1369,70 @@
             userProfilePanel1.Size = new Size(312, 75);
             userProfilePanel1.TabIndex = 36;
             // 
-            // lbDisplayMsg
+            // tbMessages
             // 
-            lbDisplayMsg.FormattingEnabled = true;
-            lbDisplayMsg.Location = new Point(1116, 586);
-            lbDisplayMsg.Name = "lbDisplayMsg";
-            lbDisplayMsg.Size = new Size(272, 304);
-            lbDisplayMsg.TabIndex = 37;
+            tbMessages.AccessibleDescription = "A customizable text input field.";
+            tbMessages.AccessibleName = "Text Box";
+            tbMessages.AccessibleRole = AccessibleRole.Text;
+            tbMessages.BackColor = Color.Transparent;
+            tbMessages.BlinkCount = 3;
+            tbMessages.BlinkShadow = false;
+            tbMessages.BorderColor1 = Color.LightSlateGray;
+            tbMessages.BorderColor2 = Color.LightSlateGray;
+            tbMessages.BorderFocusColor1 = Color.FromArgb(77, 77, 255);
+            tbMessages.BorderFocusColor2 = Color.FromArgb(77, 77, 255);
+            tbMessages.CanShake = true;
+            tbMessages.ContinuousBlink = false;
+            tbMessages.CursorBlinkRate = 500;
+            tbMessages.CursorColor = Color.Black;
+            tbMessages.CursorHeight = 26;
+            tbMessages.CursorOffset = 0;
+            tbMessages.CursorStyle = SiticoneNetCoreUI.Helpers.DrawingStyle.SiticoneDrawingStyle.Solid;
+            tbMessages.CursorWidth = 1;
+            tbMessages.DisabledBackColor = Color.WhiteSmoke;
+            tbMessages.DisabledBorderColor = Color.LightGray;
+            tbMessages.DisabledTextColor = Color.Gray;
+            tbMessages.EnableDropShadow = false;
+            tbMessages.FillColor1 = Color.White;
+            tbMessages.FillColor2 = Color.White;
+            tbMessages.Font = new Font("Segoe UI", 9.5F);
+            tbMessages.ForeColor = Color.DimGray;
+            tbMessages.HoverBorderColor1 = Color.Gray;
+            tbMessages.HoverBorderColor2 = Color.Gray;
+            tbMessages.IsEnabled = true;
+            tbMessages.Location = new Point(1118, 888);
+            tbMessages.Name = "tbMessages";
+            tbMessages.PlaceholderColor = Color.Gray;
+            tbMessages.PlaceholderText = "Enter text here...";
+            tbMessages.ReadOnlyBorderColor1 = Color.LightGray;
+            tbMessages.ReadOnlyBorderColor2 = Color.LightGray;
+            tbMessages.ReadOnlyFillColor1 = Color.WhiteSmoke;
+            tbMessages.ReadOnlyFillColor2 = Color.WhiteSmoke;
+            tbMessages.ReadOnlyPlaceholderColor = Color.DarkGray;
+            tbMessages.SelectionBackColor = Color.FromArgb(77, 77, 255);
+            tbMessages.ShadowAnimationDuration = 1;
+            tbMessages.ShadowBlur = 10;
+            tbMessages.ShadowColor = Color.FromArgb(15, 0, 0, 0);
+            tbMessages.Size = new Size(203, 50);
+            tbMessages.SolidBorderColor = Color.LightSlateGray;
+            tbMessages.SolidBorderFocusColor = Color.FromArgb(77, 77, 255);
+            tbMessages.SolidBorderHoverColor = Color.Gray;
+            tbMessages.SolidFillColor = Color.White;
+            tbMessages.TabIndex = 39;
+            tbMessages.TextPadding = new Padding(16, 0, 6, 0);
+            tbMessages.ValidationErrorMessage = "Invalid input.";
+            tbMessages.ValidationFunction = null;
+            // 
+            // tbDisplayMsg
+            // 
+            tbDisplayMsg.Location = new Point(1118, 575);
+            tbDisplayMsg.Name = "tbDisplayMsg";
+            tbDisplayMsg.ReadOnly = true;
+            tbDisplayMsg.ScrollBars = RichTextBoxScrollBars.Vertical;
+            tbDisplayMsg.Size = new Size(270, 314);
+            tbDisplayMsg.TabIndex = 40;
+            tbDisplayMsg.TabStop = false;
+            tbDisplayMsg.Text = "";
             // 
             // MeetingRoom
             // 
@@ -1449,8 +1440,9 @@
             AutoScaleMode = AutoScaleMode.Font;
             BackColor = Color.FromArgb(252, 255, 224);
             ClientSize = new Size(1422, 977);
-            Controls.Add(lbDisplayMsg);
-            Controls.Add(panel8);
+            Controls.Add(tbDisplayMsg);
+            Controls.Add(tbMessages);
+            Controls.Add(btnSendMessages);
             Controls.Add(panel7);
             Controls.Add(userProfilePanel1);
             Controls.Add(siticonePanel1);
@@ -1463,6 +1455,7 @@
             Controls.Add(siticoneAdvancedPanel1);
             Name = "MeetingRoom";
             Text = "Meeting Room";
+            Load += MeetingRoom_Load;
             siticoneAdvancedPanel1.ResumeLayout(false);
             panel1.ResumeLayout(false);
             panel3.ResumeLayout(false);
@@ -1470,7 +1463,6 @@
             panel6.ResumeLayout(false);
             participants_panel.ResumeLayout(false);
             panel7.ResumeLayout(false);
-            panel8.ResumeLayout(false);
             siticonePanel1.ResumeLayout(false);
             panel2.ResumeLayout(false);
             ResumeLayout(false);
@@ -1507,8 +1499,6 @@
         private Panel panel7;
         private SiticoneNetCoreUI.SiticoneImageButton siticoneImageButton9;
         private SiticoneNetCoreUI.SiticoneLabel siticoneLabel2;
-        private SiticoneNetCoreUI.SiticoneTextBox tbMessages;
-        private Panel panel8;
         private UserProfilePanel userProfilePanel1;
         private SideBar sideBar1;
         private SiticoneNetCoreUI.SiticoneButton sbtn_ChangeHost;
@@ -1521,6 +1511,7 @@
         private SiticoneNetCoreUI.SiticoneImageButton siticoneImageButton1;
         private Panel panel2;
         private SiticoneNetCoreUI.SiticoneButton btnSendMessages;
-        private ListBox lbDisplayMsg;
+        private SiticoneNetCoreUI.SiticoneTextBox tbMessages;
+        private RichTextBox tbDisplayMsg;
     }
 }
