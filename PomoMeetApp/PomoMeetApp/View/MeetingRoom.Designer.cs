@@ -30,7 +30,7 @@
         {
             components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(MeetingRoom));
-            SiticoneNetCoreUI.SiticoneFlowPanel.LayoutState layoutState2 = new SiticoneNetCoreUI.SiticoneFlowPanel.LayoutState();
+            SiticoneNetCoreUI.SiticoneFlowPanel.LayoutState layoutState1 = new SiticoneNetCoreUI.SiticoneFlowPanel.LayoutState();
             siticoneAdvancedPanel1 = new SiticoneNetCoreUI.SiticoneAdvancedPanel();
             btn_break = new SiticoneNetCoreUI.SiticoneButton();
             btn_pomodoro = new SiticoneNetCoreUI.SiticoneButton();
@@ -71,9 +71,9 @@
             btn_Speaker = new SiticoneNetCoreUI.SiticoneButton();
             btn_Camera = new SiticoneNetCoreUI.SiticoneButton();
             btn_Mic = new SiticoneNetCoreUI.SiticoneButton();
+            userProfilePanel1 = new UserProfilePanel();
             siticoneImageButton1 = new SiticoneNetCoreUI.SiticoneImageButton();
             panel2 = new Panel();
-            userProfilePanel1 = new UserProfilePanel();
             siticoneAdvancedPanel1.SuspendLayout();
             panel1.SuspendLayout();
             panel3.SuspendLayout();
@@ -588,10 +588,10 @@
             panel6.Name = "panel6";
             panel6.Size = new Size(264, 46);
             panel6.TabIndex = 0;
-            layoutState2.Location = new Point(3, 3);
-            layoutState2.Size = new Size(302, 61);
-            layoutState2.Visible = true;
-            panel6.Tag = layoutState2;
+            layoutState1.Location = new Point(3, 3);
+            layoutState1.Size = new Size(302, 61);
+            layoutState1.Visible = true;
+            panel6.Tag = layoutState1;
             // 
             // lb_participant
             // 
@@ -1359,6 +1359,14 @@
             btn_Mic.UseParticles = false;
             btn_Mic.Click += btn_Mic_Click;
             // 
+            // userProfilePanel1
+            // 
+            userProfilePanel1.BackColor = Color.Transparent;
+            userProfilePanel1.Location = new Point(1118, 12);
+            userProfilePanel1.Name = "userProfilePanel1";
+            userProfilePanel1.Size = new Size(312, 75);
+            userProfilePanel1.TabIndex = 36;
+            // 
             // siticoneImageButton1
             // 
             siticoneImageButton1.AnimationSpeed = 0.15F;
@@ -1404,14 +1412,6 @@
             panel2.Name = "panel2";
             panel2.Size = new Size(230, 151);
             panel2.TabIndex = 4;
-            // 
-            // userProfilePanel1
-            // 
-            userProfilePanel1.BackColor = Color.Transparent;
-            userProfilePanel1.Location = new Point(1118, 12);
-            userProfilePanel1.Name = "userProfilePanel1";
-            userProfilePanel1.Size = new Size(312, 75);
-            userProfilePanel1.TabIndex = 36;
             // 
             // MeetingRoom
             // 

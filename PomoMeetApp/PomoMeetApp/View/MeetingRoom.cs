@@ -360,30 +360,82 @@ namespace PomoMeetApp.View
                     return Properties.Resources.avatar; // Avatar mặc định nếu không tìm thấy
             }
         }
+        public class MyRtcEngineEventHandler : RtcEngineEventHandler
+        {
+            private readonly Action<string, uint, int> onJoinSuccessCallback;
+
+            public MyRtcEngineEventHandler(Action<string, uint, int> onJoinSuccess)
+            {
+                onJoinSuccessCallback = onJoinSuccess;
+            }
+
+            public override void OnJoinChannelSuccess(RtcConnection connection, int elapsed)
+            {
+                onJoinSuccessCallback?.Invoke(connection.channelId, connection.localUid, elapsed);
+            }
+        }
+
+        private void OnJoinSuccess(string channelId, uint uid, int elapsed)
+        {
+            MessageBox.Show($"Đã join channel {channelId} thành công với uid {uid}, elapsed = {elapsed}ms");
+            // Bạn có thể cập nhật trạng thái join thành công ở đây
+        }
+
 
         private async void InitializeAgora()
         {
-            // 1. Khởi tạo Agora
+            // 1. Tạo handler event và truyền callback
+            var handler = new MyRtcEngineEventHandler(OnJoinSuccess);
+
+            // 2. Khởi tạo Agora engine
             rtcEngine = RtcEngine.CreateAgoraRtcEngine();
+
             var context = new RtcEngineContext { appId = appId };
             rtcEngine.Initialize(context);
 
-            // 2. Lấy thông tin thành viên từ Firestore
-            await GetMembersFromFirestore();
+            // 3. Gán handler event cho rtcEngine
+            rtcEngine.InitEventHandler(handler);
 
-            // 3. Tham gia kênh Agora
-            rtcEngine.JoinChannel("", currentroomId, "", GetUidFromId(currentUserId));
+            // 4. Bật video
+            rtcEngine.EnableVideo();
 
-            // 4. Khởi tạo panel cho chính mình (local panel)
-            if (memberStates.TryGetValue(currentUserId, out MemberState myState))
+            // 5. Chọn thiết bị camera (ví dụ chọn OBS nếu có)
+            var videoDeviceManager = rtcEngine.GetVideoDeviceManager();
+            var devices = videoDeviceManager.EnumerateVideoDevices();
+            foreach (var device in devices)
             {
-                Panel panel = await CreateRemotePanel(currentUserId, 0);
-                localVideoPanel = panel;
+                if (device.deviceName.ToLower().Contains("obs"))
+                {
+                    videoDeviceManager.SetDevice(device.deviceId);
+                    break;
+                }
             }
 
-            // 5. Bắt đầu lắng nghe dữ liệu realtime từ Firestore
+            // 6. Khởi tạo panel local video
+            if (memberStates.TryGetValue(currentUserId, out MemberState myState))
+            {
+                Panel panel = CreateRemotePanel(currentUserId, 0);
+                localVideoPanel = panel;
+
+                var canvas = new VideoCanvas
+                {
+                    uid = GetUidFromId(currentUserId),
+                    view = panel.Handle,
+                    renderMode = RENDER_MODE_TYPE.RENDER_MODE_FIT
+                };
+                rtcEngine.SetupLocalVideo(canvas);
+            }
+
+            // 7. Lấy thông tin thành viên Firestore (await nếu cần)
+            await GetMembersFromFirestore();
+
+            // 8. Tham gia kênh
+            rtcEngine.JoinChannel("", currentroomId, "", GetUidFromId(currentUserId));
+
+            // 9. Lắng nghe realtime Firestore
             ListenToRoomRealtime();
         }
+
 
 
         private Point GetPanelLocation(int index)
@@ -397,7 +449,7 @@ namespace PomoMeetApp.View
             return new Point(x, y);
         }
 
-        private async Task<Panel> CreateRemotePanel(string userId, int index)
+        private Panel CreateRemotePanel(string userId, int index)
         {
             var panel = new Panel
             {
@@ -518,11 +570,14 @@ namespace PomoMeetApp.View
                 Panel panel;
                 if (!currentPanels.TryGetValue(userId, out panel))
                 {
-                    panel = await CreateRemotePanel(userId, index);
+                    panel = CreateRemotePanel(userId, index);
                 }
 
                 var location = GetPanelLocation(index);
-                this.Invoke(() => panel.Location = location);
+                this.Invoke(() => {
+                    panel.Location = location;
+                    panel.BringToFront(); // Đảm bảo panel này nằm trên cùng
+                });
 
                 await UpdatePanelContent(panel, userId, state);
                 index++;
@@ -561,43 +616,45 @@ namespace PomoMeetApp.View
                 }
             });
 
-            // Dừng video hiện tại để set lại
+            uint uid = GetUidFromId(userId);
+
             if (userId == currentUserId)
             {
-                rtcEngine.StopPreview();
-            }
-            else
-            {
-                rtcEngine.SetupRemoteVideo(new VideoCanvas
+                // Xử lý video local
+                if (state.CameraOn)
                 {
-                    uid = GetUidFromId(userId),
-                    view = IntPtr.Zero // Tắt video remote cũ
-                });
-            }
-
-            // Cập nhật lại theo trạng thái camera
-            if (state.CameraOn)
-            {
-                var videoCanvas = new VideoCanvas
-                {
-                    uid = GetUidFromId(userId),
-                    renderMode = RENDER_MODE_TYPE.RENDER_MODE_FIT,
-                    view = panel.Handle
-                };
-
-                if (userId == currentUserId)
-                {
+                    var videoCanvas = new VideoCanvas
+                    {
+                        uid = uid,
+                        renderMode = RENDER_MODE_TYPE.RENDER_MODE_FIT,
+                        view = panel.Handle
+                    };
                     rtcEngine.SetupLocalVideo(videoCanvas);
                     rtcEngine.StartPreview();
                 }
                 else
                 {
-                    rtcEngine.SetupRemoteVideo(videoCanvas);
+                    rtcEngine.StopPreview();
                 }
             }
             else
             {
-                // Nếu camera tắt, hiển thị avatar
+                // Xử lý video remote
+                if (state.CameraOn)
+                {
+                    var remoteVideoCanvas = new VideoCanvas
+                    {
+                        uid = uid,
+                        renderMode = RENDER_MODE_TYPE.RENDER_MODE_FIT,
+                        view = panel.Handle
+                    };
+                    rtcEngine.SetupRemoteVideo(remoteVideoCanvas);
+                }
+            }
+
+            // Nếu camera tắt, hiển thị avatar
+            if (!state.CameraOn)
+            {
                 PictureBox newAvatar = new PictureBox
                 {
                     Size = new Size(100, 100),
@@ -626,12 +683,13 @@ namespace PomoMeetApp.View
                 });
             }
 
-            // Refresh panel UI
+            // Refresh UI
             this.Invoke(() =>
             {
                 panel.Refresh();
             });
         }
+
 
 
 
