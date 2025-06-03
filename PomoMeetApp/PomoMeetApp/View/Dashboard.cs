@@ -17,14 +17,16 @@ namespace PomoMeetApp.View
     public partial class Dashboard : Form
     {
         private string currentUserId;
+        private FirestoreChangeListener _userListener;
+
         public Dashboard(string userId)
         {
             InitializeComponent();
             currentUserId = userId;
             InitializeUserProfile();
             this.FormClosed += Dashboard_FormClosed;
-
         }
+
         private async void InitializeUserProfile()
         {
             var db = FirebaseConfig.database;
@@ -35,23 +37,35 @@ namespace PomoMeetApp.View
             // Load avatar đúng từ Resources
             Image avatarImage = LoadAvatarImage(avatarName);
 
-            userProfilePanel2.UpdateUserInfo(currentUserId, username, avatarImage);
+            // Cập nhật UI ngay lần đầu
+            userProfilePanel2.UpdateUserInfo(currentUserId, username, LoadAvatarImage(avatarName));
 
-            userProfilePanel2.SetProfileClickCallback(async (userId) =>
+            // Load badge ngay khi vào app
+            await userProfilePanel2.UpdateNotificationBadge();
+
+            // Bật listener để theo dõi thay đổi sau này
+            StartListeningForUserChanges(currentUserId);
+        }
+        private void StartListeningForUserChanges(string userId)
+        {
+            var db = FirebaseConfig.database;
+            DocumentReference userRef = db.Collection("User").Document(userId);
+
+            _userListener = userRef.Listen(snapshot =>
             {
-                var profileForm = new Profile(userId);
-                profileForm.ShowDialog();
+                if (snapshot.Exists)
+                {
+                    string username = snapshot.GetValue<string>("Username");
+                    string avatarName = snapshot.ContainsField("Avatar") ? snapshot.GetValue<string>("Avatar") : null;
 
-                // Refresh sau khi đóng profile
-                snapshot = await db.Collection("User").Document(currentUserId).GetSnapshotAsync();
-                username = snapshot.GetValue<string>("Username");
-                avatarName = snapshot.ContainsField("Avatar") ? snapshot.GetValue<string>("Avatar") : null;
-                avatarImage = LoadAvatarImage(avatarName);
-
-                userProfilePanel2.UpdateUserInfo(currentUserId, username, avatarImage);
+                    // Cập nhật UI trên main thread
+                    this.Invoke((MethodInvoker)delegate
+                    {
+                        userProfilePanel2.UpdateUserInfo(userId, username, LoadAvatarImage(avatarName));
+                    });
+                }
             });
         }
-
         private Image LoadAvatarImage(string avatarName)
         {
             if (string.IsNullOrEmpty(avatarName))
@@ -81,12 +95,9 @@ namespace PomoMeetApp.View
             createRoom.ShowDialog();
         }
 
-        private void Dashboard_Load(object sender, EventArgs e)
-        {
-        }
-
         private void Dashboard_FormClosed(object sender, FormClosedEventArgs e)
         {
+            _userListener?.StopAsync(); // Dừng listener khi đóng form
             Application.Exit(); // Đảm bảo thoát toàn bộ ứng dụng
         }
 

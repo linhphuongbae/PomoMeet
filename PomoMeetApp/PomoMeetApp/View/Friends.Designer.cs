@@ -226,7 +226,7 @@
             // btn_FriendRequests
             // 
             btn_FriendRequests.AccessibleDescription = "The default button control that accept input though the mouse, touch and keyboard";
-            btn_FriendRequests.AccessibleName = "Friend Requests";
+            btn_FriendRequests.AccessibleName = "Yêu cầu kết bạn";
             btn_FriendRequests.AutoSizeBasedOnText = false;
             btn_FriendRequests.BackColor = Color.Transparent;
             btn_FriendRequests.BackgroundImage = (Image)resources.GetObject("btn_FriendRequests.BackgroundImage");
@@ -294,7 +294,7 @@
             btn_FriendRequests.ShakeIntensity = 5;
             btn_FriendRequests.Size = new Size(174, 33);
             btn_FriendRequests.TabIndex = 2;
-            btn_FriendRequests.Text = "Friend Requests";
+            btn_FriendRequests.Text = "Yêu cầu kết bạn";
             btn_FriendRequests.TextAlign = ContentAlignment.MiddleCenter;
             btn_FriendRequests.TextColor = Color.White;
             btn_FriendRequests.TooltipText = null;
@@ -305,7 +305,7 @@
             // btn_FindFriends
             // 
             btn_FindFriends.AccessibleDescription = "The default button control that accept input though the mouse, touch and keyboard";
-            btn_FindFriends.AccessibleName = "Find Friends";
+            btn_FindFriends.AccessibleName = "Tìm bạn";
             btn_FindFriends.AutoSizeBasedOnText = false;
             btn_FindFriends.BackColor = Color.Transparent;
             btn_FindFriends.BackgroundImage = (Image)resources.GetObject("btn_FindFriends.BackgroundImage");
@@ -373,7 +373,7 @@
             btn_FindFriends.ShakeIntensity = 5;
             btn_FindFriends.Size = new Size(141, 33);
             btn_FindFriends.TabIndex = 3;
-            btn_FindFriends.Text = "Find Friends";
+            btn_FindFriends.Text = "Tìm bạn";
             btn_FindFriends.TextAlign = ContentAlignment.MiddleCenter;
             btn_FindFriends.TextColor = Color.White;
             btn_FindFriends.TooltipText = null;
@@ -880,9 +880,9 @@
             lbAllFriends.ForeColor = Color.Black;
             lbAllFriends.Location = new Point(305, 122);
             lbAllFriends.Name = "lbAllFriends";
-            lbAllFriends.Size = new Size(236, 43);
+            lbAllFriends.Size = new Size(181, 43);
             lbAllFriends.TabIndex = 11;
-            lbAllFriends.Text = "All Friends (10)";
+            lbAllFriends.Text = "Bạn bè (10)";
             // 
             // sideBar2
             // 

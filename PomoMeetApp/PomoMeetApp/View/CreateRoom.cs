@@ -130,6 +130,8 @@ namespace PomoMeetApp.View
             {
                 MeetingRoom meetingRoom = new MeetingRoom(currentUserId, roomInfo.RoomId);
                 meetingRoom.ShowDialog();
+
+                this.Close();
             }
 
 
@@ -301,9 +303,10 @@ namespace PomoMeetApp.View
 
             if (roomInfo != null)
             {
-                // Truyền room_id vào RoomRequests
                 var roomRequests = new RoomRequests(roomInfo.RoomId, roomName, roomMode, password, currentUserId, this);
-                await FormTransition.FadeTo(this, roomRequests);
+                roomRequests.ShowDialog(this);
+
+                this.Close();
             }
             else
             {
@@ -330,6 +333,7 @@ namespace PomoMeetApp.View
                     type = roomMode,
                     password = hashedPassword,
                     created_at = DateTime.Now.ToString("yyyy-MM-ddTHH:mm:ss"),
+                    deleted_by_host = false,
                     members_status = new Dictionary<string, object>
                     {
                         {

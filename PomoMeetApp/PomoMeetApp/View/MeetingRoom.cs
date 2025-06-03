@@ -30,11 +30,18 @@ namespace PomoMeetApp.View
         private string currentUserId;
         private string currentroomId;
         private FirestoreChangeListener roomListener;
+        private FirestoreChangeListener messageListener;
 
         private string appId = "9ff5da05a52c4f6e8e33448631ecc267";
         private IRtcEngine rtcEngine;
         private string hostId;
         private Panel localVideoPanel;
+
+        private bool isLeavingRoom = false;
+        private DateTime lastKickCheck = DateTime.MinValue;
+
+        private DateTime joinTime = DateTime.MinValue;
+        private bool isInitialCheck = true;
 
         public MeetingRoom(string userId, string roomId)
         {
@@ -46,6 +53,8 @@ namespace PomoMeetApp.View
             InitializeUserProfile();
             InitializeAgora();
             InitializeMeetingRoomComponents();
+            this.Load += MeetingRoom_Load;
+            
         }
         private Image GetUserAvatar()
         {
@@ -127,19 +136,16 @@ namespace PomoMeetApp.View
             imageListAvatars.Images.Add("cam_on", Properties.Resources.cam_on);
             imageListAvatars.Images.Add("cam_off", Properties.Resources.cam_off);
 
-            // Giả sử listViewParticipants đã được khởi tạo trong InitializeComponent()
             listViewParticipants.SmallImageList = imageListAvatars;
+            listViewParticipants.View = System.Windows.Forms.View.Details;
+            listViewParticipants.HeaderStyle = ColumnHeaderStyle.Nonclickable; // Hoặc ColumnHeaderStyle.Clickable nếu muốn có thể click vào header
             listViewParticipants.DrawSubItem += listViewParticipants_DrawSubItem;
 
-            // Thêm dữ liệu mẫu
-            var item = new ListViewItem();
-            item.ImageKey = "avatar";
-            item.SubItems.Add("People 1");
-            item.SubItems.Add("");
-            item.SubItems.Add("");
-            item.SubItems[2].Tag = "mic_on";
-            item.SubItems[3].Tag = "cam_off";
-            listViewParticipants.Items.Add(item);
+            // Đặt chiều rộng cho các cột
+            listViewParticipants.Columns.Add("Avatar", 60); // Cột Avatar
+            listViewParticipants.Columns.Add("Name", 100);  // Cột Tên
+            listViewParticipants.Columns.Add("Mic", 50);    // Cột Mic
+            listViewParticipants.Columns.Add("Camera", 50); // Cột Camera
         }
 
         private uint GetUidFromId(string id)
@@ -152,17 +158,29 @@ namespace PomoMeetApp.View
 
         private void ListenToRoomRealtime()
         {
+            joinTime = DateTime.Now; // Ghi lại thời điểm vào phòng
+
             var db = FirebaseConfig.database;
             var docRef = db.Collection("Room").Document(currentroomId);
 
-            docRef.Listen(async snapshot =>
+            roomListener = docRef.Listen(async snapshot =>
             {
+                if (isLeavingRoom) return; // Bỏ qua nếu đang rời phòng
+
+                // Phòng bị xóa
                 if (!snapshot.Exists)
                 {
-                    this.Invoke(() =>
+                    SafeInvoke(() =>
                     {
-                        MessageBox.Show("Phòng đã bị xóa!");
-                        this.Close();
+                        if (!this.IsDisposed)
+                        {
+                            // Đánh dấu đang rời phòng do host đóng
+                            isLeavingRoom = true;
+
+                            MessageBox.Show("Phòng đã bị xóa bởi host!", "Thông báo",
+                                         MessageBoxButtons.OK, MessageBoxIcon.Information);
+                            this.Close();
+                        }
                     });
                     return;
                 }
@@ -170,13 +188,33 @@ namespace PomoMeetApp.View
                 if (!snapshot.TryGetValue("members_status", out Dictionary<string, object> membersStatus))
                     return;
 
-                // Nếu bị kick khỏi phòng (user không còn trong members_status)
+                // Bỏ qua kiểm tra đầu tiên trong 3 giây đầu tiên
+                if ((DateTime.Now - joinTime).TotalSeconds < 3 && isInitialCheck)
+                {
+                    isInitialCheck = false;
+                    return;
+                }
+
+                // Kiểm tra nếu thành viên bị đá (không còn trong phòng)
                 if (!membersStatus.ContainsKey(currentUserId))
                 {
-                    this.Invoke(() =>
+                    // Kiểm tra nếu có đánh dấu is_leaving thì không hiển thị thông báo
+                    if (membersStatus.TryGetValue(currentUserId, out object memberData) &&
+                        memberData is Dictionary<string, object> data &&
+                        data.ContainsKey("is_leaving") &&
+                        Convert.ToBoolean(data["is_leaving"]))
                     {
-                        MessageBox.Show("Bạn đã bị đá khỏi phòng!");
-                        this.Close();
+                        return;
+                    }
+
+                    SafeInvoke(() =>
+                    {
+                        if (!this.IsDisposed && !this.Disposing && !isLeavingRoom)
+                        {
+                            var result = MessageBox.Show("Bạn đã bị đá khỏi phòng!", "Thông báo",
+                                                      MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                            this.Close();
+                        }
                     });
                     return;
                 }
@@ -211,12 +249,55 @@ namespace PomoMeetApp.View
 
                 // Tạo bản sao tránh lỗi đa luồng
                 var copy = new Dictionary<string, MemberState>(memberStates);
-                this.BeginInvoke(new Action(() =>
+                this.SafeInvoke(new Action(() =>
                 {
                     _ = UpdateUIAsync(copy, db);
                 }));
             });
         }
+        // Helper method to safely invoke on UI thread
+        private void SafeInvoke(Action action)
+        {
+            try
+            {
+                if (this.IsDisposed || !this.IsHandleCreated || this.Disposing)
+                {
+                    // Form is disposed or disposing, don't execute the action
+                    return;
+                }
+
+                if (this.InvokeRequired)
+                {
+                    // Use BeginInvoke instead of Invoke to avoid deadlocks
+                    this.BeginInvoke(new Action(() =>
+                    {
+                        // Double-check disposal state before executing
+                        if (!this.IsDisposed && this.IsHandleCreated && !this.Disposing)
+                        {
+                            action();
+                        }
+                    }));
+                }
+                else
+                {
+                    if (!this.IsDisposed && this.IsHandleCreated && !this.Disposing)
+                    {
+                        action();
+                    }
+                }
+            }
+            catch (ObjectDisposedException)
+            {
+                // Silently catch if the form was disposed during the check
+                return;
+            }
+            catch (InvalidOperationException)
+            {
+                // Handle might not be created yet or other invalidation issues
+                return;
+            }
+        }
+
         private async Task UpdateUIAsync(Dictionary<string, MemberState> copy, FirestoreDb db)
         {
             UpdateParticipantsList(copy, db);
@@ -224,11 +305,36 @@ namespace PomoMeetApp.View
         }
 
 
-        protected override void OnFormClosing(FormClosingEventArgs e)
+        protected override async void OnFormClosing(FormClosingEventArgs e)
         {
-            roomListener?.StopAsync();
+            if (e.CloseReason == CloseReason.UserClosing && !isLeavingRoom)
+            {
+                e.Cancel = true;
+                isLeavingRoom = true;
+                sbtn_CancelCall.PerformClick();
+                return;
+            }
+
+            // Cleanup
+            try
+            {
+                roomListener?.StopAsync();
+                messageListener?.StopAsync();
+                if (rtcEngine != null)
+                {
+                    rtcEngine.LeaveChannel();
+                    rtcEngine.Dispose();
+                    rtcEngine = null;
+                }
+            }
+            catch (Exception ex)
+            {
+                Debug.WriteLine($"Error during cleanup: {ex.Message}");
+            }
+
             base.OnFormClosing(e);
         }
+
 
         private void listViewParticipants_DrawSubItem(object sender, DrawListViewSubItemEventArgs e)
         {
@@ -246,64 +352,329 @@ namespace PomoMeetApp.View
                 e.DrawDefault = true; // Vẽ mặc định cho các cột khác
             }
         }
-
-        private void panel7_Paint(object sender, PaintEventArgs e)
+        private async Task DeleteInvitationsOfRoom(string roomId)
         {
+            try
+            {
+                var db = FirebaseConfig.database;
+                var query = db.Collection("Invitations").WhereEqualTo("room_id", roomId);
+                var snapshot = await query.GetSnapshotAsync();
 
+                foreach (var doc in snapshot.Documents)
+                {
+                    await doc.Reference.DeleteAsync();
+                }
+            }
+            catch (Exception ex)
+            {
+                Debug.WriteLine($"Lỗi khi xóa invitations của phòng: {ex.Message}");
+            }
         }
 
         private async void sbtn_CancelCall_Click(object sender, EventArgs e)
         {
-            var db = FirebaseConfig.database;
-            var roomRef = db.Collection("Room").Document(currentroomId);
 
-            try
+            // Kiểm tra nếu người dùng là host
+            if (currentUserId == hostId)
             {
-                var snapshot = await roomRef.GetSnapshotAsync();
-                if (snapshot.Exists && snapshot.TryGetValue("members_status", out Dictionary<string, object> membersStatus))
+                // Hiển thị thông báo xác nhận xóa phòng
+                var result = MessageBox.Show("Bạn là host. Bạn có muốn xóa phòng không? Tất cả thành viên sẽ bị rời phòng.",
+                                             "Xác nhận xóa phòng",
+                                             MessageBoxButtons.YesNo,
+                                             MessageBoxIcon.Warning);
+
+                if (result == DialogResult.Yes)
                 {
-                    if (membersStatus.ContainsKey(currentUserId))
-                    {
-                        membersStatus.Remove(currentUserId);  // Xóa key currentUserId khỏi dictionary
-                        await roomRef.UpdateAsync("members_status", membersStatus);
-                    }
+                    // Đánh dấu phòng bị xóa bởi host
+                    await MarkRoomAsDeletedByHost();
+
+                    await DeleteRoomFromFirestore();
+                    await DeleteInvitationsOfRoom(currentroomId); // Xoa cac loi moi cua host doi voi nhung nguoi chua vao phong
+                    NotifyMembersRoomClosed();
+
+                    isLeavingRoom = true;
+                    this.Close();
                 }
 
-                this.DialogResult = DialogResult.OK; // Đóng form sau khi rời phòng
-                this.Close();
+            }
+            else
+            {
+                var result = MessageBox.Show("Bạn có chắc muốn rời phòng?", "Xác nhận",
+                                           MessageBoxButtons.YesNo, MessageBoxIcon.Question);
+
+                if (result == DialogResult.Yes)
+                {
+                    // Rời phòng
+                    await LeaveRoom();
+
+                    isLeavingRoom = true;
+                    this.Close();
+                }
+            }
+        }
+        private async Task MarkRoomAsDeletedByHost()
+        {
+            try
+            {
+                var db = FirebaseConfig.database;
+                var roomRef = db.Collection("Room").Document(currentroomId);
+
+                await roomRef.UpdateAsync(new Dictionary<string, object>
+                {
+                    { "deleted_by_host", true } // Đánh dấu phòng bị xóa bởi host
+                });
             }
             catch (Exception ex)
             {
-                MessageBox.Show("Lỗi khi rời phòng: " + ex.Message, "Lỗi", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                Debug.WriteLine($"Lỗi khi đánh dấu phòng bị xóa: {ex.Message}");
             }
-
         }
+        private async Task DeletePomodoroSession()
+        {
+            try
+            {
+                var db = FirebaseConfig.database;
+                await db.Collection("Pomodoro_Sessions").Document(currentroomId).DeleteAsync();
+            }
+            catch (Exception ex)
+            {
+                Debug.WriteLine($"Lỗi khi xóa Pomodoro_Session: {ex.Message}");
+            }
+        }
+        private async Task DeleteRoomFromFirestore()
+        {
+            isLeavingRoom = true; // Đánh dấu đang rời phòng
+
+            try
+            {
+                FirestoreDb db = FirebaseConfig.database;
+                DocumentReference roomRef = db.Collection("Room").Document(currentroomId);
+                await roomRef.DeleteAsync();
+                await DeletePomodoroSession();
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"Lỗi khi xóa phòng: {ex.Message}", "Lỗi", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+            finally
+            {
+                isLeavingRoom = false;
+            }
+        }
+        private void NotifyMembersRoomClosed()
+        {
+            foreach (var member in memberStates)
+            {
+                if (member.Key != currentUserId) // Không gửi cho chính host
+                {
+                    Debug.WriteLine($"Thông báo: Thành viên {member.Key} đã được thông báo phòng đã bị xóa.");
+
+                    // Gửi thông báo thực sự qua Firestore
+                    SendNotificationToMember(member.Key);
+                }
+            }
+        }
+
+        private async void SendNotificationToMember(string memberId)
+        {
+            try
+            {
+                var db = FirebaseConfig.database;
+                var notificationsRef = db.Collection("Notifications").Document(memberId);
+
+                await notificationsRef.SetAsync(new
+                {
+                    message = "Phòng họp đã bị đóng bởi host",
+                    roomId = currentroomId,
+                    timestamp = FieldValue.ServerTimestamp,
+                    isRead = false
+                }, SetOptions.MergeAll);
+            }
+            catch (Exception ex)
+            {
+                Debug.WriteLine($"Lỗi khi gửi thông báo: {ex.Message}");
+            }
+        }
+
+        private async Task LeaveRoom()
+        {
+            isLeavingRoom = true;
+            try
+            {
+                var db = FirebaseConfig.database;
+                var roomRef = db.Collection("Room").Document(currentroomId);
+
+                var snapshot = await roomRef.GetSnapshotAsync();
+
+                // Nếu phòng đã bị xóa bởi host thì không cần cập nhật trạng thái
+                bool deletedByHost = false;
+                if (snapshot.TryGetValue("deleted_by_host", out bool flag))
+                {
+                    deletedByHost = flag;
+                }
+
+                if (!snapshot.Exists || deletedByHost)
+                {
+                    return;
+                }
+
+                // Cập nhật trạng thái trước khi xóa
+                var updates = new Dictionary<string, object>
+                {
+                    { $"members_status.{currentUserId}.is_leaving", true }
+                };
+                await roomRef.UpdateAsync(updates);
+
+                // Xóa user khỏi phòng
+                updates = new Dictionary<string, object>
+                {
+                    { $"members_status.{currentUserId}", FieldValue.Delete }
+                };
+                await roomRef.UpdateAsync(updates);
+
+                rtcEngine.LeaveChannel();
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"Lỗi khi rời phòng: {ex.Message}", "Lỗi", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+            finally
+            {
+                isLeavingRoom = false;
+            }
+        }
+
 
         private async void UpdateParticipantsList(Dictionary<string, MemberState> members, FirestoreDb db)
         {
             if (this.IsDisposed || listViewParticipants.IsDisposed) return;
 
-            listViewParticipants.Items.Clear();
+            // Get current host ID
+            var roomRef = db.Collection("Room").Document(currentroomId);
+            var roomSnapshot = await roomRef.GetSnapshotAsync();
+            string currentHostId = roomSnapshot.Exists ? roomSnapshot.GetValue<string>("host_id") : hostId;
 
-            foreach (var entry in members)
+            // Create a list of current user IDs in the ListView
+            var currentListViewIds = new HashSet<string>();
+            var itemsToKeep = new List<ListViewItem>();
+
+            // First pass: identify items to keep and remove duplicates
+            foreach (ListViewItem item in listViewParticipants.Items)
             {
-                string userId = entry.Key;
-                MemberState state = entry.Value;
-
-                // Lấy thông tin người dùng từ Firestore
-                var userRef = db.Collection("User").Document(userId);
-                var userDoc = await userRef.GetSnapshotAsync();
-
-                if (userDoc.Exists)
+                if (item.Tag is string userId)
                 {
-                    var userData = userDoc.ToDictionary();
-                    string username = userData.ContainsKey("Username") ? userData["Username"].ToString() : "Unknown";
-                    string avatarKey = userData.ContainsKey("Avatar") ? userData["Avatar"]?.ToString() : null;
+                    if (members.ContainsKey(userId) && !currentListViewIds.Contains(userId))
+                    {
+                        // Valid user that should be kept (first occurrence)
+                        currentListViewIds.Add(userId);
+                        itemsToKeep.Add(item);
+                    }
+                    else
+                    {
+                        // Either user no longer exists or is a duplicate
+                        listViewParticipants.Items.Remove(item);
+                    }
+                }
+            }
 
-                    // Nếu không có avatarKey thì dùng "default_avatar"
-                    string imageKey = !string.IsNullOrEmpty(avatarKey) ? avatarKey : "default_avatar";
+            listViewParticipants.BeginUpdate();
 
-                    // Nếu ImageList chưa có ảnh này thì thêm vào
+            // Clear and reinitialize image list but preserve host avatar if exists
+            var hostAvatarKey = $"host_{currentHostId}";
+            Image hostAvatarImage = null;
+
+            if (imageListAvatars.Images.ContainsKey(hostAvatarKey))
+            {
+                hostAvatarImage = imageListAvatars.Images[hostAvatarKey];
+            }
+
+            imageListAvatars.Images.Clear();
+
+            // Re-add standard icons
+            imageListAvatars.Images.Add("avatar", Properties.Resources.avatar);
+            imageListAvatars.Images.Add("mic_on", Properties.Resources.mic_on);
+            imageListAvatars.Images.Add("mic_off", Properties.Resources.mic_off);
+            imageListAvatars.Images.Add("cam_on", Properties.Resources.cam_on);
+            imageListAvatars.Images.Add("cam_off", Properties.Resources.cam_off);
+
+            // Re-add host avatar if it existed
+            if (hostAvatarImage != null)
+            {
+                imageListAvatars.Images.Add(hostAvatarKey, hostAvatarImage);
+            }
+
+            var memberIds = members.Keys.ToHashSet();
+            var allUsers = await db.Collection("User").GetSnapshotAsync();
+
+            Dictionary<string, (string Username, string AvatarKey)> userInfoMap = new();
+
+            // Process host first to ensure their avatar is loaded correctly
+            if (!string.IsNullOrEmpty(currentHostId) && memberIds.Contains(currentHostId))
+            {
+                var hostDoc = await db.Collection("User").Document(currentHostId).GetSnapshotAsync();
+                if (hostDoc.Exists)
+                {
+                    var hostData = hostDoc.ToDictionary();
+                    string username = hostData.ContainsKey("Username") ? hostData["Username"].ToString() : "Host";
+                    string avatar = hostData.ContainsKey("Avatar") ? hostData["Avatar"]?.ToString() : null;
+
+                    userInfoMap[currentHostId] = (username, avatar);
+
+                    // Add host avatar with special key
+                    if (!string.IsNullOrEmpty(avatar) && !imageListAvatars.Images.ContainsKey(hostAvatarKey))
+                    {
+                        Image avatarImage = GetAvatarFromResources(avatar);
+                        imageListAvatars.Images.Add(hostAvatarKey, avatarImage);
+                    }
+                }
+            }
+
+            // Process other users
+            foreach (var doc in allUsers.Documents)
+            {
+                string userId = doc.Id;
+                if (userId == currentHostId || !memberIds.Contains(userId)) continue;
+
+                var data = doc.ToDictionary();
+                string username = data.ContainsKey("Username") ? data["Username"].ToString() : "User";
+                string avatar = data.ContainsKey("Avatar") ? data["Avatar"]?.ToString() : null;
+
+                userInfoMap[userId] = (username, avatar);
+            }
+
+            // Update or add members - ensure host is first
+            var orderedUserIds = members.Keys.OrderBy(id => id == currentHostId ? 0 : 1).ToList();
+
+            foreach (var userId in orderedUserIds)
+            {
+                if (!members.TryGetValue(userId, out MemberState state)) continue;
+                if (!userInfoMap.TryGetValue(userId, out var userInfo)) continue;
+
+                string username = userInfo.Username;
+                string avatarKey = userInfo.AvatarKey;
+                string imageKey = userId == currentHostId ? hostAvatarKey :
+                                 (!string.IsNullOrEmpty(avatarKey) ? avatarKey : "default_avatar");
+
+                // Find existing item (if any)
+                ListViewItem existingItem = itemsToKeep.FirstOrDefault(item => item.Tag as string == userId);
+
+                if (existingItem != null)
+                {
+                    // Update existing item
+                    existingItem.SubItems[1].Text = username;
+
+                    // Special handling for host
+                    if (userId == currentHostId)
+                    {
+                        existingItem.ImageKey = hostAvatarKey;
+                    }
+
+                    existingItem.SubItems[2].Tag = state.MicOn ? "mic_on" : "mic_off";
+                    existingItem.SubItems[3].Tag = state.CameraOn ? "cam_on" : "cam_off";
+                }
+                else
+                {
+                    // Add new item
                     if (!listViewParticipants.SmallImageList.Images.ContainsKey(imageKey))
                     {
                         Image avatarImage = !string.IsNullOrEmpty(avatarKey)
@@ -315,22 +686,19 @@ namespace PomoMeetApp.View
 
                     var item = new ListViewItem
                     {
-                        ImageKey = imageKey
+                        ImageKey = imageKey,
+                        Tag = userId
                     };
-
                     item.SubItems.Add(username);
-
-                    var micState = state.MicOn ? "mic_on" : "mic_off";
-                    var camState = state.CameraOn ? "cam_on" : "cam_off";
-
-                    item.SubItems.Add(""); item.SubItems[2].Tag = micState;
-                    item.SubItems.Add(""); item.SubItems[3].Tag = camState;
+                    item.SubItems.Add(""); item.SubItems[2].Tag = state.MicOn ? "mic_on" : "mic_off";
+                    item.SubItems.Add(""); item.SubItems[3].Tag = state.CameraOn ? "cam_on" : "cam_off";
 
                     listViewParticipants.Items.Add(item);
                 }
             }
-        }
 
+            listViewParticipants.EndUpdate();
+        }
 
         private Image GetAvatarFromResources(string avatarKey)
         {
@@ -382,6 +750,31 @@ namespace PomoMeetApp.View
         }
 
 
+        private async Task EnsureCurrentUserInRoom(FirestoreDb db)
+        {
+            var roomRef = db.Collection("Room").Document(currentroomId);
+            var snapshot = await roomRef.GetSnapshotAsync();
+
+            if (snapshot.Exists &&
+                snapshot.TryGetValue<Dictionary<string, object>>("members_status", out var membersDict))
+            {
+                if (!membersDict.ContainsKey(currentUserId))
+                {
+                    var updates = new Dictionary<string, object>
+            {
+                { $"members_status.{currentUserId}", new Dictionary<string, object>
+                    {
+                        { "camera_on", false },
+                        { "mic_on", false },
+                        { "speaker_on", true }
+                    }
+                }
+            };
+                    await roomRef.UpdateAsync(updates);
+                }
+            }
+        }
+
         private async void InitializeAgora()
         {
             // 1. Tạo handler event và truyền callback
@@ -391,7 +784,11 @@ namespace PomoMeetApp.View
             rtcEngine = RtcEngine.CreateAgoraRtcEngine();
 
             var context = new RtcEngineContext { appId = appId };
-            rtcEngine.Initialize(context);
+            int initResult = rtcEngine.Initialize(context);
+
+            // Thêm chính mình vào nếu chưa có
+            var db = FirebaseConfig.database;
+            await EnsureCurrentUserInRoom(db);
 
             // 3. Gán handler event cho rtcEngine
             rtcEngine.InitEventHandler(handler);
@@ -434,6 +831,7 @@ namespace PomoMeetApp.View
 
             // 9. Lắng nghe realtime Firestore
             ListenToRoomRealtime();
+
         }
 
 
@@ -461,16 +859,26 @@ namespace PomoMeetApp.View
                 BorderStyle = BorderStyle.FixedSingle
             };
 
-            this.Invoke(() =>
+            // Wait until the form handle is created
+            while (!this.IsHandleCreated && !this.IsDisposed)
             {
-                this.Controls.Add(panel);
-                panel.BringToFront();
-            });
+                await Task.Delay(100);
+            }
+
+            if (!this.IsDisposed)
+            {
+                this.Invoke((MethodInvoker)delegate
+                {
+                    if (!this.IsDisposed && panel != null)
+                    {
+                        this.Controls.Add(panel);
+                        panel.BringToFront();
+                    }
+                });
+            }
 
             return panel;
         }
-
-
         private void CreateExtraPanel(int index, int remainingCount)
         {
             Panel panel = new Panel
@@ -853,5 +1261,111 @@ namespace PomoMeetApp.View
                 rtcEngine.SetEnableSpeakerphone(false); // tắt loa ngoài, chuyển sang tai nghe nếu có
             }
         }
+
+        private void tableLayoutPanel1_Paint(object sender, PaintEventArgs e)
+        {
+
+        }
+        private void MeetingRoom_Load(object sender, EventArgs e)
+        {
+            MessageBox.Show("Loaded");
+            ListenMessage();
+        }
+        private async void btnSendMessages_Click(object sender, EventArgs e)
+        {
+            string msg = tbMessages.Text.Trim();
+            if (string.IsNullOrEmpty(msg))
+            {
+                MessageBox.Show("Message is empty, button disabled.", "btnSendMessages_Click", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                return;
+            }
+            try
+            {
+                string messageId = Guid.NewGuid().ToString();
+                var message = new Dictionary<string, object>
+                {
+                    { "room_id", currentroomId },
+                    { "user_id", currentUserId },
+                    { "message", msg },
+                    { "created_at", Timestamp.GetCurrentTimestamp() }
+                };
+                var db = FirebaseConfig.database;
+                var messageRef = db.Collection("Messages").Document(messageId);
+                await messageRef.SetAsync(message);
+                MessageBox.Show($"Sent message: {msg}, Document ID: {messageId}", "btnSendMessages_Click", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                tbMessages.Clear();
+
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"Error sending message: {ex.Message}", "btnSendMessages_Click", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+        }
+
+        // hàm lấy realtime message
+        private void ListenMessage()
+        {
+            var db = FirebaseConfig.database;
+            var messagesRef = db.Collection("Messages")
+                               .WhereEqualTo("room_id", currentroomId)
+                               .OrderBy("created_at");
+
+            Debug.WriteLine($"[ListenMessage] Starting listener for room: {currentroomId}");
+
+            messageListener = messagesRef.Listen(async snapshot =>
+            {
+                Debug.WriteLine($"[ListenMessage] Snapshot received with {snapshot.Changes.Count} changes.");
+
+                if (isLeavingRoom)
+                {
+                    Debug.WriteLine("[ListenMessage] Skipped: Room is being left.");
+                    return;
+                }
+
+                await Task.Run(async () =>
+                {
+                    var db = FirebaseConfig.database;
+
+                    foreach (var doc in snapshot.Documents)
+                    {
+                        var messageData = doc.ToDictionary();
+                        string userId = messageData.GetValueOrDefault("user_id", "").ToString();
+                        string messageText = messageData.GetValueOrDefault("message", "").ToString();
+                        var createdAt = messageData.ContainsKey("created_at") && messageData["created_at"] is Timestamp
+                            ? ((Timestamp)messageData["created_at"]).ToDateTime().ToString("HH:mm")
+                            : DateTime.Now.ToString("HH:mm");
+
+                        // Lấy username
+                        string username = "Unknown";
+                        try
+                        {
+                            var userRef = db.Collection("User").Document(userId);
+                            var userDoc = await userRef.GetSnapshotAsync();
+                            if (userDoc.Exists)
+                                username = userDoc.GetValue<string>("Username") ?? "Unknown";
+                        }
+                        catch (Exception ex)
+                        {
+                            Debug.WriteLine($"[ListenMessage] Error fetching username: {ex.Message}");
+                        }
+
+                        
+                        this.Invoke(new Action(() =>
+                        {
+                            if (tbDisplayMsg == null || tbDisplayMsg.IsDisposed) return;
+
+                            tbDisplayMsg.SelectionStart = tbDisplayMsg.TextLength;
+                            tbDisplayMsg.SelectionColor = userId == currentUserId ? Color.Blue : Color.Black;
+                            tbDisplayMsg.AppendText($"[{createdAt}] {username}: {messageText}\n");
+
+                            tbDisplayMsg.SelectionStart = tbDisplayMsg.Text.Length;
+                            tbDisplayMsg.ScrollToCaret();
+                        }));
+                    }
+                });
+            });
+        }
+
+
     }
 }

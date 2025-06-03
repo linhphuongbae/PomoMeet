@@ -69,7 +69,7 @@
             // sbtn_CreateNewRoom
             // 
             sbtn_CreateNewRoom.AccessibleDescription = "The default button control that accept input though the mouse, touch and keyboard";
-            sbtn_CreateNewRoom.AccessibleName = "Create a new room";
+            sbtn_CreateNewRoom.AccessibleName = "Tạo phòng mới";
             sbtn_CreateNewRoom.AutoSizeBasedOnText = false;
             sbtn_CreateNewRoom.BackColor = Color.Transparent;
             sbtn_CreateNewRoom.BadgeBackColor = Color.Red;
@@ -79,7 +79,7 @@
             sbtn_CreateNewRoom.BorderColor = Color.Transparent;
             sbtn_CreateNewRoom.BorderWidth = 2;
             sbtn_CreateNewRoom.ButtonBackColor = Color.White;
-            sbtn_CreateNewRoom.ButtonImage = Properties.Resources.create_Room1;
+            sbtn_CreateNewRoom.ButtonImage = null;
             sbtn_CreateNewRoom.CanBeep = true;
             sbtn_CreateNewRoom.CanGlow = false;
             sbtn_CreateNewRoom.CanShake = true;
@@ -136,7 +136,7 @@
             sbtn_CreateNewRoom.ShakeIntensity = 5;
             sbtn_CreateNewRoom.Size = new Size(342, 57);
             sbtn_CreateNewRoom.TabIndex = 8;
-            sbtn_CreateNewRoom.Text = "Create a new room";
+            sbtn_CreateNewRoom.Text = "Tạo phòng mới";
             sbtn_CreateNewRoom.TextAlign = ContentAlignment.MiddleCenter;
             sbtn_CreateNewRoom.TextColor = Color.White;
             sbtn_CreateNewRoom.TooltipText = null;
@@ -147,7 +147,7 @@
             // tbtn_JoinRoom
             // 
             tbtn_JoinRoom.AccessibleDescription = "The default button control that accept input though the mouse, touch and keyboard";
-            tbtn_JoinRoom.AccessibleName = "Join a room";
+            tbtn_JoinRoom.AccessibleName = "Tham gia";
             tbtn_JoinRoom.AutoSizeBasedOnText = false;
             tbtn_JoinRoom.BackColor = Color.Transparent;
             tbtn_JoinRoom.BadgeBackColor = Color.Red;
@@ -214,7 +214,7 @@
             tbtn_JoinRoom.ShakeIntensity = 5;
             tbtn_JoinRoom.Size = new Size(180, 57);
             tbtn_JoinRoom.TabIndex = 9;
-            tbtn_JoinRoom.Text = "Join a room";
+            tbtn_JoinRoom.Text = "Tham gia";
             tbtn_JoinRoom.TextAlign = ContentAlignment.MiddleCenter;
             tbtn_JoinRoom.TextColor = Color.White;
             tbtn_JoinRoom.TooltipText = null;
@@ -773,7 +773,7 @@
             Controls.Add(siticoneLabel1);
             Name = "Dashboard";
             Text = "Dashboard";
-            Load += Dashboard_Load;
+            _userListener?.StopAsync(); // ⚠️ Dừng listener khi đóng form
             ResumeLayout(false);
         }
 

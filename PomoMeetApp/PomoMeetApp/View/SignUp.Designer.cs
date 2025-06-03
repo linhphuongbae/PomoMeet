@@ -69,9 +69,9 @@
             email.ForeColor = Color.FromArgb(117, 164, 127);
             email.Location = new Point(428, 144);
             email.Name = "email";
-            email.Size = new Size(157, 40);
+            email.Size = new Size(219, 40);
             email.TabIndex = 1;
-            email.Text = "Username";
+            email.Text = "Tên đăng nhập";
             // 
             // label1
             // 

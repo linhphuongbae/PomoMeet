@@ -107,7 +107,7 @@
             // siticoneButton4
             // 
             siticoneButton4.AccessibleDescription = "The default button control that accept input though the mouse, touch and keyboard";
-            siticoneButton4.AccessibleName = "Create";
+            siticoneButton4.AccessibleName = "Tạo phòng";
             siticoneButton4.AutoSizeBasedOnText = false;
             siticoneButton4.BackColor = Color.Transparent;
             siticoneButton4.BadgeBackColor = Color.Red;
@@ -174,7 +174,7 @@
             siticoneButton4.ShakeIntensity = 5;
             siticoneButton4.Size = new Size(184, 62);
             siticoneButton4.TabIndex = 13;
-            siticoneButton4.Text = "Create";
+            siticoneButton4.Text = "Tạo phòng";
             siticoneButton4.TextAlign = ContentAlignment.MiddleLeft;
             siticoneButton4.TextColor = Color.FromArgb(252, 255, 224);
             siticoneButton4.TooltipText = null;
@@ -557,6 +557,7 @@
             siticoneButton5.TooltipText = null;
             siticoneButton5.UseAdvancedRendering = true;
             siticoneButton5.UseParticles = false;
+            siticoneButton5.Click += siticoneButton5_Click;
             // 
             // siticoneButton6
             // 
@@ -639,7 +640,7 @@
             // siticoneButton7
             // 
             siticoneButton7.AccessibleDescription = "The default button control that accept input though the mouse, touch and keyboard";
-            siticoneButton7.AccessibleName = "Friends";
+            siticoneButton7.AccessibleName = "Bạn bè";
             siticoneButton7.AutoSizeBasedOnText = false;
             siticoneButton7.BackColor = Color.Transparent;
             siticoneButton7.BadgeBackColor = Color.Red;
@@ -685,7 +686,7 @@
             siticoneButton7.IsReadOnly = false;
             siticoneButton7.IsToggleButton = false;
             siticoneButton7.IsToggled = false;
-            siticoneButton7.Location = new Point(82, 349);
+            siticoneButton7.Location = new Point(79, 349);
             siticoneButton7.LongPressDurationMS = 1000;
             siticoneButton7.Name = "siticoneButton7";
             siticoneButton7.NormalFontStyle = FontStyle.Regular;
@@ -706,7 +707,7 @@
             siticoneButton7.ShakeIntensity = 5;
             siticoneButton7.Size = new Size(184, 62);
             siticoneButton7.TabIndex = 3;
-            siticoneButton7.Text = "Friends";
+            siticoneButton7.Text = "Bạn bè";
             siticoneButton7.TextAlign = ContentAlignment.MiddleLeft;
             siticoneButton7.TextColor = Color.FromArgb(252, 255, 224);
             siticoneButton7.TooltipText = null;
