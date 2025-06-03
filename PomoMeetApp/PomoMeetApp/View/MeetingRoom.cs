@@ -796,18 +796,6 @@ namespace PomoMeetApp.View
             // 4. Bật video
             rtcEngine.EnableVideo();
 
-            // 5. Chọn thiết bị camera (ví dụ chọn OBS nếu có)
-            var videoDeviceManager = rtcEngine.GetVideoDeviceManager();
-            var devices = videoDeviceManager.EnumerateVideoDevices();
-            foreach (var device in devices)
-            {
-                if (device.deviceName.ToLower().Contains("obs"))
-                {
-                    videoDeviceManager.SetDevice(device.deviceId);
-                    break;
-                }
-            }
-
             // 6. Khởi tạo panel local video
             if (memberStates.TryGetValue(currentUserId, out MemberState myState))
             {
@@ -859,11 +847,6 @@ namespace PomoMeetApp.View
                 BorderStyle = BorderStyle.FixedSingle
             };
 
-            // Wait until the form handle is created
-            while (!this.IsHandleCreated && !this.IsDisposed)
-            {
-                await Task.Delay(100);
-            }
 
             if (!this.IsDisposed)
             {
