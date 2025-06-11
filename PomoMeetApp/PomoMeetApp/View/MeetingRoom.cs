@@ -32,7 +32,7 @@ namespace PomoMeetApp.View
         private FirestoreChangeListener roomListener;
         private FirestoreChangeListener messageListener;
 
-        private string appId = "9ff5da05a52c4f6e8e33448631ecc267";
+        private string appId = "4b8519068a154d67981912816c14c56f";
         private IRtcEngine rtcEngine;
         private string hostId;
         private Panel localVideoPanel;
@@ -303,8 +303,6 @@ namespace PomoMeetApp.View
             UpdateParticipantsList(copy, db);
             await UpdatePanels(copy);
         }
-
-
         protected override async void OnFormClosing(FormClosingEventArgs e)
         {
             if (e.CloseReason == CloseReason.UserClosing && !isLeavingRoom)
@@ -334,7 +332,6 @@ namespace PomoMeetApp.View
 
             base.OnFormClosing(e);
         }
-
 
         private void listViewParticipants_DrawSubItem(object sender, DrawListViewSubItemEventArgs e)
         {
@@ -728,27 +725,159 @@ namespace PomoMeetApp.View
                     return Properties.Resources.avatar; // Avatar mặc định nếu không tìm thấy
             }
         }
+
+        // Class event handler
         public class MyRtcEngineEventHandler : RtcEngineEventHandler
         {
             private readonly Action<string, uint, int> onJoinSuccessCallback;
+            private readonly Action<uint> onUserJoinedCallback;
+            private readonly Action<uint, USER_OFFLINE_REASON_TYPE> onUserOfflineCallback;
+            private readonly Action<uint, REMOTE_VIDEO_STATE, REMOTE_VIDEO_STATE_REASON, int> onRemoteVideoStateChangedCallback;
 
-            public MyRtcEngineEventHandler(Action<string, uint, int> onJoinSuccess)
+            public MyRtcEngineEventHandler(
+                Action<string, uint, int> onJoinSuccess,
+                Action<uint> onUserJoined = null,
+                Action<uint, USER_OFFLINE_REASON_TYPE> onUserOffline = null,
+                Action<uint, REMOTE_VIDEO_STATE, REMOTE_VIDEO_STATE_REASON, int> onRemoteVideoStateChanged = null)
             {
                 onJoinSuccessCallback = onJoinSuccess;
+                onUserJoinedCallback = onUserJoined;
+                onUserOfflineCallback = onUserOffline;
+                onRemoteVideoStateChangedCallback = onRemoteVideoStateChanged;
             }
 
             public override void OnJoinChannelSuccess(RtcConnection connection, int elapsed)
             {
+                Debug.WriteLine($"OnJoinChannelSuccess: channel={connection.channelId}, uid={connection.localUid}");
                 onJoinSuccessCallback?.Invoke(connection.channelId, connection.localUid, elapsed);
+            }
+
+            public override void OnUserJoined(RtcConnection connection, uint remoteUid, int elapsed)
+            {
+                Debug.WriteLine($"OnUserJoined: uid={remoteUid}");
+                onUserJoinedCallback?.Invoke(remoteUid);
+            }
+
+            public override void OnUserOffline(RtcConnection connection, uint remoteUid, USER_OFFLINE_REASON_TYPE reason)
+            {
+                Debug.WriteLine($"OnUserOffline: uid={remoteUid}, reason={reason}");
+                onUserOfflineCallback?.Invoke(remoteUid, reason);
+            }
+
+            public override void OnRemoteVideoStateChanged(RtcConnection connection, uint remoteUid, REMOTE_VIDEO_STATE state, REMOTE_VIDEO_STATE_REASON reason, int elapsed)
+            {
+                Debug.WriteLine($"OnRemoteVideoStateChanged: uid={remoteUid}, state={state}, reason={reason}");
+                onRemoteVideoStateChangedCallback?.Invoke(remoteUid, state, reason, elapsed);
+            }
+
+            // Thêm callback để xử lý khi có first remote video frame
+            public override void OnFirstRemoteVideoFrame(RtcConnection connection, uint remoteUid, int width, int height, int elapsed)
+            {
+                Debug.WriteLine($"OnFirstRemoteVideoFrame: uid={remoteUid}, size={width}x{height}");
+                base.OnFirstRemoteVideoFrame(connection, remoteUid, width, height, elapsed);
             }
         }
 
+        // Callback xử lý khi join thành công, đảm bảo chạy trên UI thread
         private void OnJoinSuccess(string channelId, uint uid, int elapsed)
         {
+            if (this.InvokeRequired)
+            {
+                this.Invoke(new Action(() => OnJoinSuccess(channelId, uid, elapsed)));
+                return;
+            }
             MessageBox.Show($"Đã join channel {channelId} thành công với uid {uid}, elapsed = {elapsed}ms");
-            // Bạn có thể cập nhật trạng thái join thành công ở đây
         }
 
+        // 5. Cập nhật callback OnUserJoined
+        private void OnUserJoined(uint remoteUid)
+        {
+            if (this.InvokeRequired)
+            {
+                this.Invoke(new Action(() => OnUserJoined(remoteUid)));
+                return;
+            }
+
+            Debug.WriteLine($"Remote user joined: {remoteUid}");
+
+            // Tìm userId từ remoteUid
+            string remoteUserId = FindUserIdByUid(remoteUid);
+            if (!string.IsNullOrEmpty(remoteUserId))
+            {
+                Debug.WriteLine($"Found user ID: {remoteUserId} for UID: {remoteUid}");
+
+                // Đảm bảo subscribe remote video stream
+                rtcEngine.MuteRemoteVideoStream(remoteUid, false);
+                rtcEngine.MuteRemoteAudioStream(remoteUid, false);
+
+                // Trigger update UI để setup remote video
+                if (memberStates.ContainsKey(remoteUserId))
+                {
+                    var copy = new Dictionary<string, MemberState>(memberStates);
+                    _ = UpdateUIAsync(copy, FirebaseConfig.database);
+                }
+            }
+        }
+
+        // 6. Thêm helper function để tìm userId từ uid
+        private string FindUserIdByUid(uint uid)
+        {
+            foreach (var userId in memberStates.Keys)
+            {
+                if (GetUidFromId(userId) == uid)
+                {
+                    return userId;
+                }
+            }
+            return null;
+        }
+
+        private void OnUserOffline(uint remoteUid, USER_OFFLINE_REASON_TYPE reason)
+        {
+            if (this.InvokeRequired)
+            {
+                this.Invoke(new Action(() => OnUserOffline(remoteUid, reason)));
+                return;
+            }
+            MessageBox.Show($"Remote user offline: {remoteUid}, reason: {reason}");
+        }
+
+        private void OnRemoteVideoStateChanged(uint remoteUid, REMOTE_VIDEO_STATE state, REMOTE_VIDEO_STATE_REASON reason, int elapsed)
+        {
+            if (this.InvokeRequired)
+            {
+                this.Invoke(new Action(() => OnRemoteVideoStateChanged(remoteUid, state, reason, elapsed)));
+                return;
+            }
+
+            Debug.WriteLine($"Remote video state changed: uid={remoteUid}, state={state}, reason={reason}");
+
+            string remoteUserId = FindUserIdByUid(remoteUid);
+            if (!string.IsNullOrEmpty(remoteUserId))
+            {
+                // Xử lý khi có video stream
+                if (state == REMOTE_VIDEO_STATE.REMOTE_VIDEO_STATE_STARTING ||
+                    state == REMOTE_VIDEO_STATE.REMOTE_VIDEO_STATE_DECODING)
+                {
+                    Debug.WriteLine($"Remote video starting/decoding for user: {remoteUserId}");
+
+                    // Đảm bảo unmute remote video
+                    rtcEngine.MuteRemoteVideoStream(remoteUid, false);
+
+                    // Update UI
+                    var copy = new Dictionary<string, MemberState>(memberStates);
+                    _ = UpdateUIAsync(copy, FirebaseConfig.database);
+                }
+                else if (state == REMOTE_VIDEO_STATE.REMOTE_VIDEO_STATE_STOPPED)
+                {
+                    Debug.WriteLine($"Remote video stopped for user: {remoteUserId}");
+
+                    // Update UI to show avatar
+                    var copy = new Dictionary<string, MemberState>(memberStates);
+                    _ = UpdateUIAsync(copy, FirebaseConfig.database);
+                }
+            }
+        }
 
         private async Task EnsureCurrentUserInRoom(FirestoreDb db)
         {
@@ -777,52 +906,88 @@ namespace PomoMeetApp.View
 
         private async void InitializeAgora()
         {
-            // 1. Tạo handler event và truyền callback
-            var handler = new MyRtcEngineEventHandler(OnJoinSuccess);
+            // 1. Tạo handler event
+            var handler = new MyRtcEngineEventHandler(
+                OnJoinSuccess,
+                OnUserJoined,
+                OnUserOffline,
+                OnRemoteVideoStateChanged
+            );
 
             // 2. Khởi tạo Agora engine
             rtcEngine = RtcEngine.CreateAgoraRtcEngine();
 
-            var context = new RtcEngineContext { appId = appId };
-            int initResult = rtcEngine.Initialize(context);
+            var context = new RtcEngineContext
+            {
+                appId = appId,
+                logConfig = new LogConfig
+                {
+                    filePath = "agora.log",
+                    level = LOG_LEVEL.LOG_LEVEL_INFO
+                }
+            };
 
-            // Thêm chính mình vào nếu chưa có
+            int initResult = rtcEngine.Initialize(context);
+            Debug.WriteLine($"RTC Engine Initialize result: {initResult}");
+
+            // 3. Gán handler event
+            rtcEngine.InitEventHandler(handler);
+
+            // 4. Cấu hình video
+            rtcEngine.EnableVideo();
+            rtcEngine.EnableAudio();
+
+            var videoDeviceManager = rtcEngine.GetVideoDeviceManager();
+            var devices = videoDeviceManager.EnumerateVideoDevices();
+            foreach (var device in devices)
+            {
+                if (device.deviceName.ToLower().Contains("obs"))
+                {
+                    videoDeviceManager.SetDevice(device.deviceId);
+                    break;
+                }
+            }
+
+            // 5. Cấu hình video encoding
+            var videoConfig = new VideoEncoderConfiguration
+            {
+                dimensions = new VideoDimensions(640, 480),
+                frameRate = 15,
+                bitrate = 400,
+                orientationMode = ORIENTATION_MODE.ORIENTATION_MODE_ADAPTIVE
+            };
+            rtcEngine.SetVideoEncoderConfiguration(videoConfig);
+
+            // 6. Cấu hình channel profile và client role
+            rtcEngine.SetChannelProfile(CHANNEL_PROFILE_TYPE.CHANNEL_PROFILE_COMMUNICATION);
+            rtcEngine.SetClientRole(CLIENT_ROLE_TYPE.CLIENT_ROLE_BROADCASTER);
+
+            // 7. Đảm bảo subscribe tất cả remote streams
+            rtcEngine.SetDefaultMuteAllRemoteVideoStreams(false);
+            rtcEngine.SetDefaultMuteAllRemoteAudioStreams(false);
+
+            // Enable dual stream mode để có thể receive remote video
+            rtcEngine.EnableDualStreamMode(true);
+
+            // 8. Thêm user vào Firestore nếu chưa có
             var db = FirebaseConfig.database;
             await EnsureCurrentUserInRoom(db);
 
-            // 3. Gán handler event cho rtcEngine
-            rtcEngine.InitEventHandler(handler);
-
-            // 4. Bật video
-            rtcEngine.EnableVideo();
-
-            // 6. Khởi tạo panel local video
-            if (memberStates.TryGetValue(currentUserId, out MemberState myState))
-            {
-                Panel panel = CreateRemotePanel(currentUserId, 0);
-                localVideoPanel = panel;
-
-                var canvas = new VideoCanvas
-                {
-                    uid = GetUidFromId(currentUserId),
-                    view = panel.Handle,
-                    renderMode = RENDER_MODE_TYPE.RENDER_MODE_FIT
-                };
-                rtcEngine.SetupLocalVideo(canvas);
-            }
-
-            // 7. Lấy thông tin thành viên Firestore (await nếu cần)
+            // 9. Lấy thông tin thành viên
             await GetMembersFromFirestore();
 
-            // 8. Tham gia kênh
-            rtcEngine.JoinChannel("", currentroomId, "", GetUidFromId(currentUserId));
+            // 10. Tham gia kênh
+            uint localUid = GetUidFromId(currentUserId);
+            int result = rtcEngine.JoinChannel("", currentroomId, "", localUid);
+            Debug.WriteLine($"Join Channel result: {result}, LocalUID: {localUid}");
 
-            // 9. Lắng nghe realtime Firestore
+            // 11. Tắt mic và camera mặc định
+            rtcEngine.MuteLocalAudioStream(true);
+            rtcEngine.MuteLocalVideoStream(true);
+
+            // 12. Lắng nghe realtime Firestore
             ListenToRoomRealtime();
-
         }
-
-
 
         private Point GetPanelLocation(int index)
         {
@@ -1009,69 +1174,76 @@ namespace PomoMeetApp.View
 
             uint uid = GetUidFromId(userId);
 
-            if (userId == currentUserId)
+            if (state.CameraOn)
             {
-                // Xử lý video local
-                if (state.CameraOn)
+                if (userId == currentUserId)
                 {
+                    // Xử lý video local
                     var videoCanvas = new VideoCanvas
                     {
                         uid = uid,
                         renderMode = RENDER_MODE_TYPE.RENDER_MODE_FIT,
                         view = panel.Handle
                     };
-                    rtcEngine.SetupLocalVideo(videoCanvas);
+
+                    int setupResult = rtcEngine.SetupLocalVideo(videoCanvas);
+                    Debug.WriteLine($"SetupLocalVideo result: {setupResult}");
+
+                    // Bật preview và unmute local video
                     rtcEngine.StartPreview();
+                    rtcEngine.MuteLocalVideoStream(false);
                 }
                 else
                 {
-                    rtcEngine.StopPreview();
-                }
-            }
-            else
-            {
-                // Xử lý video remote
-                if (state.CameraOn)
-                {
+                    // Xử lý video remote
                     var remoteVideoCanvas = new VideoCanvas
                     {
                         uid = uid,
                         renderMode = RENDER_MODE_TYPE.RENDER_MODE_FIT,
                         view = panel.Handle
                     };
-                    rtcEngine.SetupRemoteVideo(remoteVideoCanvas);
+
+                    int result = rtcEngine.SetupRemoteVideo(remoteVideoCanvas);
+                    Debug.WriteLine($"SetupRemoteVideo for uid {uid}: result = {result}");
+
+                    // Đảm bảo unmute remote video
+                    rtcEngine.MuteRemoteVideoStream(uid, false);
+
+                    // Set remote video stream type
+                    rtcEngine.SetRemoteVideoStreamType(uid, VIDEO_STREAM_TYPE.VIDEO_STREAM_HIGH);
                 }
             }
-
-            // Nếu camera tắt, hiển thị avatar
-            if (!state.CameraOn)
+            else
             {
-                PictureBox newAvatar = new PictureBox
+                // Tắt video và hiển thị avatar
+                if (userId == currentUserId)
                 {
-                    Size = new Size(100, 100),
-                    Location = new Point((panel.Width - 100) / 2, (panel.Height - 100) / 2),
-                    SizeMode = PictureBoxSizeMode.Zoom,
-                    BackColor = Color.Transparent
-                };
+                    rtcEngine.StopPreview();
+                    rtcEngine.MuteLocalVideoStream(true);
 
-                var db = FirebaseConfig.database;
-                var userRef = db.Collection("User").Document(userId);
-                var userDoc = await userRef.GetSnapshotAsync();
-
-                string avatarKey = userDoc.Exists && userDoc.ContainsField("Avatar")
-                    ? userDoc.GetValue<string>("Avatar")
-                    : null;
-
-                Image avatarImage = !string.IsNullOrEmpty(avatarKey)
-                    ? GetAvatarFromResources(avatarKey)
-                    : Properties.Resources.avatar;
-
-                newAvatar.Image = MakeRoundedAvatar(avatarImage, newAvatar.Size);
-
-                this.Invoke(() =>
+                    // Clear local video canvas
+                    var emptyCanvas = new VideoCanvas
+                    {
+                        uid = uid,
+                        view = IntPtr.Zero
+                    };
+                    rtcEngine.SetupLocalVideo(emptyCanvas);
+                }
+                else
                 {
-                    panel.Controls.Add(newAvatar);
-                });
+                    // Mute và clear remote video canvas
+                    rtcEngine.MuteRemoteVideoStream(uid, true);
+
+                    var emptyCanvas = new VideoCanvas
+                    {
+                        uid = uid,
+                        view = IntPtr.Zero
+                    };
+                    rtcEngine.SetupRemoteVideo(emptyCanvas);
+                }
+
+                // Hiển thị avatar
+                await ShowAvatarOnPanel(panel, userId);
             }
 
             // Refresh UI
@@ -1081,8 +1253,35 @@ namespace PomoMeetApp.View
             });
         }
 
+        private async Task ShowAvatarOnPanel(Panel panel, string userId)
+        {
+            PictureBox newAvatar = new PictureBox
+            {
+                Size = new Size(100, 100),
+                Location = new Point((panel.Width - 100) / 2, (panel.Height - 100) / 2),
+                SizeMode = PictureBoxSizeMode.Zoom,
+                BackColor = Color.Transparent
+            };
 
+            var db = FirebaseConfig.database;
+            var userRef = db.Collection("User").Document(userId);
+            var userDoc = await userRef.GetSnapshotAsync();
 
+            string avatarKey = userDoc.Exists && userDoc.ContainsField("Avatar")
+                ? userDoc.GetValue<string>("Avatar")
+                : null;
+
+            Image avatarImage = !string.IsNullOrEmpty(avatarKey)
+                ? GetAvatarFromResources(avatarKey)
+                : Properties.Resources.avatar;
+
+            newAvatar.Image = MakeRoundedAvatar(avatarImage, newAvatar.Size);
+
+            this.Invoke(() =>
+            {
+                panel.Controls.Add(newAvatar);
+            });
+        }
 
         private async Task GetMembersFromFirestore()
         {
@@ -1142,6 +1341,8 @@ namespace PomoMeetApp.View
             bool currentCameraState = memberStates.ContainsKey(currentUserId) && memberStates[currentUserId].CameraOn;
             bool newCameraState = !currentCameraState;
 
+            Debug.WriteLine($"Camera button clicked: {currentCameraState} -> {newCameraState}");
+
             // Cập nhật trạng thái camera trên Firestore
             await UpdateCameraStateAsync(currentUserId, newCameraState);
 
@@ -1154,13 +1355,22 @@ namespace PomoMeetApp.View
             // Đổi icon nút camera
             btn_Camera.BackgroundImage = newCameraState ? Properties.Resources.videocam : Properties.Resources.videocam_off;
 
-            // Tìm lại panel đã gán cho chính người dùng hiện tại
-            var panel = this.Controls.Find($"panel_{currentUserId}", true).FirstOrDefault() as Panel;
-            if (panel != null)
+            // Xử lý bật/tắt camera ngay lập tức
+            if (newCameraState)
             {
-                await UpdatePanelContent(panel, currentUserId, memberStates[currentUserId]);
+                rtcEngine.MuteLocalVideoStream(false);
             }
+            else
+            {
+                rtcEngine.MuteLocalVideoStream(true);
+                rtcEngine.StopPreview();
+            }
+
+            // Tìm lại panel đã gán cho chính người dùng hiện tại và cập nhật
+            var copy = new Dictionary<string, MemberState>(memberStates);
+            await UpdateUIAsync(copy, FirebaseConfig.database);
         }
+
 
         class MemberState
         {
@@ -1190,6 +1400,8 @@ namespace PomoMeetApp.View
             bool currentMicState = memberStates.ContainsKey(currentUserId) && memberStates[currentUserId].MicOn;
             bool newMicState = !currentMicState;
 
+            Debug.WriteLine($"Mic button clicked: {currentMicState} -> {newMicState}");
+
             // Cập nhật trạng thái mic trong Firestore
             await UpdateMicStateAsync(currentUserId, newMicState);
 
@@ -1202,7 +1414,7 @@ namespace PomoMeetApp.View
             // Đổi icon nút mic
             btn_Mic.BackgroundImage = newMicState ? Properties.Resources.mic : Properties.Resources.videomic_off;
 
-            // Bật hoặc tắt mic
+            // Bật hoặc tắt mic ngay lập tức
             rtcEngine.MuteLocalAudioStream(!newMicState);
         }
 
