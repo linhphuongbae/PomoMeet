@@ -134,7 +134,6 @@ namespace PomoMeetApp.View
                 this.Close();
             }
 
-
         }
 
         private string GetRoomMode()
