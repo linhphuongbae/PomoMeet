@@ -25,6 +25,13 @@ namespace PomoMeetApp.View
             currentUserId = userId;
             InitializeUserProfile();
             this.FormClosed += Dashboard_FormClosed;
+
+            userProfilePanel2.SetProfileClickCallback(userId =>
+            {
+                var profileForm = new Profile(userId);
+                profileForm.ShowDialog();
+            });
+
         }
 
         private async void InitializeUserProfile()
@@ -95,11 +102,26 @@ namespace PomoMeetApp.View
             createRoom.ShowDialog();
         }
 
-        private void Dashboard_FormClosed(object sender, FormClosedEventArgs e)
+        private async void Dashboard_FormClosed(object sender, FormClosedEventArgs e)
         {
-            _userListener?.StopAsync(); // Dừng listener khi đóng form
+            // Gọi phương thức async để dừng listener
+            await StopUserListenerAsync();
+
             Application.Exit(); // Đảm bảo thoát toàn bộ ứng dụng
         }
+
+        private async Task StopUserListenerAsync()
+        {
+            if (_userListener != null)
+            {
+                await _userListener.StopAsync(); // Dừng listener khi đóng form
+            }
+            else
+            {
+                Console.WriteLine("User listener is not initialized.");
+            }
+        }
+
 
         private void tbtn_JoinRoom_Click(object sender, EventArgs e)
         {
