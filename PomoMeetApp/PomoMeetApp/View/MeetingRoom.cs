@@ -1463,7 +1463,8 @@ namespace PomoMeetApp.View
         }
         private void MeetingRoom_Load(object sender, EventArgs e)
         {
-            MessageBox.Show("Loaded");
+            //MessageBox.Show("Loaded");
+
             ListenMessage();
         }
         private async void btnSendMessages_Click(object sender, EventArgs e)
@@ -1488,26 +1489,31 @@ namespace PomoMeetApp.View
                 var messageRef = db.Collection("Messages").Document(messageId);
                 await messageRef.SetAsync(message);
 
-                // cập nhật tin nhắn ngay lập tức trên tb
-                // Lấy username
-                string username = "Unknown";
-                try
-                {
-                    var userRef = db.Collection("User").Document(currentUserId);
-                    var userDoc = await userRef.GetSnapshotAsync();
-                    if (userDoc.Exists)
-                        username = userDoc.GetValue<string>("Username") ?? "Unknown";
-                }
-                catch (Exception ex)
-                {
-                    MessageBox.Show($"[ListenMessage] Error fetching username: {ex.Message}");
-                }
-                var now = Timestamp.GetCurrentTimestamp().ToDateTime().ToLocalTime();
-                string createdAt = now.ToString("HH:mm");
+                //// cập nhật tin nhắn ngay lập tức trên tb
+                //// Lấy username
+                //string username = "Unknown";
+                //try
+                //{
+                //    var userRef = db.Collection("User").Document(currentUserId);
+                //    var userDoc = await userRef.GetSnapshotAsync();
+                //    if (userDoc.Exists)
+                //        username = userDoc.GetValue<string>("Username") ?? "Unknown";
+                //}
+                //catch (Exception ex)
+                //{
+                //    MessageBox.Show($"[ListenMessage] Error fetching username: {ex.Message}");
+                //}
+                //var now = Timestamp.GetCurrentTimestamp().ToDateTime().ToLocalTime();
+                //string createdAt = now.ToString("HH:mm");
 
-                tbDisplayMsg.AppendText($"[{createdAt}] {username}: {msg}\n");
+                //tbDisplayMsg.SelectionStart = tbDisplayMsg.TextLength;
+                //tbDisplayMsg.SelectionColor = Color.Blue;
+                //tbDisplayMsg.AppendText($"[{createdAt}] {username}: {msg}\n");
 
-                MessageBox.Show($"Sent message: {msg}, Document ID: {messageId}", "btnSendMessages_Click", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                //tbDisplayMsg.SelectionStart = tbDisplayMsg.Text.Length;
+                //tbDisplayMsg.ScrollToCaret();
+
+                //MessageBox.Show($"Sent message: {msg}, Document ID: {messageId}", "btnSendMessages_Click", MessageBoxButtons.OK, MessageBoxIcon.Information);
                 tbMessages.Clear();
 
             }
@@ -1516,7 +1522,9 @@ namespace PomoMeetApp.View
                 MessageBox.Show($"Error sending message: {ex.Message}", "btnSendMessages_Click", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
-
+        
+           
+        ////}
         // hàm lấy realtime message
         private void ListenMessage()
         {
@@ -1525,24 +1533,17 @@ namespace PomoMeetApp.View
                                .WhereEqualTo("room_id", currentroomId)
                                .OrderBy("created_at");
 
-            Debug.WriteLine($"[ListenMessage] Starting listener for room: {currentroomId}");
-
             messageListener = messagesRef.Listen(async snapshot =>
             {
-                Debug.WriteLine($"[ListenMessage] Snapshot received with {snapshot.Changes.Count} changes.");
+                if (isLeavingRoom) return;
 
-                if (isLeavingRoom)
-                {
-                    Debug.WriteLine("[ListenMessage] Skipped: Room is being left.");
-                    return;
-                }
-
-                await Task.Run(async () =>
-                {
                     var db = FirebaseConfig.database;
 
-                    foreach (var doc in snapshot.Documents)
+                    foreach (var change in snapshot.Changes)
                     {
+                        if (change.ChangeType != DocumentChange.Type.Added)
+                            continue;
+                        var doc = change.Document;
                         var messageData = doc.ToDictionary();
                         string userId = messageData.GetValueOrDefault("user_id", "").ToString();
                         string messageText = messageData.GetValueOrDefault("message", "").ToString();
@@ -1550,7 +1551,6 @@ namespace PomoMeetApp.View
                             ? ((Timestamp)messageData["created_at"]).ToDateTime().ToString("HH:mm")
                             : DateTime.Now.ToString("HH:mm");
 
-                        // Lấy username
                         string username = "Unknown";
                         try
                         {
@@ -1559,12 +1559,10 @@ namespace PomoMeetApp.View
                             if (userDoc.Exists)
                                 username = userDoc.GetValue<string>("Username") ?? "Unknown";
                         }
-                        catch (Exception ex)
-                        {
-                            Debug.WriteLine($"[ListenMessage] Error fetching username: {ex.Message}");
+                        catch (Exception ex) {
+                            MessageBox.Show($"Lỗi khi truy vấn Firestore:\n{ex.Message}", "Lỗi Firestore", MessageBoxButtons.OK, MessageBoxIcon.Error);
                         }
 
-                        
                         this.Invoke(new Action(() =>
                         {
                             if (tbDisplayMsg == null || tbDisplayMsg.IsDisposed) return;
@@ -1578,8 +1576,8 @@ namespace PomoMeetApp.View
                         }));
                     }
                 });
-            });
         }
+
 
 
     }
