@@ -1487,6 +1487,26 @@ namespace PomoMeetApp.View
                 var db = FirebaseConfig.database;
                 var messageRef = db.Collection("Messages").Document(messageId);
                 await messageRef.SetAsync(message);
+
+                // cập nhật tin nhắn ngay lập tức trên tb
+                // Lấy username
+                string username = "Unknown";
+                try
+                {
+                    var userRef = db.Collection("User").Document(currentUserId);
+                    var userDoc = await userRef.GetSnapshotAsync();
+                    if (userDoc.Exists)
+                        username = userDoc.GetValue<string>("Username") ?? "Unknown";
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show($"[ListenMessage] Error fetching username: {ex.Message}");
+                }
+                var now = Timestamp.GetCurrentTimestamp().ToDateTime().ToLocalTime();
+                string createdAt = now.ToString("HH:mm");
+
+                tbDisplayMsg.AppendText($"[{createdAt}] {username}: {msg}\n");
+
                 MessageBox.Show($"Sent message: {msg}, Document ID: {messageId}", "btnSendMessages_Click", MessageBoxButtons.OK, MessageBoxIcon.Information);
                 tbMessages.Clear();
 
