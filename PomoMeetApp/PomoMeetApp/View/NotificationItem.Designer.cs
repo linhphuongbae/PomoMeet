@@ -81,7 +81,7 @@
             btnAccept.Name = "btnAccept";
             btnAccept.Size = new Size(80, 32);
             btnAccept.TabIndex = 3;
-            btnAccept.Text = "Accept";
+            btnAccept.Text = "Chấp nhận";
             btnAccept.UseVisualStyleBackColor = false;
             // 
             // btnDecline
@@ -94,7 +94,7 @@
             btnDecline.Name = "btnDecline";
             btnDecline.Size = new Size(80, 32);
             btnDecline.TabIndex = 4;
-            btnDecline.Text = "Decline";
+            btnDecline.Text = "Từ chối";
             btnDecline.UseVisualStyleBackColor = false;
             // 
             // panelSeparator

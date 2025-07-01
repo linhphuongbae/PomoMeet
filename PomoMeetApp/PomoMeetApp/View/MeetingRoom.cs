@@ -408,6 +408,7 @@ namespace PomoMeetApp.View
                     this.Close();
                 }
             }
+            await UserStatusManager.Instance.UpdateUserStatus(currentUserId, "offline");
         }
         private async Task MarkRoomAsDeletedByHost()
         {

@@ -109,7 +109,7 @@
             tbUsername.EnableDropShadow = false;
             tbUsername.FillColor1 = Color.White;
             tbUsername.FillColor2 = Color.White;
-            tbUsername.Font = new Font("Inter", 7.8F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            tbUsername.Font = new Font("Inter", 10F, FontStyle.Regular);
             tbUsername.ForeColor = Color.DimGray;
             tbUsername.HoverBorderColor1 = Color.Gray;
             tbUsername.HoverBorderColor2 = Color.Gray;
@@ -296,7 +296,7 @@
             label4.Name = "label4";
             label4.Size = new Size(180, 22);
             label4.TabIndex = 11;
-            label4.Text = "Bạn chưa có tải khoản?";
+            label4.Text = "Bạn chưa có tài khoản?";
             // 
             // BackToRegs
             // 
@@ -499,7 +499,7 @@
             // 
             // ShowPass
             // 
-            ShowPass.AccessibleName = "Show password";
+            ShowPass.AccessibleName = "Hiện mật khẩu";
             ShowPass.AccessibleRole = AccessibleRole.CheckButton;
             ShowPass.AllowIndeterminate = false;
             ShowPass.BackColor = Color.FromArgb(233, 240, 201);
@@ -549,11 +549,12 @@
             ShowPass.SwitchCheckedTrackColor = Color.FromArgb(100, 56, 128, 255);
             ShowPass.SwitchTrackColor = Color.FromArgb(200, 200, 200);
             ShowPass.TabIndex = 20;
-            ShowPass.Text = "Show password";
+            ShowPass.Text = "Hiện mật khẩu";
             ShowPass.TopLeftRadius = 3;
             ShowPass.TopRightRadius = 3;
             ShowPass.UncheckedBackColor = Color.FromArgb(250, 250, 250);
             ShowPass.Click += ShowPass_Click;
+
             // 
             // SignIn
             // 

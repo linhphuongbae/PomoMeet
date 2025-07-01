@@ -232,7 +232,7 @@
             // sbtn_JoinRoom
             // 
             sbtn_JoinRoom.AccessibleDescription = "The default button control that accept input though the mouse, touch and keyboard";
-            sbtn_JoinRoom.AccessibleName = "Join a room";
+            sbtn_JoinRoom.AccessibleName = "Tham gia";
             sbtn_JoinRoom.AutoSizeBasedOnText = false;
             sbtn_JoinRoom.BackColor = Color.Transparent;
             sbtn_JoinRoom.BadgeBackColor = Color.Red;
@@ -299,7 +299,7 @@
             sbtn_JoinRoom.ShakeIntensity = 5;
             sbtn_JoinRoom.Size = new Size(180, 57);
             sbtn_JoinRoom.TabIndex = 10;
-            sbtn_JoinRoom.Text = "Join a room";
+            sbtn_JoinRoom.Text = "Tham gia";
             sbtn_JoinRoom.TextAlign = ContentAlignment.MiddleCenter;
             sbtn_JoinRoom.TextColor = Color.White;
             sbtn_JoinRoom.TooltipText = null;

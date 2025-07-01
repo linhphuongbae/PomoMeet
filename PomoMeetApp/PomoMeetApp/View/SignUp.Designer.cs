@@ -36,7 +36,6 @@
             tbPassword = new SiticoneNetCoreUI.SiticoneTextBox();
             label3 = new Label();
             tbPasswordConfirm = new SiticoneNetCoreUI.SiticoneTextBox();
-            btnSignUp = new SiticoneNetCoreUI.SiticoneButton();
             label4 = new Label();
             siticoneButton2 = new SiticoneNetCoreUI.SiticoneButton();
             pictureBox1 = new PictureBox();
@@ -45,6 +44,7 @@
             siticoneCheckBox1 = new SiticoneNetCoreUI.SiticoneCheckBox();
             txtEmail = new SiticoneNetCoreUI.SiticoneTextBox();
             label5 = new Label();
+            btnSignUp = new SiticoneNetCoreUI.SiticoneButton();
             ((System.ComponentModel.ISupportInitialize)Rectangle).BeginInit();
             ((System.ComponentModel.ISupportInitialize)pictureBox1).BeginInit();
             ((System.ComponentModel.ISupportInitialize)pictureBox2).BeginInit();
@@ -111,7 +111,7 @@
             tbUsername.EnableDropShadow = false;
             tbUsername.FillColor1 = Color.White;
             tbUsername.FillColor2 = Color.White;
-            tbUsername.Font = new Font("Inter", 7.8F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            tbUsername.Font = new Font("Inter", 10F);
             tbUsername.ForeColor = Color.DimGray;
             tbUsername.HoverBorderColor1 = Color.Gray;
             tbUsername.HoverBorderColor2 = Color.Gray;
@@ -279,6 +279,248 @@
             tbPasswordConfirm.ValidationFunction = null;
             tbPasswordConfirm.KeyDown += tbPasswordConfirm_KeyDown;
             // 
+            // label4
+            // 
+            label4.AutoSize = true;
+            label4.BackColor = Color.FromArgb(233, 240, 201);
+            label4.Font = new Font("Inter", 9F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            label4.ForeColor = Color.Black;
+            label4.Location = new Point(582, 789);
+            label4.Name = "label4";
+            label4.Size = new Size(161, 22);
+            label4.TabIndex = 9;
+            label4.Text = "Bạn đã có tải khoản?";
+            // 
+            // siticoneButton2
+            // 
+            siticoneButton2.AccessibleDescription = "The default button control that accept input though the mouse, touch and keyboard";
+            siticoneButton2.AccessibleName = "Đăng nhập";
+            siticoneButton2.AutoSizeBasedOnText = false;
+            siticoneButton2.BackColor = Color.Transparent;
+            siticoneButton2.BadgeBackColor = Color.Red;
+            siticoneButton2.BadgeFont = new Font("Inter", 7.8F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            siticoneButton2.BadgeValue = 0;
+            siticoneButton2.BadgeValueForeColor = Color.White;
+            siticoneButton2.BorderColor = Color.FromArgb(117, 164, 127);
+            siticoneButton2.BorderWidth = 2;
+            siticoneButton2.ButtonBackColor = Color.White;
+            siticoneButton2.ButtonImage = null;
+            siticoneButton2.CanBeep = true;
+            siticoneButton2.CanGlow = false;
+            siticoneButton2.CanShake = true;
+            siticoneButton2.ContextMenuStripEx = null;
+            siticoneButton2.CornerRadiusBottomLeft = 0;
+            siticoneButton2.CornerRadiusBottomRight = 0;
+            siticoneButton2.CornerRadiusTopLeft = 0;
+            siticoneButton2.CornerRadiusTopRight = 0;
+            siticoneButton2.CustomCursor = Cursors.Default;
+            siticoneButton2.DisabledTextColor = Color.FromArgb(117, 164, 127);
+            siticoneButton2.EnableLongPress = false;
+            siticoneButton2.EnablePressAnimation = true;
+            siticoneButton2.EnableRippleEffect = true;
+            siticoneButton2.EnableShadow = false;
+            siticoneButton2.EnableTextWrapping = false;
+            siticoneButton2.Font = new Font("Inter", 7.8F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            siticoneButton2.ForeColor = Color.FromArgb(117, 164, 127);
+            siticoneButton2.GlowColor = Color.FromArgb(100, 255, 255, 255);
+            siticoneButton2.GlowIntensity = 100;
+            siticoneButton2.GlowRadius = 20F;
+            siticoneButton2.GradientBackground = false;
+            siticoneButton2.GradientColor = Color.FromArgb(114, 168, 255);
+            siticoneButton2.GradientMode = System.Drawing.Drawing2D.LinearGradientMode.Vertical;
+            siticoneButton2.HintText = null;
+            siticoneButton2.HoverBackColor = Color.FromArgb(114, 168, 255);
+            siticoneButton2.HoverFontStyle = FontStyle.Regular;
+            siticoneButton2.HoverTextColor = Color.White;
+            siticoneButton2.HoverTransitionDuration = 250;
+            siticoneButton2.ImageAlign = ContentAlignment.MiddleLeft;
+            siticoneButton2.ImagePadding = 5;
+            siticoneButton2.ImageSize = new Size(16, 16);
+            siticoneButton2.IsRadial = false;
+            siticoneButton2.IsReadOnly = false;
+            siticoneButton2.IsToggleButton = false;
+            siticoneButton2.IsToggled = false;
+            siticoneButton2.Location = new Point(763, 785);
+            siticoneButton2.LongPressDurationMS = 1000;
+            siticoneButton2.Name = "siticoneButton2";
+            siticoneButton2.NormalFontStyle = FontStyle.Regular;
+            siticoneButton2.ParticleColor = Color.FromArgb(200, 200, 200);
+            siticoneButton2.ParticleCount = 15;
+            siticoneButton2.PressAnimationScale = 0.97F;
+            siticoneButton2.PressedBackColor = Color.FromArgb(74, 128, 235);
+            siticoneButton2.PressedFontStyle = FontStyle.Regular;
+            siticoneButton2.PressTransitionDuration = 150;
+            siticoneButton2.ReadOnlyTextColor = Color.FromArgb(100, 100, 100);
+            siticoneButton2.RippleColor = Color.FromArgb(255, 255, 255);
+            siticoneButton2.RippleOpacity = 0.3F;
+            siticoneButton2.RippleRadiusMultiplier = 0.6F;
+            siticoneButton2.ShadowBlur = 5;
+            siticoneButton2.ShadowColor = Color.FromArgb(100, 0, 0, 0);
+            siticoneButton2.ShadowOffset = new Point(2, 2);
+            siticoneButton2.ShakeDuration = 500;
+            siticoneButton2.ShakeIntensity = 5;
+            siticoneButton2.Size = new Size(87, 30);
+            siticoneButton2.TabIndex = 10;
+            siticoneButton2.Text = "Đăng nhập";
+            siticoneButton2.TextAlign = ContentAlignment.MiddleCenter;
+            siticoneButton2.TextColor = Color.FromArgb(117, 164, 127);
+            siticoneButton2.TooltipText = null;
+            siticoneButton2.UseAdvancedRendering = true;
+            siticoneButton2.UseParticles = false;
+            siticoneButton2.Click += siticoneButton2_Click;
+            // 
+            // pictureBox1
+            // 
+            pictureBox1.Image = Properties.Resources.Ellipse;
+            pictureBox1.Location = new Point(-2, 664);
+            pictureBox1.Name = "pictureBox1";
+            pictureBox1.Size = new Size(299, 313);
+            pictureBox1.TabIndex = 11;
+            pictureBox1.TabStop = false;
+            // 
+            // pictureBox2
+            // 
+            pictureBox2.Image = Properties.Resources.Decoration_1;
+            pictureBox2.Location = new Point(1118, -2);
+            pictureBox2.Name = "pictureBox2";
+            pictureBox2.Size = new Size(305, 228);
+            pictureBox2.TabIndex = 12;
+            pictureBox2.TabStop = false;
+            // 
+            // pictureBox3
+            // 
+            pictureBox3.Image = Properties.Resources.SmallLogo;
+            pictureBox3.Location = new Point(12, 12);
+            pictureBox3.Name = "pictureBox3";
+            pictureBox3.Size = new Size(90, 76);
+            pictureBox3.TabIndex = 13;
+            pictureBox3.TabStop = false;
+            // 
+            // siticoneCheckBox1
+            // 
+            siticoneCheckBox1.AccessibleName = "Hiện mật khẩu";
+            siticoneCheckBox1.AccessibleRole = AccessibleRole.CheckButton;
+            siticoneCheckBox1.AllowIndeterminate = false;
+            siticoneCheckBox1.BackColor = Color.FromArgb(233, 240, 201);
+            siticoneCheckBox1.BorderColor = Color.Transparent;
+            siticoneCheckBox1.BorderWidth = 2;
+            siticoneCheckBox1.BottomLeftRadius = 3;
+            siticoneCheckBox1.BottomRightRadius = 3;
+            siticoneCheckBox1.CanBeep = true;
+            siticoneCheckBox1.CanShake = true;
+            siticoneCheckBox1.CheckBoxSize = 20;
+            siticoneCheckBox1.Checked = false;
+            siticoneCheckBox1.CheckedBackColor = Color.FromArgb(186, 205, 146);
+            siticoneCheckBox1.CheckedBorderColor = Color.FromArgb(186, 205, 146);
+            siticoneCheckBox1.CheckmarkColor = Color.White;
+            siticoneCheckBox1.CheckState = SiticoneNetCoreUI.CheckState.Unchecked;
+            siticoneCheckBox1.ContainerBackColor = Color.FromArgb(252, 255, 224);
+            siticoneCheckBox1.ContainerBorderColor = Color.FromArgb(50, 0, 0, 0);
+            siticoneCheckBox1.ContainerBorderWidth = 1;
+            siticoneCheckBox1.ContainerBottomLeftRadius = 8;
+            siticoneCheckBox1.ContainerBottomRightRadius = 8;
+            siticoneCheckBox1.ContainerCheckedBorderColor = Color.Transparent;
+            siticoneCheckBox1.ContainerCheckedColor = Color.FromArgb(252, 255, 224);
+            siticoneCheckBox1.ContainerCheckedHoverColor = Color.FromArgb(25, 56, 128, 255);
+            siticoneCheckBox1.ContainerCheckedPressedColor = Color.FromArgb(186, 205, 146);
+            siticoneCheckBox1.ContainerHoverBackColor = Color.FromArgb(25, 0, 0, 0);
+            siticoneCheckBox1.ContainerPadding = 8;
+            siticoneCheckBox1.ContainerPressedBackColor = Color.FromArgb(30, 0, 0, 0);
+            siticoneCheckBox1.ContainerTopLeftRadius = 8;
+            siticoneCheckBox1.ContainerTopRightRadius = 8;
+            siticoneCheckBox1.EnableRippleEffect = true;
+            siticoneCheckBox1.FocusBorderWidth = 2;
+            siticoneCheckBox1.FocusColor = Color.FromArgb(252, 255, 224);
+            siticoneCheckBox1.Font = new Font("Segoe UI", 9F);
+            siticoneCheckBox1.ForeColor = Color.FromArgb(117, 164, 127);
+            siticoneCheckBox1.HoverBackColor = Color.Gainsboro;
+            siticoneCheckBox1.IndeterminateBorderColor = Color.FromArgb(160, 160, 160);
+            siticoneCheckBox1.IndeterminateColor = Color.FromArgb(180, 180, 180);
+            siticoneCheckBox1.IsContained = false;
+            siticoneCheckBox1.IsReadOnly = false;
+            siticoneCheckBox1.Location = new Point(437, 653);
+            siticoneCheckBox1.MinimumSize = new Size(178, 24);
+            siticoneCheckBox1.Name = "siticoneCheckBox1";
+            siticoneCheckBox1.PressedBackColor = Color.DarkGray;
+            siticoneCheckBox1.ShowFocusCue = false;
+            siticoneCheckBox1.Size = new Size(222, 30);
+            siticoneCheckBox1.Style = SiticoneNetCoreUI.CheckBoxStyle.Classic;
+            siticoneCheckBox1.SwitchCheckedTrackColor = Color.FromArgb(100, 56, 128, 255);
+            siticoneCheckBox1.SwitchTrackColor = Color.FromArgb(200, 200, 200);
+            siticoneCheckBox1.TabIndex = 14;
+            siticoneCheckBox1.Text = "Hiện mật khẩu";
+            siticoneCheckBox1.TopLeftRadius = 3;
+            siticoneCheckBox1.TopRightRadius = 3;
+            siticoneCheckBox1.UncheckedBackColor = Color.FromArgb(250, 250, 250);
+            siticoneCheckBox1.Click += siticoneCheckBox1_Click;
+            // 
+            // txtEmail
+            // 
+            txtEmail.AccessibleDescription = "A customizable text input field.";
+            txtEmail.AccessibleName = "Text Box";
+            txtEmail.AccessibleRole = AccessibleRole.Text;
+            txtEmail.BackColor = Color.Transparent;
+            txtEmail.BlinkCount = 3;
+            txtEmail.BlinkShadow = false;
+            txtEmail.BorderColor1 = Color.LightSlateGray;
+            txtEmail.BorderColor2 = Color.LightSlateGray;
+            txtEmail.BorderFocusColor1 = Color.FromArgb(77, 77, 255);
+            txtEmail.BorderFocusColor2 = Color.FromArgb(77, 77, 255);
+            txtEmail.CanShake = true;
+            txtEmail.ContinuousBlink = false;
+            txtEmail.CursorBlinkRate = 500;
+            txtEmail.CursorColor = Color.Black;
+            txtEmail.CursorHeight = 26;
+            txtEmail.CursorOffset = 0;
+            txtEmail.CursorStyle = SiticoneNetCoreUI.Helpers.DrawingStyle.SiticoneDrawingStyle.Solid;
+            txtEmail.CursorWidth = 1;
+            txtEmail.DisabledBackColor = Color.WhiteSmoke;
+            txtEmail.DisabledBorderColor = Color.LightGray;
+            txtEmail.DisabledTextColor = Color.Gray;
+            txtEmail.EnableDropShadow = false;
+            txtEmail.FillColor1 = Color.White;
+            txtEmail.FillColor2 = Color.White;
+            txtEmail.Font = new Font("Inter", 7.8F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            txtEmail.ForeColor = Color.DimGray;
+            txtEmail.HoverBorderColor1 = Color.Gray;
+            txtEmail.HoverBorderColor2 = Color.Gray;
+            txtEmail.IsEnabled = true;
+            txtEmail.Location = new Point(437, 311);
+            txtEmail.Name = "txtEmail";
+            txtEmail.PlaceholderColor = Color.Gray;
+            txtEmail.PlaceholderText = "Enter text here...";
+            txtEmail.ReadOnlyBorderColor1 = Color.LightGray;
+            txtEmail.ReadOnlyBorderColor2 = Color.LightGray;
+            txtEmail.ReadOnlyFillColor1 = Color.WhiteSmoke;
+            txtEmail.ReadOnlyFillColor2 = Color.WhiteSmoke;
+            txtEmail.ReadOnlyPlaceholderColor = Color.DarkGray;
+            txtEmail.SelectionBackColor = Color.FromArgb(77, 77, 255);
+            txtEmail.ShadowAnimationDuration = 1;
+            txtEmail.ShadowBlur = 10;
+            txtEmail.ShadowColor = Color.FromArgb(15, 0, 0, 0);
+            txtEmail.ShowBorder = false;
+            txtEmail.Size = new Size(537, 63);
+            txtEmail.SolidBorderColor = Color.LightSlateGray;
+            txtEmail.SolidBorderFocusColor = Color.FromArgb(77, 77, 255);
+            txtEmail.SolidBorderHoverColor = Color.Gray;
+            txtEmail.SolidFillColor = Color.White;
+            txtEmail.TabIndex = 16;
+            txtEmail.TextPadding = new Padding(16, 0, 6, 0);
+            txtEmail.ValidationErrorMessage = "Invalid input.";
+            txtEmail.ValidationFunction = null;
+            // 
+            // label5
+            // 
+            label5.AutoSize = true;
+            label5.BackColor = Color.FromArgb(233, 240, 201);
+            label5.Font = new Font("Inter", 16.2F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            label5.ForeColor = Color.FromArgb(117, 164, 127);
+            label5.Location = new Point(428, 268);
+            label5.Name = "label5";
+            label5.Size = new Size(92, 40);
+            label5.TabIndex = 15;
+            label5.Text = "Email";
+            // 
             // btnSignUp
             // 
             btnSignUp.AccessibleDescription = "The default button control that accept input though the mouse, touch and keyboard";
@@ -356,248 +598,6 @@
             btnSignUp.UseParticles = false;
             btnSignUp.Click += btnSignUp_Click;
             // 
-            // label4
-            // 
-            label4.AutoSize = true;
-            label4.BackColor = Color.FromArgb(233, 240, 201);
-            label4.Font = new Font("Inter", 9F, FontStyle.Bold, GraphicsUnit.Point, 0);
-            label4.ForeColor = Color.Black;
-            label4.Location = new Point(582, 789);
-            label4.Name = "label4";
-            label4.Size = new Size(161, 22);
-            label4.TabIndex = 9;
-            label4.Text = "Bạn đã có tải khoản?";
-            // 
-            // siticoneButton2
-            // 
-            siticoneButton2.AccessibleDescription = "The default button control that accept input though the mouse, touch and keyboard";
-            siticoneButton2.AccessibleName = "Đăng nhập";
-            siticoneButton2.AutoSizeBasedOnText = false;
-            siticoneButton2.BackColor = Color.Transparent;
-            siticoneButton2.BadgeBackColor = Color.Red;
-            siticoneButton2.BadgeFont = new Font("Inter", 7.8F, FontStyle.Bold, GraphicsUnit.Point, 0);
-            siticoneButton2.BadgeValue = 0;
-            siticoneButton2.BadgeValueForeColor = Color.White;
-            siticoneButton2.BorderColor = Color.FromArgb(117, 164, 127);
-            siticoneButton2.BorderWidth = 2;
-            siticoneButton2.ButtonBackColor = Color.White;
-            siticoneButton2.ButtonImage = null;
-            siticoneButton2.CanBeep = true;
-            siticoneButton2.CanGlow = false;
-            siticoneButton2.CanShake = true;
-            siticoneButton2.ContextMenuStripEx = null;
-            siticoneButton2.CornerRadiusBottomLeft = 0;
-            siticoneButton2.CornerRadiusBottomRight = 0;
-            siticoneButton2.CornerRadiusTopLeft = 0;
-            siticoneButton2.CornerRadiusTopRight = 0;
-            siticoneButton2.CustomCursor = Cursors.Default;
-            siticoneButton2.DisabledTextColor = Color.FromArgb(117, 164, 127);
-            siticoneButton2.EnableLongPress = false;
-            siticoneButton2.EnablePressAnimation = true;
-            siticoneButton2.EnableRippleEffect = true;
-            siticoneButton2.EnableShadow = false;
-            siticoneButton2.EnableTextWrapping = false;
-            siticoneButton2.Font = new Font("Inter", 7.8F, FontStyle.Bold, GraphicsUnit.Point, 0);
-            siticoneButton2.ForeColor = Color.FromArgb(117, 164, 127);
-            siticoneButton2.GlowColor = Color.FromArgb(100, 255, 255, 255);
-            siticoneButton2.GlowIntensity = 100;
-            siticoneButton2.GlowRadius = 20F;
-            siticoneButton2.GradientBackground = false;
-            siticoneButton2.GradientColor = Color.FromArgb(114, 168, 255);
-            siticoneButton2.GradientMode = System.Drawing.Drawing2D.LinearGradientMode.Vertical;
-            siticoneButton2.HintText = null;
-            siticoneButton2.HoverBackColor = Color.FromArgb(114, 168, 255);
-            siticoneButton2.HoverFontStyle = FontStyle.Regular;
-            siticoneButton2.HoverTextColor = Color.White;
-            siticoneButton2.HoverTransitionDuration = 250;
-            siticoneButton2.ImageAlign = ContentAlignment.MiddleLeft;
-            siticoneButton2.ImagePadding = 5;
-            siticoneButton2.ImageSize = new Size(16, 16);
-            siticoneButton2.IsRadial = false;
-            siticoneButton2.IsReadOnly = false;
-            siticoneButton2.IsToggleButton = false;
-            siticoneButton2.IsToggled = false;
-            siticoneButton2.Location = new Point(763, 781);
-            siticoneButton2.LongPressDurationMS = 1000;
-            siticoneButton2.Name = "siticoneButton2";
-            siticoneButton2.NormalFontStyle = FontStyle.Regular;
-            siticoneButton2.ParticleColor = Color.FromArgb(200, 200, 200);
-            siticoneButton2.ParticleCount = 15;
-            siticoneButton2.PressAnimationScale = 0.97F;
-            siticoneButton2.PressedBackColor = Color.FromArgb(74, 128, 235);
-            siticoneButton2.PressedFontStyle = FontStyle.Regular;
-            siticoneButton2.PressTransitionDuration = 150;
-            siticoneButton2.ReadOnlyTextColor = Color.FromArgb(100, 100, 100);
-            siticoneButton2.RippleColor = Color.FromArgb(255, 255, 255);
-            siticoneButton2.RippleOpacity = 0.3F;
-            siticoneButton2.RippleRadiusMultiplier = 0.6F;
-            siticoneButton2.ShadowBlur = 5;
-            siticoneButton2.ShadowColor = Color.FromArgb(100, 0, 0, 0);
-            siticoneButton2.ShadowOffset = new Point(2, 2);
-            siticoneButton2.ShakeDuration = 500;
-            siticoneButton2.ShakeIntensity = 5;
-            siticoneButton2.Size = new Size(87, 30);
-            siticoneButton2.TabIndex = 10;
-            siticoneButton2.Text = "Đăng nhập";
-            siticoneButton2.TextAlign = ContentAlignment.MiddleCenter;
-            siticoneButton2.TextColor = Color.FromArgb(117, 164, 127);
-            siticoneButton2.TooltipText = null;
-            siticoneButton2.UseAdvancedRendering = true;
-            siticoneButton2.UseParticles = false;
-            siticoneButton2.Click += siticoneButton2_Click;
-            // 
-            // pictureBox1
-            // 
-            pictureBox1.Image = Properties.Resources.Ellipse;
-            pictureBox1.Location = new Point(-2, 664);
-            pictureBox1.Name = "pictureBox1";
-            pictureBox1.Size = new Size(299, 313);
-            pictureBox1.TabIndex = 11;
-            pictureBox1.TabStop = false;
-            // 
-            // pictureBox2
-            // 
-            pictureBox2.Image = Properties.Resources.Decoration_1;
-            pictureBox2.Location = new Point(1118, -2);
-            pictureBox2.Name = "pictureBox2";
-            pictureBox2.Size = new Size(305, 228);
-            pictureBox2.TabIndex = 12;
-            pictureBox2.TabStop = false;
-            // 
-            // pictureBox3
-            // 
-            pictureBox3.Image = Properties.Resources.SmallLogo;
-            pictureBox3.Location = new Point(12, 12);
-            pictureBox3.Name = "pictureBox3";
-            pictureBox3.Size = new Size(90, 76);
-            pictureBox3.TabIndex = 13;
-            pictureBox3.TabStop = false;
-            // 
-            // siticoneCheckBox1
-            // 
-            siticoneCheckBox1.AccessibleName = "Show password";
-            siticoneCheckBox1.AccessibleRole = AccessibleRole.CheckButton;
-            siticoneCheckBox1.AllowIndeterminate = false;
-            siticoneCheckBox1.BackColor = Color.FromArgb(233, 240, 201);
-            siticoneCheckBox1.BorderColor = Color.Transparent;
-            siticoneCheckBox1.BorderWidth = 2;
-            siticoneCheckBox1.BottomLeftRadius = 3;
-            siticoneCheckBox1.BottomRightRadius = 3;
-            siticoneCheckBox1.CanBeep = true;
-            siticoneCheckBox1.CanShake = true;
-            siticoneCheckBox1.CheckBoxSize = 20;
-            siticoneCheckBox1.Checked = false;
-            siticoneCheckBox1.CheckedBackColor = Color.FromArgb(186, 205, 146);
-            siticoneCheckBox1.CheckedBorderColor = Color.FromArgb(186, 205, 146);
-            siticoneCheckBox1.CheckmarkColor = Color.White;
-            siticoneCheckBox1.CheckState = SiticoneNetCoreUI.CheckState.Unchecked;
-            siticoneCheckBox1.ContainerBackColor = Color.FromArgb(252, 255, 224);
-            siticoneCheckBox1.ContainerBorderColor = Color.FromArgb(50, 0, 0, 0);
-            siticoneCheckBox1.ContainerBorderWidth = 1;
-            siticoneCheckBox1.ContainerBottomLeftRadius = 8;
-            siticoneCheckBox1.ContainerBottomRightRadius = 8;
-            siticoneCheckBox1.ContainerCheckedBorderColor = Color.Transparent;
-            siticoneCheckBox1.ContainerCheckedColor = Color.FromArgb(252, 255, 224);
-            siticoneCheckBox1.ContainerCheckedHoverColor = Color.FromArgb(25, 56, 128, 255);
-            siticoneCheckBox1.ContainerCheckedPressedColor = Color.FromArgb(186, 205, 146);
-            siticoneCheckBox1.ContainerHoverBackColor = Color.FromArgb(25, 0, 0, 0);
-            siticoneCheckBox1.ContainerPadding = 8;
-            siticoneCheckBox1.ContainerPressedBackColor = Color.FromArgb(30, 0, 0, 0);
-            siticoneCheckBox1.ContainerTopLeftRadius = 8;
-            siticoneCheckBox1.ContainerTopRightRadius = 8;
-            siticoneCheckBox1.EnableRippleEffect = true;
-            siticoneCheckBox1.FocusBorderWidth = 2;
-            siticoneCheckBox1.FocusColor = Color.FromArgb(252, 255, 224);
-            siticoneCheckBox1.Font = new Font("Segoe UI", 9F);
-            siticoneCheckBox1.ForeColor = Color.FromArgb(117, 164, 127);
-            siticoneCheckBox1.HoverBackColor = Color.Gainsboro;
-            siticoneCheckBox1.IndeterminateBorderColor = Color.FromArgb(160, 160, 160);
-            siticoneCheckBox1.IndeterminateColor = Color.FromArgb(180, 180, 180);
-            siticoneCheckBox1.IsContained = false;
-            siticoneCheckBox1.IsReadOnly = false;
-            siticoneCheckBox1.Location = new Point(437, 653);
-            siticoneCheckBox1.MinimumSize = new Size(178, 24);
-            siticoneCheckBox1.Name = "siticoneCheckBox1";
-            siticoneCheckBox1.PressedBackColor = Color.DarkGray;
-            siticoneCheckBox1.ShowFocusCue = false;
-            siticoneCheckBox1.Size = new Size(222, 30);
-            siticoneCheckBox1.Style = SiticoneNetCoreUI.CheckBoxStyle.Classic;
-            siticoneCheckBox1.SwitchCheckedTrackColor = Color.FromArgb(100, 56, 128, 255);
-            siticoneCheckBox1.SwitchTrackColor = Color.FromArgb(200, 200, 200);
-            siticoneCheckBox1.TabIndex = 14;
-            siticoneCheckBox1.Text = "Show password";
-            siticoneCheckBox1.TopLeftRadius = 3;
-            siticoneCheckBox1.TopRightRadius = 3;
-            siticoneCheckBox1.UncheckedBackColor = Color.FromArgb(250, 250, 250);
-            siticoneCheckBox1.Click += siticoneCheckBox1_Click;
-            // 
-            // txtEmail
-            // 
-            txtEmail.AccessibleDescription = "A customizable text input field.";
-            txtEmail.AccessibleName = "Text Box";
-            txtEmail.AccessibleRole = AccessibleRole.Text;
-            txtEmail.BackColor = Color.Transparent;
-            txtEmail.BlinkCount = 3;
-            txtEmail.BlinkShadow = false;
-            txtEmail.BorderColor1 = Color.LightSlateGray;
-            txtEmail.BorderColor2 = Color.LightSlateGray;
-            txtEmail.BorderFocusColor1 = Color.FromArgb(77, 77, 255);
-            txtEmail.BorderFocusColor2 = Color.FromArgb(77, 77, 255);
-            txtEmail.CanShake = true;
-            txtEmail.ContinuousBlink = false;
-            txtEmail.CursorBlinkRate = 500;
-            txtEmail.CursorColor = Color.Black;
-            txtEmail.CursorHeight = 26;
-            txtEmail.CursorOffset = 0;
-            txtEmail.CursorStyle = SiticoneNetCoreUI.Helpers.DrawingStyle.SiticoneDrawingStyle.Solid;
-            txtEmail.CursorWidth = 1;
-            txtEmail.DisabledBackColor = Color.WhiteSmoke;
-            txtEmail.DisabledBorderColor = Color.LightGray;
-            txtEmail.DisabledTextColor = Color.Gray;
-            txtEmail.EnableDropShadow = false;
-            txtEmail.FillColor1 = Color.White;
-            txtEmail.FillColor2 = Color.White;
-            txtEmail.Font = new Font("Inter", 7.8F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            txtEmail.ForeColor = Color.DimGray;
-            txtEmail.HoverBorderColor1 = Color.Gray;
-            txtEmail.HoverBorderColor2 = Color.Gray;
-            txtEmail.IsEnabled = true;
-            txtEmail.Location = new Point(437, 311);
-            txtEmail.Name = "txtEmail";
-            txtEmail.PlaceholderColor = Color.Gray;
-            txtEmail.PlaceholderText = "Enter text here...";
-            txtEmail.ReadOnlyBorderColor1 = Color.LightGray;
-            txtEmail.ReadOnlyBorderColor2 = Color.LightGray;
-            txtEmail.ReadOnlyFillColor1 = Color.WhiteSmoke;
-            txtEmail.ReadOnlyFillColor2 = Color.WhiteSmoke;
-            txtEmail.ReadOnlyPlaceholderColor = Color.DarkGray;
-            txtEmail.SelectionBackColor = Color.FromArgb(77, 77, 255);
-            txtEmail.ShadowAnimationDuration = 1;
-            txtEmail.ShadowBlur = 10;
-            txtEmail.ShadowColor = Color.FromArgb(15, 0, 0, 0);
-            txtEmail.ShowBorder = false;
-            txtEmail.Size = new Size(537, 63);
-            txtEmail.SolidBorderColor = Color.LightSlateGray;
-            txtEmail.SolidBorderFocusColor = Color.FromArgb(77, 77, 255);
-            txtEmail.SolidBorderHoverColor = Color.Gray;
-            txtEmail.SolidFillColor = Color.White;
-            txtEmail.TabIndex = 16;
-            txtEmail.TextPadding = new Padding(16, 0, 6, 0);
-            txtEmail.ValidationErrorMessage = "Invalid input.";
-            txtEmail.ValidationFunction = null;
-            // 
-            // label5
-            // 
-            label5.AutoSize = true;
-            label5.BackColor = Color.FromArgb(233, 240, 201);
-            label5.Font = new Font("Inter", 16.2F, FontStyle.Bold, GraphicsUnit.Point, 0);
-            label5.ForeColor = Color.FromArgb(117, 164, 127);
-            label5.Location = new Point(428, 268);
-            label5.Name = "label5";
-            label5.Size = new Size(92, 40);
-            label5.TabIndex = 15;
-            label5.Text = "Email";
-            // 
             // SignUp
             // 
             AutoScaleDimensions = new SizeF(8F, 20F);
@@ -641,7 +641,6 @@
         private SiticoneNetCoreUI.SiticoneTextBox tbPassword;
         private Label label3;
         private SiticoneNetCoreUI.SiticoneTextBox tbPasswordConfirm;
-        private SiticoneNetCoreUI.SiticoneButton btnSignUp;
         private Label label4;
         private SiticoneNetCoreUI.SiticoneButton siticoneButton2;
         private PictureBox pictureBox1;
@@ -650,5 +649,6 @@
         private SiticoneNetCoreUI.SiticoneCheckBox siticoneCheckBox1;
         private SiticoneNetCoreUI.SiticoneTextBox txtEmail;
         private Label label5;
+        private SiticoneNetCoreUI.SiticoneButton btnSignUp;
     }
 }

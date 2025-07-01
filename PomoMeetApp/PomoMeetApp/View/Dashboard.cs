@@ -23,7 +23,6 @@ namespace PomoMeetApp.View
         {
             InitializeComponent();
             currentUserId = userId;
-            InitializeUserProfile();
             this.FormClosed += Dashboard_FormClosed;
 
             userProfilePanel2.SetProfileClickCallback(userId =>
@@ -31,10 +30,13 @@ namespace PomoMeetApp.View
                 var profileForm = new Profile(userId);
                 profileForm.ShowDialog();
             });
-
+            this.Load += Dashboard_Load;
         }
-
-        private async void InitializeUserProfile()
+        private async void Dashboard_Load(object sender, EventArgs e)
+        {
+            await InitializeUserProfile();
+        }
+        private async Task InitializeUserProfile()
         {
             var db = FirebaseConfig.database;
             DocumentSnapshot snapshot = await db.Collection("User").Document(currentUserId).GetSnapshotAsync();
@@ -104,6 +106,8 @@ namespace PomoMeetApp.View
 
         private async void Dashboard_FormClosed(object sender, FormClosedEventArgs e)
         {
+            await UserStatusManager.Instance.UpdateUserStatus(currentUserId, "offline");
+
             // Gọi phương thức async để dừng listener
             await StopUserListenerAsync();
 
@@ -121,7 +125,6 @@ namespace PomoMeetApp.View
                 Console.WriteLine("User listener is not initialized.");
             }
         }
-
 
         private void tbtn_JoinRoom_Click(object sender, EventArgs e)
         {

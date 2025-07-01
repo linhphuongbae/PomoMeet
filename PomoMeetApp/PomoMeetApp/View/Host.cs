@@ -256,6 +256,9 @@ namespace PomoMeetApp.View
                     // Cập nhật lại members_status trong Firestore
                     await roomRef.UpdateAsync("members_status", membersStatus);
 
+                    // Cập nhật trạng thái thành "offline" khi bị đá khỏi phòng
+                    await UserStatusManager.Instance.UpdateUserStatus(userId, "offline");
+
                     MessageBox.Show("Thành viên đã bị đá khỏi phòng!");
                     LoadParticipants(); // Tải lại danh sách thành viên
                 }

@@ -10,6 +10,7 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.Security.Cryptography;
 using Google.Cloud.Firestore;
+using Microsoft.VisualBasic.ApplicationServices;
 
 
 namespace PomoMeetApp.View
@@ -87,7 +88,8 @@ namespace PomoMeetApp.View
                     MessageBox.Show("Mật khẩu không chính xác.");
                 }
             }
-
+            // Cập nhật trạng thái thành "offline" khi bị đá khỏi phòng
+            await UserStatusManager.Instance.UpdateUserStatus(currentUserId, "in call");
         }
 
         private async Task<RoomData> GetRoomByroomId(string roomId)

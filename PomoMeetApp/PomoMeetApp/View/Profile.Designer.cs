@@ -70,9 +70,9 @@
             siticoneLabel1.ForeColor = Color.DarkSeaGreen;
             siticoneLabel1.Location = new Point(339, 227);
             siticoneLabel1.Name = "siticoneLabel1";
-            siticoneLabel1.Size = new Size(169, 43);
+            siticoneLabel1.Size = new Size(232, 43);
             siticoneLabel1.TabIndex = 7;
-            siticoneLabel1.Text = "Username";
+            siticoneLabel1.Text = "Tên đăng nhập";
             // 
             // siticoneLabel2
             // 
@@ -94,7 +94,7 @@
             siticoneLabel4.Name = "siticoneLabel4";
             siticoneLabel4.Size = new Size(279, 47);
             siticoneLabel4.TabIndex = 10;
-            siticoneLabel4.Text = "New password";
+            siticoneLabel4.Text = "Mật khẩu mới";
             // 
             // siticoneLabel5
             // 
@@ -103,9 +103,9 @@
             siticoneLabel5.ForeColor = Color.DarkSeaGreen;
             siticoneLabel5.Location = new Point(339, 585);
             siticoneLabel5.Name = "siticoneLabel5";
-            siticoneLabel5.Size = new Size(279, 36);
+            siticoneLabel5.Size = new Size(296, 36);
             siticoneLabel5.TabIndex = 11;
-            siticoneLabel5.Text = "Confirm password";
+            siticoneLabel5.Text = "Xác nhận mật khẩu";
             // 
             // tbUsername
             // 
@@ -336,7 +336,7 @@
             siticoneLabel7.Name = "siticoneLabel7";
             siticoneLabel7.Size = new Size(323, 64);
             siticoneLabel7.TabIndex = 24;
-            siticoneLabel7.Text = "Your Profile";
+            siticoneLabel7.Text = "Hồ sơ";
             siticoneLabel7.TextAlign = ContentAlignment.MiddleCenter;
             // 
             // lbl_Username
@@ -344,11 +344,11 @@
             lbl_Username.BackColor = Color.Transparent;
             lbl_Username.Font = new Font("Inter", 28F, FontStyle.Bold);
             lbl_Username.ForeColor = Color.DarkSeaGreen;
-            lbl_Username.Location = new Point(785, 324);
+            lbl_Username.Location = new Point(691, 324);
             lbl_Username.Name = "lbl_Username";
-            lbl_Username.Size = new Size(294, 70);
+            lbl_Username.Size = new Size(388, 70);
             lbl_Username.TabIndex = 26;
-            lbl_Username.Text = "Username";
+            lbl_Username.Text = "Tên đăng nhập";
             lbl_Username.TextAlign = ContentAlignment.MiddleCenter;
             // 
             // siticoneLabel9
@@ -378,7 +378,7 @@
             // btnSave
             // 
             btnSave.AccessibleDescription = "The default button control that accept input though the mouse, touch and keyboard";
-            btnSave.AccessibleName = "Save Changes";
+            btnSave.AccessibleName = "Lưu thay đổi";
             btnSave.AutoSizeBasedOnText = false;
             btnSave.BackColor = Color.Transparent;
             btnSave.BadgeBackColor = Color.Red;
@@ -444,7 +444,7 @@
             btnSave.ShakeIntensity = 5;
             btnSave.Size = new Size(146, 49);
             btnSave.TabIndex = 29;
-            btnSave.Text = "Save Changes";
+            btnSave.Text = "Lưu thay đổi";
             btnSave.TextAlign = ContentAlignment.MiddleCenter;
             btnSave.TextColor = Color.White;
             btnSave.TooltipText = null;

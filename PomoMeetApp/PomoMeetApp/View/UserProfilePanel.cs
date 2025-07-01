@@ -159,6 +159,7 @@ namespace PomoMeetApp.View
                 MessageBox.Show("User ID is not set. Please log in first.");
             }
         }
+
         private int _notificationCountBackingField = 0;
         private int NotificationCount
         {

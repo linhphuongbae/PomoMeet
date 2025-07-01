@@ -12,7 +12,7 @@ using FirebaseAdmin;
 using Google.Cloud.Firestore;
 using PomoMeetApp.Classes;
 using static PomoMeetApp.View.CreateRoom;
-
+    
 namespace PomoMeetApp.View
 {
     public partial class RoomRequests : Form
@@ -216,6 +216,8 @@ namespace PomoMeetApp.View
 
             this.Hide(); // Ẩn RoomRequests trước
             _createRoom.Hide(); // Ẩn CreateRoom trước
+
+            await UserStatusManager.Instance.UpdateUserStatus(_currentUserId, "online");
 
             var meetingRoom = new MeetingRoom(_currentUserId, _roomId);
             meetingRoom.ShowDialog(); // Chặn cho đến khi user đóng MeetingRoom

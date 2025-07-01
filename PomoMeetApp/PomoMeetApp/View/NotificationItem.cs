@@ -1,4 +1,5 @@
 ﻿using Google.Cloud.Firestore;
+using Microsoft.VisualBasic.ApplicationServices;
 using PomoMeetApp.Classes;
 using System;
 using System.Drawing;
@@ -48,6 +49,9 @@ namespace PomoMeetApp.View
 
                 // Update the invitation status to "Accepted"
                 await docRef.UpdateAsync("status", "Accepted");
+
+                // Set user status to online when they accept the invitation
+                await UserStatusManager.Instance.UpdateUserStatus(currentUserId, "online");
 
                 OpenMeetingRoom(currentUserId, roomId);
             });

@@ -1,27 +1,16 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows.Forms;
-using Google.Cloud.Firestore;
-using PomoMeetApp.Classes;
-using Google.Apis.Auth.OAuth2;
+﻿using Google.Apis.Auth.OAuth2;
+using Google.Apis.Oauth2.v2;
 using Google.Apis.Services;
 using Google.Apis.Util.Store;
-using Google.Apis.Oauth2.v2;
-using Google.Apis.Oauth2.v2.Data;
-using Microsoft.VisualBasic.ApplicationServices;
-using SiticoneNetCoreUI;
+using Google.Cloud.Firestore;
+using PomoMeetApp.Classes;
 
 namespace PomoMeetApp.View
 {
     public partial class SignIn : Form
     {
         private string username = "";
+        private string userId = "";
         public SignIn()
         {
             InitializeComponent();
@@ -45,12 +34,12 @@ namespace PomoMeetApp.View
 
                 if (qr.Count == 0)
                 {
-                    MessageBox.Show("Username doesn't exist", "Warning", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                    MessageBox.Show("Tên tài khoản không tồn tại.", "Warning", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                     return;
                 }
 
-                DocumentSnapshot snapshot = qr.Documents[0];
-                UserData data = snapshot.ConvertTo<UserData>();
+                DocumentSnapshot snapshot = qr.Documents[0]; // Lấy doc dầu tiên
+                UserData data = snapshot.ConvertTo<UserData>(); // Chuyển đổi thành đối tượng
                 string userId = snapshot.Id; // Lấy document ID (sẽ là userId)
                 UserSession.CurrentUser = data;
 
@@ -59,6 +48,7 @@ namespace PomoMeetApp.View
                     if (password == Security.Decrypt(data.Password))
                     {
                         MessageBox.Show("Login successful!", "Success", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                        await UserStatusManager.Instance.UpdateUserStatus(userId, "online");
                     }
                     else
                     {
@@ -136,6 +126,8 @@ namespace PomoMeetApp.View
                     userId = emailQuerySnapshot.Documents[0].Id;
                     MessageBox.Show("Success Login using Gmail!", "Success", MessageBoxButtons.OK, MessageBoxIcon.Information);
                 }
+                // Update user status to "online" when Gmail login is successful
+                await UserStatusManager.Instance.UpdateUserStatus(userId, "online");
 
                 await FormTransition.FadeTo(this, new Dashboard(userId));
             }
@@ -192,6 +184,17 @@ namespace PomoMeetApp.View
 
             ForgetPasswd fg = new ForgetPasswd();
             fg.Show(this);
+        }
+
+        // Override the form closing event to update user status to "offline"
+        protected override async void OnFormClosing(FormClosingEventArgs e)
+        {
+            base.OnFormClosing(e);
+
+            if (UserSession.CurrentUser != null)
+            {
+                await UserStatusManager.Instance.UpdateUserStatus(userId, "offline");
+            }
         }
     }
 }

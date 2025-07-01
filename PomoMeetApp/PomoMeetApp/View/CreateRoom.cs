@@ -128,6 +128,9 @@ namespace PomoMeetApp.View
            
             if(roomInfo != null)
             {
+                // Cập nhật trạng thái người dùng thành "online" bằng Singleton
+                await UserStatusManager.Instance.UpdateUserStatus(currentUserId, "in call");
+
                 MeetingRoom meetingRoom = new MeetingRoom(currentUserId, roomInfo.RoomId);
                 meetingRoom.ShowDialog();
 

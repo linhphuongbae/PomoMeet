@@ -718,7 +718,7 @@
             // siticoneButton8
             // 
             siticoneButton8.AccessibleDescription = "The default button control that accept input though the mouse, touch and keyboard";
-            siticoneButton8.AccessibleName = "Dashboard";
+            siticoneButton8.AccessibleName = "Trang chủ";
             siticoneButton8.AutoSizeBasedOnText = false;
             siticoneButton8.BackColor = Color.Transparent;
             siticoneButton8.BadgeBackColor = Color.Red;
@@ -785,7 +785,7 @@
             siticoneButton8.ShakeIntensity = 5;
             siticoneButton8.Size = new Size(184, 62);
             siticoneButton8.TabIndex = 1;
-            siticoneButton8.Text = "Dashboard";
+            siticoneButton8.Text = "Trang chủ";
             siticoneButton8.TextAlign = ContentAlignment.MiddleLeft;
             siticoneButton8.TextColor = Color.FromArgb(252, 255, 224);
             siticoneButton8.TooltipText = null;
