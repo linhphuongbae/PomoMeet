@@ -71,6 +71,8 @@ namespace PomoMeetApp.View
 
         private int breakDuration;  // Break minutes
         private bool isBreakTime;
+        private readonly object memberStatesLock = new object();
+
 
         public MeetingRoom(string userId, string roomId)
         {
@@ -322,34 +324,48 @@ namespace PomoMeetApp.View
                     return;
                 }
 
-                // Xóa những user không còn trong Firestore
-                var currentIds = new HashSet<string>(membersStatus.Keys);
-                var keysToRemove = memberStates.Keys.Where(id => !currentIds.Contains(id)).ToList();
-                foreach (var id in keysToRemove)
+                lock (memberStatesLock)
                 {
-                    memberStates.Remove(id);
-                }
+                    // Xóa những user không còn trong Firestore
+                    var currentIds = new HashSet<string>(membersStatus.Keys);
+                    var keysToRemove = memberStates.Keys.Where(id => !currentIds.Contains(id)).ToList();
 
-                // Cập nhật trạng thái từng người hiện tại
-                foreach (var entry in membersStatus)
-                {
-                    string userId = entry.Key;
-                    var data = entry.Value as Dictionary<string, object>;
-                    if (data == null) continue;
-
-                    bool cameraOn = data.ContainsKey("camera_on") && Convert.ToBoolean(data["camera_on"]);
-                    bool micOn = data.ContainsKey("mic_on") && Convert.ToBoolean(data["mic_on"]);
-                    bool speakerOn = data.ContainsKey("speaker_on") && Convert.ToBoolean(data["speaker_on"]);
-
-                    memberStates[userId] = new MemberState
+                    foreach (var id in keysToRemove)
                     {
-                        UserId = userId,
-                        CameraOn = cameraOn,
-                        MicOn = micOn,
-                        SpeakerOn = speakerOn
-                    };
+                        memberStates.Remove(id);
+                    }
+
+                    // Cập nhật trạng thái từng người hiện tại
+                    foreach (var entry in membersStatus)
+                    {
+                        string userId = entry.Key;
+                        var data = entry.Value as Dictionary<string, object>;
+                        if (data == null) continue;
+
+                        bool cameraOn = data.ContainsKey("camera_on") && Convert.ToBoolean(data["camera_on"]);
+                        bool micOn = data.ContainsKey("mic_on") && Convert.ToBoolean(data["mic_on"]);
+                        bool speakerOn = data.ContainsKey("speaker_on") && Convert.ToBoolean(data["speaker_on"]);
+
+                        memberStates[userId] = new MemberState
+                        {
+                            UserId = userId,
+                            CameraOn = cameraOn,
+                            MicOn = micOn,
+                            SpeakerOn = speakerOn
+                        };
+                    }
                 }
-                var copy = new Dictionary<string, MemberState>(memberStates);
+
+                // Sau khi update xong, tạo bản sao an toàn để dùng
+                var copy = new Dictionary<string, MemberState>();
+                lock (memberStatesLock)
+                {
+                    foreach (var kvp in memberStates)
+                    {
+                        copy[kvp.Key] = kvp.Value;
+                    }
+                }
+
                 SafeInvoke(() =>
                 {
                     _ = UpdateUIAsync(copy, db);
@@ -656,8 +672,6 @@ namespace PomoMeetApp.View
             // 3. Gán handler event
             rtcEngine.InitEventHandler(handler);
 
-            // 4. Cấu hình video
-            rtcEngine.EnableVideo();
             rtcEngine.EnableAudio();
 
             var videoDeviceManager = rtcEngine.GetVideoDeviceManager();
@@ -677,9 +691,14 @@ namespace PomoMeetApp.View
                 dimensions = new VideoDimensions(640, 480),
                 frameRate = 15,
                 bitrate = 400,
-                orientationMode = ORIENTATION_MODE.ORIENTATION_MODE_ADAPTIVE
+                orientationMode = ORIENTATION_MODE.ORIENTATION_MODE_ADAPTIVE,
+                mirrorMode = VIDEO_MIRROR_MODE_TYPE.VIDEO_MIRROR_MODE_DISABLED
             };
             rtcEngine.SetVideoEncoderConfiguration(videoConfig);
+
+            rtcEngine.SetLocalRenderMode(RENDER_MODE_TYPE.RENDER_MODE_FIT,
+                                         VIDEO_MIRROR_MODE_TYPE.VIDEO_MIRROR_MODE_ENABLED);
+
 
             // 6. Cấu hình channel profile và client role
             rtcEngine.SetChannelProfile(CHANNEL_PROFILE_TYPE.CHANNEL_PROFILE_COMMUNICATION);
@@ -904,17 +923,19 @@ namespace PomoMeetApp.View
                 if (userId == currentUserId)
                 {
                     // Xử lý video local
+                    rtcEngine.EnableVideo();
+
                     var videoCanvas = new VideoCanvas
                     {
                         uid = uid,
                         renderMode = RENDER_MODE_TYPE.RENDER_MODE_FIT,
-                        view = panel.Handle
+                        view = panel.Handle,
+                        mirrorMode = VIDEO_MIRROR_MODE_TYPE.VIDEO_MIRROR_MODE_DISABLED
                     };
 
                     int setupResult = rtcEngine.SetupLocalVideo(videoCanvas);
                     Debug.WriteLine($"SetupLocalVideo result: {setupResult}");
 
-                    // Bật preview và unmute local video
                     rtcEngine.StartPreview();
                     rtcEngine.MuteLocalVideoStream(false);
                 }
@@ -925,7 +946,8 @@ namespace PomoMeetApp.View
                     {
                         uid = uid,
                         renderMode = RENDER_MODE_TYPE.RENDER_MODE_FIT,
-                        view = panel.Handle
+                        view = panel.Handle,
+                        mirrorMode = VIDEO_MIRROR_MODE_TYPE.VIDEO_MIRROR_MODE_DISABLED
                     };
 
                     int result = rtcEngine.SetupRemoteVideo(remoteVideoCanvas);
@@ -953,6 +975,8 @@ namespace PomoMeetApp.View
                         view = IntPtr.Zero
                     };
                     rtcEngine.SetupLocalVideo(emptyCanvas);
+
+                    rtcEngine.DisableVideo();
                 }
                 else
                 {
@@ -1083,12 +1107,15 @@ namespace PomoMeetApp.View
             // Xử lý bật/tắt camera ngay lập tức
             if (newCameraState)
             {
+                rtcEngine.EnableVideo();
                 rtcEngine.MuteLocalVideoStream(false);
+                rtcEngine.StartPreview();
             }
             else
             {
-                rtcEngine.MuteLocalVideoStream(true);
                 rtcEngine.StopPreview();
+                rtcEngine.MuteLocalVideoStream(true);
+                rtcEngine.DisableVideo();
             }
         }
         class MemberState
@@ -1274,54 +1301,6 @@ namespace PomoMeetApp.View
             });
         }
 
-        private async Task LeaveRoom()
-        {
-            isLeavingRoom = true;
-            try
-            {
-                var db = FirebaseConfig.database;
-                var roomRef = db.Collection("Room").Document(currentroomId);
-
-                var snapshot = await roomRef.GetSnapshotAsync();
-
-                // Nếu phòng đã bị xóa bởi host thì không cần cập nhật trạng thái
-                bool deletedByHost = false;
-                if (snapshot.TryGetValue("deleted_by_host", out bool flag))
-                {
-                    deletedByHost = flag;
-                }
-
-                if (!snapshot.Exists || deletedByHost)
-                {
-                    return;
-                }
-
-                // Cập nhật trạng thái trước khi xóa
-                var updates = new Dictionary<string, object>
-                {
-                    { $"members_status.{currentUserId}.is_leaving", true }
-                };
-                await roomRef.UpdateAsync(updates);
-
-                // Xóa user khỏi phòng
-                updates = new Dictionary<string, object>
-                {
-                    { $"members_status.{currentUserId}", FieldValue.Delete }
-                };
-                await roomRef.UpdateAsync(updates);
-
-                rtcEngine.LeaveChannel();
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show($"Lỗi khi rời phòng: {ex.Message}", "Lỗi", MessageBoxButtons.OK, MessageBoxIcon.Error);
-            }
-            finally
-            {
-                isLeavingRoom = false;
-            }
-        }
-
         // Class event handler
         public class MyRtcEngineEventHandler : RtcEngineEventHandler
         {
@@ -1432,51 +1411,156 @@ namespace PomoMeetApp.View
             }
         }
 
-        private async void SendNotificationToMember(string memberId)
+        private async Task LeaveRoom()
         {
+            isLeavingRoom = true;
             try
             {
                 var db = FirebaseConfig.database;
-                var notificationsRef = db.Collection("Notifications").Document(memberId);
+                var roomRef = db.Collection("Room").Document(currentroomId);
 
-                await notificationsRef.SetAsync(new
+                var snapshot = await roomRef.GetSnapshotAsync();
+
+                // Nếu phòng đã bị xóa bởi host thì không cần cập nhật trạng thái
+                bool deletedByHost = false;
+                if (snapshot.TryGetValue("deleted_by_host", out bool flag))
                 {
-                    message = "Phòng họp đã bị đóng bởi host",
-                    roomId = currentroomId,
-                    timestamp = FieldValue.ServerTimestamp,
-                    isRead = false
-                }, SetOptions.MergeAll);
+                    deletedByHost = flag;
+                }
+
+                if (!snapshot.Exists || deletedByHost)
+                {
+                    // Vẫn cần cleanup Agora resources
+                    CleanupAgoraResources();
+                    return;
+                }
+
+                // Cập nhật trạng thái trước khi xóa
+                var updates = new Dictionary<string, object>
+        {
+            { $"members_status.{currentUserId}.is_leaving", true }
+        };
+                await roomRef.UpdateAsync(updates);
+
+                // Xóa user khỏi phòng
+                updates = new Dictionary<string, object>
+        {
+            { $"members_status.{currentUserId}", FieldValue.Delete }
+        };
+                await roomRef.UpdateAsync(updates);
+
+                // Cleanup Agora resources
+                CleanupAgoraResources();
             }
             catch (Exception ex)
             {
-                Debug.WriteLine($"Lỗi khi gửi thông báo: {ex.Message}");
+                MessageBox.Show($"Lỗi khi rời phòng: {ex.Message}", "Lỗi", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                // Vẫn cần cleanup ngay cả khi có lỗi
+                CleanupAgoraResources();
+            }
+            finally
+            {
+                isLeavingRoom = false;
             }
         }
-        protected override async void OnFormClosing(FormClosingEventArgs e)
+        private void CleanupAgoraResources()
         {
-            if (e.CloseReason == CloseReason.UserClosing && !isLeavingRoom)
-            {
-                e.Cancel = true;
-                isLeavingRoom = true;
-                sbtn_CancelCall.PerformClick();
-                return;
-            }
-
-            // Cleanup
             try
             {
-                roomListener?.StopAsync();
-                messageListener?.StopAsync();
                 if (rtcEngine != null)
                 {
+                    Debug.WriteLine("Cleaning up Agora resources...");
+
+                    // Tắt camera và mic trước khi leave channel
+                    rtcEngine.MuteLocalVideoStream(true);
+                    rtcEngine.MuteLocalAudioStream(true);
+
+                    // Disable video và audio
+                    rtcEngine.DisableVideo();
+                    rtcEngine.DisableAudio();
+
+                    // Leave channel
                     rtcEngine.LeaveChannel();
+
+                    // Dispose engine
                     rtcEngine.Dispose();
                     rtcEngine = null;
+
+                    Debug.WriteLine("Agora resources cleaned up successfully");
                 }
             }
             catch (Exception ex)
             {
-                Debug.WriteLine($"Error during cleanup: {ex.Message}");
+                Debug.WriteLine($"Error cleaning up Agora resources: {ex.Message}");
+            }
+        }
+        private async void SendNotificationToMember(string memberId)
+            {
+                try
+                {
+                    var db = FirebaseConfig.database;
+                    var notificationsRef = db.Collection("Notifications").Document(memberId);
+
+                    await notificationsRef.SetAsync(new
+                    {
+                        message = "Phòng họp đã bị đóng bởi host",
+                        roomId = currentroomId,
+                        timestamp = FieldValue.ServerTimestamp,
+                        isRead = false
+                    }, SetOptions.MergeAll);
+                }
+                catch (Exception ex)
+                {
+                    Debug.WriteLine($"Lỗi khi gửi thông báo: {ex.Message}");
+                }
+            }
+        protected override void OnFormClosing(FormClosingEventArgs e)
+        {
+            // Chỉ xử lý khi user click X để đóng form
+            if (e.CloseReason == CloseReason.UserClosing && !isLeavingRoom)
+            {
+                e.Cancel = true; // Ngăn form đóng tạm thời
+
+                // Đảm bảo chạy trên UI thread
+                _ = Task.Run(async () =>
+                {
+                    try
+                    {
+                        bool shouldClose = await HandleCancelCallAsync();
+
+                        // Luôn luôn invoke về UI thread để đóng form
+                        this.Invoke(() =>
+                        {
+                            if (shouldClose)
+                            {
+                                isLeavingRoom = true; // Set flag để tránh loop
+                                this.Close(); // Đóng form thực sự
+                            }
+                            else
+                            {
+                                isLeavingRoom = false; // Reset flag nếu user hủy
+                            }
+                        });
+                    }
+                    catch (Exception ex)
+                    {
+                        // Hiển thị lỗi trên UI thread
+                        this.Invoke(() =>
+                        {
+                            MessageBox.Show($"Lỗi khi đóng form: {ex.Message}", "Lỗi",
+                                          MessageBoxButtons.OK, MessageBoxIcon.Error);
+                            isLeavingRoom = false; // Reset flag
+                        });
+                    }
+                });
+
+                return;
+            }
+
+            // Cleanup khi form thực sự đóng
+            if (e.CloseReason != CloseReason.UserClosing)
+            {
+                CleanupAgoraResources();
             }
 
             base.OnFormClosing(e);
@@ -1484,94 +1568,197 @@ namespace PomoMeetApp.View
 
         private async void sbtn_CancelCall_Click(object sender, EventArgs e)
         {
-
-            // Kiểm tra nếu người dùng là host
-            if (currentUserId == hostId)
+            try
             {
-                // Hiển thị thông báo xác nhận xóa phòng
-                var result = MessageBox.Show("Bạn là host. Bạn có muốn xóa phòng không? Tất cả thành viên sẽ bị rời phòng.",
-                                             "Xác nhận xóa phòng",
-                                             MessageBoxButtons.YesNo,
-                                             MessageBoxIcon.Warning);
-
-                if (result == DialogResult.Yes)
+                bool result = await HandleCancelCallAsync();
+                if (result)
                 {
-                    // Đánh dấu phòng bị xóa bởi host
-                    await MarkRoomAsDeletedByHost();
+                    isLeavingRoom = true;
+                    this.Close();
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"Lỗi: {ex.Message}", "Lỗi", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                // Cleanup ngay cả khi có lỗi
+                CleanupAgoraResources();
+                isLeavingRoom = false;
+            }
+        }
 
+        private async Task<bool> HandleCancelCallAsync()
+        {
+            // Kiểm tra trạng thái trước khi xử lý
+            if (isLeavingRoom)
+            {
+                Debug.WriteLine("Already leaving room, skipping...");
+                return false;
+            }
+
+            isLeavingRoom = true;
+
+            try
+            {
+                if (currentUserId == hostId)
+                {
+                    // Sử dụng Invoke để đảm bảo MessageBox hiển thị trên UI thread
+                    DialogResult result = DialogResult.No;
+
+                    if (this.InvokeRequired)
+                    {
+                        this.Invoke(() =>
+                        {
+                            result = MessageBox.Show("Bạn là host. Bạn có muốn xóa phòng không? Tất cả thành viên sẽ bị rời phòng.",
+                                                   "Xác nhận xóa phòng",
+                                                   MessageBoxButtons.YesNo,
+                                                   MessageBoxIcon.Warning);
+                        });
+                    }
+                    else
+                    {
+                        result = MessageBox.Show("Bạn là host. Bạn có muốn xóa phòng không? Tất cả thành viên sẽ bị rời phòng.",
+                                               "Xác nhận xóa phòng",
+                                               MessageBoxButtons.YesNo,
+                                               MessageBoxIcon.Warning);
+                    }
+
+                    if (result != DialogResult.Yes)
+                    {
+                        isLeavingRoom = false; // Reset flag
+                        return false; // User hủy, không đóng form
+                    }
+
+                    // Debug log để kiểm tra
+                    Debug.WriteLine("Host confirmed deletion, proceeding...");
+
+                    await MarkRoomAsDeletedByHost();
                     await DeleteRoomFromFirestore();
-                    await DeleteInvitationsOfRoom(currentroomId); // Xoa cac loi moi cua host doi voi nhung nguoi chua vao phong
+                    await DeleteInvitationsOfRoom(currentroomId);
                     NotifyMembersRoomClosed();
 
-                    isLeavingRoom = true;
-                    this.Close();
+                    // Cleanup Agora resources cho host
+                    CleanupAgoraResources();
+
+                    Debug.WriteLine("Room deletion completed successfully");
                 }
-
-            }
-            else
-            {
-                var result = MessageBox.Show("Bạn có chắc muốn rời phòng?", "Xác nhận",
-                                           MessageBoxButtons.YesNo, MessageBoxIcon.Question);
-
-                if (result == DialogResult.Yes)
+                else
                 {
-                    // Rời phòng
-                    await LeaveRoom();
+                    // Tương tự cho member
+                    DialogResult result = DialogResult.No;
 
-                    isLeavingRoom = true;
-                    this.Close();
+                    if (this.InvokeRequired)
+                    {
+                        this.Invoke(() =>
+                        {
+                            result = MessageBox.Show("Bạn có chắc muốn rời phòng?", "Xác nhận",
+                                                   MessageBoxButtons.YesNo, MessageBoxIcon.Question);
+                        });
+                    }
+                    else
+                    {
+                        result = MessageBox.Show("Bạn có chắc muốn rời phòng?", "Xác nhận",
+                                               MessageBoxButtons.YesNo, MessageBoxIcon.Question);
+                    }
+
+                    if (result != DialogResult.Yes)
+                    {
+                        isLeavingRoom = false; // Reset flag
+                        return false; // User hủy, không đóng form
+                    }
+
+                    await LeaveRoom();
                 }
+
+                return true; // Xác nhận đóng form
+            }
+            catch (Exception ex)
+            {
+                Debug.WriteLine($"Error in HandleCancelCallAsync: {ex.Message}");
+                Debug.WriteLine($"Stack trace: {ex.StackTrace}");
+
+                // Hiển thị lỗi trên UI thread
+                if (this.InvokeRequired)
+                {
+                    this.Invoke(() =>
+                    {
+                        MessageBox.Show($"Lỗi: {ex.Message}", "Lỗi", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    });
+                }
+                else
+                {
+                    MessageBox.Show($"Lỗi: {ex.Message}", "Lỗi", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                }
+
+                // Cleanup ngay cả khi có lỗi
+                CleanupAgoraResources();
+
+                isLeavingRoom = false; // Reset flag khi có lỗi
+                return false;
             }
         }
         private async Task MarkRoomAsDeletedByHost()
         {
             try
             {
+                Debug.WriteLine($"Marking room {currentroomId} as deleted by host...");
+
                 var db = FirebaseConfig.database;
                 var roomRef = db.Collection("Room").Document(currentroomId);
 
                 await roomRef.UpdateAsync(new Dictionary<string, object>
-                {
-                    { "deleted_by_host", true } // Đánh dấu phòng bị xóa bởi host
-                });
+        {
+            { "deleted_by_host", true }, // Đánh dấu phòng bị xóa bởi host
+            { "deleted_at", FieldValue.ServerTimestamp } // Thêm timestamp
+        });
+
+                Debug.WriteLine("Room marked as deleted successfully");
             }
             catch (Exception ex)
             {
                 Debug.WriteLine($"Lỗi khi đánh dấu phòng bị xóa: {ex.Message}");
+                throw; // Re-throw để được xử lý ở caller
             }
         }
+
         private async Task DeletePomodoroSession()
         {
             try
             {
+                Debug.WriteLine($"Deleting Pomodoro session for room {currentroomId}...");
+
                 var db = FirebaseConfig.database;
                 await db.Collection("Pomodoro_Sessions").Document(currentroomId).DeleteAsync();
+
+                Debug.WriteLine("Pomodoro session deleted successfully");
             }
             catch (Exception ex)
             {
                 Debug.WriteLine($"Lỗi khi xóa Pomodoro_Session: {ex.Message}");
+                throw; // Re-throw để được xử lý ở caller
             }
         }
+
         private async Task DeleteRoomFromFirestore()
         {
-            isLeavingRoom = true; // Đánh dấu đang rời phòng
-
             try
             {
+                Debug.WriteLine($"Deleting room {currentroomId} from Firestore...");
+
                 FirestoreDb db = FirebaseConfig.database;
                 DocumentReference roomRef = db.Collection("Room").Document(currentroomId);
-                await roomRef.DeleteAsync();
-                await DeletePomodoroSession();
+
+                await DeletePomodoroSession(); // Xóa session trước
+                await roomRef.DeleteAsync(); // Sau đó xóa room
+
+                Debug.WriteLine("Room deleted successfully from Firestore");
             }
             catch (Exception ex)
             {
-                MessageBox.Show($"Lỗi khi xóa phòng: {ex.Message}", "Lỗi", MessageBoxButtons.OK, MessageBoxIcon.Error);
-            }
-            finally
-            {
-                isLeavingRoom = false;
+                Debug.WriteLine($"Lỗi khi xóa phòng: {ex.Message}");
+                throw; // Re-throw để được xử lý ở caller
             }
         }
+
         private void tableLayoutPanel1_Paint(object sender, PaintEventArgs e)
         {
 
