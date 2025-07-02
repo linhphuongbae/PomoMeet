@@ -1501,25 +1501,25 @@ namespace PomoMeetApp.View
             }
         }
         private async void SendNotificationToMember(string memberId)
+        {
+            try
             {
-                try
-                {
-                    var db = FirebaseConfig.database;
-                    var notificationsRef = db.Collection("Notifications").Document(memberId);
+                var db = FirebaseConfig.database;
+                var notificationsRef = db.Collection("Notifications").Document(memberId);
 
-                    await notificationsRef.SetAsync(new
-                    {
-                        message = "Phòng họp đã bị đóng bởi host",
-                        roomId = currentroomId,
-                        timestamp = FieldValue.ServerTimestamp,
-                        isRead = false
-                    }, SetOptions.MergeAll);
-                }
-                catch (Exception ex)
+                await notificationsRef.SetAsync(new
                 {
-                    Debug.WriteLine($"Lỗi khi gửi thông báo: {ex.Message}");
-                }
+                    message = "Phòng họp đã bị đóng bởi host",
+                    roomId = currentroomId,
+                    timestamp = FieldValue.ServerTimestamp,
+                    isRead = false
+                }, SetOptions.MergeAll);
             }
+            catch (Exception ex)
+            {
+                Debug.WriteLine($"Lỗi khi gửi thông báo: {ex.Message}");
+            }
+        }
         protected override void OnFormClosing(FormClosingEventArgs e)
         {
             // Chỉ xử lý khi user click X để đóng form
@@ -1780,12 +1780,12 @@ namespace PomoMeetApp.View
             {
                 string messageId = Guid.NewGuid().ToString();
                 var message = new Dictionary<string, object>
-                {
-                    { "room_id", currentroomId },
-                    { "user_id", currentUserId },
-                    { "message", msg },
-                    { "created_at", Timestamp.GetCurrentTimestamp() }
-                };
+            {
+                { "room_id", currentroomId },
+                { "user_id", currentUserId },
+                { "message", msg },
+                { "created_at", Timestamp.GetCurrentTimestamp() }
+            };
                 var db = FirebaseConfig.database;
                 var messageRef = db.Collection("Messages").Document(messageId);
                 await messageRef.SetAsync(message);
@@ -1796,8 +1796,10 @@ namespace PomoMeetApp.View
             {
                 MessageBox.Show($"Error sending message: {ex.Message}", "btnSendMessages_Click", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
+
         }
-        
+
+
         // hàm lấy realtime message
         private void ListenMessage()
         {
@@ -1817,45 +1819,46 @@ namespace PomoMeetApp.View
             {
                 if (isLeavingRoom) return;
 
-                    var db = FirebaseConfig.database;
+                var db = FirebaseConfig.database;
 
-                    foreach (var change in snapshot.Changes)
+                foreach (var change in snapshot.Changes)
+                {
+                    if (change.ChangeType != DocumentChange.Type.Added)
+                        continue;
+                    var doc = change.Document;
+                    var messageData = doc.ToDictionary();
+                    string userId = messageData.GetValueOrDefault("user_id", "").ToString();
+                    string messageText = messageData.GetValueOrDefault("message", "").ToString();
+                    var createdAt = messageData.ContainsKey("created_at") && messageData["created_at"] is Timestamp
+                        ? ((Timestamp)messageData["created_at"]).ToDateTime().ToString("HH:mm")
+                        : DateTime.Now.ToString("HH:mm");
+
+                    string username = "Unknown";
+                    try
                     {
-                        if (change.ChangeType != DocumentChange.Type.Added)
-                            continue;
-                        var doc = change.Document;
-                        var messageData = doc.ToDictionary();
-                        string userId = messageData.GetValueOrDefault("user_id", "").ToString();
-                        string messageText = messageData.GetValueOrDefault("message", "").ToString();
-                        var createdAt = messageData.ContainsKey("created_at") && messageData["created_at"] is Timestamp
-                            ? ((Timestamp)messageData["created_at"]).ToDateTime().ToString("HH:mm")
-                            : DateTime.Now.ToString("HH:mm");
-
-                        string username = "Unknown";
-                        try
-                        {
-                            var userRef = db.Collection("User").Document(userId);
-                            var userDoc = await userRef.GetSnapshotAsync();
-                            if (userDoc.Exists)
-                                username = userDoc.GetValue<string>("Username") ?? "Unknown";
-                        }
-                        catch (Exception ex) {
-                            MessageBox.Show($"Lỗi khi truy vấn Firestore:\n{ex.Message}", "Lỗi Firestore", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                        }
-
-                        this.Invoke(new Action(() =>
-                        {
-                            if (tbDisplayMsg == null || tbDisplayMsg.IsDisposed) return;
-
-                            tbDisplayMsg.SelectionStart = tbDisplayMsg.TextLength;
-                            tbDisplayMsg.SelectionColor = userId == currentUserId ? Color.Blue : Color.Black;
-                            tbDisplayMsg.AppendText($"[{createdAt}] {username}: {messageText}\n");
-
-                            tbDisplayMsg.SelectionStart = tbDisplayMsg.Text.Length;
-                            tbDisplayMsg.ScrollToCaret();
-                        }));
+                        var userRef = db.Collection("User").Document(userId);
+                        var userDoc = await userRef.GetSnapshotAsync();
+                        if (userDoc.Exists)
+                            username = userDoc.GetValue<string>("Username") ?? "Unknown";
                     }
-                });
+                    catch (Exception ex)
+                    {
+                        MessageBox.Show($"Lỗi khi truy vấn Firestore:\n{ex.Message}", "Lỗi Firestore", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    }
+
+                    this.Invoke(new Action(() =>
+                    {
+                        if (tbDisplayMsg == null || tbDisplayMsg.IsDisposed) return;
+
+                        tbDisplayMsg.SelectionStart = tbDisplayMsg.TextLength;
+                        tbDisplayMsg.SelectionColor = userId == currentUserId ? Color.Blue : Color.Black;
+                        tbDisplayMsg.AppendText($"[{createdAt}] {username}: {messageText}\n");
+
+                        tbDisplayMsg.SelectionStart = tbDisplayMsg.Text.Length;
+                        tbDisplayMsg.ScrollToCaret();
+                    }));
+                }
+            });
         }
 
         private async void btn_Start_Click(object sender, EventArgs e)
@@ -2155,5 +2158,7 @@ namespace PomoMeetApp.View
         { "is_running", false }
     });
         }
+
+
     }
 }
