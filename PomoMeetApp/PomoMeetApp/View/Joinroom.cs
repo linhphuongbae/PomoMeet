@@ -138,7 +138,7 @@ namespace PomoMeetApp.View
                 // Tạo thông tin trạng thái mặc định của thành viên
                 Dictionary<string, object> memberData = new Dictionary<string, object>
                 {
-                    { "camera_on", false },
+                    { "camera_on", true },
                     { "mic_on", false },
                     { "speaker_on", true },
                     { "user_id", currentUserId },

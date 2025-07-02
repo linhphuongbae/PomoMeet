@@ -672,13 +672,14 @@ namespace PomoMeetApp.View
             // 3. Gán handler event
             rtcEngine.InitEventHandler(handler);
 
+            // 4. Chỉ enable audio trước, video sẽ enable sau khi join
             rtcEngine.EnableAudio();
 
             var videoDeviceManager = rtcEngine.GetVideoDeviceManager();
             var devices = videoDeviceManager.EnumerateVideoDevices();
             foreach (var device in devices)
             {
-                if (device.deviceName.ToLower().Contains("obs"))
+                if (!device.deviceName.ToLower().Contains("obs"))
                 {
                     videoDeviceManager.SetDevice(device.deviceId);
                     break;
@@ -698,7 +699,6 @@ namespace PomoMeetApp.View
 
             rtcEngine.SetLocalRenderMode(RENDER_MODE_TYPE.RENDER_MODE_FIT,
                                          VIDEO_MIRROR_MODE_TYPE.VIDEO_MIRROR_MODE_ENABLED);
-
 
             // 6. Cấu hình channel profile và client role
             rtcEngine.SetChannelProfile(CHANNEL_PROFILE_TYPE.CHANNEL_PROFILE_COMMUNICATION);
@@ -723,9 +723,9 @@ namespace PomoMeetApp.View
             int result = rtcEngine.JoinChannel("", currentroomId, "", localUid);
             Debug.WriteLine($"Join Channel result: {result}, LocalUID: {localUid}");
 
-            // 11. Tắt mic và camera mặc định
+            // 11. Chỉ tắt mic, video sẽ xử lý sau khi join
             rtcEngine.MuteLocalAudioStream(true);
-            rtcEngine.MuteLocalVideoStream(true);
+            // Video sẽ được enable trong OnJoinSuccess
 
             // 12. Lắng nghe realtime Firestore
             ListenToRoomRealtime();
@@ -922,26 +922,25 @@ namespace PomoMeetApp.View
             {
                 if (userId == currentUserId)
                 {
-                    // Xử lý video local
-                    rtcEngine.EnableVideo();
-
+                    // Setup local video canvas
                     var videoCanvas = new VideoCanvas
                     {
                         uid = uid,
                         renderMode = RENDER_MODE_TYPE.RENDER_MODE_FIT,
                         view = panel.Handle,
-                        mirrorMode = VIDEO_MIRROR_MODE_TYPE.VIDEO_MIRROR_MODE_DISABLED
+                        mirrorMode = VIDEO_MIRROR_MODE_TYPE.VIDEO_MIRROR_MODE_ENABLED
                     };
 
                     int setupResult = rtcEngine.SetupLocalVideo(videoCanvas);
                     Debug.WriteLine($"SetupLocalVideo result: {setupResult}");
 
+                    // Bắt đầu camera (video engine đã được enable trong OnJoinSuccess)
                     rtcEngine.StartPreview();
                     rtcEngine.MuteLocalVideoStream(false);
                 }
                 else
                 {
-                    // Xử lý video remote
+                    // Setup remote video
                     var remoteVideoCanvas = new VideoCanvas
                     {
                         uid = uid,
@@ -953,34 +952,29 @@ namespace PomoMeetApp.View
                     int result = rtcEngine.SetupRemoteVideo(remoteVideoCanvas);
                     Debug.WriteLine($"SetupRemoteVideo for uid {uid}: result = {result}");
 
-                    // Đảm bảo unmute remote video
                     rtcEngine.MuteRemoteVideoStream(uid, false);
-
-                    // Set remote video stream type
                     rtcEngine.SetRemoteVideoStreamType(uid, VIDEO_STREAM_TYPE.VIDEO_STREAM_HIGH);
                 }
             }
             else
             {
-                // Tắt video và hiển thị avatar
                 if (userId == currentUserId)
                 {
+                    // Tắt camera hoàn toàn
                     rtcEngine.StopPreview();
                     rtcEngine.MuteLocalVideoStream(true);
 
-                    // Clear local video canvas
+                    // Clear canvas
                     var emptyCanvas = new VideoCanvas
                     {
                         uid = uid,
                         view = IntPtr.Zero
                     };
                     rtcEngine.SetupLocalVideo(emptyCanvas);
-
-                    rtcEngine.DisableVideo();
                 }
                 else
                 {
-                    // Mute và clear remote video canvas
+                    // Tắt remote video
                     rtcEngine.MuteRemoteVideoStream(uid, true);
 
                     var emptyCanvas = new VideoCanvas
@@ -1089,7 +1083,6 @@ namespace PomoMeetApp.View
         {
             bool currentCameraState = memberStates.ContainsKey(currentUserId) && memberStates[currentUserId].CameraOn;
             bool newCameraState = !currentCameraState;
-
             Debug.WriteLine($"Camera button clicked: {currentCameraState} -> {newCameraState}");
 
             // Cập nhật trạng thái camera trên Firestore
@@ -1104,19 +1097,25 @@ namespace PomoMeetApp.View
             // Đổi icon nút camera
             btn_Camera.BackgroundImage = newCameraState ? Properties.Resources.videocam : Properties.Resources.videocam_off;
 
-            // Xử lý bật/tắt camera ngay lập tức
+            // CHỈ xử lý start/stop preview và mute/unmute
+            // KHÔNG enable/disable video engine
             if (newCameraState)
             {
-                rtcEngine.EnableVideo();
-                rtcEngine.MuteLocalVideoStream(false);
+                // Bật camera
                 rtcEngine.StartPreview();
+                rtcEngine.MuteLocalVideoStream(false);
+                Debug.WriteLine("Camera turned ON - StartPreview + Unmute");
             }
             else
             {
+                // Tắt camera  
                 rtcEngine.StopPreview();
                 rtcEngine.MuteLocalVideoStream(true);
-                rtcEngine.DisableVideo();
+                Debug.WriteLine("Camera turned OFF - StopPreview + Mute");
             }
+
+            // Cập nhật panel ngay lập tức (optional - nếu muốn instant feedback)
+            await UpdatePanels(memberStates);
         }
         class MemberState
         {
@@ -1351,11 +1350,18 @@ namespace PomoMeetApp.View
         // Callback xử lý khi join thành công, đảm bảo chạy trên UI thread
         private void OnJoinSuccess(string channelId, uint uid, int elapsed)
         {
-            if (this.InvokeRequired)
+            this.Invoke(() =>
             {
-                this.Invoke(new Action(() => OnJoinSuccess(channelId, uid, elapsed)));
-                return;
-            }
+                try
+                {
+                    rtcEngine.EnableVideo();
+                    rtcEngine.MuteLocalVideoStream(true); // Đảm bảo local video tắt
+                }
+                catch (Exception ex)
+                {
+                    Debug.WriteLine($"Error enabling video: {ex.Message}");
+                }
+            });
         }
 
         // 5. Cập nhật callback OnUserJoined

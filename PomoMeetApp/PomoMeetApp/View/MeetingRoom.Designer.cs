@@ -1115,7 +1115,7 @@
             btn_Camera.AccessibleName = "";
             btn_Camera.AutoSizeBasedOnText = false;
             btn_Camera.BackColor = Color.Transparent;
-            btn_Camera.BackgroundImage = Properties.Resources.videocam_off;
+            btn_Camera.BackgroundImage = Properties.Resources.videocam;
             btn_Camera.BadgeBackColor = Color.Red;
             btn_Camera.BadgeFont = new Font("Segoe UI", 8F, FontStyle.Bold);
             btn_Camera.BadgeValue = 0;

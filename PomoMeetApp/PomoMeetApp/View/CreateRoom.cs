@@ -339,7 +339,7 @@ namespace PomoMeetApp.View
                             currentUserId, new Dictionary<string, object>
                             {
                                 { "user_id", currentUserId },
-                                { "camera_on", false }, // Mặc định camera là tắt
+                                { "camera_on", true }, 
                                 { "mic_on", false },     // Mặc định mic là tắt
                                 { "speaker_on", true },  // Mặc định loa là bật
                             }
