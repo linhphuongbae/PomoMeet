@@ -1,4 +1,5 @@
-﻿using PomoMeetApp.Classes;
+﻿using Microsoft.VisualBasic.ApplicationServices;
+using PomoMeetApp.Classes;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -7,46 +8,27 @@ using System.Drawing;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using System.Windows.Forms;
 using System.Security.Cryptography;
-using Google.Cloud.Firestore;
-using Microsoft.VisualBasic.ApplicationServices;
-
+using System.Windows.Forms;
 
 namespace PomoMeetApp.View
 {
-    public partial class Joinroom : Form
+    public partial class PrivateRoom : Form
     {
-        private string currentUserId;
+        private string currentUserId; 
+        private string currentRoomId;
         private RoomData joinedRoomData;
 
-        public Joinroom(string userId)
+        public PrivateRoom(string userId, string roomId)
         {
             currentUserId = userId;
+            currentRoomId = roomId;
             InitializeComponent();
-        }
-
-        private void label2_Click(object sender, EventArgs e)
-        {
-
-        }
-
-        private void Joinroom_Load(object sender, EventArgs e)
-        {
-
         }
 
         private async void sbtn_JoinRoom_Click(object sender, EventArgs e)
         {
-            string roomId = stb_roomId.Text.Trim();
-
-            if (string.IsNullOrEmpty(roomId))
-            {
-                MessageBox.Show("Vui lòng nhập mã phòng.");
-                return;
-            }
-
-            var room = await GetRoomByroomId(roomId);
+            var room = await GetRoomByroomId(currentRoomId);
             if (room == null)
             {
                 MessageBox.Show("Không tìm thấy phòng.");
@@ -55,12 +37,7 @@ namespace PomoMeetApp.View
 
             joinedRoomData = room;
 
-            if (room.type == "Public")
-            {
-                // Nếu phòng là Public thì vào luôn
-                OpenMeetingRoom(currentUserId, joinedRoomData.room_id);
-            }
-            else if (room.type == "Private")
+            if (room.type == "Private")
             {
                 lb_Password.Visible = true; // Hiện label mật khẩu
                 stb_Password.Visible = true; // Hiện textbox mật khẩu
@@ -88,10 +65,7 @@ namespace PomoMeetApp.View
                     MessageBox.Show("Mật khẩu không chính xác.");
                 }
             }
-            // Cập nhật trạng thái thành "offline" khi bị đá khỏi phòng
-            await UserStatusManager.Instance.UpdateUserStatus(currentUserId, "in call");
         }
-
         private async Task<RoomData> GetRoomByroomId(string roomId)
         {
             var db = FirebaseConfig.database;
@@ -140,7 +114,7 @@ namespace PomoMeetApp.View
                 // Tạo thông tin trạng thái mặc định của thành viên
                 Dictionary<string, object> memberData = new Dictionary<string, object>
                 {
-                    { "camera_on", true },
+                    { "camera_on", false },
                     { "mic_on", false },
                     { "speaker_on", true },
                     { "user_id", currentUserId },
@@ -175,14 +149,5 @@ namespace PomoMeetApp.View
                 ? Properties.Resources.eye_open
                 : Properties.Resources.eye_close;
         }
-    }
-
-    public class RoomData
-    {
-        public string room_id { get; set; }
-        public string room_name { get; set; }
-        public string type { get; set; }
-        public string password { get; set; }
-        public string host_id { get; set; }
     }
 }
