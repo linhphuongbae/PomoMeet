@@ -269,7 +269,6 @@ namespace PomoMeetApp.View
                             lb_CurrentTime.Text = "00:00";
                             lb_TotalTime.Text = "--:--";
                         }
-
                     }
                     catch (Exception ex)
                     {
@@ -304,8 +303,23 @@ namespace PomoMeetApp.View
                     return;
                 }
 
-                if (!snapshot.TryGetValue("members_status", out Dictionary<string, object> membersStatus))
-                    return;
+                // Lấy members_status từ Firestore
+                if (snapshot.TryGetValue("members_status", out Dictionary<string, object> membersStatus))
+                {
+                    int totalMembers = membersStatus.Count;
+
+                    // Nếu ít hơn 4 người, hiển thị số người thực tế
+                    if (totalMembers < 4)
+                    {
+                        SafeInvoke(() => { lblMembersNumber.Text = "0+"; });
+                    }
+                    else
+                    {
+                        // Nếu 4 người trở lên, hiển thị số người trừ đi 3 và thêm dấu "+"
+                        int displayedMembers = totalMembers - 3;
+                        SafeInvoke(() => { lblMembersNumber.Text = $"{displayedMembers}+"; });
+                    }
+                }
 
                 // Bỏ qua kiểm tra đầu tiên trong 3 giây đầu tiên
                 if ((DateTime.Now - joinTime).TotalSeconds < 3 && isInitialCheck)

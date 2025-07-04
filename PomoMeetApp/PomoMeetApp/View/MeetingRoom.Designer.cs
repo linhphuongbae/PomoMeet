@@ -39,8 +39,8 @@
             panel1 = new Panel();
             avatar_btn = new SiticoneNetCoreUI.SiticoneImageButton();
             panel3 = new Panel();
-            label3 = new Label();
             siticoneImageButton8 = new SiticoneNetCoreUI.SiticoneImageButton();
+            lblMembersNumber = new Label();
             panel6 = new Panel();
             btnRoomID = new SiticoneNetCoreUI.SiticoneButton();
             lb_participant = new SiticoneNetCoreUI.SiticoneLabel();
@@ -118,7 +118,7 @@
             ProgressBarMusic.IndeterminateBarColor = Color.FromArgb(117, 164, 127);
             ProgressBarMusic.IsReadonly = false;
             ProgressBarMusic.LabelColor = Color.Black;
-            ProgressBarMusic.LabelFont = new Font("Segoe UI", 10F, FontStyle.Bold);
+            ProgressBarMusic.LabelFont = new Font("Inter", 10F, FontStyle.Bold);
             ProgressBarMusic.Location = new Point(59, 307);
             ProgressBarMusic.MakeRadial = true;
             ProgressBarMusic.Maximum = 100;
@@ -146,7 +146,7 @@
             btn_Reset.AutoSizeBasedOnText = false;
             btn_Reset.BackColor = Color.Transparent;
             btn_Reset.BadgeBackColor = Color.DarkSeaGreen;
-            btn_Reset.BadgeFont = new Font("Segoe UI", 8F, FontStyle.Bold);
+            btn_Reset.BadgeFont = new Font("Inter", 8F, FontStyle.Bold);
             btn_Reset.BadgeValue = 0;
             btn_Reset.BadgeValueForeColor = Color.White;
             btn_Reset.BorderColor = Color.DarkSeaGreen;
@@ -223,7 +223,7 @@
             btn_pomodoro.AutoSizeBasedOnText = false;
             btn_pomodoro.BackColor = Color.Transparent;
             btn_pomodoro.BadgeBackColor = Color.DarkSeaGreen;
-            btn_pomodoro.BadgeFont = new Font("Segoe UI", 8F, FontStyle.Bold);
+            btn_pomodoro.BadgeFont = new Font("Inter", 8F, FontStyle.Bold);
             btn_pomodoro.BadgeValue = 0;
             btn_pomodoro.BadgeValueForeColor = Color.White;
             btn_pomodoro.BorderColor = Color.DarkSeaGreen;
@@ -301,7 +301,7 @@
             btn_Start.AutoSizeBasedOnText = false;
             btn_Start.BackColor = Color.Transparent;
             btn_Start.BadgeBackColor = Color.DarkSeaGreen;
-            btn_Start.BadgeFont = new Font("Segoe UI", 8F, FontStyle.Bold);
+            btn_Start.BadgeFont = new Font("Inter", 8F, FontStyle.Bold);
             btn_Start.BadgeValue = 0;
             btn_Start.BadgeValueForeColor = Color.White;
             btn_Start.BorderColor = Color.DarkSeaGreen;
@@ -400,7 +400,7 @@
             avatar_btn.BadgeAnimationEnabled = true;
             avatar_btn.BadgeAnimationSpeed = 0.15F;
             avatar_btn.BadgeColor = Color.Red;
-            avatar_btn.BadgeFont = new Font("Segoe UI", 8F, FontStyle.Bold);
+            avatar_btn.BadgeFont = new Font("Inter", 8F, FontStyle.Bold);
             avatar_btn.BadgePosition = SiticoneNetCoreUI.BadgePosition.TopRight;
             avatar_btn.BadgeTextColor = Color.White;
             avatar_btn.BadgeValue = 0;
@@ -432,23 +432,12 @@
             // panel3
             // 
             panel3.BackColor = Color.FromArgb(117, 164, 127);
-            panel3.Controls.Add(label3);
             panel3.Controls.Add(siticoneImageButton8);
+            panel3.Controls.Add(lblMembersNumber);
             panel3.Location = new Point(844, 618);
             panel3.Name = "panel3";
             panel3.Size = new Size(230, 151);
             panel3.TabIndex = 4;
-            // 
-            // label3
-            // 
-            label3.AutoSize = true;
-            label3.BackColor = Color.Transparent;
-            label3.Font = new Font("Inter", 9.6F);
-            label3.Location = new Point(147, 30);
-            label3.Name = "label3";
-            label3.Size = new Size(30, 23);
-            label3.TabIndex = 14;
-            label3.Text = "7+";
             // 
             // siticoneImageButton8
             // 
@@ -458,7 +447,7 @@
             siticoneImageButton8.BadgeAnimationEnabled = true;
             siticoneImageButton8.BadgeAnimationSpeed = 0.15F;
             siticoneImageButton8.BadgeColor = Color.Red;
-            siticoneImageButton8.BadgeFont = new Font("Segoe UI", 8F, FontStyle.Bold);
+            siticoneImageButton8.BadgeFont = new Font("Inter", 8F, FontStyle.Bold);
             siticoneImageButton8.BadgePosition = SiticoneNetCoreUI.BadgePosition.TopRight;
             siticoneImageButton8.BadgeTextColor = Color.White;
             siticoneImageButton8.BadgeValue = 0;
@@ -487,6 +476,17 @@
             siticoneImageButton8.Text = "siticoneImageButton8";
             siticoneImageButton8.TrackSystemTheme = false;
             // 
+            // lblMembersNumber
+            // 
+            lblMembersNumber.AutoSize = true;
+            lblMembersNumber.BackColor = Color.Transparent;
+            lblMembersNumber.Font = new Font("Inter", 9.6F);
+            lblMembersNumber.Location = new Point(147, 30);
+            lblMembersNumber.Name = "lblMembersNumber";
+            lblMembersNumber.Size = new Size(21, 23);
+            lblMembersNumber.TabIndex = 14;
+            lblMembersNumber.Text = "+";
+            // 
             // panel6
             // 
             panel6.BackColor = Color.FromArgb(117, 164, 127);
@@ -509,7 +509,7 @@
             btnRoomID.BackColor = Color.Transparent;
             btnRoomID.BackgroundImage = Properties.Resources.group_add;
             btnRoomID.BadgeBackColor = Color.Red;
-            btnRoomID.BadgeFont = new Font("Segoe UI", 8F, FontStyle.Bold);
+            btnRoomID.BadgeFont = new Font("Inter", 8F, FontStyle.Bold);
             btnRoomID.BadgeValue = 0;
             btnRoomID.BadgeValueForeColor = Color.Transparent;
             btnRoomID.BorderColor = Color.Transparent;
@@ -531,7 +531,7 @@
             btnRoomID.EnableRippleEffect = true;
             btnRoomID.EnableShadow = false;
             btnRoomID.EnableTextWrapping = false;
-            btnRoomID.Font = new Font("Segoe UI", 9F);
+            btnRoomID.Font = new Font("Inter", 9F);
             btnRoomID.ForeColor = Color.Transparent;
             btnRoomID.GlowColor = Color.FromArgb(100, 255, 255, 255);
             btnRoomID.GlowIntensity = 100;
@@ -635,7 +635,7 @@
             tb_FindParticipants.EnableDropShadow = false;
             tb_FindParticipants.FillColor1 = Color.White;
             tb_FindParticipants.FillColor2 = Color.White;
-            tb_FindParticipants.Font = new Font("Segoe UI", 9.5F);
+            tb_FindParticipants.Font = new Font("Inter", 9.5F);
             tb_FindParticipants.ForeColor = Color.DimGray;
             tb_FindParticipants.HoverBorderColor1 = Color.Gray;
             tb_FindParticipants.HoverBorderColor2 = Color.Gray;
@@ -752,7 +752,7 @@
             siticoneImageButton9.BadgeAnimationEnabled = true;
             siticoneImageButton9.BadgeAnimationSpeed = 0.15F;
             siticoneImageButton9.BadgeColor = Color.Red;
-            siticoneImageButton9.BadgeFont = new Font("Segoe UI", 8F, FontStyle.Bold);
+            siticoneImageButton9.BadgeFont = new Font("Inter", 8F, FontStyle.Bold);
             siticoneImageButton9.BadgePosition = SiticoneNetCoreUI.BadgePosition.TopRight;
             siticoneImageButton9.BadgeTextColor = Color.White;
             siticoneImageButton9.BadgeValue = 0;
@@ -800,7 +800,7 @@
             sbtn_ChangeHost.BackColor = Color.Transparent;
             sbtn_ChangeHost.BackgroundImage = Properties.Resources.change_host1;
             sbtn_ChangeHost.BadgeBackColor = Color.Transparent;
-            sbtn_ChangeHost.BadgeFont = new Font("Segoe UI", 8F, FontStyle.Bold);
+            sbtn_ChangeHost.BadgeFont = new Font("Inter", 8F, FontStyle.Bold);
             sbtn_ChangeHost.BadgeValue = 0;
             sbtn_ChangeHost.BadgeValueForeColor = Color.White;
             sbtn_ChangeHost.BorderColor = Color.Transparent;
@@ -822,7 +822,7 @@
             sbtn_ChangeHost.EnableRippleEffect = true;
             sbtn_ChangeHost.EnableShadow = false;
             sbtn_ChangeHost.EnableTextWrapping = false;
-            sbtn_ChangeHost.Font = new Font("Segoe UI", 9F);
+            sbtn_ChangeHost.Font = new Font("Inter", 9F);
             sbtn_ChangeHost.GlowColor = Color.FromArgb(100, 255, 255, 255);
             sbtn_ChangeHost.GlowIntensity = 100;
             sbtn_ChangeHost.GlowRadius = 20F;
@@ -877,7 +877,7 @@
             sbtn_CancelCall.BackColor = Color.Transparent;
             sbtn_CancelCall.BackgroundImage = Properties.Resources.cancel_end;
             sbtn_CancelCall.BadgeBackColor = Color.Transparent;
-            sbtn_CancelCall.BadgeFont = new Font("Segoe UI", 8F, FontStyle.Bold);
+            sbtn_CancelCall.BadgeFont = new Font("Inter", 8F, FontStyle.Bold);
             sbtn_CancelCall.BadgeValue = 0;
             sbtn_CancelCall.BadgeValueForeColor = Color.White;
             sbtn_CancelCall.BorderColor = Color.Transparent;
@@ -899,7 +899,7 @@
             sbtn_CancelCall.EnableRippleEffect = true;
             sbtn_CancelCall.EnableShadow = false;
             sbtn_CancelCall.EnableTextWrapping = false;
-            sbtn_CancelCall.Font = new Font("Segoe UI", 9F);
+            sbtn_CancelCall.Font = new Font("Inter", 9F);
             sbtn_CancelCall.GlowColor = Color.FromArgb(100, 255, 255, 255);
             sbtn_CancelCall.GlowIntensity = 100;
             sbtn_CancelCall.GlowRadius = 20F;
@@ -1005,7 +1005,7 @@
             btn_Speaker.BackColor = Color.Transparent;
             btn_Speaker.BackgroundImage = Properties.Resources.icon_sound_on;
             btn_Speaker.BadgeBackColor = Color.Red;
-            btn_Speaker.BadgeFont = new Font("Segoe UI", 8F, FontStyle.Bold);
+            btn_Speaker.BadgeFont = new Font("Inter", 8F, FontStyle.Bold);
             btn_Speaker.BadgeValue = 0;
             btn_Speaker.BadgeValueForeColor = Color.White;
             btn_Speaker.BorderColor = Color.Transparent;
@@ -1027,7 +1027,7 @@
             btn_Speaker.EnableRippleEffect = true;
             btn_Speaker.EnableShadow = false;
             btn_Speaker.EnableTextWrapping = false;
-            btn_Speaker.Font = new Font("Segoe UI", 9F);
+            btn_Speaker.Font = new Font("Inter", 9F);
             btn_Speaker.GlowColor = Color.FromArgb(100, 255, 255, 255);
             btn_Speaker.GlowIntensity = 100;
             btn_Speaker.GlowRadius = 20F;
@@ -1082,7 +1082,7 @@
             btn_Camera.BackColor = Color.Transparent;
             btn_Camera.BackgroundImage = Properties.Resources.videocam;
             btn_Camera.BadgeBackColor = Color.Red;
-            btn_Camera.BadgeFont = new Font("Segoe UI", 8F, FontStyle.Bold);
+            btn_Camera.BadgeFont = new Font("Inter", 8F, FontStyle.Bold);
             btn_Camera.BadgeValue = 0;
             btn_Camera.BadgeValueForeColor = Color.White;
             btn_Camera.BorderColor = Color.Transparent;
@@ -1104,7 +1104,7 @@
             btn_Camera.EnableRippleEffect = true;
             btn_Camera.EnableShadow = false;
             btn_Camera.EnableTextWrapping = false;
-            btn_Camera.Font = new Font("Segoe UI", 9F);
+            btn_Camera.Font = new Font("Inter", 9F);
             btn_Camera.GlowColor = Color.FromArgb(100, 255, 255, 255);
             btn_Camera.GlowIntensity = 100;
             btn_Camera.GlowRadius = 20F;
@@ -1159,7 +1159,7 @@
             btn_Mic.BackColor = Color.Transparent;
             btn_Mic.BackgroundImage = Properties.Resources.videomic_off;
             btn_Mic.BadgeBackColor = Color.Red;
-            btn_Mic.BadgeFont = new Font("Segoe UI", 8F, FontStyle.Bold);
+            btn_Mic.BadgeFont = new Font("Inter", 8F, FontStyle.Bold);
             btn_Mic.BadgeValue = 0;
             btn_Mic.BadgeValueForeColor = Color.White;
             btn_Mic.BorderColor = Color.Transparent;
@@ -1181,7 +1181,7 @@
             btn_Mic.EnableRippleEffect = true;
             btn_Mic.EnableShadow = false;
             btn_Mic.EnableTextWrapping = false;
-            btn_Mic.Font = new Font("Segoe UI", 9F);
+            btn_Mic.Font = new Font("Inter", 9F);
             btn_Mic.GlowColor = Color.FromArgb(100, 255, 255, 255);
             btn_Mic.GlowIntensity = 100;
             btn_Mic.GlowRadius = 20F;
@@ -1244,7 +1244,7 @@
             siticoneImageButton1.BadgeAnimationEnabled = true;
             siticoneImageButton1.BadgeAnimationSpeed = 0.15F;
             siticoneImageButton1.BadgeColor = Color.Red;
-            siticoneImageButton1.BadgeFont = new Font("Segoe UI", 8F, FontStyle.Bold);
+            siticoneImageButton1.BadgeFont = new Font("Inter", 8F, FontStyle.Bold);
             siticoneImageButton1.BadgePosition = SiticoneNetCoreUI.BadgePosition.TopRight;
             siticoneImageButton1.BadgeTextColor = Color.White;
             siticoneImageButton1.BadgeValue = 0;
@@ -1308,7 +1308,7 @@
             tbMessages.EnableDropShadow = false;
             tbMessages.FillColor1 = Color.FromArgb(212, 228, 195);
             tbMessages.FillColor2 = Color.FromArgb(212, 228, 195);
-            tbMessages.Font = new Font("Segoe UI", 9.5F);
+            tbMessages.Font = new Font("Inter", 9.5F);
             tbMessages.ForeColor = Color.DimGray;
             tbMessages.HoverBorderColor1 = Color.Gray;
             tbMessages.HoverBorderColor2 = Color.Gray;
@@ -1355,7 +1355,7 @@
             btn_Break.AutoSizeBasedOnText = false;
             btn_Break.BackColor = Color.Transparent;
             btn_Break.BadgeBackColor = Color.DarkSeaGreen;
-            btn_Break.BadgeFont = new Font("Segoe UI", 8F, FontStyle.Bold);
+            btn_Break.BadgeFont = new Font("Inter", 8F, FontStyle.Bold);
             btn_Break.BadgeValue = 0;
             btn_Break.BadgeValueForeColor = Color.White;
             btn_Break.BorderColor = Color.DarkSeaGreen;
@@ -1497,7 +1497,7 @@
             btnSendMessages.AutoSizeBasedOnText = false;
             btnSendMessages.BackColor = Color.Transparent;
             btnSendMessages.BadgeBackColor = Color.Red;
-            btnSendMessages.BadgeFont = new Font("Segoe UI", 8F, FontStyle.Bold);
+            btnSendMessages.BadgeFont = new Font("Inter", 8F, FontStyle.Bold);
             btnSendMessages.BadgeValue = 0;
             btnSendMessages.BadgeValueForeColor = Color.White;
             btnSendMessages.BorderColor = Color.LightSlateGray;
@@ -1519,7 +1519,7 @@
             btnSendMessages.EnableRippleEffect = true;
             btnSendMessages.EnableShadow = false;
             btnSendMessages.EnableTextWrapping = false;
-            btnSendMessages.Font = new Font("Segoe UI", 9F);
+            btnSendMessages.Font = new Font("Inter", 9F);
             btnSendMessages.GlowColor = Color.FromArgb(100, 255, 255, 255);
             btnSendMessages.GlowIntensity = 100;
             btnSendMessages.GlowRadius = 20F;
@@ -1620,7 +1620,7 @@
         private Panel panel1;
         private SiticoneNetCoreUI.SiticoneImageButton avatar_btn;
         private Panel panel3;
-        private Label label3;
+        private Label lblMembersNumber;
         private SiticoneNetCoreUI.SiticoneImageButton siticoneImageButton8;
         private Panel panel6;
         private SiticoneNetCoreUI.SiticoneLabel lb_participant;
