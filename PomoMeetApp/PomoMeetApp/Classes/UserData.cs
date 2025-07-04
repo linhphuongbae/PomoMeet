@@ -18,9 +18,9 @@ namespace PomoMeetApp.Classes
         public string Password { get; set; }
 
         [FirestoreProperty]
-        public string Email { get; set; }    // thêm dòng này
+        public string Email { get; set; }
 
         [FirestoreProperty]
-        public string UserStatus { get; set; }
+        public string status { get; set; }
     }
 }

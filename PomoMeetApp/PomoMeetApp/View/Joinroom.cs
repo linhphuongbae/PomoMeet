@@ -158,6 +158,9 @@ namespace PomoMeetApp.View
                 MessageBox.Show("Lỗi khi thêm trạng thái thành viên vào phòng: " + ex.Message);
             }
 
+            var dashboard = Application.OpenForms.OfType<Dashboard>().FirstOrDefault();
+            if (dashboard != null)
+                dashboard.Hide();   // Ẩn Dashboard trước khi vào phòng
 
             MeetingRoom meetingRoom = new MeetingRoom(userId, roomId);
             meetingRoom.ShowDialog();

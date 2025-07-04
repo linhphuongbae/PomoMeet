@@ -323,6 +323,16 @@ namespace PomoMeetApp.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
+        internal static System.Drawing.Bitmap close {
+            get {
+                object obj = ResourceManager.GetObject("close", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
         internal static System.Drawing.Bitmap Create {
             get {
                 object obj = ResourceManager.GetObject("Create", resourceCulture);
@@ -366,6 +376,16 @@ namespace PomoMeetApp.Properties {
         internal static System.Drawing.Bitmap Decoration_1 {
             get {
                 object obj = ResourceManager.GetObject("Decoration_1", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap done_pomodoro {
+            get {
+                object obj = ResourceManager.GetObject("done_pomodoro", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
@@ -643,6 +663,26 @@ namespace PomoMeetApp.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
+        internal static System.Drawing.Bitmap new_exit {
+            get {
+                object obj = ResourceManager.GetObject("new_exit", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap new_join {
+            get {
+                object obj = ResourceManager.GetObject("new_join", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
         internal static System.Drawing.Bitmap next_button {
             get {
                 object obj = ResourceManager.GetObject("next_button", resourceCulture);
@@ -776,6 +816,16 @@ namespace PomoMeetApp.Properties {
         internal static System.Drawing.Bitmap Rectangle_5 {
             get {
                 object obj = ResourceManager.GetObject("Rectangle_5", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap rest_time {
+            get {
+                object obj = ResourceManager.GetObject("rest_time", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }

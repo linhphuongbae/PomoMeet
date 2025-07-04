@@ -214,8 +214,13 @@ namespace PomoMeetApp.View
             // Send invitations
             await SendInvitations(selectedFriends);
 
-            this.Hide(); // Ẩn RoomRequests trước
+            this.Close(); // Ẩn RoomRequests trước
             _createRoom.Hide(); // Ẩn CreateRoom trước
+
+            // Ẩn Dashboard nếu còn
+            var dashboard = Application.OpenForms.OfType<Dashboard>().FirstOrDefault();
+            if (dashboard != null)
+                dashboard.Hide();
 
             await UserStatusManager.Instance.UpdateUserStatus(_currentUserId, "online");
 
@@ -225,5 +230,18 @@ namespace PomoMeetApp.View
             _createRoom.Close(); // Đóng sau khi MeetingRoom kết thúc
             this.Close();
         }
+        protected override void OnFormClosing(FormClosingEventArgs e)
+        {
+            base.OnFormClosing(e);
+
+            // Nếu CreateRoom vẫn còn (chỉ hide), show lại
+            if (_createRoom != null && !_createRoom.IsDisposed)
+            {
+                _createRoom.Show();
+                _createRoom.BringToFront();
+            }
+        }
+
+
     }
 }

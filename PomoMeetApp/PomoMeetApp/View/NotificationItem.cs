@@ -52,8 +52,6 @@ namespace PomoMeetApp.View
 
                 // Set user status to online when they accept the invitation
                 await UserStatusManager.Instance.UpdateUserStatus(currentUserId, "online");
-
-                OpenMeetingRoom(currentUserId, roomId);
             });
         }
 
@@ -76,27 +74,6 @@ namespace PomoMeetApp.View
                 await docRef.UpdateAsync("status", "Rejected");
             });
         }
-        private async void OpenMeetingRoom(string userId, string roomId)
-        {
-            // Gọi form phòng học truyền dữ liệu người tham gia
-            var db = FirebaseConfig.database;
-            var roomRef = db.Collection("Room").Document(roomId);
-
-            // Cập nhật mảng members, thêm ID người tham gia vào
-            try
-            {
-                await roomRef.UpdateAsync("members", FieldValue.ArrayUnion(currentUserId));
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show("Lỗi khi thêm thành viên vào phòng: " + ex.Message);
-            }
-
-            MeetingRoom meetingRoom = new MeetingRoom(userId, roomId);
-            meetingRoom.ShowDialog();
-            this.Dispose();
-        }
-
         private async Task HandleResponseAsync(string response, Func<Task> action)
         {
             try

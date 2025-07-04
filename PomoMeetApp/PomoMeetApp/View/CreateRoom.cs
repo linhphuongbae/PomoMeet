@@ -128,13 +128,17 @@ namespace PomoMeetApp.View
            
             if(roomInfo != null)
             {
+                var dashboard = Application.OpenForms.OfType<Dashboard>().FirstOrDefault();
+                if (dashboard != null)
+                    dashboard.Hide();        // Ẩn Dashboard trước khi vào phòng
+
                 // Cập nhật trạng thái người dùng thành "online" bằng Singleton
                 await UserStatusManager.Instance.UpdateUserStatus(currentUserId, "in call");
 
+                this.Hide(); // Ẩn ngay
                 MeetingRoom meetingRoom = new MeetingRoom(currentUserId, roomInfo.RoomId);
                 meetingRoom.ShowDialog();
-
-                this.Close();
+                this.Close(); // Đóng sau khi họp xong
             }
 
         }
@@ -307,7 +311,6 @@ namespace PomoMeetApp.View
             {
                 var roomRequests = new RoomRequests(roomInfo.RoomId, roomName, roomMode, password, currentUserId, this);
                 roomRequests.ShowDialog(this);
-
                 this.Close();
             }
             else

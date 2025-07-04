@@ -171,8 +171,10 @@ namespace PomoMeetApp.View
 
         private void tbtn_JoinRoom_Click(object sender, EventArgs e)
         {
-            Joinroom joinroom = new Joinroom(currentUserId);
-            joinroom.ShowDialog();
+            Joinroom joinRoom = new Joinroom(currentUserId);
+            this.Hide(); // Ẩn Dashboard
+            joinRoom.ShowDialog();
+            this.Show(); // Nếu user đóng Joinroom mà KHÔNG vào phòng, hiện lại Dashboard
         }
 
         private void SafeInvoke(Action action)

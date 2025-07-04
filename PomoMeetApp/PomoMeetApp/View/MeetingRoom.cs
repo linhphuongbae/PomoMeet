@@ -73,6 +73,12 @@ namespace PomoMeetApp.View
         private bool isBreakTime;
         private readonly object memberStatesLock = new object();
 
+        private NotificationInRoom notificationInRoom;
+        private FirestoreChangeListener notificationListener;
+        private Timestamp? lastShownNotificationTime = null;
+
+        private string lastShownJoinUserId = string.Empty;
+        private string lastShownLeftUserId = string.Empty;
 
         public MeetingRoom(string userId, string roomId)
         {
@@ -88,7 +94,10 @@ namespace PomoMeetApp.View
             this.Load += MeetingRoom_Load;
             tb_FindParticipants.TextChanged += Tb_Search_TextChanged;
 
-
+            notificationInRoom = new NotificationInRoom();
+            this.Controls.Add(notificationInRoom);
+            notificationInRoom.Location = new Point(347, 36);  // Góc dưới bên trái
+            notificationInRoom.Size = new Size(496, 62); // Kích thước thông báo
         }
 
         private async void MeetingRoom_Load(object sender, EventArgs e)
@@ -160,7 +169,7 @@ namespace PomoMeetApp.View
 
         Dictionary<string, MemberState> memberStates = new Dictionary<string, MemberState>();
 
-        private void ListenToRoomRealtime()
+        private async void ListenToRoomRealtime()
         {
             joinTime = DateTime.Now; // Ghi lại thời điểm vào phòng
 
@@ -194,6 +203,7 @@ namespace PomoMeetApp.View
                             int.TryParse(countdownObj?.ToString(), out int cdTime))
                         {
                             countdownTime = cdTime;
+                            countdownTime = 10; // Thay cho countdownTime
                         }
                         else
                         {
@@ -204,6 +214,7 @@ namespace PomoMeetApp.View
                             int.TryParse(breakObj?.ToString(), out int bkTime))
                         {
                             breakDuration = bkTime;
+                            breakDuration = 5;
                         }
                         else
                         {
@@ -250,11 +261,33 @@ namespace PomoMeetApp.View
                             duration = Math.Max(0, Math.Min(360, duration)); // Clamp: tránh âm hoặc quá lớn
 
                             lb_time_counter.Text = TimeSpan.FromMinutes(duration).ToString(@"mm\:ss");
+                            lb_time_counter.Text = TimeSpan.FromSeconds(duration).ToString(@"mm\:ss");
+
 
                             // Reset các thành phần UI liên quan nhạc
                             ProgressBarMusic.Value = 0;
                             lb_CurrentTime.Text = "00:00";
                             lb_TotalTime.Text = "--:--";
+                        }
+
+                        // 9. Xử lý sự kiện Pomodoro (rest_time, done_pomodoro)
+                        if (data.TryGetValue("last_pomodoro_event", out var evtObj) && evtObj is Dictionary<string, object> evtDict)
+                        {
+                            string eventType = evtDict["type"]?.ToString();
+                            string msg = eventType switch
+                            {
+                                "rest_time" => "Đến giờ nghỉ! Hãy thư giãn",
+                                "done_pomodoro" => "Tiếp tục phiên học kế tiếp...",
+                                _ => null
+                            };
+
+                            if (!string.IsNullOrEmpty(msg))
+                            {
+                                this.Invoke(() =>
+                                {
+                                    notificationInRoom.SetNotification(msg, eventType);
+                                });
+                            }
                         }
                     }
                     catch (Exception ex)
@@ -323,12 +356,14 @@ namespace PomoMeetApp.View
                     });
                     return;
                 }
+                List<string> removedIds;
 
                 lock (memberStatesLock)
                 {
                     // Xóa những user không còn trong Firestore
                     var currentIds = new HashSet<string>(membersStatus.Keys);
                     var keysToRemove = memberStates.Keys.Where(id => !currentIds.Contains(id)).ToList();
+                    removedIds = memberStates.Keys.Where(id => !currentIds.Contains(id)).ToList();
 
                     foreach (var id in keysToRemove)
                     {
@@ -355,8 +390,19 @@ namespace PomoMeetApp.View
                         };
                     }
                 }
+                // Gọi phương thức thông báo cho các thành viên còn lại về người đã rời phòng
+                foreach (var removedId in removedIds)
+                {
+                    var userDoc = await db.Collection("User").Document(removedId).GetSnapshotAsync();
+                    string username = userDoc.Exists && userDoc.ContainsField("Username")
+                        ? userDoc.GetValue<string>("Username")
+                        : removedId;
 
-                // Sau khi update xong, tạo bản sao an toàn để dùng
+                    // Gọi phương thức gửi thông báo cho các thành viên còn lại (người đã rời)
+                    await NotifyAllMembersAboutUserLeft(removedId);
+                }
+
+                // Sau khi cập nhật, tạo bản sao an toàn để sử dụng
                 var copy = new Dictionary<string, MemberState>();
                 lock (memberStatesLock)
                 {
@@ -582,13 +628,85 @@ namespace PomoMeetApp.View
             return null;
         }
 
-        private void OnUserOffline(uint remoteUid, USER_OFFLINE_REASON_TYPE reason)
+        private async void OnUserOffline(uint remoteUid, USER_OFFLINE_REASON_TYPE reason)
         {
             if (this.InvokeRequired)
             {
                 this.Invoke(new Action(() => OnUserOffline(remoteUid, reason)));
                 return;
             }
+
+            // Lấy userId từ UID của người bị offline
+            string remoteUserId = FindUserIdByUid(remoteUid);
+            if (!string.IsNullOrEmpty(remoteUserId))
+            {
+                // Tắt video/audio của người tham gia offline
+                rtcEngine.MuteRemoteVideoStream(remoteUid, true);
+                rtcEngine.MuteRemoteAudioStream(remoteUid, true);
+
+                // Lấy Username từ Firestore
+                var db = FirebaseConfig.database;
+                string username = await GetUsernameFromFirestore(remoteUserId);
+
+                // Cập nhật trạng thái offline của người dùng trong Firestore (nếu cần)
+                if (remoteUserId != hostId)
+                {
+                    // Cập nhật thời gian offline của người dùng
+                    await db.Collection("Room")
+                        .Document(currentroomId)
+                        .UpdateAsync(new Dictionary<string, object>
+                        {
+                    { "last_left_user", new {
+                        user_id = remoteUserId,
+                        timestamp = DateTime.UtcNow // Ghi lại thời gian offline
+                    }}
+                        });
+                }
+
+                // Gửi thông báo cho tất cả các thành viên trong phòng (trừ người đã offline)
+                await NotifyAllMembersAboutUserLeft(remoteUserId);
+
+                // Hiển thị thông báo cho người tham gia phòng (trừ chính người đã offline)
+                this.Invoke(() =>
+                {
+                    notificationInRoom.SetNotification($"'{username}' đã offline/ra khỏi phòng!", "new_leave");
+                });
+            }
+        }
+        private async Task NotifyAllMembersAboutUserLeft(string leftUserId)
+        {
+            var db = FirebaseConfig.database;
+            var roomRef = db.Collection("Room").Document(currentroomId);
+            var roomSnapshot = await roomRef.GetSnapshotAsync();
+
+            if (roomSnapshot.Exists && roomSnapshot.TryGetValue("members_status", out Dictionary<string, object> membersStatus))
+            {
+                var notifications = new List<Task>(); // Batch notifications
+
+                // Gửi thông báo cho các thành viên còn lại (không gửi cho người đã rời phòng)
+                foreach (var member in membersStatus.Keys)
+                {
+                    if (member != leftUserId) // Tránh gửi cho người đã rời phòng
+                    {
+                        notifications.Add(ShowLeaveNotification(member, leftUserId));
+                    }
+                }
+
+                // Gửi tất cả thông báo cùng lúc
+                await Task.WhenAll(notifications);
+            }
+        }
+
+        private async Task ShowLeaveNotification(string receiverUserId, string leftUserId)
+        {
+            // Có thể bỏ qua check lastShownLeftUserId vì mỗi lần rời phòng đều là người khác nhau
+            string username = await GetUsernameFromFirestore(leftUserId);
+
+            // Hiển thị thông báo cho người nhận thông báo
+            this.Invoke(() =>
+            {
+                notificationInRoom.SetNotification($"'{username}' đã rời phòng!", "new_leave");
+            });
         }
 
         private void OnRemoteVideoStateChanged(uint remoteUid, REMOTE_VIDEO_STATE state, REMOTE_VIDEO_STATE_REASON reason, int elapsed)
@@ -1365,7 +1483,7 @@ namespace PomoMeetApp.View
         }
 
         // 5. Cập nhật callback OnUserJoined
-        private void OnUserJoined(uint remoteUid)
+        private async void OnUserJoined(uint remoteUid)
         {
             if (this.InvokeRequired)
             {
@@ -1373,17 +1491,84 @@ namespace PomoMeetApp.View
                 return;
             }
 
-
-            // Tìm userId từ remoteUid
             string remoteUserId = FindUserIdByUid(remoteUid);
             if (!string.IsNullOrEmpty(remoteUserId))
             {
-
-                // Đảm bảo subscribe remote video stream
+                // Kích hoạt video/audio của người tham gia
                 rtcEngine.MuteRemoteVideoStream(remoteUid, false);
                 rtcEngine.MuteRemoteAudioStream(remoteUid, false);
+
+                // Lấy Username từ Firestore
+                var db = FirebaseConfig.database;
+                string username = await GetUsernameFromFirestore(remoteUserId);
+
+                // Cập nhật thông tin người tham gia vào Firestore
+                if (remoteUserId != hostId)
+                {
+                    // Cập nhật thời gian tham gia của người dùng vào Firestore
+                    await db.Collection("Room")
+                        .Document(currentroomId)
+                        .UpdateAsync(new Dictionary<string, object>
+                        {
+                    { "last_joined_user", new {
+                        user_id = remoteUserId,
+                        timestamp = DateTime.UtcNow // Ghi lại thời gian tham gia
+                    }}
+                        });
+                }
+
+                // Cập nhật lastShownJoinUserId ngay trước khi gửi thông báo
+                lastShownJoinUserId = remoteUserId;
+
+                // Gửi thông báo cho tất cả các thành viên trong phòng (trừ người mới tham gia)
+                if (remoteUserId != hostId)
+                {
+                    await NotifyAllMembersAboutNewJoin(remoteUserId);
+                }
             }
         }
+
+        private async Task NotifyAllMembersAboutNewJoin(string joinedUserId)
+        {
+            var db = FirebaseConfig.database;
+            var roomRef = db.Collection("Room").Document(currentroomId);
+            var roomSnapshot = await roomRef.GetSnapshotAsync();
+
+            if (roomSnapshot.Exists && roomSnapshot.TryGetValue("members_status", out Dictionary<string, object> membersStatus))
+            {
+                var notifications = new List<Task>(); // Batch notifications
+
+                foreach (var member in membersStatus.Keys)
+                {
+                    if (member != joinedUserId) // Tránh gửi thông báo cho chính người tham gia
+                    {
+                        // Gửi thông báo cho các thành viên còn lại
+                        notifications.Add(ShowJoinNotification(member, joinedUserId));
+                    }
+                }
+
+                // Gửi tất cả thông báo cùng lúc
+                await Task.WhenAll(notifications);
+            }
+        }
+
+        private async Task ShowJoinNotification(string receiverUserId, string joinedUserId)
+        {
+            // Kiểm tra nếu người tham gia đã được thông báo trước đó
+            if (receiverUserId == lastShownJoinUserId) return;
+
+            string username = await GetUsernameFromFirestore(joinedUserId);
+
+            // Hiển thị thông báo người tham gia phòng
+            this.Invoke(() =>
+            {
+                notificationInRoom.SetNotification($"'{username}' đã tham gia phòng!", "new_join");
+            });
+
+            // Cập nhật lastShownJoinUserId để tránh thông báo trùng lặp
+            lastShownJoinUserId = receiverUserId;
+        }
+
 
         private async Task DeleteInvitationsOfRoom(string roomId)
         {
@@ -1410,9 +1595,6 @@ namespace PomoMeetApp.View
                 if (member.Key != currentUserId) // Không gửi cho chính host
                 {
                     Debug.WriteLine($"Thông báo: Thành viên {member.Key} đã được thông báo phòng đã bị xóa.");
-
-                    // Gửi thông báo thực sự qua Firestore
-                    SendNotificationToMember(member.Key);
                 }
             }
         }
@@ -1441,10 +1623,20 @@ namespace PomoMeetApp.View
                     return;
                 }
 
-                // Cập nhật trạng thái trước khi xóa
+                // Trước khi xóa, lưu thông tin người rời phòng vào `last_left_user`
                 var updates = new Dictionary<string, object>
         {
-            { $"members_status.{currentUserId}.is_leaving", true }
+            { "last_left_user", new {
+                user_id = currentUserId,
+                timestamp = DateTime.UtcNow // Ghi lại thời gian rời phòng
+            }}
+        };
+                await roomRef.UpdateAsync(updates);
+
+                // Cập nhật trạng thái 'is_leaving' của người dùng trong Firestore
+                updates = new Dictionary<string, object>
+        {
+            { $"members_status.{currentUserId}.is_leaving", true } // Đánh dấu người dùng đang rời phòng
         };
                 await roomRef.UpdateAsync(updates);
 
@@ -1568,6 +1760,15 @@ namespace PomoMeetApp.View
             {
                 CleanupAgoraResources();
             }
+            notificationListener?.StopAsync();
+            notificationListener = null;
+
+            var dashboard = Application.OpenForms.OfType<Dashboard>().FirstOrDefault();
+            if (dashboard != null)
+            {
+                dashboard.Show();
+                dashboard.BringToFront();
+            }
 
             base.OnFormClosing(e);
         }
@@ -1634,9 +1835,6 @@ namespace PomoMeetApp.View
                         return false; // User hủy, không đóng form
                     }
 
-                    // Debug log để kiểm tra
-                    Debug.WriteLine("Host confirmed deletion, proceeding...");
-
                     await MarkRoomAsDeletedByHost();
                     await DeleteRoomFromFirestore();
                     await DeleteInvitationsOfRoom(currentroomId);
@@ -1644,8 +1842,6 @@ namespace PomoMeetApp.View
 
                     // Cleanup Agora resources cho host
                     CleanupAgoraResources();
-
-                    Debug.WriteLine("Room deletion completed successfully");
                 }
                 else
                 {
@@ -1679,9 +1875,6 @@ namespace PomoMeetApp.View
             }
             catch (Exception ex)
             {
-                Debug.WriteLine($"Error in HandleCancelCallAsync: {ex.Message}");
-                Debug.WriteLine($"Stack trace: {ex.StackTrace}");
-
                 // Hiển thị lỗi trên UI thread
                 if (this.InvokeRequired)
                 {
@@ -2031,6 +2224,7 @@ namespace PomoMeetApp.View
             {
                 var elapsed = (int)(DateTime.UtcNow - pomodoroStartTime).TotalSeconds;
                 var total = isBreakTime ? breakDuration * 60 : countdownTime * 60;
+                total = isBreakTime ? breakDuration : countdownTime;
                 var remaining = total - elapsed;
 
                 if (remaining <= 0)
@@ -2159,6 +2353,12 @@ namespace PomoMeetApp.View
     });
         }
 
+        private async Task<string> GetUsernameFromFirestore(string userId)
+        {
+            var db = FirebaseConfig.database;
+            var userDoc = await db.Collection("User").Document(userId).GetSnapshotAsync();
+            return userDoc.Exists && userDoc.ContainsField("Username") ? userDoc.GetValue<string>("Username") : userId;
+        }
 
     }
 }

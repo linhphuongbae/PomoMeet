@@ -33,10 +33,6 @@ namespace PomoMeetApp.View
                     await db.Collection("Invitations").Document(inviteId).UpdateAsync("status", "Accepted");
                     await db.Collection("Room").Document(roomId)
                         .UpdateAsync("members", FieldValue.ArrayUnion(currentUserId));
-
-                    var meetingRoom = new MeetingRoom(currentUserId, roomId);
-                    meetingRoom.Show();
-                    this.Close();
                 }
             }
             catch (Exception ex)
@@ -86,6 +82,16 @@ namespace PomoMeetApp.View
                     var notificationItem = new NotificationItem(senderName, createdAt, avatar, inviteId, roomId, currentUserId, async (invId, rId, response) =>
                     {
                         await HandleResponse(invId, rId, response);
+                        if (response == "Accepted")
+                        {
+                            var dashboard = Application.OpenForms.OfType<Dashboard>().FirstOrDefault();
+                            if (dashboard != null)
+                                dashboard.Hide();   // Ẩn Dashboard trước khi vào phòng
+
+                            this.Close(); // Dong ReqNotification
+                            var meetingRoom = new MeetingRoom(currentUserId, roomId);
+                            meetingRoom.ShowDialog();
+                        }
                     });
 
                     panelNotifications.Controls.Add(notificationItem);
