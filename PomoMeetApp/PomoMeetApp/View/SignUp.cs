@@ -68,6 +68,7 @@ namespace PomoMeetApp.View
                     MessageBox.Show("This username is already registered!", "Warning", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                     return;
                 }
+                data.Avatar = "avatar";
                 DocumentReference docRef = db.Collection("User").Document(data.UserId);
                 await docRef.SetAsync(data);
 

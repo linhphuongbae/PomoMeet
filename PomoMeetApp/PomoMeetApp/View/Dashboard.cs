@@ -109,6 +109,23 @@ namespace PomoMeetApp.View
             // Load badge ngay khi vào app
             await userProfilePanel2.UpdateNotificationBadge();
 
+            userProfilePanel2.SetProfileClickCallback(userId =>
+            {
+                // Kiểm tra xem form Profile đã mở chưa
+                var existingProfileForm = Application.OpenForms.OfType<Profile>().FirstOrDefault();
+
+                if (existingProfileForm == null) // Nếu chưa có Profile form đang mở
+                {
+                    var profileForm = new Profile(userId);
+                    profileForm.ShowDialog();  // Mở form Profile
+                }
+                else
+                {
+                    // Nếu form Profile đã mở, có thể đưa form đó lên trước (active)
+                    existingProfileForm.BringToFront();
+                }
+            });
+
             // Bật listener để theo dõi thay đổi sau này
             StartListeningForUserChanges(currentUserId);
         }

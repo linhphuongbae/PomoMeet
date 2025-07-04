@@ -54,10 +54,10 @@ namespace PomoMeetApp.View
                 if (!userSnap.Exists) continue;
 
                 string fromUsername = userSnap.GetValue<string>("Username");
-                string avatarId = userSnap.ContainsField("Avatar") ? userSnap.GetValue<string>("Avatar") : "avt1"; // fallback
+                string avatarId = userSnap.ContainsField("Avatar") ? userSnap.GetValue<string>("Avatar") : "avatar"; // fallback
 
 
-                // Load ảnh avatar từ Firebase Storage nếu có, hoặc từ local nếu là mã như "avt1"
+                // Load ảnh avatar từ Firebase Storage nếu có, hoặc từ local nếu là mã như "avatar"
                 Image avatarImage = LoadLocalAvatar(avatarId);
 
                 // Panel chứa avatar và tên
@@ -220,13 +220,13 @@ namespace PomoMeetApp.View
                 if (!userSnap.Exists) continue;
 
                 string fromUsername = userSnap.GetValue<string>("Username");
-                string avatarId = userSnap.ContainsField("Avatar") ? userSnap.GetValue<string>("Avatar") : "avt1"; // fallback
+                string avatarId = userSnap.ContainsField("Avatar") ? userSnap.GetValue<string>("Avatar") : "avatar"; // fallback
 
                 // Kiểm tra trạng thái online của người bạn
                 string status = userSnap.ContainsField("status") ? userSnap.GetValue<string>("status") : "offline";
                 if (status != "online") continue; // Chỉ hiển thị người online
 
-                // Load ảnh avatar từ Firebase Storage nếu có, hoặc từ local nếu là mã như "avt1"
+                // Load ảnh avatar từ Firebase Storage nếu có, hoặc từ local nếu là mã như "avatar"
                 Image avatarImage = LoadLocalAvatar(avatarId);
 
                 // Tạo panel cho mỗi người bạn
@@ -390,10 +390,10 @@ namespace PomoMeetApp.View
                 if (!userSnap.Exists) continue;
 
                 string fromUsername = userSnap.GetValue<string>("Username");
-                string avatarId = userSnap.ContainsField("Avatar") ? userSnap.GetValue<string>("Avatar") : "avt1"; // fallback
+                string avatarId = userSnap.ContainsField("Avatar") ? userSnap.GetValue<string>("Avatar") : "avatar"; // fallback
 
 
-                // Load ảnh avatar từ Firebase Storage nếu có, hoặc từ local nếu là mã như "avt1"
+                // Load ảnh avatar từ Firebase Storage nếu có, hoặc từ local nếu là mã như "avatar"
                 Image avatarImage = LoadLocalAvatar(avatarId);
 
                 // Panel chứa avatar và tên
@@ -543,9 +543,9 @@ namespace PomoMeetApp.View
             {
                 string userId = doc.Id;
                 string username = doc.GetValue<string>("Username");
-                string avatarId = doc.ContainsField("Avatar") ? doc.GetValue<string>("Avatar") : "avt1"; // fallback
+                string avatarId = doc.ContainsField("Avatar") ? doc.GetValue<string>("Avatar") : "avatar"; // fallback
 
-                // Load ảnh avatar từ Firebase Storage nếu có, hoặc từ local nếu là mã như "avt1"
+                // Load ảnh avatar từ Firebase Storage nếu có, hoặc từ local nếu là mã như "avatar"
                 Image avatarImage = LoadLocalAvatar(avatarId);
 
                 // Panel chứa avatar và tên
@@ -664,7 +664,7 @@ namespace PomoMeetApp.View
             }
             catch
             {
-                return Properties.Resources.avt1;
+                return Properties.Resources.avatar;
             }
 
         }

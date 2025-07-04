@@ -22,5 +22,9 @@ namespace PomoMeetApp.Classes
 
         [FirestoreProperty]
         public string status { get; set; }
+        [FirestoreProperty]
+        public string Avatar { get; set; }
+        [FirestoreProperty]
+        public Timestamp lastUpdated { get; set; }
     }
 }

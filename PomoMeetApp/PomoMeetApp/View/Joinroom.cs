@@ -88,7 +88,7 @@ namespace PomoMeetApp.View
                     MessageBox.Show("Mật khẩu không chính xác.");
                 }
             }
-            // Cập nhật trạng thái thành "offline" khi bị đá khỏi phòng
+            // Cập nhật trạng thái thành "online" khi tham gia phòng
             await UserStatusManager.Instance.UpdateUserStatus(currentUserId, "in call");
         }
 
