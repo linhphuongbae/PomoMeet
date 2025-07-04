@@ -1,4 +1,7 @@
-﻿using System;
+﻿using Google.Cloud.Firestore;
+using PomoMeetApp.Classes;
+using SiticoneNetCoreUI;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
@@ -12,29 +15,30 @@ namespace PomoMeetApp.View
 {
     public partial class InviteMore : Form
     {
-        public InviteMore()
+        private string currentUserId;
+        private string roomId;
+
+        public InviteMore(string userId, string roomId)
         {
             InitializeComponent();
+            this.currentUserId = userId;
+            this.roomId = roomId;
+
+            tbMamoi.Text = roomId;
         }
 
-        private void siticonePanel2_Paint(object sender, PaintEventArgs e)
+        private void btCopy_Click(object sender, EventArgs e)
         {
-
-        }
-
-        private void siticoneButton2_Click(object sender, EventArgs e)
-        {
-
-        }
-
-        private void siticoneLabel3_Click(object sender, EventArgs e)
-        {
-
-        }
-
-        private void siticonePanel1_Paint(object sender, PaintEventArgs e)
-        {
-
+            try
+            {
+                // Sao chép nội dung của tbMamoi (ID phòng) vào clipboard
+                Clipboard.SetText(tbMamoi.Text);
+                MessageBox.Show("Mã phòng đã được sao chép vào clipboard!", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Information);
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"Lỗi khi sao chép mã phòng: {ex.Message}", "Lỗi", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
         }
     }
 }

@@ -41,8 +41,8 @@
             panel3 = new Panel();
             label3 = new Label();
             siticoneImageButton8 = new SiticoneNetCoreUI.SiticoneImageButton();
-            btn_add_participants = new SiticoneNetCoreUI.SiticoneImageButton();
             panel6 = new Panel();
+            btnRoomID = new SiticoneNetCoreUI.SiticoneButton();
             lb_participant = new SiticoneNetCoreUI.SiticoneLabel();
             participants_panel = new TableLayoutPanel();
             tb_FindParticipants = new SiticoneNetCoreUI.SiticoneTextBox();
@@ -487,48 +487,11 @@
             siticoneImageButton8.Text = "siticoneImageButton8";
             siticoneImageButton8.TrackSystemTheme = false;
             // 
-            // btn_add_participants
-            // 
-            btn_add_participants.AnimationSpeed = 0.15F;
-            btn_add_participants.BackColor = Color.Transparent;
-            btn_add_participants.BackgroundFillColor = Color.Transparent;
-            btn_add_participants.BadgeAnimationEnabled = true;
-            btn_add_participants.BadgeAnimationSpeed = 0.15F;
-            btn_add_participants.BadgeColor = Color.Transparent;
-            btn_add_participants.BadgeFont = new Font("Segoe UI", 8F, FontStyle.Bold);
-            btn_add_participants.BadgePosition = SiticoneNetCoreUI.BadgePosition.TopRight;
-            btn_add_participants.BadgeTextColor = Color.Transparent;
-            btn_add_participants.BadgeValue = 0;
-            btn_add_participants.BorderColor = Color.Transparent;
-            btn_add_participants.BorderThickness = 2;
-            btn_add_participants.CanBeep = true;
-            btn_add_participants.CanShake = true;
-            btn_add_participants.CornerRadiusBottomLeft = 22F;
-            btn_add_participants.CornerRadiusBottomRight = 22F;
-            btn_add_participants.CornerRadiusTopLeft = 22F;
-            btn_add_participants.CornerRadiusTopRight = 22F;
-            btn_add_participants.ImageDown = null;
-            btn_add_participants.ImageHover = null;
-            btn_add_participants.ImageNormal = null;
-            btn_add_participants.ImageSizing = SiticoneNetCoreUI.ImageSizingMode.Original;
-            btn_add_participants.IsReadOnly = false;
-            btn_add_participants.Location = new Point(204, -3);
-            btn_add_participants.MakeRadial = true;
-            btn_add_participants.Name = "btn_add_participants";
-            btn_add_participants.PlaceholderImage = null;
-            btn_add_participants.RippleColor = Color.FromArgb(50, 0, 0, 0);
-            btn_add_participants.RippleEnabled = true;
-            btn_add_participants.Size = new Size(60, 47);
-            btn_add_participants.SpringEffectEnabled = true;
-            btn_add_participants.TabIndex = 10;
-            btn_add_participants.Text = "siticoneImageButton8";
-            btn_add_participants.TrackSystemTheme = false;
-            // 
             // panel6
             // 
             panel6.BackColor = Color.FromArgb(117, 164, 127);
+            panel6.Controls.Add(btnRoomID);
             panel6.Controls.Add(lb_participant);
-            panel6.Controls.Add(btn_add_participants);
             panel6.Location = new Point(3, 3);
             panel6.Name = "panel6";
             panel6.Size = new Size(264, 46);
@@ -537,6 +500,84 @@
             layoutState1.Size = new Size(302, 61);
             layoutState1.Visible = true;
             panel6.Tag = layoutState1;
+            // 
+            // btnRoomID
+            // 
+            btnRoomID.AccessibleDescription = "The default button control that accept input though the mouse, touch and keyboard";
+            btnRoomID.AccessibleName = "";
+            btnRoomID.AutoSizeBasedOnText = false;
+            btnRoomID.BackColor = Color.Transparent;
+            btnRoomID.BackgroundImage = Properties.Resources.group_add;
+            btnRoomID.BadgeBackColor = Color.Red;
+            btnRoomID.BadgeFont = new Font("Segoe UI", 8F, FontStyle.Bold);
+            btnRoomID.BadgeValue = 0;
+            btnRoomID.BadgeValueForeColor = Color.Transparent;
+            btnRoomID.BorderColor = Color.Transparent;
+            btnRoomID.BorderWidth = 2;
+            btnRoomID.ButtonBackColor = Color.Transparent;
+            btnRoomID.ButtonImage = null;
+            btnRoomID.CanBeep = true;
+            btnRoomID.CanGlow = false;
+            btnRoomID.CanShake = true;
+            btnRoomID.ContextMenuStripEx = null;
+            btnRoomID.CornerRadiusBottomLeft = 0;
+            btnRoomID.CornerRadiusBottomRight = 0;
+            btnRoomID.CornerRadiusTopLeft = 0;
+            btnRoomID.CornerRadiusTopRight = 0;
+            btnRoomID.CustomCursor = Cursors.Default;
+            btnRoomID.DisabledTextColor = Color.FromArgb(150, 150, 150);
+            btnRoomID.EnableLongPress = false;
+            btnRoomID.EnablePressAnimation = true;
+            btnRoomID.EnableRippleEffect = true;
+            btnRoomID.EnableShadow = false;
+            btnRoomID.EnableTextWrapping = false;
+            btnRoomID.Font = new Font("Segoe UI", 9F);
+            btnRoomID.ForeColor = Color.Transparent;
+            btnRoomID.GlowColor = Color.FromArgb(100, 255, 255, 255);
+            btnRoomID.GlowIntensity = 100;
+            btnRoomID.GlowRadius = 20F;
+            btnRoomID.GradientBackground = false;
+            btnRoomID.GradientColor = Color.FromArgb(114, 168, 255);
+            btnRoomID.GradientMode = System.Drawing.Drawing2D.LinearGradientMode.Vertical;
+            btnRoomID.HintText = null;
+            btnRoomID.HoverBackColor = Color.Transparent;
+            btnRoomID.HoverFontStyle = FontStyle.Regular;
+            btnRoomID.HoverTextColor = Color.White;
+            btnRoomID.HoverTransitionDuration = 250;
+            btnRoomID.ImageAlign = ContentAlignment.MiddleLeft;
+            btnRoomID.ImagePadding = 5;
+            btnRoomID.ImageSize = new Size(16, 16);
+            btnRoomID.IsRadial = false;
+            btnRoomID.IsReadOnly = false;
+            btnRoomID.IsToggleButton = false;
+            btnRoomID.IsToggled = false;
+            btnRoomID.Location = new Point(216, 0);
+            btnRoomID.LongPressDurationMS = 1000;
+            btnRoomID.Name = "btnRoomID";
+            btnRoomID.NormalFontStyle = FontStyle.Regular;
+            btnRoomID.ParticleColor = Color.FromArgb(200, 200, 200);
+            btnRoomID.ParticleCount = 15;
+            btnRoomID.PressAnimationScale = 0.97F;
+            btnRoomID.PressedBackColor = Color.Transparent;
+            btnRoomID.PressedFontStyle = FontStyle.Regular;
+            btnRoomID.PressTransitionDuration = 150;
+            btnRoomID.ReadOnlyTextColor = Color.FromArgb(100, 100, 100);
+            btnRoomID.RippleColor = Color.FromArgb(255, 255, 255);
+            btnRoomID.RippleOpacity = 0.3F;
+            btnRoomID.RippleRadiusMultiplier = 0.6F;
+            btnRoomID.ShadowBlur = 5;
+            btnRoomID.ShadowColor = Color.FromArgb(100, 0, 0, 0);
+            btnRoomID.ShadowOffset = new Point(2, 2);
+            btnRoomID.ShakeDuration = 500;
+            btnRoomID.ShakeIntensity = 5;
+            btnRoomID.Size = new Size(45, 40);
+            btnRoomID.TabIndex = 52;
+            btnRoomID.TextAlign = ContentAlignment.MiddleCenter;
+            btnRoomID.TextColor = Color.White;
+            btnRoomID.TooltipText = null;
+            btnRoomID.UseAdvancedRendering = true;
+            btnRoomID.UseParticles = false;
+            btnRoomID.Click += btnRoomID_Click_1;
             // 
             // lb_participant
             // 
@@ -1579,7 +1620,6 @@
         private Panel panel1;
         private SiticoneNetCoreUI.SiticoneImageButton avatar_btn;
         private Panel panel3;
-        private SiticoneNetCoreUI.SiticoneImageButton btn_add_participants;
         private Label label3;
         private SiticoneNetCoreUI.SiticoneImageButton siticoneImageButton8;
         private Panel panel6;
@@ -1623,5 +1663,6 @@
         private PictureBox pictureBox1;
         private SiticoneNetCoreUI.SiticoneButton btnSendMessages;
         private SideBar sideBar2;
+        private SiticoneNetCoreUI.SiticoneButton btnRoomID;
     }
 }

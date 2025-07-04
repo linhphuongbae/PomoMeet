@@ -270,25 +270,6 @@ namespace PomoMeetApp.View
                             lb_TotalTime.Text = "--:--";
                         }
 
-                        // 9. Xử lý sự kiện Pomodoro (rest_time, done_pomodoro)
-                        if (data.TryGetValue("last_pomodoro_event", out var evtObj) && evtObj is Dictionary<string, object> evtDict)
-                        {
-                            string eventType = evtDict["type"]?.ToString();
-                            string msg = eventType switch
-                            {
-                                "rest_time" => "Đến giờ nghỉ! Hãy thư giãn",
-                                "done_pomodoro" => "Tiếp tục phiên học kế tiếp...",
-                                _ => null
-                            };
-
-                            if (!string.IsNullOrEmpty(msg))
-                            {
-                                this.Invoke(() =>
-                                {
-                                    notificationInRoom.SetNotification(msg, eventType);
-                                });
-                            }
-                        }
                     }
                     catch (Exception ex)
                     {
@@ -1402,6 +1383,11 @@ namespace PomoMeetApp.View
 
         private void InitializeUserProfile()
         {
+            if (userProfilePanel1 == null)
+            {
+                userProfilePanel1 = new UserProfilePanel(); // Khởi tạo UserProfilePanel nếu chưa khởi tạo
+            }
+
             // 1. Configure the user profile panel
             // Cần load username trước khi gọi UpdateUserInfo
             // Sẽ được cập nhật trong LoadUserData()
@@ -2239,6 +2225,17 @@ namespace PomoMeetApp.View
                         lb_CurrentTime.Text = "00:00";
                     });
 
+                    if (isBreakTime)
+                    {
+                        // Thông báo hết thời gian nghỉ và tiếp tục phiên Pomodoro
+                        await NotifyPomodoroEnd();
+                    }
+                    else
+                    {
+                        // Thông báo khi đến thời gian nghỉ
+                        await NotifyBreakTime();
+                    }
+
                     if (currentUserId == hostId)
                     {
                         var PomodoroRef = FirebaseConfig.database.Collection("Pomodoro_Sessions").Document(currentroomId);
@@ -2269,6 +2266,22 @@ namespace PomoMeetApp.View
             {
                 PlayMusicFromBytes(songBytes[musicIndex], resume: true);
             }
+        }
+
+        // Phương thức thông báo khi đến thời gian nghỉ
+        private async Task NotifyBreakTime()
+        {
+            // Thông báo cho các thành viên về thời gian nghỉ
+            string message = "Đến giờ nghỉ! Hãy thư giãn";
+            notificationInRoom.SetNotification(message, "rest_time");
+        }
+
+        // Phương thức thông báo khi phiên Pomodoro kết thúc
+        private async Task NotifyPomodoroEnd()
+        {
+            // Thông báo cho các thành viên về việc kết thúc Pomodoro và chuyển sang phiên tiếp theo
+            string message = "Tiếp tục phiên học kế tiếp!";
+            notificationInRoom.SetNotification(message, "done_pomodoro");
         }
 
         private void PausePomodoro()
@@ -2360,5 +2373,10 @@ namespace PomoMeetApp.View
             return userDoc.Exists && userDoc.ContainsField("Username") ? userDoc.GetValue<string>("Username") : userId;
         }
 
+        private void btnRoomID_Click_1(object sender, EventArgs e)
+        {
+            InviteMore inviteForm = new InviteMore(currentUserId, currentroomId);
+            inviteForm.ShowDialog();
+        }
     }
 }
