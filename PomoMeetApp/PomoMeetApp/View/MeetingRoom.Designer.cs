@@ -599,7 +599,7 @@
             participants_panel.Controls.Add(panel6, 0, 0);
             participants_panel.Controls.Add(tb_FindParticipants, 0, 1);
             participants_panel.Controls.Add(listViewParticipants, 0, 2);
-            participants_panel.Location = new Point(1118, 117);
+            participants_panel.Location = new Point(1121, 100);
             participants_panel.Name = "participants_panel";
             participants_panel.RowCount = 3;
             participants_panel.RowStyles.Add(new RowStyle(SizeType.Percent, 57.77778F));
@@ -728,9 +728,9 @@
             // 
             panel7.BackColor = Color.FromArgb(117, 164, 127);
             panel7.Controls.Add(siticoneLabel1);
-            panel7.Location = new Point(1104, 530);
+            panel7.Location = new Point(1108, 461);
             panel7.Name = "panel7";
-            panel7.Size = new Size(283, 49);
+            panel7.Size = new Size(283, 51);
             panel7.TabIndex = 0;
             // 
             // siticoneLabel1
@@ -1313,7 +1313,7 @@
             tbMessages.HoverBorderColor1 = Color.Gray;
             tbMessages.HoverBorderColor2 = Color.Gray;
             tbMessages.IsEnabled = true;
-            tbMessages.Location = new Point(1118, 911);
+            tbMessages.Location = new Point(1124, 850);
             tbMessages.Name = "tbMessages";
             tbMessages.PlaceholderColor = Color.Gray;
             tbMessages.PlaceholderText = "Nhập tin nhắn...";
@@ -1339,11 +1339,11 @@
             // tbDisplayMsg
             // 
             tbDisplayMsg.BackColor = Color.FromArgb(212, 228, 195);
-            tbDisplayMsg.Location = new Point(1104, 577);
+            tbDisplayMsg.Location = new Point(1108, 518);
             tbDisplayMsg.Name = "tbDisplayMsg";
             tbDisplayMsg.ReadOnly = true;
             tbDisplayMsg.ScrollBars = RichTextBoxScrollBars.Vertical;
-            tbDisplayMsg.Size = new Size(284, 407);
+            tbDisplayMsg.Size = new Size(284, 400);
             tbDisplayMsg.TabIndex = 40;
             tbDisplayMsg.TabStop = false;
             tbDisplayMsg.Text = "";
@@ -1461,9 +1461,9 @@
             pn_Background.BackgroundImageLayout = ImageLayout.Stretch;
             pn_Background.Controls.Add(btn_Reset);
             pn_Background.Controls.Add(panel4);
-            pn_Background.Location = new Point(313, 117);
+            pn_Background.Location = new Point(351, 100);
             pn_Background.Name = "pn_Background";
-            pn_Background.Size = new Size(761, 434);
+            pn_Background.Size = new Size(723, 451);
             pn_Background.TabIndex = 48;
             // 
             // panel4
@@ -1481,6 +1481,7 @@
             panel4.Name = "panel4";
             panel4.Size = new Size(622, 354);
             panel4.TabIndex = 46;
+            panel4.Paint += panel4_Paint;
             // 
             // pictureBox1
             // 
@@ -1538,7 +1539,7 @@
             btnSendMessages.IsReadOnly = false;
             btnSendMessages.IsToggleButton = false;
             btnSendMessages.IsToggled = false;
-            btnSendMessages.Location = new Point(1330, 911);
+            btnSendMessages.Location = new Point(1336, 850);
             btnSendMessages.LongPressDurationMS = 1000;
             btnSendMessages.Name = "btnSendMessages";
             btnSendMessages.NormalFontStyle = FontStyle.Regular;

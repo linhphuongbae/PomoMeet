@@ -21,6 +21,7 @@ using System.Security.Cryptography;
 using System.Security.Policy;
 using System.Drawing.Drawing2D;
 using NAudio.Wave;
+using static PomoMeetApp.View.CustomMessageBox;
 
 
 namespace PomoMeetApp.View
@@ -272,7 +273,7 @@ namespace PomoMeetApp.View
                     }
                     catch (Exception ex)
                     {
-                        MessageBox.Show("Lỗi khi xử lý dữ liệu Pomodoro: " + ex.Message);
+                        CustomMessageBox.Show("Lỗi khi xử lý dữ liệu Pomodoro: " + ex.Message);
                     }
                 });
             });
@@ -295,8 +296,7 @@ namespace PomoMeetApp.View
                             // Đánh dấu đang rời phòng do host đóng
                             isLeavingRoom = true;
 
-                            MessageBox.Show("Phòng đã bị xóa bởi host!", "Thông báo",
-                                         MessageBoxButtons.OK, MessageBoxIcon.Information);
+                            CustomMessageBox.Show("Phòng đã bị xóa bởi host!", "Thông báo", MessageBoxMode.OK);
                             this.Close();
                         }
                     });
@@ -344,8 +344,7 @@ namespace PomoMeetApp.View
                     {
                         if (!this.IsDisposed && !this.Disposing && !isLeavingRoom)
                         {
-                            var result = MessageBox.Show("Bạn đã bị đá khỏi phòng!", "Thông báo",
-                                                      MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                            var result = CustomMessageBox.Show("Bạn đã bị đá khỏi phòng!", "Thông báo", MessageBoxMode.OK);
                             this.Close();
                         }
                     });
@@ -583,7 +582,7 @@ namespace PomoMeetApp.View
             }
             catch (Exception ex)
             {
-                MessageBox.Show("Lỗi khi cập nhật danh sách thành viên: " + ex.Message);
+                CustomMessageBox.Show("Lỗi khi cập nhật danh sách thành viên: " + ex.Message, "Lỗi", MessageBoxMode.OK);
             }
             finally
             {
@@ -780,7 +779,6 @@ namespace PomoMeetApp.View
             };
 
             int initResult = rtcEngine.Initialize(context);
-            Debug.WriteLine($"RTC Engine Initialize result: {initResult}");
 
             // 3. Gán handler event
             rtcEngine.InitEventHandler(handler);
@@ -1045,7 +1043,6 @@ namespace PomoMeetApp.View
                     };
 
                     int setupResult = rtcEngine.SetupLocalVideo(videoCanvas);
-                    Debug.WriteLine($"SetupLocalVideo result: {setupResult}");
 
                     // Bắt đầu camera (video engine đã được enable trong OnJoinSuccess)
                     rtcEngine.StartPreview();
@@ -1063,7 +1060,6 @@ namespace PomoMeetApp.View
                     };
 
                     int result = rtcEngine.SetupRemoteVideo(remoteVideoCanvas);
-                    Debug.WriteLine($"SetupRemoteVideo for uid {uid}: result = {result}");
 
                     rtcEngine.MuteRemoteVideoStream(uid, false);
                     rtcEngine.SetRemoteVideoStreamType(uid, VIDEO_STREAM_TYPE.VIDEO_STREAM_HIGH);
@@ -1123,7 +1119,7 @@ namespace PomoMeetApp.View
             var userRef = db.Collection("User").Document(userId);
             var userDoc = await userRef.GetSnapshotAsync();
 
-            string avatarKey = userDoc.Exists && userDoc.ContainsField("Avatar")
+            string? avatarKey = userDoc.Exists && userDoc.ContainsField("Avatar")
                 ? userDoc.GetValue<string>("Avatar")
                 : null;
 
@@ -1217,14 +1213,12 @@ namespace PomoMeetApp.View
                 // Bật camera
                 rtcEngine.StartPreview();
                 rtcEngine.MuteLocalVideoStream(false);
-                Debug.WriteLine("Camera turned ON - StartPreview + Unmute");
             }
             else
             {
                 // Tắt camera  
                 rtcEngine.StopPreview();
                 rtcEngine.MuteLocalVideoStream(true);
-                Debug.WriteLine("Camera turned OFF - StopPreview + Mute");
             }
 
             // Cập nhật panel ngay lập tức (optional - nếu muốn instant feedback)
@@ -1258,7 +1252,6 @@ namespace PomoMeetApp.View
             bool currentMicState = memberStates.ContainsKey(currentUserId) && memberStates[currentUserId].MicOn;
             bool newMicState = !currentMicState;
 
-            Debug.WriteLine($"Mic button clicked: {currentMicState} -> {newMicState}");
 
             // Cập nhật trạng thái mic trong Firestore
             await UpdateMicStateAsync(currentUserId, newMicState);
@@ -1372,8 +1365,8 @@ namespace PomoMeetApp.View
             }
             catch (Exception ex)
             {
-                MessageBox.Show($"Error loading user data: {ex.Message}", "Error",
-                              MessageBoxButtons.OK, MessageBoxIcon.Error);
+                CustomMessageBox.Show($"Lỗi khi tải dữ liệu người dùng: {ex.Message}", "Lỗi", MessageBoxMode.OK);
+
             }
         }
         private Image LoadAvatarImage(string avatarName)
@@ -1477,7 +1470,6 @@ namespace PomoMeetApp.View
                 }
                 catch (Exception ex)
                 {
-                    Debug.WriteLine($"Error enabling video: {ex.Message}");
                 }
             });
         }
@@ -1585,7 +1577,6 @@ namespace PomoMeetApp.View
             }
             catch (Exception ex)
             {
-                Debug.WriteLine($"Lỗi khi xóa invitations của phòng: {ex.Message}");
             }
         }
         private void NotifyMembersRoomClosed()
@@ -1667,7 +1658,6 @@ namespace PomoMeetApp.View
             {
                 if (rtcEngine != null)
                 {
-                    Debug.WriteLine("Cleaning up Agora resources...");
 
                     // Tắt camera và mic trước khi leave channel
                     rtcEngine.MuteLocalVideoStream(true);
@@ -1684,7 +1674,6 @@ namespace PomoMeetApp.View
                     rtcEngine.Dispose();
                     rtcEngine = null;
 
-                    Debug.WriteLine("Agora resources cleaned up successfully");
                 }
             }
             catch (Exception ex)
@@ -1745,8 +1734,8 @@ namespace PomoMeetApp.View
                         // Hiển thị lỗi trên UI thread
                         this.Invoke(() =>
                         {
-                            MessageBox.Show($"Lỗi khi đóng form: {ex.Message}", "Lỗi",
-                                          MessageBoxButtons.OK, MessageBoxIcon.Error);
+                            CustomMessageBox.Show($"Lỗi: {ex.Message}", "Lỗi", MessageBoxMode.OK);
+
                             isLeavingRoom = false; // Reset flag
                         });
                     }
@@ -1786,7 +1775,7 @@ namespace PomoMeetApp.View
             }
             catch (Exception ex)
             {
-                MessageBox.Show($"Lỗi: {ex.Message}", "Lỗi", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                CustomMessageBox.Show($"Lỗi: {ex.Message}", "Lỗi", MessageBoxMode.OK);
                 // Cleanup ngay cả khi có lỗi
                 CleanupAgoraResources();
                 isLeavingRoom = false;
@@ -1798,7 +1787,6 @@ namespace PomoMeetApp.View
             // Kiểm tra trạng thái trước khi xử lý
             if (isLeavingRoom)
             {
-                Debug.WriteLine("Already leaving room, skipping...");
                 return false;
             }
 
@@ -1815,18 +1803,22 @@ namespace PomoMeetApp.View
                     {
                         this.Invoke(() =>
                         {
-                            result = MessageBox.Show("Bạn là host. Bạn có muốn xóa phòng không? Tất cả thành viên sẽ bị rời phòng.",
-                                                   "Xác nhận xóa phòng",
-                                                   MessageBoxButtons.YesNo,
-                                                   MessageBoxIcon.Warning);
+                            result = CustomMessageBox.Show(
+                                "Bạn là host. Bạn có muốn xóa phòng không? Tất cả thành viên sẽ bị rời phòng.",
+                                "Xác nhận xóa phòng",
+                                MessageBoxMode.YesNo
+                            );
+
                         });
                     }
                     else
                     {
-                        result = MessageBox.Show("Bạn là host. Bạn có muốn xóa phòng không? Tất cả thành viên sẽ bị rời phòng.",
-                                               "Xác nhận xóa phòng",
-                                               MessageBoxButtons.YesNo,
-                                               MessageBoxIcon.Warning);
+                        result = CustomMessageBox.Show(
+    "Bạn là host. Bạn có muốn xóa phòng không? Tất cả thành viên sẽ bị rời phòng.",
+    "Xác nhận xóa phòng",
+    MessageBoxMode.YesNo
+);
+
                     }
 
                     if (result != DialogResult.Yes)
@@ -1852,14 +1844,14 @@ namespace PomoMeetApp.View
                     {
                         this.Invoke(() =>
                         {
-                            result = MessageBox.Show("Bạn có chắc muốn rời phòng?", "Xác nhận",
-                                                   MessageBoxButtons.YesNo, MessageBoxIcon.Question);
+                            var result = CustomMessageBox.Show("Bạn có chắc muốn rời phòng?", "Xác nhận", MessageBoxMode.YesNo);
+
                         });
                     }
                     else
                     {
-                        result = MessageBox.Show("Bạn có chắc muốn rời phòng?", "Xác nhận",
-                                               MessageBoxButtons.YesNo, MessageBoxIcon.Question);
+                        result = CustomMessageBox.Show("Bạn có chắc muốn rời phòng?", "Xác nhận", MessageBoxMode.YesNo);
+
                     }
 
                     if (result != DialogResult.Yes)
@@ -1880,12 +1872,12 @@ namespace PomoMeetApp.View
                 {
                     this.Invoke(() =>
                     {
-                        MessageBox.Show($"Lỗi: {ex.Message}", "Lỗi", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        CustomMessageBox.Show($"Lỗi: {ex.Message}", "Lỗi", MessageBoxMode.OK);
                     });
                 }
                 else
                 {
-                    MessageBox.Show($"Lỗi: {ex.Message}", "Lỗi", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    CustomMessageBox.Show($"Lỗi: {ex.Message}", "Lỗi", MessageBoxMode.OK);
                 }
 
                 // Cleanup ngay cả khi có lỗi
@@ -1910,7 +1902,6 @@ namespace PomoMeetApp.View
             { "deleted_at", FieldValue.ServerTimestamp } // Thêm timestamp
         });
 
-                Debug.WriteLine("Room marked as deleted successfully");
             }
             catch (Exception ex)
             {
@@ -1923,12 +1914,9 @@ namespace PomoMeetApp.View
         {
             try
             {
-                Debug.WriteLine($"Deleting Pomodoro session for room {currentroomId}...");
 
                 var db = FirebaseConfig.database;
                 await db.Collection("Pomodoro_Sessions").Document(currentroomId).DeleteAsync();
-
-                Debug.WriteLine("Pomodoro session deleted successfully");
             }
             catch (Exception ex)
             {
@@ -1941,7 +1929,6 @@ namespace PomoMeetApp.View
         {
             try
             {
-                Debug.WriteLine($"Deleting room {currentroomId} from Firestore...");
 
                 FirestoreDb db = FirebaseConfig.database;
                 DocumentReference roomRef = db.Collection("Room").Document(currentroomId);
@@ -1949,7 +1936,6 @@ namespace PomoMeetApp.View
                 await DeletePomodoroSession(); // Xóa session trước
                 await roomRef.DeleteAsync(); // Sau đó xóa room
 
-                Debug.WriteLine("Room deleted successfully from Firestore");
             }
             catch (Exception ex)
             {
@@ -2058,7 +2044,7 @@ namespace PomoMeetApp.View
         {
             if (currentUserId != hostId)
             {
-                MessageBox.Show("Bạn không phải là Host.");
+                CustomMessageBox.Show("Bạn không phải là Host.", "Thông báo", MessageBoxMode.OK);
                 return;
             }
 
@@ -2108,7 +2094,7 @@ namespace PomoMeetApp.View
         {
             if (currentUserId != hostId)
             {
-                MessageBox.Show("Bạn không phải là Host.");
+                CustomMessageBox.Show("Bạn không phải là Host.", "Thông báo", MessageBoxMode.OK);
                 return;
             }
 
@@ -2190,7 +2176,7 @@ namespace PomoMeetApp.View
             }
             catch (Exception ex)
             {
-                MessageBox.Show("Lỗi phát nhạc: " + ex.Message);
+                CustomMessageBox.Show("Lỗi phát nhạc: " + ex.Message);
             }
         }
 
@@ -2346,7 +2332,7 @@ namespace PomoMeetApp.View
         {
             if (currentUserId != hostId)
             {
-                MessageBox.Show("Chỉ host mới có thể chuyển sang Pomodoro thủ công.");
+                CustomMessageBox.Show("Chỉ host mới có thể chuyển sang Pomodoro thủ công.");
                 return;
             }
 
@@ -2365,7 +2351,7 @@ namespace PomoMeetApp.View
         {
             if (currentUserId != hostId)
             {
-                MessageBox.Show("Chỉ host mới có thể chuyển sang Break thủ công.");
+                CustomMessageBox.Show("Chỉ host mới có thể chuyển sang Break thủ công.");
                 return;
             }
 
@@ -2391,6 +2377,11 @@ namespace PomoMeetApp.View
         {
             InviteMore inviteForm = new InviteMore(currentUserId, currentroomId);
             inviteForm.ShowDialog();
+        }
+
+        private void panel4_Paint(object sender, PaintEventArgs e)
+        {
+
         }
     }
 }

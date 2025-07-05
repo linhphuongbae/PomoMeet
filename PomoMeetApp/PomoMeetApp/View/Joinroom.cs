@@ -11,6 +11,7 @@ using System.Windows.Forms;
 using System.Security.Cryptography;
 using Google.Cloud.Firestore;
 using Microsoft.VisualBasic.ApplicationServices;
+using static PomoMeetApp.View.CustomMessageBox;
 
 
 namespace PomoMeetApp.View
@@ -42,14 +43,14 @@ namespace PomoMeetApp.View
 
             if (string.IsNullOrEmpty(roomId))
             {
-                MessageBox.Show("Vui lòng nhập mã phòng.");
+                CustomMessageBox.Show("Vui lòng nhập mã phòng.", "Thông báo", MessageBoxMode.OK);
                 return;
             }
 
             var room = await GetRoomByroomId(roomId);
             if (room == null)
             {
-                MessageBox.Show("Không tìm thấy phòng.");
+                CustomMessageBox.Show("Không tìm thấy phòng.", "Thông báo", MessageBoxMode.OK);
                 return;
             }
 
@@ -71,7 +72,7 @@ namespace PomoMeetApp.View
 
                 if (string.IsNullOrEmpty(enteredPassword))
                 {
-                    MessageBox.Show("Vui lòng nhập mật khẩu.");
+                    CustomMessageBox.Show("Vui lòng nhập mật khẩu.", "Thông báo", MessageBoxMode.OK);
                     return;
                 }
 
@@ -85,7 +86,7 @@ namespace PomoMeetApp.View
                 }
                 else
                 {
-                    MessageBox.Show("Mật khẩu không chính xác.");
+                    CustomMessageBox.Show("Mật khẩu không chính xác.", "Thông báo", MessageBoxMode.OK);
                 }
             }
             // Cập nhật trạng thái thành "online" khi tham gia phòng
@@ -103,9 +104,6 @@ namespace PomoMeetApp.View
 
             var doc = snapshot.Documents.First();
             var data = doc.ToDictionary();
-
-            MessageBox.Show($"room_id: {roomId}, Snapshot Count: {snapshot.Count}");
-
 
             return new RoomData
             {

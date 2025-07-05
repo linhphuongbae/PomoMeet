@@ -13,6 +13,7 @@ using System.Media;
 using NAudio.Wave;
 using static PomoMeetApp.View.CreateRoom;
 using Microsoft.VisualBasic.ApplicationServices;
+using static PomoMeetApp.View.CustomMessageBox;
 
 
 namespace PomoMeetApp.View
@@ -101,13 +102,18 @@ namespace PomoMeetApp.View
 
             if (string.IsNullOrEmpty(roomName))
             {
-                MessageBox.Show("Vui lòng nhập tên phòng.");
+                CustomMessageBox.Show(
+                    "Vui lòng nhập tên phòng.",
+                    "Thông báo",
+                    MessageBoxMode.OK
+                );
                 return;
             }
 
             if (string.IsNullOrEmpty(roomMode)) // Kiểm tra xem người dùng đã chọn chế độ hay chưa
             {
-                MessageBox.Show("Vui lòng chọn chế độ phòng (Private hoặc Public).");
+                CustomMessageBox.Show("Vui lòng chọn chế độ phòng (Private hoặc Public).", "Thông báo",
+                    MessageBoxMode.OK);
                 return;
             }
 
@@ -119,7 +125,8 @@ namespace PomoMeetApp.View
             }
             else if (roomMode == "Private" && string.IsNullOrEmpty(stb_RoomPassword.Text))
             {
-                MessageBox.Show("Vui lòng nhập mật khẩu");
+                CustomMessageBox.Show("Vui lòng nhập mật khẩu", "Thông báo",
+                    MessageBoxMode.OK);
                 return;
             }
 
@@ -284,13 +291,13 @@ namespace PomoMeetApp.View
 
             if (string.IsNullOrEmpty(roomName))
             {
-                MessageBox.Show("Vui lòng nhập tên phòng.");
+                CustomMessageBox.Show("Vui lòng nhập tên phòng.", "Thông báo", MessageBoxMode.OK);
                 return;
             }
 
             if (string.IsNullOrEmpty(roomMode))
             {
-                MessageBox.Show("Vui lòng chọn chế độ phòng (Private hoặc Public).");
+                CustomMessageBox.Show("Vui lòng chọn chế độ phòng (Private hoặc Public).", "Thông báo", MessageBoxMode.OK);
                 return;
             }
 
@@ -301,7 +308,7 @@ namespace PomoMeetApp.View
             }
             else if (roomMode == "Private" && string.IsNullOrEmpty(stb_RoomPassword.Text))
             {
-                MessageBox.Show("Vui lòng nhập mật khẩu");
+                CustomMessageBox.Show("Vui lòng nhập mật khẩu", "Thông báo", MessageBoxMode.OK);
                 return;
             }
             // Tạo phòng và lấy thông tin
@@ -315,7 +322,7 @@ namespace PomoMeetApp.View
             }
             else
             {
-                MessageBox.Show("Không thể tạo phòng. Vui lòng thử lại.");
+                CustomMessageBox.Show("Không thể tạo phòng. Vui lòng thử lại.", "Thông báo", MessageBoxMode.OK);
             }
         }
 
