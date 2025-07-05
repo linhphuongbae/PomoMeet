@@ -2029,10 +2029,26 @@ namespace PomoMeetApp.View
                     {
                         if (tbDisplayMsg == null || tbDisplayMsg.IsDisposed) return;
 
+                        // [Time]
                         tbDisplayMsg.SelectionStart = tbDisplayMsg.TextLength;
-                        tbDisplayMsg.SelectionColor = userId == currentUserId ? Color.Blue : Color.Black;
-                        tbDisplayMsg.AppendText($"[{createdAt}] {username}: {messageText}\n");
+                        tbDisplayMsg.SelectionColor = Color.Gray;
+                        tbDisplayMsg.SelectionFont = new Font("Segoe UI", 8, FontStyle.Italic);
+                        tbDisplayMsg.AppendText($"[{createdAt}] ");
 
+                        // Username
+                        tbDisplayMsg.SelectionStart = tbDisplayMsg.TextLength;
+                        tbDisplayMsg.SelectionColor = userId == currentUserId ? Color.Blue : Color.DarkGreen;
+                        tbDisplayMsg.SelectionFont = new Font("Segoe UI", 9, FontStyle.Bold);
+                        tbDisplayMsg.AppendText($"{username}: ");
+
+                        // Message
+                        tbDisplayMsg.SelectionStart = tbDisplayMsg.TextLength;
+                        tbDisplayMsg.SelectionColor = Color.Black;
+                        tbDisplayMsg.SelectionFont = new Font("Segoe UI Emoji", 10, FontStyle.Regular); // Hỗ trợ emoji
+                        tbDisplayMsg.AppendText($"{messageText}\n\n"); // \n\n để giãn dòng
+
+                        // Cuộn xuống
+                        tbDisplayMsg.Focus();
                         tbDisplayMsg.SelectionStart = tbDisplayMsg.Text.Length;
                         tbDisplayMsg.ScrollToCaret();
                     }));
@@ -2382,6 +2398,23 @@ namespace PomoMeetApp.View
         private void panel4_Paint(object sender, PaintEventArgs e)
         {
 
+        }
+
+        private void btnEmoji_Click(object sender, EventArgs e)
+        {
+            ContextMenuStrip emojiMenu = new ContextMenuStrip();
+            string[] emojis = { "😊", "😂", "🔥", "❤️", "👍", "😢", "🎉", "🤔", "😎" };
+
+            foreach (var emoji in emojis)
+            {
+                emojiMenu.Items.Add(emoji, null, (s, ev) =>
+                {
+                    tbMessages.SelectedText = emoji; // chèn vào vị trí con trỏ
+                    tbMessages.Focus();              // focus lại
+                });
+            }
+
+            emojiMenu.Show(btnEmoji, new Point(0, btnEmoji.Height));
         }
     }
 }
