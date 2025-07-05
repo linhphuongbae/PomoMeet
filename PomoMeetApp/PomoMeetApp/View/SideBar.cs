@@ -46,15 +46,27 @@ namespace PomoMeetApp.View
 
         }
 
-        private void siticoneButton5_Click(object sender, EventArgs e)
+        private async void siticoneButton5_Click(object sender, EventArgs e)
         {
+            // Cập nhật trạng thái người dùng thành "offline" khi đăng xuất
+            if (UserSession.CurrentUser != null)
+            {
+                await UserStatusManager.Instance.UpdateUserStatus(UserSession.CurrentUser.UserId, "offline");
+            }
+
+            // Xóa thông tin người dùng trong session
             UserSession.CurrentUser = null;
+
+            // Lấy form cha (form chính)
             Form parent = this.FindForm();
-            
+
+            // Tạo form đăng nhập và chuyển về
             SignIn sg = new SignIn();
-            FormTransition.FadeTo(parent, sg);
-            
+            await FormTransition.FadeTo(parent, sg);
+
+            // Ẩn form cha (form chính)
             parent.Hide();
         }
+
     }
 }

@@ -48,7 +48,6 @@ namespace PomoMeetApp.View
                     if (password == Security.Decrypt(data.Password))
                     {
                         MessageBox.Show("Login successful!", "Success", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                        await UserStatusManager.Instance.UpdateUserStatus(userId, "online");
                     }
                     else
                     {
@@ -126,9 +125,6 @@ namespace PomoMeetApp.View
                     userId = emailQuerySnapshot.Documents[0].Id;
                     MessageBox.Show("Success Login using Gmail!", "Success", MessageBoxButtons.OK, MessageBoxIcon.Information);
                 }
-                // Update user status to "online" when Gmail login is successful
-                await UserStatusManager.Instance.UpdateUserStatus(userId, "online");
-
                 await FormTransition.FadeTo(this, new Dashboard(userId));
             }
             catch (Exception ex)
@@ -190,11 +186,6 @@ namespace PomoMeetApp.View
         protected override async void OnFormClosing(FormClosingEventArgs e)
         {
             base.OnFormClosing(e);
-
-            if (UserSession.CurrentUser != null)
-            {
-                await UserStatusManager.Instance.UpdateUserStatus(userId, "offline");
-            }
         }
     }
 }

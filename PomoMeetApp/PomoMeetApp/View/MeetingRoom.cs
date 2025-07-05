@@ -87,6 +87,8 @@ namespace PomoMeetApp.View
             currentUserId = userId;
             currentroomId = roomId;
 
+            this.FormClosed += new FormClosedEventHandler(MeetingRoom_FormClosed);
+
             LoadUserData();
             InitializeUserProfile();
             InitializeMeetingRoomComponents();
@@ -1721,6 +1723,7 @@ namespace PomoMeetApp.View
                             if (shouldClose)
                             {
                                 isLeavingRoom = true; // Set flag để tránh loop
+                                _ = UserStatusManager.Instance.UpdateUserStatus(currentUserId, "offline"); // Set trạng thái offline
                                 this.Close(); // Đóng form thực sự
                             }
                             else
@@ -1740,13 +1743,13 @@ namespace PomoMeetApp.View
                         });
                     }
                 });
-
                 return;
             }
 
             // Cleanup khi form thực sự đóng
             if (e.CloseReason != CloseReason.UserClosing)
             {
+                _ = UserStatusManager.Instance.UpdateUserStatus(currentUserId, "offline"); // Set trạng thái offline
                 CleanupAgoraResources();
             }
             notificationListener?.StopAsync();
@@ -1832,6 +1835,7 @@ namespace PomoMeetApp.View
                     await DeleteInvitationsOfRoom(currentroomId);
                     NotifyMembersRoomClosed();
 
+                    await UserStatusManager.Instance.UpdateUserStatus(currentUserId, "offline");
                     // Cleanup Agora resources cho host
                     CleanupAgoraResources();
                 }
@@ -2416,5 +2420,19 @@ namespace PomoMeetApp.View
 
             emojiMenu.Show(btnEmoji, new Point(0, btnEmoji.Height));
         }
+
+        private void MeetingRoom_FormClosed(object sender, FormClosedEventArgs e)
+        {
+            // Hiển thị lại Dashboard khi thoát MeetingRoom
+            var dashboard = Application.OpenForms.OfType<Dashboard>().FirstOrDefault();
+            if (dashboard != null)
+            {
+                dashboard.Show();  // Hiển thị lại Dashboard
+            }
+
+            // Cập nhật trạng thái người dùng thành "online"
+            _ = UserStatusManager.Instance.UpdateUserStatus(currentUserId, "online");
+        }
+
     }
 }

@@ -125,7 +125,7 @@ namespace PomoMeetApp.View
                     existingProfileForm.BringToFront();
                 }
             });
-
+            await UserStatusManager.Instance.UpdateUserStatus(currentUserId, "online");
             // Bật listener để theo dõi thay đổi sau này
             StartListeningForUserChanges(currentUserId);
         }
@@ -189,9 +189,7 @@ namespace PomoMeetApp.View
         private void tbtn_JoinRoom_Click(object sender, EventArgs e)
         {
             Joinroom joinRoom = new Joinroom(currentUserId);
-            this.Hide(); // Ẩn Dashboard
             joinRoom.ShowDialog();
-            this.Show(); // Nếu user đóng Joinroom mà KHÔNG vào phòng, hiện lại Dashboard
         }
 
         private void SafeInvoke(Action action)
@@ -591,17 +589,54 @@ namespace PomoMeetApp.View
             RenderPage(currentPageIndex);
         }
 
-        private void JoinRoom(string roomId)
+        private async void JoinRoom(string roomId)
         {
             MeetingRoom form = new MeetingRoom(currentUserId, roomId);
+            await UserStatusManager.Instance.UpdateUserStatus(currentUserId, "in call");
             form.Show();
             this.Hide();
         }
 
         protected override void OnFormClosing(FormClosingEventArgs e)
         {
-            roomListListener?.StopAsync();
-            base.OnFormClosing(e);
+            // Chỉ xử lý khi user click X để đóng form
+            if (e.CloseReason == CloseReason.UserClosing)
+            {
+                e.Cancel = true; // Ngừng form đóng tạm thời
+
+                // Chạy phương thức async trong một tác vụ nền
+                Task.Run(async () =>
+                {
+                    try
+                    {
+                        // Cập nhật trạng thái của người dùng thành "offline"
+                        await UserStatusManager.Instance.UpdateUserStatus(currentUserId, "offline");
+                    }
+                    catch (Exception ex)
+                    {
+                        // Xử lý lỗi nếu có
+                        MessageBox.Show($"Lỗi khi cập nhật trạng thái offline: {ex.Message}", "Lỗi", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    }
+                    finally
+                    {
+                        // Sau khi cập nhật trạng thái, tiếp tục dừng lắng nghe và đóng form
+                        roomListListener?.StopAsync();
+
+                        // Chạy trên UI thread để đóng form
+                        this.Invoke(() =>
+                        {
+                            base.OnFormClosing(e);  // Tiến hành đóng form thực sự
+                        });
+                    }
+                });
+            }
+            else
+            {
+                // Nếu không phải do người dùng đóng, tiếp tục các thao tác khác
+                roomListListener?.StopAsync();
+                base.OnFormClosing(e);
+            }
         }
+
     }
 }

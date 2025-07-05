@@ -139,8 +139,7 @@ namespace PomoMeetApp.View
                 if (dashboard != null)
                     dashboard.Hide();        // Ẩn Dashboard trước khi vào phòng
 
-                // Cập nhật trạng thái người dùng thành "online" bằng Singleton
-                await UserStatusManager.Instance.UpdateUserStatus(currentUserId, "in call");
+                await UserStatusManager.Instance.UpdateUserStatus(currentUserId, "in call"); // Cập nhật trạng thái người dùng
 
                 this.Hide(); // Ẩn ngay
                 MeetingRoom meetingRoom = new MeetingRoom(currentUserId, roomInfo.RoomId);
