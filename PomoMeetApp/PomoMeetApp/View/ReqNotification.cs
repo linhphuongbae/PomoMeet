@@ -9,6 +9,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using static PomoMeetApp.View.CustomMessageBox;
 
 namespace PomoMeetApp.View
 {
@@ -21,30 +22,83 @@ namespace PomoMeetApp.View
             currentUserId = userId;
             LoadNotifications();
         }
-        private async Task HandleResponse(string inviteId, string roomId, string response)
-        {
-            try
-            {
-                var db = FirebaseConfig.database;
-                if (db == null) return;
+private async Task HandleResponse(string inviteId, string roomId, string response)
+{
+    try
+    {
+        var db = FirebaseConfig.database;
+        if (db == null) return;
 
-                if (response == "Accepted")
+        if (response == "Accepted")
+        {
+            await db.Collection("Invitations").Document(inviteId).UpdateAsync("status", "Accepted");
+
+            // Store reference to dashboard before hiding
+            var dashboard = Application.OpenForms.OfType<Dashboard>().FirstOrDefault();
+            
+            this.Hide();
+            
+            var meetingRoom = new MeetingRoom(currentUserId, roomId);
+            meetingRoom.FormClosed += async (s, e) =>
+            {
+                // Show dashboard again when meeting room closes (for any reason)
+                if (dashboard != null && !dashboard.IsDisposed)
                 {
-                    await db.Collection("Invitations").Document(inviteId).UpdateAsync("status", "Accepted");
-                    await db.Collection("Room").Document(roomId)
-                        .UpdateAsync("members", FieldValue.ArrayUnion(currentUserId));
+                    dashboard.Show();
+                    dashboard.BringToFront();
                 }
-            }
-            catch (Exception ex)
+                
+                // If kicked, show notification
+                if (meetingRoom.isBeingKicked && !meetingRoom.hasShownKickNotification)
+                {
+                    CustomMessageBox.Show("Bạn đã bị kick khỏi phòng!", "Thông báo", MessageBoxMode.OK);
+                    meetingRoom.hasShownKickNotification = true;
+                }
+            };
+
+            meetingRoom.ShowDialog();
+        }
+    }
+    catch (Exception ex)
+    {
+        MessageBox.Show($"Error handling response: {ex.Message}");
+    }
+    finally
+    {
+        await LoadNotifications();
+    }
+}
+        private void ShowKickNotification(string message)
+        {
+            if (this.InvokeRequired)
             {
-                MessageBox.Show($"Error handling response: {ex.Message}");
+                this.Invoke(new Action(() => ShowKickNotification(message)));
+                return;
             }
-            finally
+
+            // Close the meeting room if it's open
+            var meetingRoom = Application.OpenForms.OfType<MeetingRoom>()
+                .FirstOrDefault(f => f.CurrentUserId == currentUserId);
+
+            if (meetingRoom != null)
             {
-                await LoadNotifications();
+                meetingRoom.isBeingKicked = true;
+                meetingRoom.hasShownKickNotification = true;
+                meetingRoom.Close();
+            }
+
+            // Show notification
+            CustomMessageBox.Show(message, "Thông báo", MessageBoxMode.OK);
+
+            // Show dashboard again
+            var dashboard = Application.OpenForms.OfType<Dashboard>().FirstOrDefault();
+            if (dashboard != null)
+            {
+                dashboard.Show();
+                dashboard.BringToFront();
+                dashboard.Activate();
             }
         }
-
         private async Task LoadNotifications()
         {
             try

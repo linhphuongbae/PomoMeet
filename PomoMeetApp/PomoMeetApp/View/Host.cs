@@ -9,6 +9,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using static PomoMeetApp.View.CustomMessageBox;
 
 namespace PomoMeetApp.View
 {
@@ -183,6 +184,8 @@ namespace PomoMeetApp.View
 
         private Image GetAvatarFromResources(string avatarKey)
         {
+            if (string.IsNullOrEmpty(avatarKey)) return Properties.Resources.avatar; // Avatar mặc định nếu không có avatar
+
             switch (avatarKey)
             {
                 case "avt1":
@@ -190,21 +193,21 @@ namespace PomoMeetApp.View
                 case "avt2":
                     return Properties.Resources.avt2; // Avatar từ Resources
                 case "avt3":
-                    return Properties.Resources.avt2; // Avatar từ Resources
+                    return Properties.Resources.avt3; // Avatar từ Resources
                 case "avt4":
-                    return Properties.Resources.avt2; // Avatar từ Resources
+                    return Properties.Resources.avt4; // Avatar từ Resources
                 case "avt5":
-                    return Properties.Resources.avt2; // Avatar từ Resources
+                    return Properties.Resources.avt5; // Avatar từ Resources
                 case "avt6":
-                    return Properties.Resources.avt2; // Avatar từ Resources
+                    return Properties.Resources.avt6; // Avatar từ Resources
                 case "avt7":
-                    return Properties.Resources.avt2; // Avatar từ Resources
+                    return Properties.Resources.avt7; // Avatar từ Resources
                 case "avt8":
-                    return Properties.Resources.avt2; // Avatar từ Resources
+                    return Properties.Resources.avt8; // Avatar từ Resources
                 case "avt9":
-                    return Properties.Resources.avt2; // Avatar từ Resources
+                    return Properties.Resources.avt9; // Avatar từ Resources
                 case "avt10":
-                    return Properties.Resources.avt2; // Avatar từ Resources
+                    return Properties.Resources.avt10; // Avatar từ Resources
                 default:
                     return Properties.Resources.avatar; // Avatar mặc định nếu không tìm thấy
             }
@@ -265,6 +268,39 @@ namespace PomoMeetApp.View
                 else
                 {
                     MessageBox.Show("Thành viên không tồn tại trong phòng.");
+                }
+
+                // After successfully kicking, find the MeetingRoom form for the kicked user
+                var meetingRoom = Application.OpenForms.OfType<MeetingRoom>()
+                    .FirstOrDefault(f => f.CurrentUserId == userId);
+
+                if (meetingRoom != null)
+                {
+                    meetingRoom.isBeingKicked = true;
+                    meetingRoom.hasShownKickNotification = false;
+
+                    // Đóng form MeetingRoom một cách đồng bộ
+                    meetingRoom.Invoke((MethodInvoker)(() =>
+                    {
+                        meetingRoom.Close();
+                    }));
+
+                    // CHỈ hiển thị Dashboard cho người bị kick
+                    var dashboard = Application.OpenForms.OfType<Dashboard>()
+                        .FirstOrDefault(f => f.currentUserId == userId);
+
+                    if (dashboard != null)
+                    {
+                        dashboard.Invoke((MethodInvoker)(() =>
+                        {
+                            dashboard.Show();
+                            dashboard.BringToFront();
+                            dashboard.Activate();
+
+                            // Hiển thị thông báo cho người bị kick
+                            CustomMessageBox.Show("Bạn đã bị kick khỏi phòng!", "Thông báo", MessageBoxMode.OK);
+                        }));
+                    }
                 }
             }
             catch (Exception ex)

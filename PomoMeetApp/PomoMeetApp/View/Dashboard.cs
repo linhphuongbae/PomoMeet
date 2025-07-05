@@ -12,12 +12,13 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using static PomoMeetApp.View.CustomMessageBox;
 
 namespace PomoMeetApp.View
 {
     public partial class Dashboard : Form
     {
-        private string currentUserId;
+        public string currentUserId;
         private FirestoreChangeListener _userListener;
 
         private Dictionary<string, (Panel panel, Label lblName, Label lblCount, PictureBox picLock)> roomPanels =
@@ -93,7 +94,7 @@ namespace PomoMeetApp.View
             this.Controls.Add(btnNext);
         }
 
-        private async void InitializeUserProfile()
+        private async Task InitializeUserProfile()
         {
             var db = FirebaseConfig.database;
             DocumentSnapshot snapshot = await db.Collection("User").Document(currentUserId).GetSnapshotAsync();
@@ -125,10 +126,14 @@ namespace PomoMeetApp.View
                     existingProfileForm.BringToFront();
                 }
             });
+
+            // Cập nhật trạng thái người dùng thành "online"
             await UserStatusManager.Instance.UpdateUserStatus(currentUserId, "online");
-            // Bật listener để theo dõi thay đổi sau này
+
+            // Bắt đầu lắng nghe thay đổi dữ liệu người dùng
             StartListeningForUserChanges(currentUserId);
         }
+
 
         private void StartListeningForUserChanges(string userId)
         {
@@ -192,7 +197,7 @@ namespace PomoMeetApp.View
             joinRoom.ShowDialog();
         }
 
-        private void SafeInvoke(Action action)
+        public void SafeInvoke(Action action)
         {
             if (this.InvokeRequired)
                 this.Invoke(action);
@@ -591,10 +596,45 @@ namespace PomoMeetApp.View
 
         private async void JoinRoom(string roomId)
         {
+            // Hiển thị form MeetingRoom
             MeetingRoom form = new MeetingRoom(currentUserId, roomId);
-            await UserStatusManager.Instance.UpdateUserStatus(currentUserId, "in call");
-            form.Show();
+
+            // Ẩn Dashboard trước khi hiển thị MeetingRoom
             this.Hide();
+
+            // Cập nhật trạng thái người dùng là "in call"
+            await UserStatusManager.Instance.UpdateUserStatus(currentUserId, "in call");
+
+            // Theo dõi sự kiện đóng form MeetingRoom
+            form.FormClosed += async (s, e) =>
+            {
+                // Khi form MeetingRoom đóng (bao gồm cả trường hợp bị kick), hiển thị lại Dashboard
+                this.ShowDashboard();
+
+                // Cập nhật trạng thái người dùng về "online"
+                await UserStatusManager.Instance.UpdateUserStatus(currentUserId, "online");
+
+                // Hiển thị thông báo nếu bị kick
+                if (form.isBeingKicked && !form.hasShownKickNotification)
+                {
+                    CustomMessageBox.Show("Bạn đã bị kick khỏi phòng!", "Thông báo", MessageBoxMode.OK);
+                    form.hasShownKickNotification = true;
+                }
+            };
+
+            // Sử dụng ShowDialog() thay vì Show() để đảm bảo xử lý tuần tự
+            form.ShowDialog();
+        }
+
+        public void HideDashboard()
+        {
+            this.Hide();
+        }
+        public void ShowDashboard()
+        {
+            this.Show();
+            this.BringToFront();
+            this.WindowState = FormWindowState.Normal; // Đảm bảo form không bị minimized
         }
 
         protected override void OnFormClosing(FormClosingEventArgs e)

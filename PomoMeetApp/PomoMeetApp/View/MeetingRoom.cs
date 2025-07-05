@@ -30,9 +30,11 @@ namespace PomoMeetApp.View
     {
         private ImageList imageListAvatars;
         private string currentUserId;
+        public string CurrentUserId { get { return currentUserId; } }
         private string currentroomId;
         private FirestoreChangeListener roomListener;
         private FirestoreChangeListener messageListener;
+        private FirestoreChangeListener _userListener;
 
         private string appId = "4b8519068a154d67981912816c14c56f";
         private IRtcEngine rtcEngine;
@@ -40,6 +42,8 @@ namespace PomoMeetApp.View
         private Panel localVideoPanel;
 
         private bool isLeavingRoom = false;
+        public bool isBeingKicked = false;
+        public bool hasShownKickNotification = false;
         private DateTime lastKickCheck = DateTime.MinValue;
 
         private DateTime joinTime = DateTime.MinValue;
@@ -175,8 +179,13 @@ namespace PomoMeetApp.View
         private async void ListenToRoomRealtime()
         {
             joinTime = DateTime.Now; // Ghi lại thời điểm vào phòng
+            isBeingKicked = false; // Reset flag khi vào phòng
 
             var PomodoroRef = FirebaseConfig.database.Collection("Pomodoro_Sessions").Document(currentroomId);
+            // Thêm cờ kiểm tra
+            bool isFormActive = true;
+
+            this.FormClosed += (s, e) => { isFormActive = false; };
             PomodoroRef.Listen(snapshot =>
             {
                 if (!snapshot.Exists) return;
@@ -280,13 +289,11 @@ namespace PomoMeetApp.View
                 });
             });
 
-
             var db = FirebaseConfig.database;
             var docRef = db.Collection("Room").Document(currentroomId);
-
             roomListener = docRef.Listen(async snapshot =>
             {
-                if (isLeavingRoom) return; // Bỏ qua nếu đang rời phòng
+                if (isLeavingRoom || isBeingKicked) return; // Bỏ qua nếu đang rời phòng
 
                 // Phòng bị xóa
                 if (!snapshot.Exists)
@@ -333,20 +340,13 @@ namespace PomoMeetApp.View
                 // Kiểm tra nếu thành viên bị đá (không còn trong phòng)
                 if (!membersStatus.ContainsKey(currentUserId))
                 {
-                    // Kiểm tra nếu có đánh dấu is_leaving thì không hiển thị thông báo
-                    if (membersStatus.TryGetValue(currentUserId, out object memberData) &&
-                        memberData is Dictionary<string, object> data &&
-                        data.ContainsKey("is_leaving") &&
-                        Convert.ToBoolean(data["is_leaving"]))
-                    {
-                        return;
-                    }
+                    isBeingKicked = true;
+                    hasShownKickNotification = false;
 
                     SafeInvoke(() =>
                     {
-                        if (!this.IsDisposed && !this.Disposing && !isLeavingRoom)
+                        if (!this.IsDisposed && !this.Disposing)
                         {
-                            var result = CustomMessageBox.Show("Bạn đã bị đá khỏi phòng!", "Thông báo", MessageBoxMode.OK);
                             this.Close();
                         }
                     });
@@ -391,7 +391,7 @@ namespace PomoMeetApp.View
                 {
                     var userDoc = await db.Collection("User").Document(removedId).GetSnapshotAsync();
                     string username = userDoc.Exists && userDoc.ContainsField("Username")
-                        ? userDoc.GetValue<string>("Username")
+                        ? userDoc.GetValue<string>("Username")  
                         : removedId;
 
                     // Gọi phương thức gửi thông báo cho các thành viên còn lại (người đã rời)
@@ -423,16 +423,13 @@ namespace PomoMeetApp.View
             {
                 if (this.IsDisposed || !this.IsHandleCreated || this.Disposing)
                 {
-                    // Form is disposed or disposing, don't execute the action
                     return;
                 }
 
                 if (this.InvokeRequired)
                 {
-                    // Use BeginInvoke instead of Invoke to avoid deadlocks
                     this.BeginInvoke(new Action(() =>
                     {
-                        // Double-check disposal state before executing
                         if (!this.IsDisposed && this.IsHandleCreated && !this.Disposing)
                         {
                             action();
@@ -449,12 +446,12 @@ namespace PomoMeetApp.View
             }
             catch (ObjectDisposedException)
             {
-                // Silently catch if the form was disposed during the check
+                // Bỏ qua nếu form đã bị dispose
                 return;
             }
             catch (InvalidOperationException)
             {
-                // Handle might not be created yet or other invalidation issues
+                // Bỏ qua nếu handle chưa được tạo
                 return;
             }
         }
@@ -634,7 +631,7 @@ namespace PomoMeetApp.View
 
             // Lấy userId từ UID của người bị offline
             string remoteUserId = FindUserIdByUid(remoteUid);
-            if (!string.IsNullOrEmpty(remoteUserId))
+            if (!string.IsNullOrEmpty(remoteUserId) && !isBeingKicked)
             {
                 // Tắt video/audio của người tham gia offline
                 rtcEngine.MuteRemoteVideoStream(remoteUid, true);
@@ -1390,28 +1387,83 @@ namespace PomoMeetApp.View
             }
         }
 
-        private void InitializeUserProfile()
+        private async void InitializeUserProfile()
         {
-            if (userProfilePanel1 == null)
+            try
             {
-                userProfilePanel1 = new UserProfilePanel(); // Khởi tạo UserProfilePanel nếu chưa khởi tạo
+                var db = FirebaseConfig.database;
+                // Lấy thông tin người dùng từ Firestore
+                DocumentSnapshot snapshot = await db.Collection("User").Document(currentUserId).GetSnapshotAsync();
+
+                if (!snapshot.Exists)
+                {
+                    MessageBox.Show("Thông tin người dùng không tồn tại.", "Lỗi", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    return;
+                }
+
+                string username = snapshot.GetValue<string>("Username");
+                string avatarName = snapshot.ContainsField("Avatar") ? snapshot.GetValue<string>("Avatar") : null;
+
+                // Load avatar từ Resources
+                Image avatarImage = LoadAvatarImage(avatarName);
+
+                // Cập nhật UI ngay lần đầu
+                userProfilePanel1.UpdateUserInfo(currentUserId, username, avatarImage);
+
+                // Load badge ngay khi vào app
+                await userProfilePanel1.UpdateNotificationBadge();
+
+                // Thiết lập callback cho việc nhấn vào avatar
+                userProfilePanel1.SetProfileClickCallback(userId =>
+                {
+                    // Kiểm tra xem form Profile đã mở chưa
+                    var existingProfileForm = Application.OpenForms.OfType<Profile>().FirstOrDefault();
+
+                    if (existingProfileForm == null) // Nếu chưa có Profile form đang mở
+                    {
+                        var profileForm = new Profile(userId);
+                        profileForm.ShowDialog();  // Mở form Profile
+                    }
+                    else
+                    {
+                        // Nếu form Profile đã mở, có thể đưa form đó lên trước (active)
+                        existingProfileForm.BringToFront();
+                    }
+                });
+
+                // Cập nhật trạng thái người dùng thành "online"
+                await UserStatusManager.Instance.UpdateUserStatus(currentUserId, "online");
+
+                // Bật listener để theo dõi thay đổi sau này
+                StartListeningForUserChanges(currentUserId);
             }
-
-            // 1. Configure the user profile panel
-            // Cần load username trước khi gọi UpdateUserInfo
-            // Sẽ được cập nhật trong LoadUserData()
-            userProfilePanel1.UpdateUserInfo(currentUserId, "", GetUserAvatar());
-
-            // 2. Set up the profile click callback
-            userProfilePanel1.SetProfileClickCallback(userId => // Sửa từ username sang userId
+            catch (Exception ex)
             {
-                var profileForm = new Profile(userId);
-                profileForm.ShowDialog();
+                MessageBox.Show($"Lỗi khi tải thông tin người dùng: {ex.Message}", "Lỗi", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+        }
+        private void StartListeningForUserChanges(string userId)
+        {
+            var db = FirebaseConfig.database;
+            DocumentReference userRef = db.Collection("User").Document(userId);
 
-                // Optional: Refresh user info after returning from profile
-                LoadUserData(); // Tải lại dữ liệu sau khi đóng form profile
+            // Lắng nghe thay đổi thông tin người dùng
+            _userListener = userRef.Listen(snapshot =>
+            {
+                if (snapshot.Exists)
+                {
+                    string username = snapshot.GetValue<string>("Username");
+                    string avatarName = snapshot.ContainsField("Avatar") ? snapshot.GetValue<string>("Avatar") : null;
+
+                    // Cập nhật UI trên thread chính
+                    SafeInvoke(() =>
+                    {
+                        userProfilePanel1.UpdateUserInfo(userId, username, LoadAvatarImage(avatarName));
+                    });
+                }
             });
         }
+
 
         // Class event handler
         public class MyRtcEngineEventHandler : RtcEngineEventHandler
@@ -1609,7 +1661,7 @@ namespace PomoMeetApp.View
                     deletedByHost = flag;
                 }
 
-                if (!snapshot.Exists || deletedByHost)
+                if (!snapshot.Exists || deletedByHost || isBeingKicked)
                 {
                     // Vẫn cần cleanup Agora resources
                     CleanupAgoraResources();
@@ -1652,6 +1704,7 @@ namespace PomoMeetApp.View
             finally
             {
                 isLeavingRoom = false;
+                isBeingKicked = false;
             }
         }
         private void CleanupAgoraResources()
@@ -1705,6 +1758,12 @@ namespace PomoMeetApp.View
         }
         protected override void OnFormClosing(FormClosingEventArgs e)
         {
+            if (isBeingKicked)
+            {
+                // Nếu bị kick thì cho phép đóng form ngay
+                e.Cancel = false;
+                return;
+            }
             // Chỉ xử lý khi user click X để đóng form
             if (e.CloseReason == CloseReason.UserClosing && !isLeavingRoom)
             {
@@ -1787,6 +1846,12 @@ namespace PomoMeetApp.View
 
         private async Task<bool> HandleCancelCallAsync()
         {
+            // Nếu đang bị kick thì không cần xác nhận
+            if (isBeingKicked)
+            {
+                return true;
+            }
+
             // Kiểm tra trạng thái trước khi xử lý
             if (isLeavingRoom)
             {
@@ -2420,18 +2485,39 @@ namespace PomoMeetApp.View
 
             emojiMenu.Show(btnEmoji, new Point(0, btnEmoji.Height));
         }
-
-        private void MeetingRoom_FormClosed(object sender, FormClosedEventArgs e)
+        private async void MeetingRoom_FormClosed(object sender, FormClosedEventArgs e)
         {
-            // Hiển thị lại Dashboard khi thoát MeetingRoom
-            var dashboard = Application.OpenForms.OfType<Dashboard>().FirstOrDefault();
-            if (dashboard != null)
+            try
             {
-                dashboard.Show();  // Hiển thị lại Dashboard
-            }
+                // Stop all listeners
+                _userListener?.StopAsync();
+                roomListener?.StopAsync();
+                messageListener?.StopAsync();
 
-            // Cập nhật trạng thái người dùng thành "online"
-            _ = UserStatusManager.Instance.UpdateUserStatus(currentUserId, "online");
+                // Cleanup Agora resources
+                CleanupAgoraResources();
+
+                // Update user status if not being kicked
+                if (!isBeingKicked)
+                {
+                    await UserStatusManager.Instance.UpdateUserStatus(currentUserId, "online");
+                }
+
+                // Show dashboard if not already shown
+                var dashboard = Application.OpenForms.OfType<Dashboard>().FirstOrDefault();
+                if (dashboard != null && !dashboard.IsDisposed)
+                {
+                    dashboard.SafeInvoke(() =>
+                    {
+                        dashboard.Show();
+                        dashboard.BringToFront();
+                    });
+                }
+            }
+            catch (Exception ex)
+            {
+                Debug.WriteLine($"Error in FormClosed: {ex.Message}");
+            }
         }
 
     }
