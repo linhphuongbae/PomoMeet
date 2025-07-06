@@ -29,18 +29,13 @@
         private void InitializeComponent()
         {
             components = new System.ComponentModel.Container();
-            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(MeetingRoom));
             SiticoneNetCoreUI.SiticoneFlowPanel.LayoutState layoutState1 = new SiticoneNetCoreUI.SiticoneFlowPanel.LayoutState();
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(MeetingRoom));
             ProgressBarMusic = new SiticoneNetCoreUI.SiticoneHProgressBar();
             btn_Reset = new SiticoneNetCoreUI.SiticoneButton();
             btn_pomodoro = new SiticoneNetCoreUI.SiticoneButton();
             btn_Start = new SiticoneNetCoreUI.SiticoneButton();
             lb_time_counter = new SiticoneNetCoreUI.SiticoneLabel();
-            panel1 = new Panel();
-            avatar_btn = new SiticoneNetCoreUI.SiticoneImageButton();
-            panel3 = new Panel();
-            siticoneImageButton8 = new SiticoneNetCoreUI.SiticoneImageButton();
-            lblMembersNumber = new Label();
             panel6 = new Panel();
             btnRoomID = new SiticoneNetCoreUI.SiticoneButton();
             lb_participant = new SiticoneNetCoreUI.SiticoneLabel();
@@ -67,9 +62,6 @@
             btn_Camera = new SiticoneNetCoreUI.SiticoneButton();
             btn_Mic = new SiticoneNetCoreUI.SiticoneButton();
             userProfilePanel1 = new UserProfilePanel();
-            siticoneImageButton1 = new SiticoneNetCoreUI.SiticoneImageButton();
-            panel2 = new Panel();
-            tbDisplayMsg = new RichTextBox();
             btn_Break = new SiticoneNetCoreUI.SiticoneButton();
             lb_CurrentTime = new Label();
             label1 = new Label();
@@ -81,13 +73,12 @@
             sideBar2 = new SideBar();
             tbMessages = new RichTextBox();
             btnEmoji = new SiticoneNetCoreUI.SiticoneButton();
-            panel1.SuspendLayout();
-            panel3.SuspendLayout();
+            pn_DisplayMessage = new Panel();
+            panel8 = new Panel();
             panel6.SuspendLayout();
             participants_panel.SuspendLayout();
             panel7.SuspendLayout();
             siticonePanel1.SuspendLayout();
-            panel2.SuspendLayout();
             pn_Background.SuspendLayout();
             panel4.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)pictureBox1).BeginInit();
@@ -383,110 +374,6 @@
             lb_time_counter.TabIndex = 0;
             lb_time_counter.Text = "25:00";
             lb_time_counter.TextAlign = ContentAlignment.MiddleCenter;
-            // 
-            // panel1
-            // 
-            panel1.BackColor = Color.FromArgb(117, 164, 127);
-            panel1.Controls.Add(avatar_btn);
-            panel1.Location = new Point(313, 617);
-            panel1.Name = "panel1";
-            panel1.Size = new Size(230, 151);
-            panel1.TabIndex = 2;
-            // 
-            // avatar_btn
-            // 
-            avatar_btn.AnimationSpeed = 0.15F;
-            avatar_btn.BackColor = Color.Transparent;
-            avatar_btn.BackgroundFillColor = Color.Transparent;
-            avatar_btn.BadgeAnimationEnabled = true;
-            avatar_btn.BadgeAnimationSpeed = 0.15F;
-            avatar_btn.BadgeColor = Color.Red;
-            avatar_btn.BadgeFont = new Font("Inter", 8F, FontStyle.Bold);
-            avatar_btn.BadgePosition = SiticoneNetCoreUI.BadgePosition.TopRight;
-            avatar_btn.BadgeTextColor = Color.White;
-            avatar_btn.BadgeValue = 0;
-            avatar_btn.BorderColor = Color.SeaGreen;
-            avatar_btn.BorderThickness = 2;
-            avatar_btn.CanBeep = true;
-            avatar_btn.CanShake = true;
-            avatar_btn.CornerRadiusBottomLeft = 44.5F;
-            avatar_btn.CornerRadiusBottomRight = 44.5F;
-            avatar_btn.CornerRadiusTopLeft = 44.5F;
-            avatar_btn.CornerRadiusTopRight = 44.5F;
-            avatar_btn.ImageDown = null;
-            avatar_btn.ImageHover = null;
-            avatar_btn.ImageNormal = (Image)resources.GetObject("avatar_btn.ImageNormal");
-            avatar_btn.ImageSizing = SiticoneNetCoreUI.ImageSizingMode.Stretch;
-            avatar_btn.IsReadOnly = false;
-            avatar_btn.Location = new Point(69, 21);
-            avatar_btn.MakeRadial = true;
-            avatar_btn.Name = "avatar_btn";
-            avatar_btn.PlaceholderImage = null;
-            avatar_btn.RippleColor = Color.FromArgb(50, 0, 0, 0);
-            avatar_btn.RippleEnabled = true;
-            avatar_btn.Size = new Size(92, 99);
-            avatar_btn.SpringEffectEnabled = true;
-            avatar_btn.TabIndex = 0;
-            avatar_btn.Text = "siticoneImageButton1";
-            avatar_btn.TrackSystemTheme = false;
-            // 
-            // panel3
-            // 
-            panel3.BackColor = Color.FromArgb(117, 164, 127);
-            panel3.Controls.Add(siticoneImageButton8);
-            panel3.Controls.Add(lblMembersNumber);
-            panel3.Location = new Point(844, 618);
-            panel3.Name = "panel3";
-            panel3.Size = new Size(230, 151);
-            panel3.TabIndex = 4;
-            // 
-            // siticoneImageButton8
-            // 
-            siticoneImageButton8.AnimationSpeed = 0.15F;
-            siticoneImageButton8.BackColor = Color.Transparent;
-            siticoneImageButton8.BackgroundFillColor = Color.White;
-            siticoneImageButton8.BadgeAnimationEnabled = true;
-            siticoneImageButton8.BadgeAnimationSpeed = 0.15F;
-            siticoneImageButton8.BadgeColor = Color.Red;
-            siticoneImageButton8.BadgeFont = new Font("Inter", 8F, FontStyle.Bold);
-            siticoneImageButton8.BadgePosition = SiticoneNetCoreUI.BadgePosition.TopRight;
-            siticoneImageButton8.BadgeTextColor = Color.White;
-            siticoneImageButton8.BadgeValue = 0;
-            siticoneImageButton8.BorderColor = Color.Transparent;
-            siticoneImageButton8.BorderThickness = 2;
-            siticoneImageButton8.CanBeep = true;
-            siticoneImageButton8.CanShake = true;
-            siticoneImageButton8.CornerRadiusBottomLeft = 33.5F;
-            siticoneImageButton8.CornerRadiusBottomRight = 33.5F;
-            siticoneImageButton8.CornerRadiusTopLeft = 33.5F;
-            siticoneImageButton8.CornerRadiusTopRight = 33.5F;
-            siticoneImageButton8.ImageDown = null;
-            siticoneImageButton8.ImageHover = null;
-            siticoneImageButton8.ImageNormal = null;
-            siticoneImageButton8.ImageSizing = SiticoneNetCoreUI.ImageSizingMode.Original;
-            siticoneImageButton8.IsReadOnly = false;
-            siticoneImageButton8.Location = new Point(83, 44);
-            siticoneImageButton8.MakeRadial = true;
-            siticoneImageButton8.Name = "siticoneImageButton8";
-            siticoneImageButton8.PlaceholderImage = null;
-            siticoneImageButton8.RippleColor = Color.FromArgb(50, 0, 0, 0);
-            siticoneImageButton8.RippleEnabled = true;
-            siticoneImageButton8.Size = new Size(70, 75);
-            siticoneImageButton8.SpringEffectEnabled = true;
-            siticoneImageButton8.TabIndex = 13;
-            siticoneImageButton8.Text = "siticoneImageButton8";
-            siticoneImageButton8.TrackSystemTheme = false;
-            // 
-            // lblMembersNumber
-            // 
-            lblMembersNumber.AutoSize = true;
-            lblMembersNumber.BackColor = Color.Transparent;
-            lblMembersNumber.Font = new Font("Inter", 9.6F);
-            lblMembersNumber.Location = new Point(147, 30);
-            lblMembersNumber.Name = "lblMembersNumber";
-            lblMembersNumber.Size = new Size(21, 23);
-            lblMembersNumber.TabIndex = 14;
-            lblMembersNumber.Text = "+";
             // 
             // panel6
             // 
@@ -1237,64 +1124,6 @@
             userProfilePanel1.Size = new Size(312, 75);
             userProfilePanel1.TabIndex = 36;
             // 
-            // siticoneImageButton1
-            // 
-            siticoneImageButton1.AnimationSpeed = 0.15F;
-            siticoneImageButton1.BackColor = Color.Transparent;
-            siticoneImageButton1.BackgroundFillColor = Color.Transparent;
-            siticoneImageButton1.BadgeAnimationEnabled = true;
-            siticoneImageButton1.BadgeAnimationSpeed = 0.15F;
-            siticoneImageButton1.BadgeColor = Color.Red;
-            siticoneImageButton1.BadgeFont = new Font("Inter", 8F, FontStyle.Bold);
-            siticoneImageButton1.BadgePosition = SiticoneNetCoreUI.BadgePosition.TopRight;
-            siticoneImageButton1.BadgeTextColor = Color.White;
-            siticoneImageButton1.BadgeValue = 0;
-            siticoneImageButton1.BorderColor = Color.SeaGreen;
-            siticoneImageButton1.BorderThickness = 2;
-            siticoneImageButton1.CanBeep = true;
-            siticoneImageButton1.CanShake = true;
-            siticoneImageButton1.CornerRadiusBottomLeft = 44.5F;
-            siticoneImageButton1.CornerRadiusBottomRight = 44.5F;
-            siticoneImageButton1.CornerRadiusTopLeft = 44.5F;
-            siticoneImageButton1.CornerRadiusTopRight = 44.5F;
-            siticoneImageButton1.ImageDown = null;
-            siticoneImageButton1.ImageHover = null;
-            siticoneImageButton1.ImageNormal = (Image)resources.GetObject("siticoneImageButton1.ImageNormal");
-            siticoneImageButton1.ImageSizing = SiticoneNetCoreUI.ImageSizingMode.Stretch;
-            siticoneImageButton1.IsReadOnly = false;
-            siticoneImageButton1.Location = new Point(71, 31);
-            siticoneImageButton1.MakeRadial = true;
-            siticoneImageButton1.Name = "siticoneImageButton1";
-            siticoneImageButton1.PlaceholderImage = null;
-            siticoneImageButton1.RippleColor = Color.FromArgb(50, 0, 0, 0);
-            siticoneImageButton1.RippleEnabled = true;
-            siticoneImageButton1.Size = new Size(92, 99);
-            siticoneImageButton1.SpringEffectEnabled = true;
-            siticoneImageButton1.TabIndex = 0;
-            siticoneImageButton1.Text = "siticoneImageButton1";
-            siticoneImageButton1.TrackSystemTheme = false;
-            // 
-            // panel2
-            // 
-            panel2.BackColor = Color.FromArgb(117, 164, 127);
-            panel2.Controls.Add(siticoneImageButton1);
-            panel2.Location = new Point(578, 617);
-            panel2.Name = "panel2";
-            panel2.Size = new Size(230, 151);
-            panel2.TabIndex = 4;
-            // 
-            // tbDisplayMsg
-            // 
-            tbDisplayMsg.BackColor = Color.FromArgb(212, 228, 195);
-            tbDisplayMsg.Location = new Point(1108, 502);
-            tbDisplayMsg.Name = "tbDisplayMsg";
-            tbDisplayMsg.ReadOnly = true;
-            tbDisplayMsg.ScrollBars = RichTextBoxScrollBars.Vertical;
-            tbDisplayMsg.Size = new Size(284, 404);
-            tbDisplayMsg.TabIndex = 40;
-            tbDisplayMsg.TabStop = false;
-            tbDisplayMsg.Text = "";
-            // 
             // btn_Break
             // 
             btn_Break.AccessibleDescription = "The default button control that accept input though the mouse, touch and keyboard";
@@ -1410,7 +1239,7 @@
             pn_Background.Controls.Add(panel4);
             pn_Background.Location = new Point(313, 100);
             pn_Background.Name = "pn_Background";
-            pn_Background.Size = new Size(761, 467);
+            pn_Background.Size = new Size(761, 463);
             pn_Background.TabIndex = 48;
             // 
             // panel4
@@ -1486,7 +1315,7 @@
             btnSendMessages.IsReadOnly = false;
             btnSendMessages.IsToggleButton = false;
             btnSendMessages.IsToggled = false;
-            btnSendMessages.Location = new Point(1336, 850);
+            btnSendMessages.Location = new Point(1336, 874);
             btnSendMessages.LongPressDurationMS = 1000;
             btnSendMessages.Name = "btnSendMessages";
             btnSendMessages.NormalFontStyle = FontStyle.Regular;
@@ -1520,10 +1349,11 @@
             sideBar2.Name = "sideBar2";
             sideBar2.Size = new Size(276, 1250);
             sideBar2.TabIndex = 50;
+            sideBar2.Load += sideBar2_Load;
             // 
             // tbMessages
             // 
-            tbMessages.Location = new Point(1124, 850);
+            tbMessages.Location = new Point(1124, 874);
             tbMessages.Name = "tbMessages";
             tbMessages.Size = new Size(214, 43);
             tbMessages.TabIndex = 51;
@@ -1577,7 +1407,7 @@
             btnEmoji.IsReadOnly = false;
             btnEmoji.IsToggleButton = false;
             btnEmoji.IsToggled = false;
-            btnEmoji.Location = new Point(1305, 850);
+            btnEmoji.Location = new Point(1305, 874);
             btnEmoji.LongPressDurationMS = 1000;
             btnEmoji.Name = "btnEmoji";
             btnEmoji.NormalFontStyle = FontStyle.Regular;
@@ -1605,6 +1435,23 @@
             btnEmoji.UseParticles = false;
             btnEmoji.Click += btnEmoji_Click;
             // 
+            // pn_DisplayMessage
+            // 
+            pn_DisplayMessage.AutoScroll = true;
+            pn_DisplayMessage.BackColor = Color.FromArgb(212, 228, 195);
+            pn_DisplayMessage.Location = new Point(1107, 506);
+            pn_DisplayMessage.Name = "pn_DisplayMessage";
+            pn_DisplayMessage.Size = new Size(284, 360);
+            pn_DisplayMessage.TabIndex = 55;
+            // 
+            // panel8
+            // 
+            panel8.BackColor = Color.FromArgb(212, 228, 195);
+            panel8.Location = new Point(1107, 856);
+            panel8.Name = "panel8";
+            panel8.Size = new Size(284, 73);
+            panel8.TabIndex = 56;
+            // 
             // MeetingRoom
             // 
             AutoScaleDimensions = new SizeF(8F, 20F);
@@ -1616,28 +1463,22 @@
             Controls.Add(sideBar2);
             Controls.Add(btnSendMessages);
             Controls.Add(pictureBox1);
-            Controls.Add(panel7);
             Controls.Add(userProfilePanel1);
             Controls.Add(siticonePanel1);
             Controls.Add(sbtn_CancelCall);
             Controls.Add(sbtn_ChangeHost);
             Controls.Add(participants_panel);
-            Controls.Add(panel3);
-            Controls.Add(panel2);
-            Controls.Add(panel1);
             Controls.Add(pn_Background);
-            Controls.Add(tbDisplayMsg);
+            Controls.Add(pn_DisplayMessage);
+            Controls.Add(panel7);
+            Controls.Add(panel8);
             Name = "MeetingRoom";
             Text = "Meeting Room";
             Load += MeetingRoom_Load;
-            panel1.ResumeLayout(false);
-            panel3.ResumeLayout(false);
-            panel3.PerformLayout();
             panel6.ResumeLayout(false);
             participants_panel.ResumeLayout(false);
             panel7.ResumeLayout(false);
             siticonePanel1.ResumeLayout(false);
-            panel2.ResumeLayout(false);
             pn_Background.ResumeLayout(false);
             panel4.ResumeLayout(false);
             panel4.PerformLayout();
@@ -1650,11 +1491,6 @@
         private SiticoneNetCoreUI.SiticoneButton btn_Start;
         private SiticoneNetCoreUI.SiticoneLabel lb_time_counter;
         private SiticoneNetCoreUI.SiticoneButton btn_pomodoro;
-        private Panel panel1;
-        private SiticoneNetCoreUI.SiticoneImageButton avatar_btn;
-        private Panel panel3;
-        private Label lblMembersNumber;
-        private SiticoneNetCoreUI.SiticoneImageButton siticoneImageButton8;
         private Panel panel6;
         private SiticoneNetCoreUI.SiticoneLabel lb_participant;
         private TableLayoutPanel participants_panel;
@@ -1681,9 +1517,6 @@
         private SiticoneNetCoreUI.SiticoneButton btn_Speaker;
         private SiticoneNetCoreUI.SiticoneButton btn_Camera;
         private SiticoneNetCoreUI.SiticoneLabel siticoneLabel1;
-        private SiticoneNetCoreUI.SiticoneImageButton siticoneImageButton1;
-        private Panel panel2;
-        private RichTextBox tbDisplayMsg;
         private SiticoneNetCoreUI.SiticoneButton btn_Reset;
         private SiticoneNetCoreUI.SiticoneHProgressBar ProgressBarMusic;
         private SiticoneNetCoreUI.SiticoneButton btn_Break;
@@ -1698,5 +1531,7 @@
         private SiticoneNetCoreUI.SiticoneButton btnRoomID;
         private RichTextBox tbMessages;
         private SiticoneNetCoreUI.SiticoneButton btnEmoji;
+        private Panel pn_DisplayMessage;
+        private Panel panel8;
     }
 }

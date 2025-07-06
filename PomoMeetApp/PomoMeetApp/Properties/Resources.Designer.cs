@@ -403,6 +403,16 @@ namespace PomoMeetApp.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
+        internal static System.Drawing.Bitmap Ellipse1 {
+            get {
+                object obj = ResourceManager.GetObject("Ellipse1", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
         internal static System.Drawing.Bitmap eye_close {
             get {
                 object obj = ResourceManager.GetObject("eye_close", resourceCulture);
@@ -466,6 +476,16 @@ namespace PomoMeetApp.Properties {
         internal static System.Drawing.Bitmap group_add {
             get {
                 object obj = ResourceManager.GetObject("group_add", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap group1 {
+            get {
+                object obj = ResourceManager.GetObject("group1", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }

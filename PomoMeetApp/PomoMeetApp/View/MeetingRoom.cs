@@ -24,6 +24,7 @@ using NAudio.Wave;
 using static PomoMeetApp.View.CustomMessageBox;
 
 
+
 namespace PomoMeetApp.View
 {
     public partial class MeetingRoom : Form
@@ -35,6 +36,8 @@ namespace PomoMeetApp.View
         private FirestoreChangeListener roomListener;
         private FirestoreChangeListener messageListener;
         private FirestoreChangeListener _userListener;
+        private int currentMessageY = 10; // vị trí Y bắt đầu từ trên cùng
+
 
         private string appId = "4b8519068a154d67981912816c14c56f";
         private IRtcEngine rtcEngine;
@@ -316,18 +319,6 @@ namespace PomoMeetApp.View
                 if (!snapshot.TryGetValue("members_status", out Dictionary<string, object> membersStatus))
                 {
                     return;
-                }
-
-                // Cập nhật số lượng members
-                int totalMembers = membersStatus.Count;
-                if (totalMembers < 4)
-                {
-                    SafeInvoke(() => { lblMembersNumber.Text = "0+"; });
-                }
-                else
-                {
-                    int displayedMembers = totalMembers - 3;
-                    SafeInvoke(() => { lblMembersNumber.Text = $"{displayedMembers}+"; });
                 }
 
                 // Bỏ qua kiểm tra đầu tiên trong 3 giây đầu
@@ -923,16 +914,44 @@ namespace PomoMeetApp.View
                 BorderStyle = BorderStyle.FixedSingle
             };
 
+            SiticonePictureBox pb = new SiticonePictureBox
+            {
+                Name = "pb_extra",
+                Size = new Size(92, 99),
+                CornerRadius = 44,
+                Location = new Point(69, 21),
+                BorderColor = Color.SeaGreen,
+                BackgroundImage = Properties.Resources.Ellipse1,
+                BackgroundImageLayout = ImageLayout.Stretch,
+                BackColor = Color.FromArgb(117, 164, 127),
+            };
+
+            PictureBox pb_icon = new PictureBox
+            {
+                Name = "pb_icon",
+                Size = new Size(32, 31),
+                BackColor = Color.White,
+                Image = Properties.Resources.group,
+                Location = new Point(92, 58)
+            };
+
             Label label = new Label
             {
-                Text = $"+{remainingCount} người",
-                Font = new Font("Segoe UI", 16, FontStyle.Bold),
-                ForeColor = Color.White,
+                Text = $"{remainingCount}+",
+                Font = new Font("Inter", 12, FontStyle.Bold),
+                BackColor = Color.White,
+                ForeColor = Color.Black,
                 AutoSize = true,
-                Location = new Point((panel.Width - 120) / 2, (panel.Height - 30) / 2)
+                Location = new Point(113, 37)
             };
 
             panel.Controls.Add(label);
+            panel.Controls.Add(pb);
+            panel.Controls.Add(pb_icon);
+
+            pb.BringToFront();
+            label.BringToFront();
+            pb_icon.BringToFront();
 
             this.Invoke(new Action(() =>
             {
@@ -962,14 +981,11 @@ namespace PomoMeetApp.View
             int totalMembers = updatedMemberStates.Count;
             int index = 0;
 
-            // Lấy các panel hiện có (trừ panel_extra)
             var currentPanels = this.Controls.OfType<Panel>()
-    .Where(p => p.Name.StartsWith("panel_") && p.Name != "panel_extra")
-    .GroupBy(p => p.Name.Replace("panel_", ""))
-    .ToDictionary(g => g.Key, g => g.First());
+                .Where(p => p.Name.StartsWith("panel_") && p.Name != "panel_extra")
+                .GroupBy(p => p.Name.Replace("panel_", ""))
+                .ToDictionary(g => g.Key, g => g.First());
 
-
-            // Xóa các panel không còn trong danh sách
             foreach (var userId in currentPanels.Keys.Except(updatedMemberStates.Keys).ToList())
             {
                 this.Invoke(() =>
@@ -979,13 +995,11 @@ namespace PomoMeetApp.View
                 });
             }
 
-            // 👉 Xử lý sắp xếp: hostId lên đầu, currentUserId thứ hai, nếu trùng thì chọn người kế tiếp
             var others = updatedMemberStates.Keys
                 .Where(id => id != hostId && id != currentUserId)
                 .ToList();
 
             List<string> orderedIds = new List<string>();
-
             if (updatedMemberStates.ContainsKey(hostId))
                 orderedIds.Add(hostId);
 
@@ -993,18 +1007,16 @@ namespace PomoMeetApp.View
                 orderedIds.Add(currentUserId);
             else if (others.Count > 0)
             {
-                orderedIds.Add(others[0]); // người kế tiếp nếu currentUserId == hostId
+                orderedIds.Add(others[0]);
                 others.RemoveAt(0);
             }
 
-            // Thêm phần còn lại nếu cần (chỉ hiển thị tối đa 2 người)
             while (orderedIds.Count < 2 && others.Count > 0)
             {
                 orderedIds.Add(others[0]);
                 others.RemoveAt(0);
             }
 
-            // 👉 Hiển thị tối đa 2 panel người
             foreach (var userId in orderedIds)
             {
                 MemberState state = updatedMemberStates[userId];
@@ -1012,27 +1024,44 @@ namespace PomoMeetApp.View
                 Panel panel;
                 if (!currentPanels.TryGetValue(userId, out panel))
                 {
-                    panel = CreateRemotePanel(userId, index);
+                    panel = CreateRemotePanel(userId, index); // Tạo mới nếu chưa có
                 }
 
                 var location = GetPanelLocation(index);
                 this.Invoke(() =>
                 {
                     panel.Location = location;
-                    panel.BringToFront(); // Đảm bảo panel này nằm trên cùng
+                    panel.BringToFront();
                 });
 
                 await UpdatePanelContent(panel, userId, state);
                 index++;
             }
 
-            // 👉 Xử lý panel_extra nếu dư người
             int extraCount = totalMembers - orderedIds.Count;
             var oldExtraPanel = this.Controls.Find("panel_extra", true).FirstOrDefault() as Panel;
 
             if (extraCount > 0)
             {
-                CreateExtraPanel(index, extraCount); // index = 2
+                if (oldExtraPanel != null)
+                {
+                    // ✅ Cập nhật số và vị trí
+                    var label = oldExtraPanel.Controls
+                        .OfType<Label>()
+                        .FirstOrDefault(l => l.Text.EndsWith("+"));
+
+                    if (label != null)
+                    {
+                        this.Invoke(() => label.Text = $"{extraCount}+");
+                    }
+
+                    var newLocation = GetPanelLocation(index);
+                    this.Invoke(() => oldExtraPanel.Location = newLocation);
+                }
+                else
+                {
+                    CreateExtraPanel(index, extraCount);
+                }
             }
             else if (oldExtraPanel != null)
             {
@@ -1043,6 +1072,7 @@ namespace PomoMeetApp.View
                 });
             }
         }
+
 
 
         // Hàm cập nhật trạng thái camera/avatar của panel (gọi trong UpdatePanels)
@@ -1338,40 +1368,6 @@ namespace PomoMeetApp.View
             {
                 rtcEngine.SetEnableSpeakerphone(false); // tắt loa ngoài, chuyển sang tai nghe nếu có
             }
-        }
-
-        private Image GetAvatarFromResources(string avatarKey)
-        {
-            switch (avatarKey)
-            {
-                case "avt1":
-                    return Properties.Resources.avt1; // Avatar từ Resources
-                case "avt2":
-                    return Properties.Resources.avt2; // Avatar từ Resources
-                case "avt3":
-                    return Properties.Resources.avt3; // Avatar từ Resources
-                case "avt4":
-                    return Properties.Resources.avt4; // Avatar từ Resources
-                case "avt5":
-                    return Properties.Resources.avt5; // Avatar từ Resources
-                case "avt6":
-                    return Properties.Resources.avt6; // Avatar từ Resources
-                case "avt7":
-                    return Properties.Resources.avt7; // Avatar từ Resources
-                case "avt8":
-                    return Properties.Resources.avt8; // Avatar từ Resources
-                case "avt9":
-                    return Properties.Resources.avt9; // Avatar từ Resources
-                case "avt10":
-                    return Properties.Resources.avt10; // Avatar từ Resources
-                default:
-                    return Properties.Resources.avatar; // Avatar mặc định nếu không tìm thấy
-            }
-        }
-
-        private Image GetUserAvatar()
-        {
-            return Properties.Resources.avatar; // Fallback image
         }
 
         private async void LoadUserData()
@@ -1769,26 +1765,6 @@ namespace PomoMeetApp.View
                 Debug.WriteLine($"Error cleaning up Agora resources: {ex.Message}");
             }
         }
-        private async void SendNotificationToMember(string memberId)
-        {
-            try
-            {
-                var db = FirebaseConfig.database;
-                var notificationsRef = db.Collection("Notifications").Document(memberId);
-
-                await notificationsRef.SetAsync(new
-                {
-                    message = "Phòng họp đã bị đóng bởi host",
-                    roomId = currentroomId,
-                    timestamp = FieldValue.ServerTimestamp,
-                    isRead = false
-                }, SetOptions.MergeAll);
-            }
-            catch (Exception ex)
-            {
-                Debug.WriteLine($"Lỗi khi gửi thông báo: {ex.Message}");
-            }
-        }
         protected override void OnFormClosing(FormClosingEventArgs e)
         {
             if (isBeingKicked)
@@ -1946,7 +1922,7 @@ namespace PomoMeetApp.View
                     {
                         this.Invoke(() =>
                         {
-                            var result = CustomMessageBox.Show("Bạn có chắc muốn rời phòng?", "Xác nhận", MessageBoxMode.YesNo);
+                            result = CustomMessageBox.Show("Bạn có chắc muốn rời phòng?", "Xác nhận", MessageBoxMode.YesNo);
 
                         });
                     }
@@ -2050,6 +2026,35 @@ namespace PomoMeetApp.View
         {
 
         }
+        private Image GetAvatarFromResources(string avatarKey)
+        {
+            switch (avatarKey)
+            {
+                case "avt1":
+                    return Properties.Resources.avt1; // Avatar từ Resources
+                case "avt2":
+                    return Properties.Resources.avt2; // Avatar từ Resources
+                case "avt3":
+                    return Properties.Resources.avt3; // Avatar từ Resources
+                case "avt4":
+                    return Properties.Resources.avt4; // Avatar từ Resources
+                case "avt5":
+                    return Properties.Resources.avt5; // Avatar từ Resources
+                case "avt6":
+                    return Properties.Resources.avt6; // Avatar từ Resources
+                case "avt7":
+                    return Properties.Resources.avt7; // Avatar từ Resources
+                case "avt8":
+                    return Properties.Resources.avt8; // Avatar từ Resources
+                case "avt9":
+                    return Properties.Resources.avt9; // Avatar từ Resources
+                case "avt10":
+                    return Properties.Resources.avt10; // Avatar từ Resources
+                default:
+                    return Properties.Resources.avatar; // Avatar mặc định nếu không tìm thấy
+            }
+        }
+
         private async void btnSendMessages_Click(object sender, EventArgs e)
         {
             string msg = tbMessages.Text.Trim();
@@ -2080,6 +2085,62 @@ namespace PomoMeetApp.View
 
         }
 
+        public class MessageBubble : Panel
+        {
+            private TextBox textBox;
+
+            public MessageBubble(string message, bool isMine)
+            {
+                this.Padding = new Padding(10);
+                this.BackColor = Color.White;
+                this.DoubleBuffered = true;
+
+                this.textBox = new TextBox
+                {
+                    Text = message,
+                    Multiline = true,
+                    ReadOnly = true,
+                    BorderStyle = BorderStyle.None,
+                    BackColor = this.BackColor,
+                    Font = new Font("Inter", 10),
+                    ForeColor = Color.Black,
+                    Dock = DockStyle.Fill,
+                    TabStop = false
+                };
+
+                this.Controls.Add(textBox);
+
+                this.Height = GetPreferredHeight(message, this.Width);
+
+                this.Paint += MessageBubble_Paint;
+            }
+
+            private void MessageBubble_Paint(object sender, PaintEventArgs e)
+            {
+                int radius = 16;
+                System.Drawing.Rectangle bounds = this.ClientRectangle;
+                using var path = new GraphicsPath();
+
+                path.AddArc(bounds.X, bounds.Y, radius, radius, 180, 90);
+                path.AddArc(bounds.Right - radius, bounds.Y, radius, radius, 270, 90);
+                path.AddArc(bounds.Right - radius, bounds.Bottom - radius, radius, radius, 0, 90);
+                path.AddArc(bounds.X, bounds.Bottom - radius, radius, radius, 90, 90);
+                path.CloseFigure();
+                this.Region = new System.Drawing.Region(path);
+
+            }
+
+            private int GetPreferredHeight(string text, int width)
+            {
+                using (var g = this.CreateGraphics())
+                {
+                    SizeF textSize = g.MeasureString(text, this.textBox.Font, width - this.Padding.Horizontal);
+                    return (int)Math.Ceiling(textSize.Height) + this.Padding.Vertical + 10;
+                }
+            }
+        }
+
+
 
         // hàm lấy realtime message
         private void ListenMessage()
@@ -2100,64 +2161,150 @@ namespace PomoMeetApp.View
             {
                 if (isLeavingRoom) return;
 
-                var db = FirebaseConfig.database;
-
                 foreach (var change in snapshot.Changes)
                 {
                     if (change.ChangeType != DocumentChange.Type.Added)
                         continue;
+
                     var doc = change.Document;
                     var messageData = doc.ToDictionary();
+
                     string userId = messageData.GetValueOrDefault("user_id", "").ToString();
                     string messageText = messageData.GetValueOrDefault("message", "").ToString();
                     var createdAt = messageData.ContainsKey("created_at") && messageData["created_at"] is Timestamp
                         ? ((Timestamp)messageData["created_at"]).ToDateTime().ToString("HH:mm")
                         : DateTime.Now.ToString("HH:mm");
 
+                    // Tách truy vấn Firestore ra ngoài UI thread
                     string username = "Unknown";
+                    string avatarKey = "default";
                     try
                     {
                         var userRef = db.Collection("User").Document(userId);
                         var userDoc = await userRef.GetSnapshotAsync();
                         if (userDoc.Exists)
+                        {
                             username = userDoc.GetValue<string>("Username") ?? "Unknown";
+                            if (userDoc.ContainsField("Avatar"))
+                                avatarKey = userDoc.GetValue<string>("Avatar");
+                        }
                     }
                     catch (Exception ex)
                     {
                         MessageBox.Show($"Lỗi khi truy vấn Firestore:\n{ex.Message}", "Lỗi Firestore", MessageBoxButtons.OK, MessageBoxIcon.Error);
                     }
 
-                    this.Invoke(new Action(() =>
+                    this.Invoke(() =>
                     {
-                        if (tbDisplayMsg == null || tbDisplayMsg.IsDisposed) return;
+                        // 🔸 GIẢI PHÁP 1: Tạm thời tắt AutoScroll để tránh xung đột
+                        bool originalAutoScroll = pn_DisplayMessage.AutoScroll;
+                        pn_DisplayMessage.AutoScroll = false;
 
-                        // [Time]
-                        tbDisplayMsg.SelectionStart = tbDisplayMsg.TextLength;
-                        tbDisplayMsg.SelectionColor = Color.Gray;
-                        tbDisplayMsg.SelectionFont = new Font("Segoe UI", 8, FontStyle.Italic);
-                        tbDisplayMsg.AppendText($"[{createdAt}] ");
+                        // Tính toán lại vị trí Y dựa trên controls hiện có
+                        int nextY = 10; // Margin top
+                        if (pn_DisplayMessage.Controls.Count > 0)
+                        {
+                            // Tìm control cuối cùng và tính vị trí tiếp theo
+                            Control lastControl = pn_DisplayMessage.Controls[pn_DisplayMessage.Controls.Count - 1];
+                            nextY = lastControl.Bottom + 5;
+                        }
 
-                        // Username
-                        tbDisplayMsg.SelectionStart = tbDisplayMsg.TextLength;
-                        tbDisplayMsg.SelectionColor = userId == currentUserId ? Color.Blue : Color.DarkGreen;
-                        tbDisplayMsg.SelectionFont = new Font("Segoe UI", 9, FontStyle.Bold);
-                        tbDisplayMsg.AppendText($"{username}: ");
+                        // 1. Tạo panel chứa 1 tin nhắn
+                        Panel messagePanel = new Panel
+                        {
+                            Width = pn_DisplayMessage.Width - 20, // 284 - 20 = 264px
+                            BackColor = Color.Transparent,
+                            Anchor = AnchorStyles.Top | AnchorStyles.Left // 🔸 Cố định anchor
+                        };
 
-                        // Message
-                        tbDisplayMsg.SelectionStart = tbDisplayMsg.TextLength;
-                        tbDisplayMsg.SelectionColor = Color.Black;
-                        tbDisplayMsg.SelectionFont = new Font("Segoe UI Emoji", 10, FontStyle.Regular); // Hỗ trợ emoji
-                        tbDisplayMsg.AppendText($"{messageText}\n\n"); // \n\n để giãn dòng
+                        bool isMyMessage = userId == currentUserId;
 
-                        // Cuộn xuống
-                        tbDisplayMsg.Focus();
-                        tbDisplayMsg.SelectionStart = tbDisplayMsg.Text.Length;
-                        tbDisplayMsg.ScrollToCaret();
-                    }));
+                        // Tạo avatar
+                        PictureBox avatar = new PictureBox
+                        {
+                            Size = new Size(40, 40),
+                            SizeMode = PictureBoxSizeMode.Zoom,
+                            BackColor = Color.Transparent,
+                            Image = MakeRoundedAvatar(GetAvatarFromResources(avatarKey), new Size(40, 40))
+                        };
+
+                        MessageBubble bubble = new MessageBubble(messageText, isMyMessage)
+                        {
+                            Width = 180
+                        };
+
+
+                        // Tên người gửi
+                        Label lblName = new Label
+                        {
+                            Text = username,
+                            Font = new Font("Inter", 10, FontStyle.Bold),
+                            ForeColor = Color.Black,
+                            AutoSize = true
+                        };
+
+                        // Thời gian
+                        Label lblTime = new Label
+                        {
+                            Text = $"Hôm nay lúc {createdAt}",
+                            Font = new Font("Inter", 8),
+                            ForeColor = Color.Gray,
+                            AutoSize = true
+                        };
+
+                        // Tính layout Y trong messagePanel
+                        int nameY = 0;
+                        int bubbleY = nameY + lblName.Height + 4;
+                        int timeY = bubbleY + bubble.Height + 4;
+                        int panelHeight = timeY + lblTime.Height + 10;
+
+                        messagePanel.Height = panelHeight;
+
+                        if (isMyMessage)
+                        {
+                            // Tin nhắn của mình - avatar bên trái, bubble bên phải
+                            avatar.Location = new Point(10, bubbleY);
+                            bubble.Location = new Point(60, bubbleY);
+                            lblName.Location = new Point(60, nameY);
+                            lblTime.Location = new Point(60, timeY);
+                        }
+                        else
+                        {
+                            // Tin nhắn người khác - bubble bên trái, avatar bên phải
+                            bubble.Location = new Point(10, bubbleY);
+                            avatar.Location = new Point(210, bubbleY); // 🔸 Điều chỉnh lại cho vừa
+                            lblName.Location = new Point(10, nameY);
+                            lblTime.Location = new Point(10, timeY);
+                        }
+
+                        // Add controls
+                        messagePanel.Controls.Add(avatar);
+                        messagePanel.Controls.Add(lblName);
+                        messagePanel.Controls.Add(bubble);
+                        messagePanel.Controls.Add(lblTime);
+
+                        // Đặt vị trí messagePanel bằng nextY đã tính toán
+                        messagePanel.Location = new Point(10, nextY);
+
+                        // Add vào panel chính
+                        pn_DisplayMessage.Controls.Add(messagePanel);
+
+                        // 🔸 GIẢI PHÁP 2: Thay thế ScrollControlIntoView bằng cách scroll thủ công
+                        pn_DisplayMessage.AutoScroll = originalAutoScroll;
+
+                        // Scroll xuống cuối một cách chính xác
+                        if (pn_DisplayMessage.AutoScroll)
+                        {
+                            // Cách 1: Scroll thủ công
+                            pn_DisplayMessage.AutoScrollPosition = new Point(0, pn_DisplayMessage.DisplayRectangle.Height);
+
+                            // Hoặc Cách 2: Sử dụng VerticalScroll
+                            // pn_DisplayMessage.VerticalScroll.Value = pn_DisplayMessage.VerticalScroll.Maximum;
+                        }
+                    });
                 }
             });
         }
-
         private async void btn_Start_Click(object sender, EventArgs e)
         {
             if (currentUserId != hostId)
@@ -2549,5 +2696,14 @@ namespace PomoMeetApp.View
             }
         }
 
+        private void label4_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void sideBar2_Load(object sender, EventArgs e)
+        {
+
+        }
     }
 }

@@ -65,7 +65,7 @@ namespace PomoMeetApp.View
             btnPrev = new Button
             {
                 Text = "Trang trước",
-                Location = new Point(325, 893),
+                Location = new Point(325, 910),
                 AutoSize = true,
                 AutoSizeMode = AutoSizeMode.GrowAndShrink, // Để button co dãn đúng cách
                 BackColor = System.Drawing.Color.FromArgb(117, 164, 127),
@@ -81,7 +81,7 @@ namespace PomoMeetApp.View
             btnNext = new Button
             {
                 Text = "Trang sau",
-                Location = new Point(1268, 893),
+                Location = new Point(1268, 910),
                 AutoSize = true,
                 AutoSizeMode = AutoSizeMode.GrowAndShrink,
                 BackColor = System.Drawing.Color.FromArgb(117, 164, 127),
@@ -375,7 +375,7 @@ namespace PomoMeetApp.View
                 {
                     Size = new Size(320, 240),
                     Location = location,
-                    BorderStyle = BorderStyle.FixedSingle,
+                    BorderStyle = BorderStyle.None,
                     BackgroundImageLayout = ImageLayout.Stretch,
                     BackgroundImage = GetBackgroundByIndex(backgroundIndex),
                     Cursor = Cursors.Hand
