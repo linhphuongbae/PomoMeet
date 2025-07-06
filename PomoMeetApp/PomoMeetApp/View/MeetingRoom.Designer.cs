@@ -30,7 +30,7 @@
         {
             components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(MeetingRoom));
-            SiticoneNetCoreUI.SiticoneFlowPanel.LayoutState layoutState2 = new SiticoneNetCoreUI.SiticoneFlowPanel.LayoutState();
+            SiticoneNetCoreUI.SiticoneFlowPanel.LayoutState layoutState1 = new SiticoneNetCoreUI.SiticoneFlowPanel.LayoutState();
             ProgressBarMusic = new SiticoneNetCoreUI.SiticoneHProgressBar();
             btn_Reset = new SiticoneNetCoreUI.SiticoneButton();
             btn_pomodoro = new SiticoneNetCoreUI.SiticoneButton();
@@ -497,10 +497,10 @@
             panel6.Name = "panel6";
             panel6.Size = new Size(264, 46);
             panel6.TabIndex = 0;
-            layoutState2.Location = new Point(3, 3);
-            layoutState2.Size = new Size(302, 61);
-            layoutState2.Visible = true;
-            panel6.Tag = layoutState2;
+            layoutState1.Location = new Point(3, 3);
+            layoutState1.Size = new Size(302, 61);
+            layoutState1.Visible = true;
+            panel6.Tag = layoutState1;
             // 
             // btnRoomID
             // 
@@ -1408,9 +1408,9 @@
             pn_Background.BackgroundImageLayout = ImageLayout.Stretch;
             pn_Background.Controls.Add(btn_Reset);
             pn_Background.Controls.Add(panel4);
-            pn_Background.Location = new Point(351, 100);
+            pn_Background.Location = new Point(313, 100);
             pn_Background.Name = "pn_Background";
-            pn_Background.Size = new Size(723, 451);
+            pn_Background.Size = new Size(761, 467);
             pn_Background.TabIndex = 48;
             // 
             // panel4
@@ -1518,7 +1518,7 @@
             // 
             sideBar2.Location = new Point(0, 0);
             sideBar2.Name = "sideBar2";
-            sideBar2.Size = new Size(345, 1250);
+            sideBar2.Size = new Size(276, 1250);
             sideBar2.TabIndex = 50;
             // 
             // tbMessages

@@ -125,9 +125,6 @@ namespace PomoMeetApp.View
             }
         }
 
-
-
-
         private void AddMemberRow(string userId, string username, Image avatar)
         {
             int rowIndex = tlp_ListMembers.RowCount;
@@ -229,9 +226,9 @@ namespace PomoMeetApp.View
                 }
 
                 var roomData = snapshot.ToDictionary();
-                string hostId = roomData["host_id"].ToString(); // Lấy hostId từ Firestore
+                string hostId = roomData["host_id"].ToString();
 
-                // Kiểm tra nếu người hiện tại có phải là host không
+                // Kiểm tra quyền host
                 if (currentUserId != hostId)
                 {
                     MessageBox.Show("Chỉ host hiện tại mới có quyền kick.");
@@ -256,51 +253,24 @@ namespace PomoMeetApp.View
                 {
                     membersStatus.Remove(userId);
 
-                    // Cập nhật lại members_status trong Firestore
+                    // CẬP NHẬT FIRESTORE TRƯỚC - quan trọng!
                     await roomRef.UpdateAsync("members_status", membersStatus);
 
-                    // Cập nhật trạng thái thành "offline" khi bị đá khỏi phòng
+                    // Cập nhật trạng thái user về offline
                     await UserStatusManager.Instance.UpdateUserStatus(userId, "offline");
 
                     MessageBox.Show("Thành viên đã bị đá khỏi phòng!");
-                    LoadParticipants(); // Tải lại danh sách thành viên
+
+                    // Reload danh sách participants
+                    LoadParticipants();
+
+                    // QUAN TRỌNG: Sau khi update Firestore, listener của MeetingRoom sẽ tự động 
+                    // phát hiện user không còn trong members_status và tự đóng form
+                    // Không cần phải manually tìm và đóng form nữa
                 }
                 else
                 {
                     MessageBox.Show("Thành viên không tồn tại trong phòng.");
-                }
-
-                // After successfully kicking, find the MeetingRoom form for the kicked user
-                var meetingRoom = Application.OpenForms.OfType<MeetingRoom>()
-                    .FirstOrDefault(f => f.CurrentUserId == userId);
-
-                if (meetingRoom != null)
-                {
-                    meetingRoom.isBeingKicked = true;
-                    meetingRoom.hasShownKickNotification = false;
-
-                    // Đóng form MeetingRoom một cách đồng bộ
-                    meetingRoom.Invoke((MethodInvoker)(() =>
-                    {
-                        meetingRoom.Close();
-                    }));
-
-                    // CHỈ hiển thị Dashboard cho người bị kick
-                    var dashboard = Application.OpenForms.OfType<Dashboard>()
-                        .FirstOrDefault(f => f.currentUserId == userId);
-
-                    if (dashboard != null)
-                    {
-                        dashboard.Invoke((MethodInvoker)(() =>
-                        {
-                            dashboard.Show();
-                            dashboard.BringToFront();
-                            dashboard.Activate();
-
-                            // Hiển thị thông báo cho người bị kick
-                            CustomMessageBox.Show("Bạn đã bị kick khỏi phòng!", "Thông báo", MessageBoxMode.OK);
-                        }));
-                    }
                 }
             }
             catch (Exception ex)

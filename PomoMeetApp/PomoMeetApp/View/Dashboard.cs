@@ -187,8 +187,6 @@ namespace PomoMeetApp.View
 
         private void Dashboard_FormClosed(object sender, FormClosedEventArgs e)
         {
-            _userListener?.StopAsync(); // Dừng listener khi đóng form
-            Application.Exit(); // Đảm bảo thoát toàn bộ ứng dụng
         }
 
         private void tbtn_JoinRoom_Click(object sender, EventArgs e)
@@ -636,47 +634,53 @@ namespace PomoMeetApp.View
             this.BringToFront();
             this.WindowState = FormWindowState.Normal; // Đảm bảo form không bị minimized
         }
+        private bool isListenerStopped = false;
 
         protected override void OnFormClosing(FormClosingEventArgs e)
         {
-            // Chỉ xử lý khi user click X để đóng form
             if (e.CloseReason == CloseReason.UserClosing)
             {
-                e.Cancel = true; // Ngừng form đóng tạm thời
+                e.Cancel = true;
 
-                // Chạy phương thức async trong một tác vụ nền
                 Task.Run(async () =>
                 {
                     try
                     {
-                        // Cập nhật trạng thái của người dùng thành "offline"
                         await UserStatusManager.Instance.UpdateUserStatus(currentUserId, "offline");
                     }
                     catch (Exception ex)
                     {
-                        // Xử lý lỗi nếu có
                         MessageBox.Show($"Lỗi khi cập nhật trạng thái offline: {ex.Message}", "Lỗi", MessageBoxButtons.OK, MessageBoxIcon.Error);
                     }
                     finally
                     {
-                        // Sau khi cập nhật trạng thái, tiếp tục dừng lắng nghe và đóng form
-                        roomListListener?.StopAsync();
+                        if (!isListenerStopped)
+                        {
+                            isListenerStopped = true;
+                            await roomListListener?.StopAsync();
+                        }
 
-                        // Chạy trên UI thread để đóng form
                         this.Invoke(() =>
                         {
-                            base.OnFormClosing(e);  // Tiến hành đóng form thực sự
+                            Application.Exit();
                         });
                     }
                 });
             }
             else
             {
-                // Nếu không phải do người dùng đóng, tiếp tục các thao tác khác
-                roomListListener?.StopAsync();
+                if (!isListenerStopped)
+                {
+                    isListenerStopped = true;
+                    _ = roomListListener?.StopAsync(); // không await vì đang ở luồng UI
+                }
+
                 base.OnFormClosing(e);
             }
         }
+
+
+
 
     }
 }

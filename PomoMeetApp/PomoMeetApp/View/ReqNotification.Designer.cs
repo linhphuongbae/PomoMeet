@@ -115,6 +115,7 @@ namespace PomoMeetApp.View
             Controls.Add(siticonePanel2);
             Name = "ReqNotification";
             Text = "ReqNotification";
+            Load += ReqNotification_Load;
             siticonePanel2.ResumeLayout(false);
             ResumeLayout(false);
         }

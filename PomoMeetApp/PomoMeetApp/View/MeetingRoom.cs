@@ -291,20 +291,20 @@ namespace PomoMeetApp.View
 
             var db = FirebaseConfig.database;
             var docRef = db.Collection("Room").Document(currentroomId);
+
             roomListener = docRef.Listen(async snapshot =>
             {
-                if (isLeavingRoom || isBeingKicked) return; // Bỏ qua nếu đang rời phòng
+                // QUAN TRỌNG: Kiểm tra trạng thái form trước
+                if (this.IsDisposed || this.Disposing || isLeavingRoom) return;
 
-                // Phòng bị xóa
+                // Kiểm tra phòng bị xóa
                 if (!snapshot.Exists)
                 {
                     SafeInvoke(() =>
                     {
-                        if (!this.IsDisposed)
+                        if (!this.IsDisposed && !this.Disposing)
                         {
-                            // Đánh dấu đang rời phòng do host đóng
                             isLeavingRoom = true;
-
                             CustomMessageBox.Show("Phòng đã bị xóa bởi host!", "Thông báo", MessageBoxMode.OK);
                             this.Close();
                         }
@@ -312,51 +312,80 @@ namespace PomoMeetApp.View
                     return;
                 }
 
-                // Lấy members_status từ Firestore
-                if (snapshot.TryGetValue("members_status", out Dictionary<string, object> membersStatus))
+                // Lấy members_status
+                if (!snapshot.TryGetValue("members_status", out Dictionary<string, object> membersStatus))
                 {
-                    int totalMembers = membersStatus.Count;
-
-                    // Nếu ít hơn 4 người, hiển thị số người thực tế
-                    if (totalMembers < 4)
-                    {
-                        SafeInvoke(() => { lblMembersNumber.Text = "0+"; });
-                    }
-                    else
-                    {
-                        // Nếu 4 người trở lên, hiển thị số người trừ đi 3 và thêm dấu "+"
-                        int displayedMembers = totalMembers - 3;
-                        SafeInvoke(() => { lblMembersNumber.Text = $"{displayedMembers}+"; });
-                    }
+                    return;
                 }
 
-                // Bỏ qua kiểm tra đầu tiên trong 3 giây đầu tiên
+                // Cập nhật số lượng members
+                int totalMembers = membersStatus.Count;
+                if (totalMembers < 4)
+                {
+                    SafeInvoke(() => { lblMembersNumber.Text = "0+"; });
+                }
+                else
+                {
+                    int displayedMembers = totalMembers - 3;
+                    SafeInvoke(() => { lblMembersNumber.Text = $"{displayedMembers}+"; });
+                }
+
+                // Bỏ qua kiểm tra đầu tiên trong 3 giây đầu
                 if ((DateTime.Now - joinTime).TotalSeconds < 3 && isInitialCheck)
                 {
                     isInitialCheck = false;
                     return;
                 }
 
-                // Kiểm tra nếu thành viên bị đá (không còn trong phòng)
                 if (!membersStatus.ContainsKey(currentUserId))
                 {
-                    isBeingKicked = true;
-                    hasShownKickNotification = false;
-
                     SafeInvoke(() =>
                     {
-                        if (!this.IsDisposed && !this.Disposing)
+                        if (!this.IsDisposed && !this.Disposing && !isLeavingRoom)
                         {
-                            this.Close();
+                            isBeingKicked = true;
+                            isLeavingRoom = true; // Đánh dấu đang rời phòng
+
+                            // Dừng tất cả listeners
+                            if (roomListener != null)
+                            {
+                                roomListener.StopAsync();
+                                roomListener = null;
+                            }
+
+                            if (!hasShownKickNotification)
+                            {
+                                this.FormClosed += (s, e) =>
+                                {
+                                    if (!hasShownKickNotification)
+                                    {
+                                        hasShownKickNotification = true;
+
+                                        var dashboard = Application.OpenForms.OfType<Dashboard>()
+                                            .FirstOrDefault(f => f.currentUserId == currentUserId);
+
+                                        if (dashboard != null)
+                                        {
+                                            dashboard.Show();
+                                            dashboard.BringToFront();
+                                            dashboard.Activate();
+                                        }
+
+                                        CustomMessageBox.Show("Bạn đã bị kick khỏi phòng!", "Thông báo", MessageBoxMode.OK);
+                                    }
+                                };
+
+                                this.Close();
+                            }
                         }
                     });
                     return;
                 }
+
                 List<string> removedIds;
 
                 lock (memberStatesLock)
                 {
-                    // Xóa những user không còn trong Firestore
                     var currentIds = new HashSet<string>(membersStatus.Keys);
                     var keysToRemove = memberStates.Keys.Where(id => !currentIds.Contains(id)).ToList();
                     removedIds = memberStates.Keys.Where(id => !currentIds.Contains(id)).ToList();
@@ -366,7 +395,6 @@ namespace PomoMeetApp.View
                         memberStates.Remove(id);
                     }
 
-                    // Cập nhật trạng thái từng người hiện tại
                     foreach (var entry in membersStatus)
                     {
                         string userId = entry.Key;
@@ -386,19 +414,25 @@ namespace PomoMeetApp.View
                         };
                     }
                 }
-                // Gọi phương thức thông báo cho các thành viên còn lại về người đã rời phòng
+
+                // Thông báo về những người đã rời phòng
                 foreach (var removedId in removedIds)
                 {
                     var userDoc = await db.Collection("User").Document(removedId).GetSnapshotAsync();
                     string username = userDoc.Exists && userDoc.ContainsField("Username")
-                        ? userDoc.GetValue<string>("Username")  
+                        ? userDoc.GetValue<string>("Username")
                         : removedId;
 
-                    // Gọi phương thức gửi thông báo cho các thành viên còn lại (người đã rời)
                     await NotifyAllMembersAboutUserLeft(removedId);
                 }
 
-                // Sau khi cập nhật, tạo bản sao an toàn để sử dụng
+                // Cập nhật host_id
+                if (snapshot.TryGetValue("host_id", out string HostId))
+                {
+                    hostId = HostId;
+                }
+
+                // Cập nhật UI
                 var copy = new Dictionary<string, MemberState>();
                 lock (memberStatesLock)
                 {
@@ -412,7 +446,6 @@ namespace PomoMeetApp.View
                 {
                     _ = UpdateUIAsync(copy, db);
                 });
-
             });
 
         }
@@ -2264,8 +2297,6 @@ namespace PomoMeetApp.View
                 CustomMessageBox.Show("Lỗi phát nhạc: " + ex.Message);
             }
         }
-
-
         private void MusicProgressTimer_Tick(object sender, EventArgs e)
         {
             currentMusicSeconds++;
@@ -2283,8 +2314,6 @@ namespace PomoMeetApp.View
                 musicProgressTimer.Stop();
             }
         }
-
-
         private void StartPomodoroCountdown(DateTime startTime)
         {
             pomodoroStartTime = startTime;

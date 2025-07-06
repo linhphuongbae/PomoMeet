@@ -2,11 +2,8 @@
 using PomoMeetApp.Classes;
 using System;
 using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
 using System.Drawing;
 using System.Linq;
-using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using static PomoMeetApp.View.CustomMessageBox;
@@ -15,59 +12,65 @@ namespace PomoMeetApp.View
 {
     public partial class ReqNotification : Form
     {
-        string currentUserId;
+        private string currentUserId;
+        private bool isJoiningRoom = false; // ✅ Flag tránh mở nhiều phòng
+
         public ReqNotification(string userId)
         {
             InitializeComponent();
             currentUserId = userId;
             LoadNotifications();
         }
-private async Task HandleResponse(string inviteId, string roomId, string response)
-{
-    try
-    {
-        var db = FirebaseConfig.database;
-        if (db == null) return;
 
-        if (response == "Accepted")
+        private async Task HandleResponse(string inviteId, string roomId, string response)
         {
-            await db.Collection("Invitations").Document(inviteId).UpdateAsync("status", "Accepted");
+            if (isJoiningRoom) return; // ✅ Tránh double join
+            isJoiningRoom = true;
 
-            // Store reference to dashboard before hiding
-            var dashboard = Application.OpenForms.OfType<Dashboard>().FirstOrDefault();
-            
-            this.Hide();
-            
-            var meetingRoom = new MeetingRoom(currentUserId, roomId);
-            meetingRoom.FormClosed += async (s, e) =>
+            try
             {
-                // Show dashboard again when meeting room closes (for any reason)
-                if (dashboard != null && !dashboard.IsDisposed)
-                {
-                    dashboard.Show();
-                    dashboard.BringToFront();
-                }
-                
-                // If kicked, show notification
-                if (meetingRoom.isBeingKicked && !meetingRoom.hasShownKickNotification)
-                {
-                    CustomMessageBox.Show("Bạn đã bị kick khỏi phòng!", "Thông báo", MessageBoxMode.OK);
-                    meetingRoom.hasShownKickNotification = true;
-                }
-            };
+                var db = FirebaseConfig.database;
+                if (db == null) return;
 
-            meetingRoom.ShowDialog();
+                if (response == "Accepted")
+                {
+                    await db.Collection("Invitations").Document(inviteId).UpdateAsync("status", "Accepted");
+
+                    var dashboard = Application.OpenForms.OfType<Dashboard>().FirstOrDefault();
+                    this.Hide(); // Ẩn ReqNotification trước
+
+                    var meetingRoom = new MeetingRoom(currentUserId, roomId);
+                    meetingRoom.FormClosed += async (s, e) =>
+                    {
+                        isJoiningRoom = false;
+
+                        if (dashboard != null && !dashboard.IsDisposed)
+                        {
+                            dashboard.Show();
+                            dashboard.BringToFront();
+                        }
+
+                        if (meetingRoom.isBeingKicked && !meetingRoom.hasShownKickNotification)
+                        {
+                            CustomMessageBox.Show("Bạn đã bị kick khỏi phòng!", "Thông báo", MessageBoxMode.OK);
+                            meetingRoom.hasShownKickNotification = true;
+                        }
+                    };
+
+                    meetingRoom.ShowDialog(); // ✅ Chỉ ShowDialog ở đây
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"Error handling response: {ex.Message}");
+                isJoiningRoom = false;
+            }
+            finally
+            {
+                await LoadNotifications();
+            }
         }
-    }
-    catch (Exception ex)
-    {
-        MessageBox.Show($"Error handling response: {ex.Message}");
-    }
-    finally
-    {
-        await LoadNotifications();
-    }
-}
+
         private void ShowKickNotification(string message)
         {
             if (this.InvokeRequired)
@@ -76,7 +79,6 @@ private async Task HandleResponse(string inviteId, string roomId, string respons
                 return;
             }
 
-            // Close the meeting room if it's open
             var meetingRoom = Application.OpenForms.OfType<MeetingRoom>()
                 .FirstOrDefault(f => f.CurrentUserId == currentUserId);
 
@@ -87,10 +89,8 @@ private async Task HandleResponse(string inviteId, string roomId, string respons
                 meetingRoom.Close();
             }
 
-            // Show notification
             CustomMessageBox.Show(message, "Thông báo", MessageBoxMode.OK);
 
-            // Show dashboard again
             var dashboard = Application.OpenForms.OfType<Dashboard>().FirstOrDefault();
             if (dashboard != null)
             {
@@ -99,6 +99,7 @@ private async Task HandleResponse(string inviteId, string roomId, string respons
                 dashboard.Activate();
             }
         }
+
         private async Task LoadNotifications()
         {
             try
@@ -136,16 +137,6 @@ private async Task HandleResponse(string inviteId, string roomId, string respons
                     var notificationItem = new NotificationItem(senderName, createdAt, avatar, inviteId, roomId, currentUserId, async (invId, rId, response) =>
                     {
                         await HandleResponse(invId, rId, response);
-                        if (response == "Accepted")
-                        {
-                            var dashboard = Application.OpenForms.OfType<Dashboard>().FirstOrDefault();
-                            if (dashboard != null)
-                                dashboard.Hide();   // Ẩn Dashboard trước khi vào phòng
-
-                            this.Close(); // Dong ReqNotification
-                            var meetingRoom = new MeetingRoom(currentUserId, roomId);
-                            meetingRoom.ShowDialog();
-                        }
                     });
 
                     panelNotifications.Controls.Add(notificationItem);
@@ -171,6 +162,7 @@ private async Task HandleResponse(string inviteId, string roomId, string respons
                 });
             }
         }
+
         private string FormatTime(string timestamp)
         {
             if (DateTime.TryParse(timestamp, out DateTime dateTime))
@@ -189,6 +181,11 @@ private async Task HandleResponse(string inviteId, string roomId, string respons
                 return dateTime.ToString("dd/MM/yyyy");
             }
             return "Invalid time";
+        }
+
+        private void ReqNotification_Load(object sender, EventArgs e)
+        {
+            // Không cần gì ở đây
         }
     }
 }
