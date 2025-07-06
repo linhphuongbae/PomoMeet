@@ -218,7 +218,6 @@ namespace PomoMeetApp.View
                             int.TryParse(countdownObj?.ToString(), out int cdTime))
                         {
                             countdownTime = cdTime;
-                            countdownTime = 10; // Thay cho countdownTime
                         }
                         else
                         {
@@ -229,7 +228,6 @@ namespace PomoMeetApp.View
                             int.TryParse(breakObj?.ToString(), out int bkTime))
                         {
                             breakDuration = bkTime;
-                            breakDuration = 5;
                         }
                         else
                         {
@@ -276,7 +274,6 @@ namespace PomoMeetApp.View
                             duration = Math.Max(0, Math.Min(360, duration)); // Clamp: tránh âm hoặc quá lớn
 
                             lb_time_counter.Text = TimeSpan.FromMinutes(duration).ToString(@"mm\:ss");
-                            lb_time_counter.Text = TimeSpan.FromSeconds(duration).ToString(@"mm\:ss");
 
 
                             // Reset các thành phần UI liên quan nhạc
@@ -1045,7 +1042,7 @@ namespace PomoMeetApp.View
             {
                 if (oldExtraPanel != null)
                 {
-                    // ✅ Cập nhật số và vị trí
+                    // Cập nhật số và vị trí
                     var label = oldExtraPanel.Controls
                         .OfType<Label>()
                         .FirstOrDefault(l => l.Text.EndsWith("+"));
@@ -2289,17 +2286,12 @@ namespace PomoMeetApp.View
                         // Add vào panel chính
                         pn_DisplayMessage.Controls.Add(messagePanel);
 
-                        // 🔸 GIẢI PHÁP 2: Thay thế ScrollControlIntoView bằng cách scroll thủ công
                         pn_DisplayMessage.AutoScroll = originalAutoScroll;
 
-                        // Scroll xuống cuối một cách chính xác
                         if (pn_DisplayMessage.AutoScroll)
                         {
-                            // Cách 1: Scroll thủ công
                             pn_DisplayMessage.AutoScrollPosition = new Point(0, pn_DisplayMessage.DisplayRectangle.Height);
 
-                            // Hoặc Cách 2: Sử dụng VerticalScroll
-                            // pn_DisplayMessage.VerticalScroll.Value = pn_DisplayMessage.VerticalScroll.Maximum;
                         }
                     });
                 }
@@ -2471,7 +2463,6 @@ namespace PomoMeetApp.View
             {
                 var elapsed = (int)(DateTime.UtcNow - pomodoroStartTime).TotalSeconds;
                 var total = isBreakTime ? breakDuration * 60 : countdownTime * 60;
-                total = isBreakTime ? breakDuration : countdownTime;
                 var remaining = total - elapsed;
 
                 if (remaining <= 0)
