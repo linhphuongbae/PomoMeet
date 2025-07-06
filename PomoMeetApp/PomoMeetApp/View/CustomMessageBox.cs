@@ -108,5 +108,10 @@ namespace PomoMeetApp.View
                 btn_No.Left = startX + btn_Co.Width + spacing;
             }
         }
+
+        private void btn_No_Click(object sender, EventArgs e)
+        {
+
+        }
     }
 }

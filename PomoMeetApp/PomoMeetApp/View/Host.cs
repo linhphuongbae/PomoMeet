@@ -4,6 +4,7 @@ using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
+using System.Diagnostics;
 using System.Drawing;
 using System.Linq;
 using System.Text;
@@ -53,7 +54,7 @@ namespace PomoMeetApp.View
 
                 if (!snapshot.Exists)
                 {
-                    MessageBox.Show("Phòng không tồn tại!");
+                    CustomMessageBox.Show("Phòng không tồn tại!");
                     return;
                 }
 
@@ -63,24 +64,24 @@ namespace PomoMeetApp.View
                 // Kiểm tra nếu người hiện tại có phải là host không
                 if (currentUserId != hostId)
                 {
-                    MessageBox.Show("Chỉ host hiện tại mới có quyền chuyển host.");
+                    CustomMessageBox.Show("Chỉ host hiện tại mới có quyền chuyển host.");
                     return;
                 }
 
                 // Kiểm tra nếu người được chọn đã là host
                 if (newHostId == hostId)
                 {
-                    MessageBox.Show("Thành viên này đã là host.");
+                    CustomMessageBox.Show("Thành viên này đã là host.");
                     return;
                 }
 
                 // Cập nhật host trong Firestore
                 await roomRef.UpdateAsync("host_id", newHostId);  // Cập nhật host_id mới
-                MessageBox.Show("Host đã được chuyển thành công!");
+                CustomMessageBox.Show("Host đã được chuyển thành công!");
             }
             catch (Exception ex)
             {
-                MessageBox.Show($"Lỗi khi chuyển host: {ex.Message}");
+                Debug.WriteLine($"Lỗi khi chuyển host: {ex.Message}");
             }
         }
 
@@ -221,7 +222,7 @@ namespace PomoMeetApp.View
 
                 if (!snapshot.Exists)
                 {
-                    MessageBox.Show("Phòng không tồn tại!");
+                    CustomMessageBox.Show("Phòng không tồn tại!");
                     return;
                 }
 
@@ -231,20 +232,20 @@ namespace PomoMeetApp.View
                 // Kiểm tra quyền host
                 if (currentUserId != hostId)
                 {
-                    MessageBox.Show("Chỉ host hiện tại mới có quyền kick.");
+                    CustomMessageBox.Show("Chỉ host hiện tại mới có quyền kick.");
                     return;
                 }
 
                 if (userId == currentUserId)
                 {
-                    MessageBox.Show("Không thể tự đá chính mình khỏi phòng.");
+                    CustomMessageBox.Show("Không thể tự mời chính mình ra khỏi phòng.");
                     return;
                 }
 
                 // Lấy trường members_status
                 if (!snapshot.TryGetValue<Dictionary<string, object>>("members_status", out var membersStatus))
                 {
-                    MessageBox.Show("Không tìm thấy trường 'members_status' trong phòng.");
+                    CustomMessageBox.Show("Không tìm thấy trường 'members_status' trong phòng.");
                     return;
                 }
 
@@ -259,7 +260,7 @@ namespace PomoMeetApp.View
                     // Cập nhật trạng thái user về offline
                     await UserStatusManager.Instance.UpdateUserStatus(userId, "offline");
 
-                    MessageBox.Show("Thành viên đã bị đá khỏi phòng!");
+                    CustomMessageBox.Show("Thành viên đã bị mời ra khỏi phòng!");
 
                     // Reload danh sách participants
                     LoadParticipants();
@@ -270,12 +271,12 @@ namespace PomoMeetApp.View
                 }
                 else
                 {
-                    MessageBox.Show("Thành viên không tồn tại trong phòng.");
+                    CustomMessageBox.Show("Thành viên không tồn tại trong phòng.");
                 }
             }
             catch (Exception ex)
             {
-                MessageBox.Show($"Lỗi khi đá thành viên: {ex.Message}");
+                Debug.WriteLine($"Lỗi khi đá thành viên: {ex.Message}");
             }
         }
 

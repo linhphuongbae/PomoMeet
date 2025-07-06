@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
+using System.Diagnostics;
 using System.Drawing;
 using System.Linq;
 using System.Net;
@@ -35,7 +36,7 @@ namespace PomoMeetApp.View
             sentEmail = email;
             if (string.IsNullOrEmpty(email))
             {
-                MessageBox.Show("Vui lòng nhập email.");
+                CustomMessageBox.Show("Vui lòng nhập email.");
                 return;
             }
             // check email tồn tại trong database 
@@ -43,7 +44,7 @@ namespace PomoMeetApp.View
             var emailDoc = await db.Collection("User").WhereEqualTo("Email", email).GetSnapshotAsync();    
             if (emailDoc.Documents.Count == 0)
             {
-                MessageBox.Show("Email không khớp với bất kì tài khoản nào!");
+                CustomMessageBox.Show("Email không khớp với bất kì tài khoản nào!");
                 return;
             }
             // tạo otp
@@ -52,7 +53,7 @@ namespace PomoMeetApp.View
             try
             {
                 SendOTP(email, otp);
-                MessageBox.Show($"Đã gửi OTP tới email: {email}");
+                CustomMessageBox.Show($"Đã gửi OTP tới email: {email}");
                 lbEmail.Visible = false;
                 tbToEmail.Visible = false;
                 lbOTP.Visible = true;
@@ -71,14 +72,13 @@ namespace PomoMeetApp.View
             string otpEntered = tbOTP.Text.Trim();  // Lấy OTP người dùng nhập vào
             if (string.IsNullOrEmpty(otpEntered))
             {
-                MessageBox.Show("Vui lòng nhập OTP.");
+                CustomMessageBox.Show("Vui lòng nhập OTP.");
                 return;
             }
 
             // Kiểm tra OTP
             if (otpEntered == sentOTP)
             {
-                MessageBox.Show("OTP xác nhận thành công!");
                 lbOTP.Visible = false;
                 tbOTP.Visible = false;
                 tbNewPass.Visible = true;
@@ -88,7 +88,7 @@ namespace PomoMeetApp.View
             }
             else
             {
-                MessageBox.Show("OTP không khớp, vui lòng thử lại.");
+                CustomMessageBox.Show("OTP không khớp, vui lòng thử lại.");
             }
         }
 
@@ -110,7 +110,7 @@ namespace PomoMeetApp.View
             }
             catch (Exception ex)
             {
-                MessageBox.Show(ex.Message);    
+                Debug.WriteLine(ex.Message);    
             }
 
         }
@@ -120,7 +120,7 @@ namespace PomoMeetApp.View
             string newPasswd = tbNewPass.Text.Trim();   
             if (string.IsNullOrEmpty(newPasswd) )
             {
-                MessageBox.Show("Vui lòng nhập mật khẩu mới.");
+                CustomMessageBox.Show("Vui lòng nhập mật khẩu mới.");
                 return;
             }
 
@@ -137,11 +137,11 @@ namespace PomoMeetApp.View
                         { "Password", encryptedPassword }
                     };
                     await docs.Documents[0].Reference.UpdateAsync(updateData);
-                    MessageBox.Show("Đã cập nhật mật khẩu!");
+                    CustomMessageBox.Show("Đã cập nhật mật khẩu!");
                 }
                 catch (Exception ex)
                 {
-                    MessageBox.Show(ex.Message);
+                    Debug.WriteLine(ex.Message);
                     return;
                 }
             }

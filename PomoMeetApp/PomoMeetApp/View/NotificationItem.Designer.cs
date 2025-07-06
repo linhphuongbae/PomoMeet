@@ -83,6 +83,7 @@
             btnAccept.TabIndex = 3;
             btnAccept.Text = "Chấp nhận";
             btnAccept.UseVisualStyleBackColor = false;
+            btnAccept.Click += btnAccept_Click;
             // 
             // btnDecline
             // 

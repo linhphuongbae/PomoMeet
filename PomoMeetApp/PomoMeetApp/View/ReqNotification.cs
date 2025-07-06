@@ -2,6 +2,7 @@
 using PomoMeetApp.Classes;
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Drawing;
 using System.Linq;
 using System.Threading.Tasks;
@@ -52,7 +53,7 @@ namespace PomoMeetApp.View
 
                         if (meetingRoom.isBeingKicked && !meetingRoom.hasShownKickNotification)
                         {
-                            CustomMessageBox.Show("Bạn đã bị kick khỏi phòng!", "Thông báo", MessageBoxMode.OK);
+                            CustomMessageBox.Show("Bạn đã bị mời ra khỏi phòng!", "Thông báo", MessageBoxMode.OK);
                             meetingRoom.hasShownKickNotification = true;
                         }
                     };
@@ -62,7 +63,7 @@ namespace PomoMeetApp.View
             }
             catch (Exception ex)
             {
-                MessageBox.Show($"Error handling response: {ex.Message}");
+                Debug.WriteLine($"Error handling response: {ex.Message}");
                 isJoiningRoom = false;
             }
             finally
@@ -144,7 +145,7 @@ namespace PomoMeetApp.View
             }
             catch (Exception ex)
             {
-                MessageBox.Show($"Error loading notifications: {ex.Message}");
+                Debug.WriteLine($"Error loading notifications: {ex.Message}");
             }
         }
 

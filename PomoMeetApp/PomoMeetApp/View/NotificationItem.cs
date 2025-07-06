@@ -2,6 +2,7 @@
 using Microsoft.VisualBasic.ApplicationServices;
 using PomoMeetApp.Classes;
 using System;
+using System.Diagnostics;
 using System.Drawing;
 using System.Threading.Tasks;
 using System.Windows.Forms;
@@ -91,7 +92,7 @@ namespace PomoMeetApp.View
 
                 if (!snapshot.Exists)
                 {
-                    MessageBox.Show("This invitation no longer exists.", "Info", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    CustomMessageBox.Show("Lời mời không tồn tại");
                     this.Dispose();
                     return;
                 }
@@ -107,10 +108,15 @@ namespace PomoMeetApp.View
             }
             catch (Exception ex)
             {
-                MessageBox.Show($"Error processing {response.ToLower()} action: {ex.Message}", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                Debug.WriteLine($"Error processing {response.ToLower()} action: {ex.Message}");
                 btnAccept.Enabled = true;
                 btnDecline.Enabled = true;
             }
+        }
+
+        private void btnAccept_Click(object sender, EventArgs e)
+        {
+
         }
     }
 }

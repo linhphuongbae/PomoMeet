@@ -450,6 +450,7 @@
             btnSave.TooltipText = null;
             btnSave.UseAdvancedRendering = true;
             btnSave.UseParticles = false;
+            btnSave.Click += btnSave_Click_1;
             // 
             // userProfilePanel1
             // 

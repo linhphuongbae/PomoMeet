@@ -9,6 +9,7 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 using PomoMeetApp.Classes;
 using Google.Cloud.Firestore;
+using System.Diagnostics;
 
 namespace PomoMeetApp.View
 {
@@ -49,14 +50,14 @@ namespace PomoMeetApp.View
             // check rỗng
             if (string.IsNullOrWhiteSpace(data.Username) || string.IsNullOrWhiteSpace(data.Password))
             {
-                MessageBox.Show("Please enter both username and password.", "Warning", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                CustomMessageBox.Show("Hãy nhập cả tên người dùng và mật khẩu");
                 return;
             }
 
             // check confirmed password
             if (passwordConfirm != Security.Decrypt(data.Password))
             {
-                MessageBox.Show("password does not match. Try again", "Warning", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                CustomMessageBox.Show("Mật khẩu không khớp. Hãy thử lại");
                 return;
             }
             try
@@ -65,21 +66,21 @@ namespace PomoMeetApp.View
                 var snapshot = await userQuery.GetSnapshotAsync();
                 if (snapshot.Count > 0)
                 {
-                    MessageBox.Show("This username is already registered!", "Warning", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                    CustomMessageBox.Show("Tên người dùng đã được đăng ký");
                     return;
                 }
                 data.Avatar = "avatar";
                 DocumentReference docRef = db.Collection("User").Document(data.UserId);
                 await docRef.SetAsync(data);
 
-                MessageBox.Show("Registration successful!", "Success", MessageBoxButtons.OK, MessageBoxIcon.Information);
 
                 await FormTransition.FadeTo(this, new SignIn());
             }
             catch (Exception ex)
             {
-                MessageBox.Show($"Registration failed: {ex.Message}", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                Debug.WriteLine($"[SignUp] Registration failed: {ex}");
             }
+
         }
         private UserData getData()
         {

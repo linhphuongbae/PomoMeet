@@ -74,6 +74,7 @@
             btn_No.Text = "Không";
             btn_No.UseVisualStyleBackColor = false;
             btn_No.Visible = false;
+            btn_No.Click += btn_No_Click;
             // 
             // lb_Title
             // 

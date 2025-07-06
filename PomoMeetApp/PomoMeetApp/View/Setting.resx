@@ -1,7 +1,7 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <root>
   <!--
-    Microsoft ResX Schema 
+    Microsoft ResX Schema
 
     Version 2.0
 
@@ -48,7 +48,7 @@
     value   : The object must be serialized with
             : System.Runtime.Serialization.Formatters.Binary.BinaryFormatter
             : and then encoded with base64 encoding.
-    
+
     mimetype: application/x-microsoft.net.object.soap.base64
     value   : The object must be serialized with
             : System.Runtime.Serialization.Formatters.Soap.SoapFormatter
@@ -118,37 +118,6 @@
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <assembly alias="System.Drawing" name="System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a" />
-  <data name="siticonePictureBox2.Image" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
-    <value>
-        iVBORw0KGgoAAAANSUhEUgAAAEkAAABHCAIAAADEG/37AAAABGdBTUEAALGPC/xhBQAAAAlwSFlzAAAS
-        cQAAEnEB89x6jgAAAzBJREFUaEPtmUFr4kAUgP3TPaqnTQ4LzTG9LOlCQeNlbNld6XiwdSEeIgTbsrlE
-        BHdtvJgcFINeZkkfDdmMRDczSRmZ8J1mBsnnvPfyMqk9uj8ubprnh97Xa/XOJ3riPKjRQ2eDdBMT6SYm
-        0k1MpJuYSDcxkW5iIt3EpFw3HRv3k8Hz3FWQRs+WTVlubQt5yxl5v5TuWbjp2Piz8gkh0T56mbuEEG85
-        o5dVAGc3/DQAK/w0qHfUtoUIIaaF6JUVwNPNnjqEkEXgJxEI+1bvqPTiCuDmBmL21EkPrtbhRwUkN7eh
-        OyKE3E8GmXFCyPPcpddXAwc3SKqX31kHBWmEEEwJVwarm4K01ToMNiFd5YV3s704zQ5WQnAbuiN6qhqY
-        3ODuc6qFwPkGT7PrhxY9BSwCP1iH9Hg1MLnFt77Ju/Wfb/XzQ5pJJjcIyMwDLcNV3zj4bKiG4m7Xj638
-        gAS2u2i7i+jxCijuhidxsl1+1+mpf5a95WTX7tFTZVPcDZqso71io6MGm3C7i6rPOlY3epwGsm4R+PRU
-        qVThlkRmfuHhDqvb0ZjMrK/yfKG42+24d0otSQO7t1qHR6srF4q7wTPgYCeZw+24t91FcXx6jo4NekEa
-        HRu25ywC//ToSFPcrdFR4RbpqXyUrgbxCXtoe871Q0vHhoI0BWmX33TTQsNfo0UQH7rARf/IKRR3u7hp
-        Tpez7S4q9qeCYbAJE4HMxX6UxOQGKdf+z7DMoHS1r4+tu3EPTwZ4Mrgb90wLQb1hPEpicmt01O0uKvy/
-        HgXeeunxE2FyK7Wlgl8uvGkc3EpqqeAlg2XTOLilW6piRYUGzmDYT9o5uCXxwyXx6qYKR+7sb3183BK9
-        +FCZITgVpPES4+mWbqmONhwH0bEBLQsXMc5uFzdN00JJS3X6BurYgA9a0T7i2Gpydsu0VN5y1n5/ENPU
-        TfV23Es+09lTh1c1Avi7AWlDyENvObM9B3ieu0m3Fe0je+pc9YuEcT5luQFKVzMtZE+d18CP9nGsJj6v
-        gT90R6aF+O5VmnLdPhbpJibSTUykm5hINzGRbmIi3cREuomJdBOTmvHwhR49AxT0+S+mZ0mEnhhqmAAA
-        AABJRU5ErkJggg==
-</value>
-  </data>
-  <data name="siticonePictureBox2.Images" mimetype="application/x-microsoft.net.object.binary.base64">
-    <value>
-        AAEAAAD/////AQAAAAAAAAAMAgAAAFFTeXN0ZW0uRHJhd2luZywgVmVyc2lvbj00LjAuMC4wLCBDdWx0
-        dXJlPW5ldXRyYWwsIFB1YmxpY0tleVRva2VuPWIwM2Y1ZjdmMTFkNTBhM2EEAQAAAIwBU3lzdGVtLkNv
-        bGxlY3Rpb25zLkdlbmVyaWMuTGlzdGAxW1tTeXN0ZW0uRHJhd2luZy5JbWFnZSwgU3lzdGVtLkRyYXdp
-        bmcsIFZlcnNpb249NC4wLjAuMCwgQ3VsdHVyZT1uZXV0cmFsLCBQdWJsaWNLZXlUb2tlbj1iMDNmNWY3
-        ZjExZDUwYTNhXV0DAAAABl9pdGVtcwVfc2l6ZQhfdmVyc2lvbgQAABZTeXN0ZW0uRHJhd2luZy5JbWFn
-        ZVtdAgAAAAgICQMAAAAAAAAAAAAAAAcDAAAAAAEAAAAAAAAABBRTeXN0ZW0uRHJhd2luZy5JbWFnZQIA
-        AAAL
-</value>
-  </data>
   <data name="siticonePictureBox4.Image" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
     <value>
         iVBORw0KGgoAAAANSUhEUgAAADoAAABCCAIAAACJqFLTAAAABGdBTUEAALGPC/xhBQAAAAlwSFlzAAAS

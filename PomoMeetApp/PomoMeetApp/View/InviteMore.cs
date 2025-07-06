@@ -5,6 +5,7 @@ using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
+using System.Diagnostics;
 using System.Drawing;
 using System.Linq;
 using System.Text;
@@ -33,11 +34,11 @@ namespace PomoMeetApp.View
             {
                 // Sao chép nội dung của tbMamoi (ID phòng) vào clipboard
                 Clipboard.SetText(tbMamoi.Text);
-                MessageBox.Show("Mã phòng đã được sao chép vào clipboard!", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                CustomMessageBox.Show("Mã phòng đã được sao chép vào clipboard!");
             }
             catch (Exception ex)
             {
-                MessageBox.Show($"Lỗi khi sao chép mã phòng: {ex.Message}", "Lỗi", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                Debug.WriteLine($"Lỗi khi sao chép mã phòng: {ex.Message}");
             }
         }
     }

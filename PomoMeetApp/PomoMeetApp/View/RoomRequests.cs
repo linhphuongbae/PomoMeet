@@ -12,7 +12,8 @@ using FirebaseAdmin;
 using Google.Cloud.Firestore;
 using PomoMeetApp.Classes;
 using static PomoMeetApp.View.CreateRoom;
-    
+using System.Diagnostics;
+
 namespace PomoMeetApp.View
 {
     public partial class RoomRequests : Form
@@ -51,7 +52,6 @@ namespace PomoMeetApp.View
                 var db = FirebaseConfig.database;
                 if (db == null)
                 {
-                    MessageBox.Show("Database connection is not initialized.");
                     return;
                 }
 
@@ -92,7 +92,7 @@ namespace PomoMeetApp.View
 
                     if (string.IsNullOrEmpty(friendId))
                     {
-                        MessageBox.Show("Friend ID is null or empty. Skipping this friendship.");
+                        CustomMessageBox.Show("Friend ID is null or empty. Skipping this friendship.");
                         continue;
                     }
 
@@ -119,18 +119,18 @@ namespace PomoMeetApp.View
                     }
                     else
                     {
-                        MessageBox.Show($"User document for friend ID {friendId} does not exist. Skipping this friend.");
+                        CustomMessageBox.Show($"User document for friend ID {friendId} does not exist. Skipping this friend.");
                     }
                 }
 
                 if (siticonePanel2.Controls.Count == 0)
                 {
-                    MessageBox.Show("No friends found.", "Info", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    Debug.WriteLine("No friends found.");
                 }
             }
             catch (Exception ex)
             {
-                MessageBox.Show($"Error loading friends list: {ex.Message}", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+               Debug.WriteLine($"Error loading friends list: {ex.Message}");
             }
         }
 
@@ -141,7 +141,6 @@ namespace PomoMeetApp.View
                 var db = FirebaseConfig.database;
                 if (db == null)
                 {
-                    MessageBox.Show("Database connection is not initialized.");
                     return;
                 }
 
@@ -159,7 +158,7 @@ namespace PomoMeetApp.View
 
                     if (existingSnapshot.Count > 0)
                     {
-                        MessageBox.Show($"Đã gửi lời mời đến người dùng này trước đó");
+                        CustomMessageBox.Show($"Đã gửi lời mời đến người dùng này trước đó");
                         continue;
                     }
 
@@ -182,7 +181,7 @@ namespace PomoMeetApp.View
             }
             catch (Exception ex)
             {
-                MessageBox.Show($"Lỗi khi gửi lời mời: {ex.Message}");
+                Debug.WriteLine($"Lỗi khi gửi lời mời: {ex.Message}");
             }
         }
 
@@ -200,14 +199,14 @@ namespace PomoMeetApp.View
                     }
                     else
                     {
-                        MessageBox.Show("A selected friend's ID is missing.");
+                        CustomMessageBox.Show("Không tìm thấy ID của bạn đã chọn.");
                     }
                 }
             }
 
             if (selectedFriends.Count == 0)
             {
-                MessageBox.Show("Vui lòng chọn ít nhất một người bạn để mời");
+                CustomMessageBox.Show("Vui lòng chọn ít nhất một người bạn để mời");
                 return;
             }
 

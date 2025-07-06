@@ -10,6 +10,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Security.Cryptography;
 using System.Windows.Forms;
+using System.Diagnostics;
 
 namespace PomoMeetApp.View
 {
@@ -31,7 +32,7 @@ namespace PomoMeetApp.View
             var room = await GetRoomByroomId(currentRoomId);
             if (room == null)
             {
-                MessageBox.Show("Không tìm thấy phòng.");
+                CustomMessageBox.Show("Không tìm thấy phòng.");
                 return;
             }
 
@@ -48,7 +49,7 @@ namespace PomoMeetApp.View
 
                 if (string.IsNullOrEmpty(enteredPassword))
                 {
-                    MessageBox.Show("Vui lòng nhập mật khẩu.");
+                    CustomMessageBox.Show("Vui lòng nhập mật khẩu.");
                     return;
                 }
 
@@ -62,7 +63,7 @@ namespace PomoMeetApp.View
                 }
                 else
                 {
-                    MessageBox.Show("Mật khẩu không chính xác.");
+                    CustomMessageBox.Show("Mật khẩu không chính xác.");
                 }
             }
         }
@@ -77,9 +78,6 @@ namespace PomoMeetApp.View
 
             var doc = snapshot.Documents.First();
             var data = doc.ToDictionary();
-
-            MessageBox.Show($"room_id: {roomId}, Snapshot Count: {snapshot.Count}");
-
 
             return new RoomData
             {
@@ -129,7 +127,7 @@ namespace PomoMeetApp.View
             }
             catch (Exception ex)
             {
-                MessageBox.Show("Lỗi khi thêm trạng thái thành viên vào phòng: " + ex.Message);
+                Debug.WriteLine("Lỗi khi thêm trạng thái thành viên vào phòng: " + ex.Message);
             }
 
 

@@ -6,6 +6,7 @@ using System.Windows.Forms;
 using Google.Cloud.Firestore;
 using Firebase.Storage;
 using PomoMeetApp.Classes;
+using System.Diagnostics;
 
 namespace PomoMeetApp.View
 {
@@ -82,8 +83,7 @@ namespace PomoMeetApp.View
             }
             catch (Exception ex)
             {
-                MessageBox.Show($"Error loading user data: {ex.Message}", "Error",
-                              MessageBoxButtons.OK, MessageBoxIcon.Error);
+                Debug.WriteLine($"Error loading user data: {ex.Message}");
             }
         }
         private Image LoadAvatarImage(string avatarName)
@@ -123,8 +123,7 @@ namespace PomoMeetApp.View
 
             if (string.IsNullOrEmpty(newUsername))
             {
-                MessageBox.Show("Please enter a username", "Warning",
-                              MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                CustomMessageBox.Show("Vui lòng nhập tên người dùng");
                 return;
             }
 
@@ -132,8 +131,7 @@ namespace PomoMeetApp.View
             {
                 if (newPassword != confirmPassword)
                 {
-                    MessageBox.Show("Passwords do not match", "Error",
-                                  MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    CustomMessageBox.Show("Mật khẩu không khớp");
                     return;
                 }
             }
@@ -156,9 +154,6 @@ namespace PomoMeetApp.View
                 await db.Collection("User").Document(currentUserId)
                           .UpdateAsync(updates);
 
-                MessageBox.Show("Profile updated successfully!", "Success",
-                              MessageBoxButtons.OK, MessageBoxIcon.Information);
-
                 lbl_Username.Text = newUsername;
                 userProfilePanel1.UpdateUserInfo(currentUserId, newUsername, pictureBox_avatar.Image);
 
@@ -167,8 +162,7 @@ namespace PomoMeetApp.View
             }
             catch (Exception ex)
             {
-                MessageBox.Show($"Error updating profile: {ex.Message}", "Error",
-                              MessageBoxButtons.OK, MessageBoxIcon.Error);
+                Debug.WriteLine($"Error updating profile: {ex.Message}");
             }
         }
 
@@ -232,14 +226,16 @@ namespace PomoMeetApp.View
                 pictureBox_avatar.Image = selectedAvatar;
                 userProfilePanel1.UpdateUserInfo(currentUserId, lbl_Username.Text, selectedAvatar);
 
-                MessageBox.Show("Avatar updated successfully!", "Success",
-                              MessageBoxButtons.OK, MessageBoxIcon.Information);
             }
             catch (Exception ex)
             {
-                MessageBox.Show($"Error updating avatar: {ex.Message}", "Error",
-                              MessageBoxButtons.OK, MessageBoxIcon.Error);
+                Debug.WriteLine($"Error updating avatar: {ex.Message}");
             }
+        }
+
+        private void btnSave_Click_1(object sender, EventArgs e)
+        {
+
         }
     }
 }

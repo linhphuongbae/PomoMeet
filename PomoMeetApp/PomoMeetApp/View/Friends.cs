@@ -139,14 +139,14 @@ namespace PomoMeetApp.View
                     {
                         await db.Collection("FriendShips").Document(item.Id).DeleteAsync();
 
-                        MessageBox.Show("Đã xóa bạn!");
+                        CustomMessageBox.Show("Đã xóa bạn!");
 
                         // xóa card khỏi giao diện
                         pnFriends.Controls.Remove(currentCard);
                     }
                     catch (Exception ex)
                     {
-                        MessageBox.Show("Error: " + ex.Message);
+                        CustomMessageBox.Show("Error: " + ex.Message);
                     }
 
                 };
@@ -304,12 +304,12 @@ namespace PomoMeetApp.View
                     try
                     {
                         await db.Collection("FriendShips").Document(item.Id).DeleteAsync();
-                        MessageBox.Show("Đã xóa bạn!");
+                        CustomMessageBox.Show("Đã xóa bạn!");
                         pnFriends.Controls.Remove(currentCard);
                     }
                     catch (Exception ex)
                     {
-                        MessageBox.Show("Error: " + ex.Message);
+                        CustomMessageBox.Show("Error: " + ex.Message);
                     }
                 };
 
@@ -480,14 +480,14 @@ namespace PomoMeetApp.View
                             { "status", "Accepted" }
                         });
 
-                        MessageBox.Show($"Bạn đã trở thành bạn bè với {fromUsername}!", "Kết bạn thành công", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                        CustomMessageBox.Show($"Bạn đã trở thành bạn bè với {fromUsername}!");
 
                         // xóa card khỏi giao diện
                         pnFriends.Controls.Remove(card);
                     }
                     catch (Exception ex)
                     {
-                        MessageBox.Show("Error: " + ex.Message);
+                        CustomMessageBox.Show("Error: " + ex.Message);
                     }
 
                 };
@@ -496,12 +496,12 @@ namespace PomoMeetApp.View
                     try
                     {
                         await db.Collection("FriendShips").Document(item.Id).DeleteAsync();
-                        MessageBox.Show("Đã từ chối kết bạn!");
+                        CustomMessageBox.Show("Đã từ chối kết bạn!");
                         pnFriends.Controls.Remove(card);
                     }
                     catch (Exception ex)
                     {
-                        MessageBox.Show("Error: " + ex.Message);
+                        CustomMessageBox.Show("Error: " + ex.Message);
                     }
 
                 };
@@ -527,7 +527,7 @@ namespace PomoMeetApp.View
             string searchQuery = txtFindFriends.Text.Trim();
             if (string.IsNullOrEmpty(searchQuery))
             {
-                MessageBox.Show("Vui lòng nhập username.");
+                CustomMessageBox.Show("Vui lòng nhập username.");
                 return;
             }
             // connect database nè
@@ -536,7 +536,7 @@ namespace PomoMeetApp.View
 
             if (userSnapshot.Documents.Count == 0)
             {
-                MessageBox.Show("Không tìm thấy người dùng.");
+                CustomMessageBox.Show("Không tìm thấy người dùng.");
                 return;
             }
             foreach (var doc in userSnapshot.Documents)
@@ -607,7 +607,7 @@ namespace PomoMeetApp.View
                 {
                     if (userId == UserSession.CurrentUser.UserId)
                     {
-                        MessageBox.Show("Bạn không thể kết bạn với chính mình.");
+                        CustomMessageBox.Show("Bạn không thể kết bạn với chính mình.");
                         return;
                     };
 
@@ -622,7 +622,7 @@ namespace PomoMeetApp.View
                         .GetSnapshotAsync();
                     if (existing.Count > 0 || reverse.Count > 0)
                     {
-                        MessageBox.Show("Đã tồn tại yêu cầu kết bạn hoặc đã là bạn bè.");
+                        CustomMessageBox.Show("Đã tồn tại yêu cầu kết bạn hoặc đã là bạn bè.");
                         return;
                     }
 
@@ -644,7 +644,7 @@ namespace PomoMeetApp.View
                     btnAdd.Text = "Đã gửi";
                     btnAdd.Enabled = false;
 
-                    MessageBox.Show("Đã gửi lời mời kết bạn!");
+                    CustomMessageBox.Show("Đã gửi lời mời kết bạn!");
                 };
                 card.Controls.Add(pic);
                 card.Controls.Add(lbl);

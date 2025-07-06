@@ -4,6 +4,7 @@ using Google.Apis.Services;
 using Google.Apis.Util.Store;
 using Google.Cloud.Firestore;
 using PomoMeetApp.Classes;
+using System.Diagnostics;
 
 namespace PomoMeetApp.View
 {
@@ -34,7 +35,7 @@ namespace PomoMeetApp.View
 
                 if (qr.Count == 0)
                 {
-                    MessageBox.Show("Tên tài khoản không tồn tại.", "Warning", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                    CustomMessageBox.Show("Tên tài khoản không tồn tại.");
                     return;
                 }
 
@@ -47,11 +48,10 @@ namespace PomoMeetApp.View
                 {
                     if (password == Security.Decrypt(data.Password))
                     {
-                        MessageBox.Show("Login successful!", "Success", MessageBoxButtons.OK, MessageBoxIcon.Information);
                     }
                     else
                     {
-                        MessageBox.Show("Wrong password", "Warning", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                        CustomMessageBox.Show("Sai mật khẩu");
                         return;
                     }
                 }
@@ -59,8 +59,9 @@ namespace PomoMeetApp.View
             }
             catch (Exception ex)
             {
-                MessageBox.Show($"Login failed: {ex.Message}", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                Debug.WriteLine($"[SignIn] Login failed: {ex}");
             }
+
         }
 
         private async void btnSignInGG_Click(object sender, EventArgs e)
@@ -111,7 +112,6 @@ namespace PomoMeetApp.View
                             };
 
                             await db.Collection("User").Document(userId).SetAsync(userData);
-                            MessageBox.Show("Success Login using Gmail!", "Success", MessageBoxButtons.OK, MessageBoxIcon.Information);
                         }
                         else
                         {
@@ -123,14 +123,14 @@ namespace PomoMeetApp.View
                 {
                     // Lấy userId từ tài liệu hiện có
                     userId = emailQuerySnapshot.Documents[0].Id;
-                    MessageBox.Show("Success Login using Gmail!", "Success", MessageBoxButtons.OK, MessageBoxIcon.Information);
                 }
                 await FormTransition.FadeTo(this, new Dashboard(userId));
             }
             catch (Exception ex)
             {
-                MessageBox.Show($"Login failed: {ex.Message}", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                Debug.WriteLine($"[SignIn-Google] Google login failed: {ex}");
             }
+
         }
 
         private void tbUsername_KeyDown(object sender, KeyEventArgs e)
