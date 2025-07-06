@@ -14,6 +14,7 @@ namespace PomoMeetApp.View
 {
     public partial class SideBar : UserControl
     {
+        string curUserId = UserSession.CurrentUser.UserId;
         public SideBar()
         {
             InitializeComponent();
@@ -27,6 +28,8 @@ namespace PomoMeetApp.View
         private void siticoneButton4_Click(object sender, EventArgs e)
         {
 
+            CreateRoom cr = new CreateRoom(curUserId);
+            cr.ShowDialog();
         }
 
         private void siticoneButton7_Click(object sender, EventArgs e)
@@ -43,7 +46,8 @@ namespace PomoMeetApp.View
 
         private void siticoneButton8_Click(object sender, EventArgs e)
         {
-
+            Dashboard db = new Dashboard(curUserId);
+            db.ShowDialog();
         }
 
         private async void siticoneButton5_Click(object sender, EventArgs e)
