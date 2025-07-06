@@ -1372,7 +1372,7 @@
             btnEmoji.BorderColor = Color.LightSlateGray;
             btnEmoji.BorderWidth = 2;
             btnEmoji.ButtonBackColor = Color.White;
-            btnEmoji.ButtonImage = Properties.Resources.Send;
+            btnEmoji.ButtonImage = Properties.Resources.face;
             btnEmoji.CanBeep = true;
             btnEmoji.CanGlow = false;
             btnEmoji.CanShake = true;
