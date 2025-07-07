@@ -22,6 +22,9 @@ using System.Security.Policy;
 using System.Drawing.Drawing2D;
 using NAudio.Wave;
 using static PomoMeetApp.View.CustomMessageBox;
+using System.Net.Sockets;
+using System.Net.Http;
+using System.Net;
 
 
 
@@ -29,6 +32,14 @@ namespace PomoMeetApp.View
 {
     public partial class MeetingRoom : Form
     {
+        private TcpClient client;
+        private TcpListener server;
+        private readonly List<System.Net.Sockets.TcpClient> connectedClients = new List<System.Net.Sockets.TcpClient>();
+        private readonly object clientLock = new object();
+        private readonly object messageLock = new object();
+        private bool isTcpServerRunning;
+        private readonly Dictionary<string, (string Username, string AvatarKey)> userInfoCache = new Dictionary<string, (string Username, string AvatarKey)>();
+
         private ImageList imageListAvatars;
         private string currentUserId;
         public string CurrentUserId { get { return currentUserId; } }
@@ -100,6 +111,7 @@ namespace PomoMeetApp.View
             InitializeUserProfile();
             InitializeMeetingRoomComponents();
             InitializeMediaResources();
+            InitializeTcpChat();
 
             this.Load += MeetingRoom_Load;
             tb_FindParticipants.TextChanged += Tb_Search_TextChanged;
@@ -114,7 +126,7 @@ namespace PomoMeetApp.View
         {
             await Task.Delay(100);
             InitializeAgora();
-            ListenMessage();
+            //ListenMessage();
         }
 
         private void InitializeMediaResources()
@@ -1768,6 +1780,7 @@ namespace PomoMeetApp.View
             {
                 // Nếu bị kick thì cho phép đóng form ngay
                 e.Cancel = false;
+                CleanupTcpChat();
                 return;
             }
             // Chỉ xử lý khi user click X để đóng form
@@ -1789,6 +1802,7 @@ namespace PomoMeetApp.View
                             {
                                 isLeavingRoom = true; // Set flag để tránh loop
                                 _ = UserStatusManager.Instance.UpdateUserStatus(currentUserId, "offline"); // Set trạng thái offline
+                                CleanupTcpChat();
                                 this.Close(); // Đóng form thực sự
                             }
                             else
@@ -1816,6 +1830,7 @@ namespace PomoMeetApp.View
             {
                 _ = UserStatusManager.Instance.UpdateUserStatus(currentUserId, "offline"); // Set trạng thái offline
                 CleanupAgoraResources();
+                CleanupTcpChat();
             }
             notificationListener?.StopAsync();
             notificationListener = null;
@@ -2052,6 +2067,362 @@ namespace PomoMeetApp.View
             }
         }
 
+        private async void InitializeTcpChat()
+        {
+            try
+            {
+                // Hủy messageListener nếu tồn tại
+                //if (messageListener != null)
+                //{
+                //    await messageListener.StopAsync();
+                //    messageListener = null;
+                //}
+
+                // Tải trước thông tin người dùng
+                await PreloadUserInfo();
+
+                // 1. Cố gắng khởi tạo TCP server
+                try
+                {
+                    server = new TcpListener(IPAddress.Any, 5000);
+                    server.Start();
+                    isTcpServerRunning = true;
+                    Task.Run(() => AcceptClients());
+                }
+                catch (SocketException ex)
+                {
+                    if (ex.SocketErrorCode == SocketError.AddressAlreadyInUse)
+                    {
+                        Debug.WriteLine("Port 5000 đã được sử dụng. Instance này sẽ chỉ là client.");
+                        server = null;
+                        isTcpServerRunning = false;
+                    }
+                    else
+                    {
+                        throw;
+                    }
+                }
+
+                // 2. Luôn khởi tạo TCP client
+                client = new TcpClient();
+                client.Connect("127.0.0.1", 5000);
+                Task.Run(() => ReceiveMessages(client));
+            }
+            catch (Exception ex)
+            {
+                CustomMessageBox.Show($"Lỗi khởi tạo TCP Chat: {ex.Message}", "Lỗi", MessageBoxMode.OK);
+            }
+        }
+        private async Task PreloadUserInfo()
+        {
+            try
+            {
+                var db = FirebaseConfig.database;
+                var roomRef = db.Collection("Room").Document(currentroomId);
+                var snapshot = await roomRef.GetSnapshotAsync();
+                if (snapshot.Exists && snapshot.TryGetValue("members_status", out Dictionary<string, object> membersStatus))
+                {
+                    foreach (var userId in membersStatus.Keys)
+                    {
+                        if (!userInfoCache.ContainsKey(userId))
+                        {
+                            var (username, avatarKey) = await GetUserInfoFromFirestore(userId);
+                            userInfoCache[userId] = (username, avatarKey);
+                        }
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                Debug.WriteLine($"Lỗi khi tải trước thông tin người dùng: {ex.Message}");
+            }
+        }
+        // truy vấn firestore
+        private async Task<(string Username, string AvatarKey)> GetUserInfoFromFirestore(string userId)
+        {
+            if (userInfoCache.TryGetValue(userId, out var cachedInfo))
+            {
+                return cachedInfo;
+            }
+
+            string username = "Unknown";
+            string avatarKey = "default";
+            try
+            {
+                var db = FirebaseConfig.database;
+                var userRef = db.Collection("User").Document(userId);
+                var userDoc = await userRef.GetSnapshotAsync();
+                if (userDoc.Exists)
+                {
+                    username = userDoc.GetValue<string>("Username") ?? "Unknown";
+                    if (userDoc.ContainsField("Avatar"))
+                        avatarKey = userDoc.GetValue<string>("Avatar");
+                }
+                userInfoCache[userId] = (username, avatarKey);
+            }
+            catch (Exception ex)
+            {
+                Debug.WriteLine($"Lỗi khi lấy thông tin người dùng từ Firestore: {ex.Message}");
+            }
+            return (username, avatarKey);
+        }
+        private async void AcceptClients()
+        {
+            while (isTcpServerRunning)
+            {
+                try
+                {
+                    var client = await server.AcceptTcpClientAsync();
+                    lock (clientLock)
+                    {
+                        connectedClients.Add(client);
+                    }
+                    Task.Run(() => HandleClient(client));
+                }
+                catch (Exception ex)
+                {
+                    if (isTcpServerRunning)
+                        Debug.WriteLine($"Lỗi chấp nhận client: {ex.Message}");
+                }
+            }
+        }
+        private async void ReceiveMessages(System.Net.Sockets.TcpClient client)
+        {
+            try
+            {
+                using var stream = client.GetStream();
+                byte[] buffer = new byte[1024];
+                while (client.Connected && !isLeavingRoom)
+                {
+                    int bytesRead = await stream.ReadAsync(buffer, 0, buffer.Length);
+                    if (bytesRead == 0) break;
+
+                    string message = Encoding.UTF8.GetString(buffer, 0, bytesRead);
+                    HandleTcpMessageReceived(message);
+                }
+            }
+            catch (Exception ex)
+            {
+                Debug.WriteLine($"Lỗi nhận tin nhắn TCP: {ex.Message}");
+            }
+        }
+        private async void HandleClient(System.Net.Sockets.TcpClient client)
+        {
+            try
+            {
+                using var stream = client.GetStream();
+                byte[] buffer = new byte[1024];
+                while (isTcpServerRunning)
+                {
+                    int bytesRead = await stream.ReadAsync(buffer, 0, buffer.Length);
+                    if (bytesRead == 0) break; // Client ngắt kết nối
+
+                    string message = Encoding.UTF8.GetString(buffer, 0, bytesRead);
+                    
+
+                    // Lấy bản sao danh sách client trong khối lock
+                    TcpClient[] clientsSnapshot;
+                    lock (clientLock)
+                    {
+                        clientsSnapshot = connectedClients
+                            .Where(c => c.Connected) // 
+                            .ToArray();
+                    }
+
+                    // Thực hiện gửi tin nhắn bất đồng bộ bên ngoài lock
+                    var sendTasks = new List<Task>();
+                    foreach (var otherClient in clientsSnapshot)
+                    {
+                        try
+                        {
+                            if (otherClient.Connected)
+                            {
+                                var otherStream = otherClient.GetStream();
+                                byte[] msgBytes = Encoding.UTF8.GetBytes(message);
+                                if (msgBytes.Length > 0)
+                                {
+                                    sendTasks.Add(otherStream.WriteAsync(msgBytes, 0, msgBytes.Length));
+                                }
+                            }
+                        }
+                        catch (Exception ex)
+                        {
+                            Debug.WriteLine($"Lỗi gửi tin nhắn đến client: {ex.Message}");
+                        }
+                    }
+
+                    // Chờ tất cả tác vụ gửi hoàn tất
+                    await Task.WhenAll(sendTasks);
+                }
+            }
+            catch (Exception ex)
+            {
+                Debug.WriteLine($"Lỗi xử lý client: {ex.Message}");
+            }
+            finally
+            {
+                lock (clientLock)
+                {
+                    connectedClients.Remove(client);
+                    client.Close();
+                }
+            }
+        }
+        private async void HandleTcpMessageReceived(string message)
+        {
+            try
+            {
+                // Định dạng tin nhắn: userId|username|message|timestamp
+                string[] parts = message.Split('|');
+                if (parts.Length != 4) return;
+
+                string userId = parts[0];
+                string username = parts[1]; // Lấy từ tin nhắn để giảm truy vấn
+                string messageText = parts[2];
+                string createdAt = parts[3];
+
+
+                // Lấy avatarKey từ Firestore hoặc cache
+                var (_, avatarKey) = await GetUserInfoFromFirestore(userId);
+
+                // Tái sử dụng logic hiển thị từ ListenMessage
+                SafeInvoke(() =>
+                {
+                    lock (messageLock)
+                    {
+                        bool originalAutoScroll = pn_DisplayMessage.AutoScroll;
+                        pn_DisplayMessage.AutoScroll = false;
+
+                        int nextY = 10;
+                        if (pn_DisplayMessage.Controls.Count > 0)
+                        {
+                            Control lastControl = pn_DisplayMessage.Controls[pn_DisplayMessage.Controls.Count - 1];
+                            nextY = lastControl.Bottom + 5;
+                        }
+
+                        Panel messagePanel = new Panel
+                        {
+                            Width = pn_DisplayMessage.Width - 20,
+                            BackColor = Color.Transparent,
+                            Anchor = AnchorStyles.Top | AnchorStyles.Left
+                        };
+
+                        bool isMyMessage = userId == currentUserId;
+
+                        PictureBox avatar = new PictureBox
+                        {
+                            Size = new Size(40, 40),
+                            SizeMode = PictureBoxSizeMode.Zoom,
+                            BackColor = Color.Transparent,
+                            Image = MakeRoundedAvatar(GetAvatarFromResources(avatarKey), new Size(40, 40))
+                        };
+
+                        MessageBubble bubble = new MessageBubble(messageText, isMyMessage)
+                        {
+                            Width = 180
+                        };
+
+                        Label lblName = new Label
+                        {
+                            Text = username,
+                            Font = new Font("Inter", 10, FontStyle.Bold),
+                            ForeColor = Color.Black,
+                            AutoSize = true
+                        };
+
+                        Label lblTime = new Label
+                        {
+                            Text = $"Hôm nay lúc {createdAt}",
+                            Font = new Font("Inter", 8),
+                            ForeColor = Color.Gray,
+                            AutoSize = true
+                        };
+
+                        int nameY = 0;
+                        int bubbleY = nameY + lblName.Height + 4;
+                        int timeY = bubbleY + bubble.Height + 4;
+                        int panelHeight = timeY + lblTime.Height + 10;
+
+                        messagePanel.Height = panelHeight;
+
+                        if (isMyMessage)
+                        {
+                            avatar.Location = new Point(10, bubbleY);
+                            bubble.Location = new Point(60, bubbleY);
+                            lblName.Location = new Point(60, nameY);
+                            lblTime.Location = new Point(60, timeY);
+                        }
+                        else
+                        {
+                            bubble.Location = new Point(10, bubbleY);
+                            avatar.Location = new Point(210, bubbleY);
+                            lblName.Location = new Point(10, nameY);
+                            lblTime.Location = new Point(10, timeY);
+                        }
+
+                        messagePanel.Controls.Add(avatar);
+                        messagePanel.Controls.Add(lblName);
+                        messagePanel.Controls.Add(bubble);
+                        messagePanel.Controls.Add(lblTime);
+
+                        messagePanel.Location = new Point(10, nextY);
+                        pn_DisplayMessage.Controls.Add(messagePanel);
+
+                        pn_DisplayMessage.AutoScroll = originalAutoScroll;
+                        if (pn_DisplayMessage.AutoScroll)
+                        {
+                            pn_DisplayMessage.AutoScrollPosition = new Point(0, pn_DisplayMessage.DisplayRectangle.Height);
+                        }
+                    }
+                });
+            }
+            catch (Exception ex)
+            {
+                SafeInvoke(() =>
+                {
+                    CustomMessageBox.Show($"Lỗi xử lý tin nhắn TCP: {ex.Message}", "Lỗi", MessageBoxMode.OK);
+                });
+            }
+        }
+        private void CleanupTcpChat()
+        {
+            try
+            {
+                // Đóng TcpClient cho tất cả người dùng (bao gồm host)
+                if (client != null)
+                {
+                    client.Close();
+                    client = null;
+                }
+
+                // Đóng TcpListener và các client kết nối nếu là host
+                if (currentUserId == hostId && server != null)
+                {
+                    isTcpServerRunning = false; // Dừng vòng lặp AcceptClients
+                    lock (clientLock)
+                    {
+                        foreach (var client in connectedClients)
+                        {
+                            try
+                            {
+                                client.Close();
+                            }
+                            catch (Exception ex)
+                            {
+                                Debug.WriteLine($"Lỗi khi đóng client: {ex.Message}");
+                            }
+                        }
+                        connectedClients.Clear();
+                    }
+                    server.Stop();
+                    server = null;
+                }
+            }
+            catch (Exception ex)
+            {
+                Debug.WriteLine($"Lỗi khi dọn dẹp TCP Chat: {ex.Message}");
+            }
+        }
         private async void btnSendMessages_Click(object sender, EventArgs e)
         {
             string msg = tbMessages.Text.Trim();
@@ -2061,23 +2432,20 @@ namespace PomoMeetApp.View
             }
             try
             {
-                string messageId = Guid.NewGuid().ToString();
-                var message = new Dictionary<string, object>
-            {
-                { "room_id", currentroomId },
-                { "user_id", currentUserId },
-                { "message", msg },
-                { "created_at", Timestamp.GetCurrentTimestamp() }
-            };
-                var db = FirebaseConfig.database;
-                var messageRef = db.Collection("Messages").Document(messageId);
-                await messageRef.SetAsync(message);
+                var (username, _) = await GetUserInfoFromFirestore(currentUserId);
+                string timestamp = DateTime.Now.ToString("HH:mm");
+                string message = $"{currentUserId}|{username}|{msg}|{timestamp}";
+                if (client?.Connected == true)
+                {
+                    var stream = client.GetStream();
+                    byte[] msgBytes = Encoding.UTF8.GetBytes(message);
+                    await stream.WriteAsync(msgBytes, 0, msgBytes.Length);
+                }
                 tbMessages.Clear();
-
             }
             catch (Exception ex)
             {
-                MessageBox.Show($"Error sending message: {ex.Message}", "btnSendMessages_Click", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                CustomMessageBox.Show($"Lỗi gửi tin nhắn: {ex.Message}", "Lỗi", MessageBoxMode.OK);
             }
 
         }
@@ -2139,7 +2507,7 @@ namespace PomoMeetApp.View
 
 
 
-        // hàm lấy realtime message
+        // hàm lấy realtime message, đây là chỗ để quay đầu, đừng có xóa -_-
         private void ListenMessage()
         {
             // Hủy listener cũ nếu tồn tại
