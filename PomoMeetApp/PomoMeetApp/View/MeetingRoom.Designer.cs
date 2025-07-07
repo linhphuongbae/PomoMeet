@@ -471,7 +471,7 @@
             // 
             lb_participant.BackColor = Color.Transparent;
             lb_participant.Font = new Font("Inter", 10F, FontStyle.Bold);
-            lb_participant.Location = new Point(0, 9);
+            lb_participant.Location = new Point(2, 9);
             lb_participant.Name = "lb_participant";
             lb_participant.Size = new Size(145, 28);
             lb_participant.TabIndex = 0;
@@ -625,7 +625,7 @@
             // 
             siticoneLabel1.BackColor = Color.Transparent;
             siticoneLabel1.Font = new Font("Inter", 10F, FontStyle.Bold);
-            siticoneLabel1.Location = new Point(4, 4);
+            siticoneLabel1.Location = new Point(6, 3);
             siticoneLabel1.Name = "siticoneLabel1";
             siticoneLabel1.Size = new Size(150, 40);
             siticoneLabel1.TabIndex = 11;

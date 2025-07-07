@@ -35,6 +35,7 @@
             pnFriends = new SiticoneNetCoreUI.SiticonePanel();
             label3 = new Label();
             lbAllFriends = new Label();
+            sideBar2 = new SideBar();
             btn_AllFriends = new SiticoneNetCoreUI.SiticoneButton();
             btn_OnlineFriends = new SiticoneNetCoreUI.SiticoneButton();
             pnFriends.SuspendLayout();
@@ -316,13 +317,20 @@
             // 
             lbAllFriends.AutoSize = true;
             lbAllFriends.BackColor = Color.Transparent;
-            lbAllFriends.Font = new Font("Inter", 22.2F, FontStyle.Bold);
+            lbAllFriends.Font = new Font("Inter", 18F, FontStyle.Bold, GraphicsUnit.Point, 0);
             lbAllFriends.ForeColor = Color.Black;
             lbAllFriends.Location = new Point(305, 122);
             lbAllFriends.Name = "lbAllFriends";
-            lbAllFriends.Size = new Size(223, 53);
+            lbAllFriends.Size = new Size(181, 43);
             lbAllFriends.TabIndex = 11;
             lbAllFriends.Text = "Bạn bè (10)";
+            // 
+            // sideBar2
+            // 
+            sideBar2.Location = new Point(0, 0);
+            sideBar2.Name = "sideBar2";
+            sideBar2.Size = new Size(271, 1250);
+            sideBar2.TabIndex = 29;
             // 
             // btn_AllFriends
             // 
@@ -490,6 +498,7 @@
             ClientSize = new Size(1422, 977);
             Controls.Add(btn_OnlineFriends);
             Controls.Add(btn_AllFriends);
+            Controls.Add(sideBar2);
             Controls.Add(lbAllFriends);
             Controls.Add(txtFindFriends);
             Controls.Add(pnFriends);
