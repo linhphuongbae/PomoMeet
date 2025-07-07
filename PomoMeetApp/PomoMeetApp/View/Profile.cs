@@ -14,7 +14,7 @@ namespace PomoMeetApp.View
     {
         private string currentUserId;
         private FirestoreDb db;
-
+        private string currentUsername;
         public Profile(string userId)
         {
             InitializeComponent();
@@ -66,7 +66,7 @@ namespace PomoMeetApp.View
 
                     // Update UI
                     tbUsername.Text = username;
-                    lbl_Username.Text = username;
+                    currentUsername = username;
 
                     if (userData.ContainsKey("Email") && userData["Email"] != null)
                     {
@@ -154,7 +154,7 @@ namespace PomoMeetApp.View
                 await db.Collection("User").Document(currentUserId)
                           .UpdateAsync(updates);
 
-                lbl_Username.Text = newUsername;
+                currentUsername = newUsername;
                 userProfilePanel1.UpdateUserInfo(currentUserId, newUsername, pictureBox_avatar.Image);
 
                 tbNewPassword.Text = "";
@@ -224,7 +224,7 @@ namespace PomoMeetApp.View
                 // Cập nhật UI
                 Image selectedAvatar = LoadAvatarImage(avatarName);
                 pictureBox_avatar.Image = selectedAvatar;
-                userProfilePanel1.UpdateUserInfo(currentUserId, lbl_Username.Text, selectedAvatar);
+                userProfilePanel1.UpdateUserInfo(currentUserId, currentUsername, selectedAvatar);
 
             }
             catch (Exception ex)

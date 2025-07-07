@@ -40,7 +40,6 @@
             tbNewPassword = new SiticoneNetCoreUI.SiticoneTextBox();
             tbConfirmPassword = new SiticoneNetCoreUI.SiticoneTextBox();
             siticoneLabel7 = new SiticoneNetCoreUI.SiticoneLabel();
-            lbl_Username = new SiticoneNetCoreUI.SiticoneLabel();
             bindingSource1 = new BindingSource(components);
             siticoneLabel9 = new SiticoneNetCoreUI.SiticoneLabel();
             editAvatarButton = new PictureBox();
@@ -56,9 +55,9 @@
             pictureBox_avatar.BackColor = Color.Transparent;
             pictureBox_avatar.BorderStyle = BorderStyle.FixedSingle;
             pictureBox_avatar.Image = (Image)resources.GetObject("pictureBox_avatar.Image");
-            pictureBox_avatar.Location = new Point(891, 136);
+            pictureBox_avatar.Location = new Point(743, 227);
             pictureBox_avatar.Name = "pictureBox_avatar";
-            pictureBox_avatar.Size = new Size(151, 156);
+            pictureBox_avatar.Size = new Size(430, 430);
             pictureBox_avatar.SizeMode = PictureBoxSizeMode.StretchImage;
             pictureBox_avatar.TabIndex = 6;
             pictureBox_avatar.TabStop = false;
@@ -66,7 +65,7 @@
             // siticoneLabel1
             // 
             siticoneLabel1.BackColor = Color.Transparent;
-            siticoneLabel1.Font = new Font("Inter", 17F, FontStyle.Bold);
+            siticoneLabel1.Font = new Font("Inter", 12F, FontStyle.Bold);
             siticoneLabel1.ForeColor = Color.DarkSeaGreen;
             siticoneLabel1.Location = new Point(339, 227);
             siticoneLabel1.Name = "siticoneLabel1";
@@ -77,9 +76,9 @@
             // siticoneLabel2
             // 
             siticoneLabel2.BackColor = Color.Transparent;
-            siticoneLabel2.Font = new Font("Inter", 17F, FontStyle.Bold);
+            siticoneLabel2.Font = new Font("Inter", 12F, FontStyle.Bold);
             siticoneLabel2.ForeColor = Color.DarkSeaGreen;
-            siticoneLabel2.Location = new Point(339, 347);
+            siticoneLabel2.Location = new Point(339, 340);
             siticoneLabel2.Name = "siticoneLabel2";
             siticoneLabel2.Size = new Size(110, 44);
             siticoneLabel2.TabIndex = 8;
@@ -88,9 +87,9 @@
             // siticoneLabel4
             // 
             siticoneLabel4.BackColor = Color.Transparent;
-            siticoneLabel4.Font = new Font("Inter", 17F, FontStyle.Bold);
+            siticoneLabel4.Font = new Font("Inter", 12F, FontStyle.Bold);
             siticoneLabel4.ForeColor = Color.DarkSeaGreen;
-            siticoneLabel4.Location = new Point(339, 469);
+            siticoneLabel4.Location = new Point(339, 455);
             siticoneLabel4.Name = "siticoneLabel4";
             siticoneLabel4.Size = new Size(279, 47);
             siticoneLabel4.TabIndex = 10;
@@ -99,9 +98,9 @@
             // siticoneLabel5
             // 
             siticoneLabel5.BackColor = Color.Transparent;
-            siticoneLabel5.Font = new Font("Inter", 17F, FontStyle.Bold);
+            siticoneLabel5.Font = new Font("Inter", 12F, FontStyle.Bold);
             siticoneLabel5.ForeColor = Color.DarkSeaGreen;
-            siticoneLabel5.Location = new Point(339, 585);
+            siticoneLabel5.Location = new Point(339, 567);
             siticoneLabel5.Name = "siticoneLabel5";
             siticoneLabel5.Size = new Size(296, 36);
             siticoneLabel5.TabIndex = 11;
@@ -133,12 +132,12 @@
             tbUsername.EnableDropShadow = false;
             tbUsername.FillColor1 = Color.White;
             tbUsername.FillColor2 = Color.White;
-            tbUsername.Font = new Font("Inter", 15F);
+            tbUsername.Font = new Font("Inter", 10.2F);
             tbUsername.ForeColor = Color.DimGray;
             tbUsername.HoverBorderColor1 = Color.Gray;
             tbUsername.HoverBorderColor2 = Color.Gray;
             tbUsername.IsEnabled = true;
-            tbUsername.Location = new Point(339, 267);
+            tbUsername.Location = new Point(339, 258);
             tbUsername.Name = "tbUsername";
             tbUsername.PlaceholderColor = Color.Gray;
             tbUsername.PlaceholderText = "Nhập vào đây";
@@ -188,12 +187,12 @@
             tbEmail.EnableDropShadow = false;
             tbEmail.FillColor1 = Color.White;
             tbEmail.FillColor2 = Color.White;
-            tbEmail.Font = new Font("Inter", 15F);
+            tbEmail.Font = new Font("Inter", 10.2F);
             tbEmail.ForeColor = Color.DimGray;
             tbEmail.HoverBorderColor1 = Color.Gray;
             tbEmail.HoverBorderColor2 = Color.Gray;
             tbEmail.IsEnabled = true;
-            tbEmail.Location = new Point(339, 387);
+            tbEmail.Location = new Point(339, 370);
             tbEmail.Name = "tbEmail";
             tbEmail.PlaceholderColor = Color.Gray;
             tbEmail.PlaceholderText = "Nhập vào đây";
@@ -243,12 +242,12 @@
             tbNewPassword.EnableDropShadow = false;
             tbNewPassword.FillColor1 = Color.White;
             tbNewPassword.FillColor2 = Color.White;
-            tbNewPassword.Font = new Font("Inter", 15F);
+            tbNewPassword.Font = new Font("Inter", 10.2F);
             tbNewPassword.ForeColor = Color.DimGray;
             tbNewPassword.HoverBorderColor1 = Color.Gray;
             tbNewPassword.HoverBorderColor2 = Color.Gray;
             tbNewPassword.IsEnabled = true;
-            tbNewPassword.Location = new Point(339, 510);
+            tbNewPassword.Location = new Point(339, 489);
             tbNewPassword.Name = "tbNewPassword";
             tbNewPassword.PlaceholderColor = Color.Gray;
             tbNewPassword.PlaceholderText = "Nhập vào đây";
@@ -298,12 +297,12 @@
             tbConfirmPassword.EnableDropShadow = false;
             tbConfirmPassword.FillColor1 = Color.White;
             tbConfirmPassword.FillColor2 = Color.White;
-            tbConfirmPassword.Font = new Font("Inter", 15F);
+            tbConfirmPassword.Font = new Font("Inter", 10.2F);
             tbConfirmPassword.ForeColor = Color.DimGray;
             tbConfirmPassword.HoverBorderColor1 = Color.Gray;
             tbConfirmPassword.HoverBorderColor2 = Color.Gray;
             tbConfirmPassword.IsEnabled = true;
-            tbConfirmPassword.Location = new Point(339, 625);
+            tbConfirmPassword.Location = new Point(339, 598);
             tbConfirmPassword.Name = "tbConfirmPassword";
             tbConfirmPassword.PlaceholderColor = Color.Gray;
             tbConfirmPassword.PlaceholderText = "Nhập vào đây";
@@ -331,32 +330,20 @@
             // 
             siticoneLabel7.BackColor = Color.Transparent;
             siticoneLabel7.Font = new Font("Inter", 28F, FontStyle.Bold);
-            siticoneLabel7.ForeColor = Color.DarkSeaGreen;
-            siticoneLabel7.Location = new Point(305, 136);
+            siticoneLabel7.ForeColor = SystemColors.ActiveCaptionText;
+            siticoneLabel7.Location = new Point(339, 95);
             siticoneLabel7.Name = "siticoneLabel7";
-            siticoneLabel7.Size = new Size(323, 64);
+            siticoneLabel7.Size = new Size(165, 64);
             siticoneLabel7.TabIndex = 24;
             siticoneLabel7.Text = "Hồ sơ";
             siticoneLabel7.TextAlign = ContentAlignment.MiddleCenter;
-            // 
-            // lbl_Username
-            // 
-            lbl_Username.BackColor = Color.Transparent;
-            lbl_Username.Font = new Font("Inter", 28F, FontStyle.Bold);
-            lbl_Username.ForeColor = Color.DarkSeaGreen;
-            lbl_Username.Location = new Point(691, 324);
-            lbl_Username.Name = "lbl_Username";
-            lbl_Username.Size = new Size(388, 70);
-            lbl_Username.TabIndex = 26;
-            lbl_Username.Text = "Tên đăng nhập";
-            lbl_Username.TextAlign = ContentAlignment.MiddleCenter;
             // 
             // siticoneLabel9
             // 
             siticoneLabel9.BackColor = Color.Transparent;
             siticoneLabel9.Font = new Font("Inter", 10F, FontStyle.Bold);
             siticoneLabel9.ForeColor = Color.LimeGreen;
-            siticoneLabel9.Location = new Point(973, 295);
+            siticoneLabel9.Location = new Point(1104, 660);
             siticoneLabel9.Name = "siticoneLabel9";
             siticoneLabel9.Size = new Size(69, 28);
             siticoneLabel9.TabIndex = 27;
@@ -368,7 +355,7 @@
             editAvatarButton.Cursor = Cursors.Hand;
             editAvatarButton.Image = (Image)resources.GetObject("editAvatarButton.Image");
             editAvatarButton.InitialImage = (Image)resources.GetObject("editAvatarButton.InitialImage");
-            editAvatarButton.Location = new Point(864, 269);
+            editAvatarButton.Location = new Point(1179, 227);
             editAvatarButton.Name = "editAvatarButton";
             editAvatarButton.Size = new Size(21, 23);
             editAvatarButton.SizeMode = PictureBoxSizeMode.Zoom;
@@ -404,7 +391,7 @@
             btnSave.EnableRippleEffect = true;
             btnSave.EnableShadow = false;
             btnSave.EnableTextWrapping = false;
-            btnSave.Font = new Font("Inter", 9F);
+            btnSave.Font = new Font("Inter", 11F);
             btnSave.GlowColor = Color.FromArgb(100, 255, 255, 255);
             btnSave.GlowIntensity = 100;
             btnSave.GlowRadius = 20F;
@@ -423,7 +410,7 @@
             btnSave.IsReadOnly = false;
             btnSave.IsToggleButton = false;
             btnSave.IsToggled = false;
-            btnSave.Location = new Point(448, 721);
+            btnSave.Location = new Point(339, 685);
             btnSave.LongPressDurationMS = 1000;
             btnSave.Name = "btnSave";
             btnSave.NormalFontStyle = FontStyle.Regular;
@@ -442,7 +429,7 @@
             btnSave.ShadowOffset = new Point(2, 2);
             btnSave.ShakeDuration = 500;
             btnSave.ShakeIntensity = 5;
-            btnSave.Size = new Size(146, 49);
+            btnSave.Size = new Size(255, 49);
             btnSave.TabIndex = 29;
             btnSave.Text = "Lưu thay đổi";
             btnSave.TextAlign = ContentAlignment.MiddleCenter;
@@ -470,7 +457,6 @@
             Controls.Add(btnSave);
             Controls.Add(editAvatarButton);
             Controls.Add(siticoneLabel9);
-            Controls.Add(lbl_Username);
             Controls.Add(siticoneLabel7);
             Controls.Add(tbConfirmPassword);
             Controls.Add(tbNewPassword);
@@ -500,7 +486,6 @@
         private SiticoneNetCoreUI.SiticoneTextBox tbNewPassword;
         private SiticoneNetCoreUI.SiticoneTextBox tbConfirmPassword;
         private SiticoneNetCoreUI.SiticoneLabel siticoneLabel7;
-        private SiticoneNetCoreUI.SiticoneLabel lbl_Username;
         private BindingSource bindingSource1;
         private SiticoneNetCoreUI.SiticoneLabel siticoneLabel9;
         private PictureBox editAvatarButton;

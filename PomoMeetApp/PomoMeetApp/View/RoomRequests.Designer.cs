@@ -143,7 +143,7 @@
             btCopy.ContextMenuCopyText = "Copy to Clipboard";
             btCopy.ContextMenuFont = new Font("Inter", 7.8F, FontStyle.Regular, GraphicsUnit.Point, 0);
             btCopy.EnableContextMenu = true;
-            btCopy.Font = new Font("Inter", 10.8F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            btCopy.Font = new Font("Inter", 10.2F, FontStyle.Bold, GraphicsUnit.Point, 0);
             btCopy.ForeColor = Color.White;
             btCopy.HoverFillColor = Color.Transparent;
             btCopy.Location = new Point(421, 122);
@@ -222,10 +222,10 @@
             // label3
             // 
             label3.AutoSize = true;
-            label3.Font = new Font("Inter", 13.8F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            label3.Location = new Point(51, 249);
+            label3.Font = new Font("Inter", 12F, FontStyle.Bold);
+            label3.Location = new Point(51, 257);
             label3.Name = "label3";
-            label3.Size = new Size(232, 32);
+            label3.Size = new Size(205, 28);
             label3.TabIndex = 7;
             label3.Text = "Chọn bạn bè để mời";
             // 
@@ -260,7 +260,7 @@
             siticoneTextBox1.HoverBorderColor1 = Color.Gray;
             siticoneTextBox1.HoverBorderColor2 = Color.Gray;
             siticoneTextBox1.IsEnabled = true;
-            siticoneTextBox1.Location = new Point(396, 249);
+            siticoneTextBox1.Location = new Point(421, 249);
             siticoneTextBox1.Name = "siticoneTextBox1";
             siticoneTextBox1.PlaceholderColor = Color.Gray;
             siticoneTextBox1.PlaceholderText = "Tìm bạn bè";
@@ -273,7 +273,7 @@
             siticoneTextBox1.ShadowAnimationDuration = 1;
             siticoneTextBox1.ShadowBlur = 10;
             siticoneTextBox1.ShadowColor = Color.FromArgb(15, 0, 0, 0);
-            siticoneTextBox1.Size = new Size(317, 43);
+            siticoneTextBox1.Size = new Size(292, 43);
             siticoneTextBox1.SolidBorderColor = Color.LightSlateGray;
             siticoneTextBox1.SolidBorderFocusColor = Color.FromArgb(77, 77, 255);
             siticoneTextBox1.SolidBorderHoverColor = Color.Gray;
@@ -434,7 +434,7 @@
             btnSendInvitation.EnableRippleEffect = true;
             btnSendInvitation.EnableShadow = false;
             btnSendInvitation.EnableTextWrapping = false;
-            btnSendInvitation.Font = new Font("Inter ExtraBold", 13.8F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            btnSendInvitation.Font = new Font("Inter ExtraBold", 12F, FontStyle.Bold, GraphicsUnit.Point, 0);
             btnSendInvitation.GlowColor = Color.FromArgb(100, 255, 255, 255);
             btnSendInvitation.GlowIntensity = 100;
             btnSendInvitation.GlowRadius = 20F;

@@ -55,6 +55,7 @@
             Rectangle.Location = new Point(385, 207);
             Rectangle.Name = "Rectangle";
             Rectangle.Size = new Size(645, 502);
+            Rectangle.SizeMode = PictureBoxSizeMode.StretchImage;
             Rectangle.TabIndex = 1;
             Rectangle.TabStop = false;
             Rectangle.Click += Rectangle_Click;

@@ -48,18 +48,19 @@
             siticoneToggleSwitch3 = new SiticoneNetCoreUI.SiticoneToggleSwitch();
             siticonehSeparator1 = new SiticoneNetCoreUI.SiticoneHSeparator();
             siticonePanel2 = new SiticoneNetCoreUI.SiticonePanel();
-            siticonePictureBox1 = new SiticoneNetCoreUI.SiticonePictureBox();
             userProfilePanel1 = new UserProfilePanel();
+            pictureBox1 = new PictureBox();
             siticonePanel6.SuspendLayout();
             siticonePanel1.SuspendLayout();
             siticonePanel2.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)pictureBox1).BeginInit();
             SuspendLayout();
             // 
             // siticoneLabel1
             // 
             siticoneLabel1.BackColor = Color.Transparent;
-            siticoneLabel1.Font = new Font("Segoe UI Semibold", 28.2F, FontStyle.Bold, GraphicsUnit.Point, 0);
-            siticoneLabel1.Location = new Point(386, 93);
+            siticoneLabel1.Font = new Font("Segoe UI Semibold", 22.2F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            siticoneLabel1.Location = new Point(377, 128);
             siticoneLabel1.Name = "siticoneLabel1";
             siticoneLabel1.Size = new Size(355, 76);
             siticoneLabel1.TabIndex = 1;
@@ -810,8 +811,8 @@
             // siticoneLabel2
             // 
             siticoneLabel2.BackColor = Color.Transparent;
-            siticoneLabel2.Font = new Font("Inter", 17F);
-            siticoneLabel2.Location = new Point(527, 230);
+            siticoneLabel2.Font = new Font("Inter", 14.2F);
+            siticoneLabel2.Location = new Point(482, 225);
             siticoneLabel2.Name = "siticoneLabel2";
             siticoneLabel2.Size = new Size(214, 45);
             siticoneLabel2.TabIndex = 4;
@@ -836,7 +837,7 @@
             siticoneToggleSwitch3.IsRequired = false;
             siticoneToggleSwitch3.LabelColor = Color.Black;
             siticoneToggleSwitch3.LabelFont = new Font("Inter", 9F);
-            siticoneToggleSwitch3.Location = new Point(894, 240);
+            siticoneToggleSwitch3.Location = new Point(851, 228);
             siticoneToggleSwitch3.Logger = null;
             siticoneToggleSwitch3.Name = "siticoneToggleSwitch3";
             siticoneToggleSwitch3.OffAnimationSpeed = 115;
@@ -859,7 +860,7 @@
             siticoneToggleSwitch3.RippleColor = Color.White;
             siticoneToggleSwitch3.RippleExpansionRate = 2F;
             siticoneToggleSwitch3.RippleOpacityDecay = 0.02F;
-            siticoneToggleSwitch3.Size = new Size(55, 30);
+            siticoneToggleSwitch3.Size = new Size(53, 31);
             siticoneToggleSwitch3.TabIndex = 2;
             siticoneToggleSwitch3.ToggleOffSoundPath = "";
             siticoneToggleSwitch3.ToggleOnSoundPath = "";
@@ -874,7 +875,7 @@
             siticonehSeparator1.GradientStartColor = Color.White;
             siticonehSeparator1.LineColor = Color.FromArgb(117, 164, 127);
             siticonehSeparator1.LineWidth = 1;
-            siticonehSeparator1.Location = new Point(527, 276);
+            siticonehSeparator1.Location = new Point(482, 262);
             siticonehSeparator1.Name = "siticonehSeparator1";
             siticonehSeparator1.ParallelLines = 1;
             siticonehSeparator1.ParallelLineSpacing = 4;
@@ -897,7 +898,7 @@
             siticonePanel2.BorderGradientEndColor = Color.Purple;
             siticonePanel2.BorderGradientStartColor = Color.Blue;
             siticonePanel2.BorderThickness = 2F;
-            siticonePanel2.Controls.Add(siticonePictureBox1);
+            siticonePanel2.Controls.Add(pictureBox1);
             siticonePanel2.CornerRadiusBottomLeft = 10F;
             siticonePanel2.CornerRadiusBottomRight = 10F;
             siticonePanel2.CornerRadiusTopLeft = 10F;
@@ -927,55 +928,13 @@
             siticonePanel2.RippleMaxSize = 600F;
             siticonePanel2.RippleSpeed = 15F;
             siticonePanel2.ShowBorder = true;
-            siticonePanel2.Size = new Size(98, 86);
+            siticonePanel2.Size = new Size(80, 68);
             siticonePanel2.TabIndex = 12;
             siticonePanel2.TabStop = true;
             siticonePanel2.UseBorderGradient = false;
             siticonePanel2.UseMultiGradient = false;
             siticonePanel2.UsePatternTexture = false;
             siticonePanel2.UseRadialGradient = false;
-            // 
-            // siticonePictureBox1
-            // 
-            siticonePictureBox1.BackColor = Color.Transparent;
-            siticonePictureBox1.BorderColor = Color.Transparent;
-            siticonePictureBox1.BorderWidth = 1;
-            siticonePictureBox1.Brightness = 1F;
-            siticonePictureBox1.Contrast = 1F;
-            siticonePictureBox1.CornerRadius = 0;
-            siticonePictureBox1.DraggingSpeed = 3.15F;
-            siticonePictureBox1.EnableAsyncLoading = false;
-            siticonePictureBox1.EnableCaching = false;
-            siticonePictureBox1.EnableDragDrop = false;
-            siticonePictureBox1.EnableExtendedImageSources = false;
-            siticonePictureBox1.EnableFilters = false;
-            siticonePictureBox1.EnableFlipping = false;
-            siticonePictureBox1.EnableGlow = false;
-            siticonePictureBox1.EnableHighDpiSupport = false;
-            siticonePictureBox1.EnableMouseInteraction = false;
-            siticonePictureBox1.EnablePlaceholder = false;
-            siticonePictureBox1.EnableRotation = false;
-            siticonePictureBox1.EnableShadow = false;
-            siticonePictureBox1.EnableSlideshow = false;
-            siticonePictureBox1.FlipHorizontal = false;
-            siticonePictureBox1.FlipVertical = false;
-            siticonePictureBox1.Grayscale = false;
-            siticonePictureBox1.Image = (Image)resources.GetObject("siticonePictureBox1.Image");
-            siticonePictureBox1.ImageOpacity = 1F;
-            siticonePictureBox1.Images = (List<Image>)resources.GetObject("siticonePictureBox1.Images");
-            siticonePictureBox1.InterpolationMode = System.Drawing.Drawing2D.InterpolationMode.HighQualityBicubic;
-            siticonePictureBox1.IsCircular = false;
-            siticonePictureBox1.Location = new Point(16, 7);
-            siticonePictureBox1.MaintainAspectRatio = true;
-            siticonePictureBox1.Name = "siticonePictureBox1";
-            siticonePictureBox1.PlaceholderImage = null;
-            siticonePictureBox1.RotationAngle = 0F;
-            siticonePictureBox1.Saturation = 1F;
-            siticonePictureBox1.ShowBorder = true;
-            siticonePictureBox1.Size = new Size(61, 76);
-            siticonePictureBox1.SizeMode = SiticoneNetCoreUI.SiticonePictureBoxSizeMode.Normal;
-            siticonePictureBox1.TabIndex = 6;
-            siticonePictureBox1.Text = "siticonePictureBox1";
             // 
             // userProfilePanel1
             // 
@@ -984,6 +943,16 @@
             userProfilePanel1.Name = "userProfilePanel1";
             userProfilePanel1.Size = new Size(277, 71);
             userProfilePanel1.TabIndex = 13;
+            // 
+            // pictureBox1
+            // 
+            pictureBox1.Image = Properties.Resources.bell;
+            pictureBox1.Location = new Point(20, 11);
+            pictureBox1.Name = "pictureBox1";
+            pictureBox1.Size = new Size(41, 46);
+            pictureBox1.SizeMode = PictureBoxSizeMode.StretchImage;
+            pictureBox1.TabIndex = 14;
+            pictureBox1.TabStop = false;
             // 
             // Setting
             // 
@@ -1003,6 +972,7 @@
             siticonePanel6.ResumeLayout(false);
             siticonePanel1.ResumeLayout(false);
             siticonePanel2.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)pictureBox1).EndInit();
             ResumeLayout(false);
         }
 
@@ -1025,7 +995,7 @@
         private SiticoneNetCoreUI.SiticoneToggleSwitch siticoneToggleSwitch3;
         private SiticoneNetCoreUI.SiticoneHSeparator siticonehSeparator1;
         private SiticoneNetCoreUI.SiticonePanel siticonePanel2;
-        private SiticoneNetCoreUI.SiticonePictureBox siticonePictureBox1;
         private UserProfilePanel userProfilePanel1;
+        private PictureBox pictureBox1;
     }
 }
