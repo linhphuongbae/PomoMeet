@@ -40,9 +40,10 @@
             // Rectangle
             // 
             Rectangle.Image = Properties.Resources.Rectangle;
-            Rectangle.Location = new Point(167, 72);
+            Rectangle.Location = new Point(117, 126);
             Rectangle.Name = "Rectangle";
-            Rectangle.Size = new Size(645, 445);
+            Rectangle.Size = new Size(671, 241);
+            Rectangle.SizeMode = PictureBoxSizeMode.StretchImage;
             Rectangle.TabIndex = 2;
             Rectangle.TabStop = false;
             // 
@@ -50,13 +51,13 @@
             // 
             email.AutoSize = true;
             email.BackColor = Color.FromArgb(233, 240, 201);
-            email.Font = new Font("Inter", 19.8000011F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            email.Font = new Font("Inter", 16.2F, FontStyle.Bold, GraphicsUnit.Point, 0);
             email.ForeColor = Color.FromArgb(117, 164, 127);
-            email.Location = new Point(230, 163);
+            email.Location = new Point(180, 144);
             email.Name = "email";
-            email.Size = new Size(193, 49);
+            email.Size = new Size(219, 40);
             email.TabIndex = 5;
-            email.Text = "Username";
+            email.Text = "Tên đăng nhập";
             // 
             // tbEnter
             // 
@@ -84,12 +85,12 @@
             tbEnter.EnableDropShadow = false;
             tbEnter.FillColor1 = Color.White;
             tbEnter.FillColor2 = Color.White;
-            tbEnter.Font = new Font("Inter", 7.8F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            tbEnter.Font = new Font("Inter", 10.2F);
             tbEnter.ForeColor = Color.DimGray;
             tbEnter.HoverBorderColor1 = Color.Gray;
             tbEnter.HoverBorderColor2 = Color.Gray;
             tbEnter.IsEnabled = true;
-            tbEnter.Location = new Point(230, 248);
+            tbEnter.Location = new Point(180, 200);
             tbEnter.Name = "tbEnter";
             tbEnter.PlaceholderColor = Color.Gray;
             tbEnter.PlaceholderText = "Nhập vào đây";
@@ -103,7 +104,7 @@
             tbEnter.ShadowBlur = 10;
             tbEnter.ShadowColor = Color.FromArgb(15, 0, 0, 0);
             tbEnter.ShowBorder = false;
-            tbEnter.Size = new Size(537, 63);
+            tbEnter.Size = new Size(537, 50);
             tbEnter.SolidBorderColor = Color.LightSlateGray;
             tbEnter.SolidBorderFocusColor = Color.FromArgb(77, 77, 255);
             tbEnter.SolidBorderHoverColor = Color.Gray;
@@ -151,7 +152,7 @@
             btnUpdate.EnableRippleEffect = true;
             btnUpdate.EnableShadow = false;
             btnUpdate.EnableTextWrapping = false;
-            btnUpdate.Font = new Font("Inter", 18F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            btnUpdate.Font = new Font("Inter", 12F, FontStyle.Bold);
             btnUpdate.GlowColor = Color.FromArgb(100, 255, 255, 255);
             btnUpdate.GlowIntensity = 100;
             btnUpdate.GlowRadius = 20F;
@@ -170,7 +171,7 @@
             btnUpdate.IsReadOnly = false;
             btnUpdate.IsToggleButton = false;
             btnUpdate.IsToggled = false;
-            btnUpdate.Location = new Point(230, 350);
+            btnUpdate.Location = new Point(180, 280);
             btnUpdate.LongPressDurationMS = 1000;
             btnUpdate.Name = "btnUpdate";
             btnUpdate.NormalFontStyle = FontStyle.Regular;
@@ -204,7 +205,7 @@
             AutoScaleDimensions = new SizeF(8F, 20F);
             AutoScaleMode = AutoScaleMode.Font;
             BackColor = Color.FromArgb(252, 255, 224);
-            ClientSize = new Size(947, 517);
+            ClientSize = new Size(914, 442);
             Controls.Add(btnUpdate);
             Controls.Add(pictureBox3);
             Controls.Add(tbEnter);
