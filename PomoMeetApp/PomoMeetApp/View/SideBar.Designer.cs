@@ -133,7 +133,7 @@
             siticoneButton4.EnableRippleEffect = true;
             siticoneButton4.EnableShadow = false;
             siticoneButton4.EnableTextWrapping = false;
-            siticoneButton4.Font = new Font("Inter", 18F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            siticoneButton4.Font = new Font("Inter ExtraBold", 18F, FontStyle.Bold, GraphicsUnit.Point, 0);
             siticoneButton4.ForeColor = Color.Black;
             siticoneButton4.GlowColor = Color.FromArgb(100, 255, 255, 255);
             siticoneButton4.GlowIntensity = 100;
@@ -422,7 +422,7 @@
             siticonePictureBox3.FlipHorizontal = false;
             siticonePictureBox3.FlipVertical = false;
             siticonePictureBox3.Grayscale = false;
-            siticonePictureBox3.Image = (Image)resources.GetObject("siticonePictureBox3.Image");
+            siticonePictureBox3.Image = Properties.Resources.db;
             siticonePictureBox3.ImageOpacity = 1F;
             siticonePictureBox3.Images = (List<Image>)resources.GetObject("siticonePictureBox3.Images");
             siticonePictureBox3.InterpolationMode = System.Drawing.Drawing2D.InterpolationMode.HighQualityBicubic;
@@ -464,19 +464,19 @@
             siticonePictureBox4.FlipHorizontal = false;
             siticonePictureBox4.FlipVertical = false;
             siticonePictureBox4.Grayscale = false;
-            siticonePictureBox4.Image = (Image)resources.GetObject("siticonePictureBox4.Image");
+            siticonePictureBox4.Image = Properties.Resources.cr;
             siticonePictureBox4.ImageOpacity = 1F;
             siticonePictureBox4.Images = (List<Image>)resources.GetObject("siticonePictureBox4.Images");
             siticonePictureBox4.InterpolationMode = System.Drawing.Drawing2D.InterpolationMode.HighQualityBicubic;
             siticonePictureBox4.IsCircular = false;
-            siticonePictureBox4.Location = new Point(20, 251);
+            siticonePictureBox4.Location = new Point(31, 262);
             siticonePictureBox4.MaintainAspectRatio = true;
             siticonePictureBox4.Name = "siticonePictureBox4";
             siticonePictureBox4.PlaceholderImage = null;
             siticonePictureBox4.RotationAngle = 0F;
             siticonePictureBox4.Saturation = 1F;
             siticonePictureBox4.ShowBorder = false;
-            siticonePictureBox4.Size = new Size(54, 62);
+            siticonePictureBox4.Size = new Size(30, 40);
             siticonePictureBox4.SizeMode = SiticoneNetCoreUI.SiticonePictureBoxSizeMode.Normal;
             siticonePictureBox4.TabIndex = 7;
             siticonePictureBox4.Text = "siticonePictureBox4";
@@ -510,7 +510,7 @@
             siticoneButton5.EnableRippleEffect = true;
             siticoneButton5.EnableShadow = false;
             siticoneButton5.EnableTextWrapping = false;
-            siticoneButton5.Font = new Font("Inter", 18F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            siticoneButton5.Font = new Font("Inter ExtraBold", 18F, FontStyle.Bold, GraphicsUnit.Point, 0);
             siticoneButton5.ForeColor = Color.Black;
             siticoneButton5.GlowColor = Color.FromArgb(100, 255, 255, 255);
             siticoneButton5.GlowIntensity = 100;
@@ -588,7 +588,7 @@
             siticoneButton6.EnableRippleEffect = true;
             siticoneButton6.EnableShadow = false;
             siticoneButton6.EnableTextWrapping = false;
-            siticoneButton6.Font = new Font("Inter", 18F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            siticoneButton6.Font = new Font("Inter ExtraBold", 18F, FontStyle.Bold, GraphicsUnit.Point, 0);
             siticoneButton6.ForeColor = Color.Black;
             siticoneButton6.GlowColor = Color.FromArgb(100, 255, 255, 255);
             siticoneButton6.GlowIntensity = 100;
@@ -666,7 +666,7 @@
             siticoneButton7.EnableRippleEffect = true;
             siticoneButton7.EnableShadow = false;
             siticoneButton7.EnableTextWrapping = false;
-            siticoneButton7.Font = new Font("Inter", 18F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            siticoneButton7.Font = new Font("Inter ExtraBold", 18F, FontStyle.Bold, GraphicsUnit.Point, 0);
             siticoneButton7.ForeColor = Color.Black;
             siticoneButton7.GlowColor = Color.FromArgb(100, 255, 255, 255);
             siticoneButton7.GlowIntensity = 100;
@@ -744,7 +744,7 @@
             siticoneButton8.EnableRippleEffect = true;
             siticoneButton8.EnableShadow = false;
             siticoneButton8.EnableTextWrapping = false;
-            siticoneButton8.Font = new Font("Inter", 18F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            siticoneButton8.Font = new Font("Inter ExtraBold", 18F, FontStyle.Bold, GraphicsUnit.Point, 0);
             siticoneButton8.ForeColor = Color.Black;
             siticoneButton8.GlowColor = Color.FromArgb(100, 255, 255, 255);
             siticoneButton8.GlowIntensity = 100;
