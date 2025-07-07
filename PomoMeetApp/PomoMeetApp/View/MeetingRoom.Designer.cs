@@ -52,7 +52,6 @@
             Mic = new ColumnHeader();
             Camera = new ColumnHeader();
             panel7 = new Panel();
-            pictureBox2 = new PictureBox();
             siticoneLabel1 = new SiticoneNetCoreUI.SiticoneLabel();
             siticoneImageButton9 = new SiticoneNetCoreUI.SiticoneImageButton();
             siticoneLabel2 = new SiticoneNetCoreUI.SiticoneLabel();
@@ -71,6 +70,7 @@
             panel4 = new Panel();
             pictureBox1 = new PictureBox();
             btnSendMessages = new SiticoneNetCoreUI.SiticoneButton();
+            sideBar2 = new SideBar();
             tbMessages = new RichTextBox();
             btnEmoji = new SiticoneNetCoreUI.SiticoneButton();
             pn_DisplayMessage = new Panel();
@@ -78,7 +78,6 @@
             panel6.SuspendLayout();
             participants_panel.SuspendLayout();
             panel7.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)pictureBox2).BeginInit();
             siticonePanel1.SuspendLayout();
             pn_Background.SuspendLayout();
             panel4.SuspendLayout();
@@ -111,7 +110,7 @@
             ProgressBarMusic.IndeterminateBarColor = Color.FromArgb(117, 164, 127);
             ProgressBarMusic.IsReadonly = false;
             ProgressBarMusic.LabelColor = Color.Black;
-            ProgressBarMusic.LabelFont = new Font("Inter", 8F, FontStyle.Bold);
+            ProgressBarMusic.LabelFont = new Font("Inter", 10F, FontStyle.Bold);
             ProgressBarMusic.Location = new Point(59, 307);
             ProgressBarMusic.MakeRadial = true;
             ProgressBarMusic.Maximum = 100;
@@ -161,7 +160,7 @@
             btn_Reset.EnableRippleEffect = true;
             btn_Reset.EnableShadow = false;
             btn_Reset.EnableTextWrapping = false;
-            btn_Reset.Font = new Font("Inter", 12F);
+            btn_Reset.Font = new Font("Inter", 15F);
             btn_Reset.GlowColor = Color.FromArgb(0, 64, 0);
             btn_Reset.GlowIntensity = 100;
             btn_Reset.GlowRadius = 20F;
@@ -316,7 +315,7 @@
             btn_Start.EnableRippleEffect = true;
             btn_Start.EnableShadow = false;
             btn_Start.EnableTextWrapping = false;
-            btn_Start.Font = new Font("Inter", 12F);
+            btn_Start.Font = new Font("Inter", 15F);
             btn_Start.GlowColor = Color.FromArgb(0, 64, 0);
             btn_Start.GlowIntensity = 100;
             btn_Start.GlowRadius = 20F;
@@ -368,10 +367,10 @@
             // 
             lb_time_counter.AutoSize = true;
             lb_time_counter.BackColor = Color.Transparent;
-            lb_time_counter.Font = new Font("Inter", 25F, FontStyle.Bold);
-            lb_time_counter.Location = new Point(212, 107);
+            lb_time_counter.Font = new Font("Inter", 33F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            lb_time_counter.Location = new Point(196, 93);
             lb_time_counter.Name = "lb_time_counter";
-            lb_time_counter.Size = new Size(149, 61);
+            lb_time_counter.Size = new Size(195, 79);
             lb_time_counter.TabIndex = 0;
             lb_time_counter.Text = "25:00";
             lb_time_counter.TextAlign = ContentAlignment.MiddleCenter;
@@ -396,7 +395,7 @@
             btnRoomID.AccessibleName = "";
             btnRoomID.AutoSizeBasedOnText = false;
             btnRoomID.BackColor = Color.Transparent;
-            btnRoomID.BackgroundImage = Properties.Resources.icons8_meeting_room_30;
+            btnRoomID.BackgroundImage = Properties.Resources.group_add;
             btnRoomID.BadgeBackColor = Color.Red;
             btnRoomID.BadgeFont = new Font("Inter", 8F, FontStyle.Bold);
             btnRoomID.BadgeValue = 0;
@@ -440,7 +439,7 @@
             btnRoomID.IsReadOnly = false;
             btnRoomID.IsToggleButton = false;
             btnRoomID.IsToggled = false;
-            btnRoomID.Location = new Point(224, 9);
+            btnRoomID.Location = new Point(216, 0);
             btnRoomID.LongPressDurationMS = 1000;
             btnRoomID.Name = "btnRoomID";
             btnRoomID.NormalFontStyle = FontStyle.Regular;
@@ -459,7 +458,7 @@
             btnRoomID.ShadowOffset = new Point(2, 2);
             btnRoomID.ShakeDuration = 500;
             btnRoomID.ShakeIntensity = 5;
-            btnRoomID.Size = new Size(29, 28);
+            btnRoomID.Size = new Size(45, 40);
             btnRoomID.TabIndex = 52;
             btnRoomID.TextAlign = ContentAlignment.MiddleCenter;
             btnRoomID.TextColor = Color.White;
@@ -474,7 +473,7 @@
             lb_participant.Font = new Font("Inter", 11F, FontStyle.Bold);
             lb_participant.Location = new Point(0, 9);
             lb_participant.Name = "lb_participant";
-            lb_participant.Size = new Size(174, 28);
+            lb_participant.Size = new Size(145, 28);
             lb_participant.TabIndex = 0;
             lb_participant.Text = "Người tham gia";
             lb_participant.TextAlign = ContentAlignment.MiddleCenter;
@@ -532,7 +531,7 @@
             tb_FindParticipants.Location = new Point(3, 55);
             tb_FindParticipants.Name = "tb_FindParticipants";
             tb_FindParticipants.PlaceholderColor = Color.Gray;
-            tb_FindParticipants.PlaceholderText = "Tìm tên";
+            tb_FindParticipants.PlaceholderText = "Search participants";
             tb_FindParticipants.ReadOnlyBorderColor1 = Color.LightGray;
             tb_FindParticipants.ReadOnlyBorderColor2 = Color.LightGray;
             tb_FindParticipants.ReadOnlyFillColor1 = Color.WhiteSmoke;
@@ -616,22 +615,11 @@
             // panel7
             // 
             panel7.BackColor = Color.FromArgb(117, 164, 127);
-            panel7.Controls.Add(pictureBox2);
             panel7.Controls.Add(siticoneLabel1);
             panel7.Location = new Point(1108, 461);
             panel7.Name = "panel7";
             panel7.Size = new Size(283, 51);
             panel7.TabIndex = 0;
-            // 
-            // pictureBox2
-            // 
-            pictureBox2.Image = Properties.Resources.chat_room;
-            pictureBox2.Location = new Point(243, 10);
-            pictureBox2.Name = "pictureBox2";
-            pictureBox2.Size = new Size(26, 26);
-            pictureBox2.SizeMode = PictureBoxSizeMode.StretchImage;
-            pictureBox2.TabIndex = 57;
-            pictureBox2.TabStop = false;
             // 
             // siticoneLabel1
             // 
@@ -639,7 +627,7 @@
             siticoneLabel1.Font = new Font("Inter", 11F, FontStyle.Bold);
             siticoneLabel1.Location = new Point(3, 10);
             siticoneLabel1.Name = "siticoneLabel1";
-            siticoneLabel1.Size = new Size(136, 28);
+            siticoneLabel1.Size = new Size(68, 28);
             siticoneLabel1.TabIndex = 11;
             siticoneLabel1.Text = "Trò chuyện";
             siticoneLabel1.TextAlign = ContentAlignment.MiddleCenter;
@@ -1139,7 +1127,7 @@
             // btn_Break
             // 
             btn_Break.AccessibleDescription = "The default button control that accept input though the mouse, touch and keyboard";
-            btn_Break.AccessibleName = "Nghỉ ngơi";
+            btn_Break.AccessibleName = "Nghỉ";
             btn_Break.AutoSizeBasedOnText = false;
             btn_Break.BackColor = Color.Transparent;
             btn_Break.BadgeBackColor = Color.DarkSeaGreen;
@@ -1204,9 +1192,9 @@
             btn_Break.ShadowOffset = new Point(2, 2);
             btn_Break.ShakeDuration = 500;
             btn_Break.ShakeIntensity = 5;
-            btn_Break.Size = new Size(89, 32);
+            btn_Break.Size = new Size(92, 32);
             btn_Break.TabIndex = 41;
-            btn_Break.Text = "Nghỉ ngơi";
+            btn_Break.Text = "Nghỉ";
             btn_Break.TextAlign = ContentAlignment.MiddleCenter;
             btn_Break.TextColor = Color.Black;
             btn_Break.TooltipText = null;
@@ -1355,6 +1343,14 @@
             btnSendMessages.UseParticles = false;
             btnSendMessages.Click += btnSendMessages_Click;
             // 
+            // sideBar2
+            // 
+            sideBar2.Location = new Point(0, 0);
+            sideBar2.Name = "sideBar2";
+            sideBar2.Size = new Size(276, 1250);
+            sideBar2.TabIndex = 50;
+            sideBar2.Load += sideBar2_Load;
+            // 
             // tbMessages
             // 
             tbMessages.Location = new Point(1124, 874);
@@ -1464,6 +1460,7 @@
             ClientSize = new Size(1422, 977);
             Controls.Add(btnEmoji);
             Controls.Add(tbMessages);
+            Controls.Add(sideBar2);
             Controls.Add(btnSendMessages);
             Controls.Add(pictureBox1);
             Controls.Add(userProfilePanel1);
@@ -1481,7 +1478,6 @@
             panel6.ResumeLayout(false);
             participants_panel.ResumeLayout(false);
             panel7.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)pictureBox2).EndInit();
             siticonePanel1.ResumeLayout(false);
             pn_Background.ResumeLayout(false);
             panel4.ResumeLayout(false);
@@ -1537,6 +1533,5 @@
         private SiticoneNetCoreUI.SiticoneButton btnEmoji;
         private Panel pn_DisplayMessage;
         private Panel panel8;
-        private PictureBox pictureBox2;
     }
 }

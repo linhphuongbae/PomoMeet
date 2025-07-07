@@ -41,10 +41,10 @@
             // lb_Message
             // 
             lb_Message.AutoSize = true;
-            lb_Message.Font = new Font("Inter", 12F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            lb_Message.Font = new Font("Inter", 12F, FontStyle.Bold, GraphicsUnit.Point, 0);
             lb_Message.Location = new Point(43, 81);
             lb_Message.Name = "lb_Message";
-            lb_Message.Size = new Size(364, 28);
+            lb_Message.Size = new Size(368, 28);
             lb_Message.TabIndex = 1;
             lb_Message.Text = "Bạn có muốn xóa phòng này không ?";
             // 
@@ -65,7 +65,7 @@
             // 
             btn_No.BackColor = Color.FromArgb(117, 164, 127);
             btn_No.DialogResult = DialogResult.No;
-            btn_No.Font = new Font("Inter", 10.8F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            btn_No.Font = new Font("Inter", 10.2F, FontStyle.Bold);
             btn_No.ForeColor = Color.White;
             btn_No.Location = new Point(299, 130);
             btn_No.Name = "btn_No";
@@ -102,7 +102,7 @@
             btn_Ok.AutoSize = true;
             btn_Ok.BackColor = Color.FromArgb(117, 164, 127);
             btn_Ok.DialogResult = DialogResult.OK;
-            btn_Ok.Font = new Font("Inter", 10.8F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            btn_Ok.Font = new Font("Inter", 10.2F, FontStyle.Bold);
             btn_Ok.ForeColor = Color.White;
             btn_Ok.Location = new Point(176, 130);
             btn_Ok.Name = "btn_Ok";
@@ -115,7 +115,7 @@
             // 
             btn_Co.BackColor = Color.FromArgb(117, 164, 127);
             btn_Co.DialogResult = DialogResult.Yes;
-            btn_Co.Font = new Font("Inter", 10.8F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            btn_Co.Font = new Font("Inter", 10.2F, FontStyle.Bold);
             btn_Co.ForeColor = Color.White;
             btn_Co.Location = new Point(43, 130);
             btn_Co.Name = "btn_Co";
@@ -129,7 +129,7 @@
             // 
             AutoScaleDimensions = new SizeF(8F, 20F);
             AutoScaleMode = AutoScaleMode.Font;
-            BackColor = Color.FromArgb(252, 255, 224);
+            BackColor = Color.White;
             ClientSize = new Size(457, 186);
             Controls.Add(btn_Co);
             Controls.Add(btn_Ok);

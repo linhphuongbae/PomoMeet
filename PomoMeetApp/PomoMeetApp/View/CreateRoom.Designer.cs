@@ -297,10 +297,10 @@
             // label6
             // 
             label6.AutoSize = true;
-            label6.Font = new Font("Inter", 12F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            label6.Location = new Point(52, 414);
+            label6.Font = new Font("Inter", 10.8F);
+            label6.Location = new Point(52, 418);
             label6.Name = "label6";
-            label6.Size = new Size(111, 28);
+            label6.Size = new Size(101, 26);
             label6.TabIndex = 14;
             label6.Text = "Pomodoro";
             // 
@@ -319,10 +319,10 @@
             // label7
             // 
             label7.AutoSize = true;
-            label7.Font = new Font("Inter", 12F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            label7.Font = new Font("Inter", 10.8F);
             label7.Location = new Point(52, 471);
             label7.Name = "label7";
-            label7.Size = new Size(103, 28);
+            label7.Size = new Size(94, 26);
             label7.TabIndex = 16;
             label7.Text = "Nghỉ ngơi";
             // 
@@ -341,20 +341,20 @@
             // label8
             // 
             label8.AutoSize = true;
-            label8.Font = new Font("Inter", 12F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            label8.Font = new Font("Inter", 10.8F);
             label8.Location = new Point(226, 418);
             label8.Name = "label8";
-            label8.Size = new Size(55, 28);
+            label8.Size = new Size(51, 26);
             label8.TabIndex = 18;
             label8.Text = "phút";
             // 
             // label9
             // 
             label9.AutoSize = true;
-            label9.Font = new Font("Inter", 12F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            label9.Font = new Font("Inter", 10.8F);
             label9.Location = new Point(226, 471);
             label9.Name = "label9";
-            label9.Size = new Size(55, 28);
+            label9.Size = new Size(51, 26);
             label9.TabIndex = 19;
             label9.Text = "phút";
             // 
@@ -389,7 +389,7 @@
             sbtn_CreateRoom.EnableShadow = false;
             sbtn_CreateRoom.EnableTextWrapping = false;
             sbtn_CreateRoom.Font = new Font("Inter ExtraBold", 13.8F, FontStyle.Bold, GraphicsUnit.Point, 0);
-            sbtn_CreateRoom.ForeColor = Color.Black;
+            sbtn_CreateRoom.ForeColor = Color.White;
             sbtn_CreateRoom.GlowColor = Color.FromArgb(100, 255, 255, 255);
             sbtn_CreateRoom.GlowIntensity = 100;
             sbtn_CreateRoom.GlowRadius = 20F;
@@ -468,7 +468,7 @@
             sbtn_InviteFriends.EnableShadow = false;
             sbtn_InviteFriends.EnableTextWrapping = false;
             sbtn_InviteFriends.Font = new Font("Inter ExtraBold", 13.8F, FontStyle.Bold, GraphicsUnit.Point, 0);
-            sbtn_InviteFriends.ForeColor = Color.Black;
+            sbtn_InviteFriends.ForeColor = Color.White;
             sbtn_InviteFriends.GlowColor = Color.FromArgb(100, 255, 255, 255);
             sbtn_InviteFriends.GlowIntensity = 100;
             sbtn_InviteFriends.GlowRadius = 20F;
@@ -571,7 +571,7 @@
             // 
             // scb_Private
             // 
-            scb_Private.AccessibleName = "Private";
+            scb_Private.AccessibleName = "Riêng tư";
             scb_Private.AccessibleRole = AccessibleRole.CheckButton;
             scb_Private.AllowIndeterminate = false;
             scb_Private.BackColor = Color.Transparent;
@@ -604,7 +604,7 @@
             scb_Private.EnableRippleEffect = true;
             scb_Private.FocusBorderWidth = 2;
             scb_Private.FocusColor = Color.FromArgb(0, 120, 215);
-            scb_Private.Font = new Font("Inter", 10.8F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            scb_Private.Font = new Font("Inter", 10.8F);
             scb_Private.ForeColor = Color.Black;
             scb_Private.HoverBackColor = Color.FromArgb(117, 164, 127);
             scb_Private.IndeterminateBorderColor = Color.FromArgb(160, 160, 160);
@@ -621,7 +621,7 @@
             scb_Private.SwitchCheckedTrackColor = Color.FromArgb(100, 56, 128, 255);
             scb_Private.SwitchTrackColor = Color.FromArgb(200, 200, 200);
             scb_Private.TabIndex = 12;
-            scb_Private.Text = "Private";
+            scb_Private.Text = "Riêng tư";
             scb_Private.TopLeftRadius = 3;
             scb_Private.TopRightRadius = 3;
             scb_Private.UncheckedBackColor = Color.FromArgb(117, 164, 127);
@@ -629,7 +629,7 @@
             // 
             // scb_Public
             // 
-            scb_Public.AccessibleName = "Public";
+            scb_Public.AccessibleName = "Công khai";
             scb_Public.AccessibleRole = AccessibleRole.CheckButton;
             scb_Public.AllowIndeterminate = false;
             scb_Public.BackColor = Color.Transparent;
@@ -662,7 +662,7 @@
             scb_Public.EnableRippleEffect = true;
             scb_Public.FocusBorderWidth = 2;
             scb_Public.FocusColor = Color.FromArgb(0, 120, 215);
-            scb_Public.Font = new Font("Inter", 10.8F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            scb_Public.Font = new Font("Inter", 10.8F);
             scb_Public.ForeColor = Color.Black;
             scb_Public.HoverBackColor = Color.FromArgb(117, 164, 127);
             scb_Public.IndeterminateBorderColor = Color.White;
@@ -679,7 +679,7 @@
             scb_Public.SwitchCheckedTrackColor = Color.White;
             scb_Public.SwitchTrackColor = Color.FromArgb(117, 164, 127);
             scb_Public.TabIndex = 13;
-            scb_Public.Text = "Public";
+            scb_Public.Text = "Công khai";
             scb_Public.TopLeftRadius = 3;
             scb_Public.TopRightRadius = 3;
             scb_Public.UncheckedBackColor = Color.FromArgb(117, 164, 127);
