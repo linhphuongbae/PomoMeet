@@ -52,9 +52,9 @@
             // Rectangle
             // 
             Rectangle.Image = Properties.Resources.Rectangle;
-            Rectangle.Location = new Point(385, 122);
+            Rectangle.Location = new Point(385, 207);
             Rectangle.Name = "Rectangle";
-            Rectangle.Size = new Size(645, 735);
+            Rectangle.Size = new Size(645, 502);
             Rectangle.TabIndex = 1;
             Rectangle.TabStop = false;
             Rectangle.Click += Rectangle_Click;
@@ -62,10 +62,10 @@
             // label1
             // 
             label1.AutoSize = true;
-            label1.BackColor = Color.FromArgb(233, 240, 201);
+            label1.BackColor = Color.Transparent;
             label1.Font = new Font("Inter", 22.2F, FontStyle.Bold, GraphicsUnit.Point, 0);
             label1.ForeColor = Color.FromArgb(117, 164, 127);
-            label1.Location = new Point(614, 157);
+            label1.Location = new Point(599, 147);
             label1.Name = "label1";
             label1.Size = new Size(217, 53);
             label1.TabIndex = 3;
@@ -109,7 +109,7 @@
             tbUsername.EnableDropShadow = false;
             tbUsername.FillColor1 = Color.White;
             tbUsername.FillColor2 = Color.White;
-            tbUsername.Font = new Font("Inter", 10F, FontStyle.Regular);
+            tbUsername.Font = new Font("Inter", 10.2F);
             tbUsername.ForeColor = Color.DimGray;
             tbUsername.HoverBorderColor1 = Color.Gray;
             tbUsername.HoverBorderColor2 = Color.Gray;
@@ -177,7 +177,7 @@
             tbPassword.EnableDropShadow = false;
             tbPassword.FillColor1 = Color.White;
             tbPassword.FillColor2 = Color.White;
-            tbPassword.Font = new Font("Inter", 7.8F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            tbPassword.Font = new Font("Inter", 10.2F);
             tbPassword.ForeColor = Color.DimGray;
             tbPassword.HoverBorderColor1 = Color.Gray;
             tbPassword.HoverBorderColor2 = Color.Gray;
@@ -238,7 +238,7 @@
             btnSignInGG.EnableRippleEffect = true;
             btnSignInGG.EnableShadow = false;
             btnSignInGG.EnableTextWrapping = false;
-            btnSignInGG.Font = new Font("Inter", 18F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            btnSignInGG.Font = new Font("Inter", 16.2F, FontStyle.Bold);
             btnSignInGG.GlowColor = Color.FromArgb(100, 255, 255, 255);
             btnSignInGG.GlowIntensity = 100;
             btnSignInGG.GlowRadius = 20F;
@@ -257,7 +257,7 @@
             btnSignInGG.IsReadOnly = false;
             btnSignInGG.IsToggleButton = false;
             btnSignInGG.IsToggled = false;
-            btnSignInGG.Location = new Point(438, 682);
+            btnSignInGG.Location = new Point(437, 641);
             btnSignInGG.LongPressDurationMS = 1000;
             btnSignInGG.Name = "btnSignInGG";
             btnSignInGG.NormalFontStyle = FontStyle.Regular;
@@ -289,10 +289,10 @@
             // label4
             // 
             label4.AutoSize = true;
-            label4.BackColor = Color.FromArgb(233, 240, 201);
+            label4.BackColor = Color.Transparent;
             label4.Font = new Font("Inter", 9F, FontStyle.Bold, GraphicsUnit.Point, 0);
             label4.ForeColor = Color.Black;
-            label4.Location = new Point(582, 764);
+            label4.Location = new Point(579, 739);
             label4.Name = "label4";
             label4.Size = new Size(180, 22);
             label4.TabIndex = 11;
@@ -347,7 +347,7 @@
             BackToRegs.IsReadOnly = false;
             BackToRegs.IsToggleButton = false;
             BackToRegs.IsToggled = false;
-            BackToRegs.Location = new Point(768, 756);
+            BackToRegs.Location = new Point(765, 737);
             BackToRegs.LongPressDurationMS = 1000;
             BackToRegs.Name = "BackToRegs";
             BackToRegs.NormalFontStyle = FontStyle.Regular;
@@ -449,7 +449,7 @@
             btnLogIn.EnableRippleEffect = true;
             btnLogIn.EnableShadow = false;
             btnLogIn.EnableTextWrapping = false;
-            btnLogIn.Font = new Font("Inter", 18F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            btnLogIn.Font = new Font("Inter", 16.2F, FontStyle.Bold);
             btnLogIn.GlowColor = Color.FromArgb(100, 255, 255, 255);
             btnLogIn.GlowIntensity = 100;
             btnLogIn.GlowRadius = 20F;
@@ -468,7 +468,7 @@
             btnLogIn.IsReadOnly = false;
             btnLogIn.IsToggleButton = false;
             btnLogIn.IsToggled = false;
-            btnLogIn.Location = new Point(438, 602);
+            btnLogIn.Location = new Point(437, 561);
             btnLogIn.LongPressDurationMS = 1000;
             btnLogIn.Name = "btnLogIn";
             btnLogIn.NormalFontStyle = FontStyle.Regular;
@@ -532,7 +532,7 @@
             ShowPass.EnableRippleEffect = true;
             ShowPass.FocusBorderWidth = 2;
             ShowPass.FocusColor = Color.FromArgb(252, 255, 224);
-            ShowPass.Font = new Font("Inter", 9F);
+            ShowPass.Font = new Font("Inter", 10.2F);
             ShowPass.ForeColor = Color.FromArgb(117, 164, 127);
             ShowPass.HoverBackColor = Color.Gainsboro;
             ShowPass.IndeterminateBorderColor = Color.FromArgb(160, 160, 160);
@@ -540,7 +540,7 @@
             ShowPass.IsContained = false;
             ShowPass.IsReadOnly = false;
             ShowPass.Location = new Point(437, 500);
-            ShowPass.MinimumSize = new Size(178, 24);
+            ShowPass.MinimumSize = new Size(178, 25);
             ShowPass.Name = "ShowPass";
             ShowPass.PressedBackColor = Color.DarkGray;
             ShowPass.ShowFocusCue = false;
@@ -554,7 +554,6 @@
             ShowPass.TopRightRadius = 3;
             ShowPass.UncheckedBackColor = Color.FromArgb(250, 250, 250);
             ShowPass.Click += ShowPass_Click;
-
             // 
             // SignIn
             // 

@@ -54,9 +54,9 @@
             // Rectangle
             // 
             Rectangle.Image = Properties.Resources.Rectangle;
-            Rectangle.Location = new Point(385, 36);
+            Rectangle.Location = new Point(385, 119);
             Rectangle.Name = "Rectangle";
-            Rectangle.Size = new Size(645, 823);
+            Rectangle.Size = new Size(645, 654);
             Rectangle.TabIndex = 0;
             Rectangle.TabStop = false;
             Rectangle.Click += Rectangle_Click;
@@ -76,10 +76,10 @@
             // label1
             // 
             label1.AutoSize = true;
-            label1.BackColor = Color.FromArgb(233, 240, 201);
+            label1.BackColor = Color.Transparent;
             label1.Font = new Font("Inter", 22.2F, FontStyle.Bold, GraphicsUnit.Point, 0);
             label1.ForeColor = Color.FromArgb(117, 164, 127);
-            label1.Location = new Point(618, 88);
+            label1.Location = new Point(630, 63);
             label1.Name = "label1";
             label1.Size = new Size(170, 53);
             label1.TabIndex = 2;
@@ -111,7 +111,7 @@
             tbUsername.EnableDropShadow = false;
             tbUsername.FillColor1 = Color.White;
             tbUsername.FillColor2 = Color.White;
-            tbUsername.Font = new Font("Inter", 10F);
+            tbUsername.Font = new Font("Inter", 10.2F);
             tbUsername.ForeColor = Color.DimGray;
             tbUsername.HoverBorderColor1 = Color.Gray;
             tbUsername.HoverBorderColor2 = Color.Gray;
@@ -179,7 +179,7 @@
             tbPassword.EnableDropShadow = false;
             tbPassword.FillColor1 = Color.White;
             tbPassword.FillColor2 = Color.White;
-            tbPassword.Font = new Font("Inter", 7.8F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            tbPassword.Font = new Font("Inter", 10.2F);
             tbPassword.ForeColor = Color.DimGray;
             tbPassword.HoverBorderColor1 = Color.Gray;
             tbPassword.HoverBorderColor2 = Color.Gray;
@@ -248,7 +248,7 @@
             tbPasswordConfirm.EnableDropShadow = false;
             tbPasswordConfirm.FillColor1 = Color.White;
             tbPasswordConfirm.FillColor2 = Color.White;
-            tbPasswordConfirm.Font = new Font("Inter", 7.8F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            tbPasswordConfirm.Font = new Font("Inter", 10.2F);
             tbPasswordConfirm.ForeColor = Color.DimGray;
             tbPasswordConfirm.HoverBorderColor1 = Color.Gray;
             tbPasswordConfirm.HoverBorderColor2 = Color.Gray;
@@ -282,10 +282,10 @@
             // label4
             // 
             label4.AutoSize = true;
-            label4.BackColor = Color.FromArgb(233, 240, 201);
+            label4.BackColor = Color.FromArgb(252, 255, 224);
             label4.Font = new Font("Inter", 9F, FontStyle.Bold, GraphicsUnit.Point, 0);
             label4.ForeColor = Color.Black;
-            label4.Location = new Point(582, 789);
+            label4.Location = new Point(575, 798);
             label4.Name = "label4";
             label4.Size = new Size(161, 22);
             label4.TabIndex = 9;
@@ -340,7 +340,7 @@
             siticoneButton2.IsReadOnly = false;
             siticoneButton2.IsToggleButton = false;
             siticoneButton2.IsToggled = false;
-            siticoneButton2.Location = new Point(763, 785);
+            siticoneButton2.Location = new Point(741, 794);
             siticoneButton2.LongPressDurationMS = 1000;
             siticoneButton2.Name = "siticoneButton2";
             siticoneButton2.NormalFontStyle = FontStyle.Regular;
@@ -431,7 +431,7 @@
             siticoneCheckBox1.EnableRippleEffect = true;
             siticoneCheckBox1.FocusBorderWidth = 2;
             siticoneCheckBox1.FocusColor = Color.FromArgb(252, 255, 224);
-            siticoneCheckBox1.Font = new Font("Inter", 9F);
+            siticoneCheckBox1.Font = new Font("Inter", 10.2F);
             siticoneCheckBox1.ForeColor = Color.FromArgb(117, 164, 127);
             siticoneCheckBox1.HoverBackColor = Color.Gainsboro;
             siticoneCheckBox1.IndeterminateBorderColor = Color.FromArgb(160, 160, 160);
@@ -439,7 +439,7 @@
             siticoneCheckBox1.IsContained = false;
             siticoneCheckBox1.IsReadOnly = false;
             siticoneCheckBox1.Location = new Point(437, 653);
-            siticoneCheckBox1.MinimumSize = new Size(178, 24);
+            siticoneCheckBox1.MinimumSize = new Size(178, 25);
             siticoneCheckBox1.Name = "siticoneCheckBox1";
             siticoneCheckBox1.PressedBackColor = Color.DarkGray;
             siticoneCheckBox1.ShowFocusCue = false;
@@ -480,7 +480,7 @@
             txtEmail.EnableDropShadow = false;
             txtEmail.FillColor1 = Color.White;
             txtEmail.FillColor2 = Color.White;
-            txtEmail.Font = new Font("Inter", 7.8F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            txtEmail.Font = new Font("Inter", 10.2F);
             txtEmail.ForeColor = Color.DimGray;
             txtEmail.HoverBorderColor1 = Color.Gray;
             txtEmail.HoverBorderColor2 = Color.Gray;
