@@ -119,7 +119,7 @@
             tbUsername.Location = new Point(437, 187);
             tbUsername.Name = "tbUsername";
             tbUsername.PlaceholderColor = Color.Gray;
-            tbUsername.PlaceholderText = "Enter text here...";
+            tbUsername.PlaceholderText = "Nhập vào đây";
             tbUsername.ReadOnlyBorderColor1 = Color.LightGray;
             tbUsername.ReadOnlyBorderColor2 = Color.LightGray;
             tbUsername.ReadOnlyFillColor1 = Color.WhiteSmoke;
@@ -187,7 +187,7 @@
             tbPassword.Location = new Point(437, 438);
             tbPassword.Name = "tbPassword";
             tbPassword.PlaceholderColor = Color.Gray;
-            tbPassword.PlaceholderText = "Enter text here...";
+            tbPassword.PlaceholderText = "Nhập vào đây";
             tbPassword.ReadOnlyBorderColor1 = Color.LightGray;
             tbPassword.ReadOnlyBorderColor2 = Color.LightGray;
             tbPassword.ReadOnlyFillColor1 = Color.WhiteSmoke;
@@ -256,7 +256,7 @@
             tbPasswordConfirm.Location = new Point(437, 568);
             tbPasswordConfirm.Name = "tbPasswordConfirm";
             tbPasswordConfirm.PlaceholderColor = Color.Gray;
-            tbPasswordConfirm.PlaceholderText = "Enter text here...";
+            tbPasswordConfirm.PlaceholderText = "Nhập vào đây";
             tbPasswordConfirm.ReadOnlyBorderColor1 = Color.LightGray;
             tbPasswordConfirm.ReadOnlyBorderColor2 = Color.LightGray;
             tbPasswordConfirm.ReadOnlyFillColor1 = Color.WhiteSmoke;
@@ -431,7 +431,7 @@
             siticoneCheckBox1.EnableRippleEffect = true;
             siticoneCheckBox1.FocusBorderWidth = 2;
             siticoneCheckBox1.FocusColor = Color.FromArgb(252, 255, 224);
-            siticoneCheckBox1.Font = new Font("Segoe UI", 9F);
+            siticoneCheckBox1.Font = new Font("Inter", 9F);
             siticoneCheckBox1.ForeColor = Color.FromArgb(117, 164, 127);
             siticoneCheckBox1.HoverBackColor = Color.Gainsboro;
             siticoneCheckBox1.IndeterminateBorderColor = Color.FromArgb(160, 160, 160);
@@ -488,7 +488,7 @@
             txtEmail.Location = new Point(437, 311);
             txtEmail.Name = "txtEmail";
             txtEmail.PlaceholderColor = Color.Gray;
-            txtEmail.PlaceholderText = "Enter text here...";
+            txtEmail.PlaceholderText = "Nhập vào đây";
             txtEmail.ReadOnlyBorderColor1 = Color.LightGray;
             txtEmail.ReadOnlyBorderColor2 = Color.LightGray;
             txtEmail.ReadOnlyFillColor1 = Color.WhiteSmoke;
@@ -528,7 +528,7 @@
             btnSignUp.AutoSizeBasedOnText = false;
             btnSignUp.BackColor = Color.Transparent;
             btnSignUp.BadgeBackColor = Color.Red;
-            btnSignUp.BadgeFont = new Font("Segoe UI", 8F, FontStyle.Bold);
+            btnSignUp.BadgeFont = new Font("Inter", 8F, FontStyle.Bold);
             btnSignUp.BadgeValue = 0;
             btnSignUp.BadgeValueForeColor = Color.White;
             btnSignUp.BorderColor = Color.FromArgb(117, 164, 127);

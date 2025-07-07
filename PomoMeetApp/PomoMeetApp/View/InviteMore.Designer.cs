@@ -114,9 +114,9 @@
             btCopy.NotificationDuration = 3000;
             btCopy.NotificationText = "Text has been copied to clipboard";
             btCopy.NotificationTextColor = Color.FromArgb(50, 50, 50);
-            btCopy.NotificationTextFont = new Font("Segoe UI", 10F);
+            btCopy.NotificationTextFont = new Font("Inter", 10F);
             btCopy.NotificationTitle = "Copy Completed";
-            btCopy.NotificationTitleFont = new Font("Segoe UI", 10F, FontStyle.Bold);
+            btCopy.NotificationTitleFont = new Font("Inter", 10F, FontStyle.Bold);
             btCopy.PressedFillColor = Color.Transparent;
             btCopy.RippleColor = Color.FromArgb(50, 255, 255, 255);
             btCopy.RippleExpandRate = 2F;

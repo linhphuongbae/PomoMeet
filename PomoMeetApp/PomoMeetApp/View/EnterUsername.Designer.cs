@@ -92,7 +92,7 @@
             tbEnter.Location = new Point(230, 248);
             tbEnter.Name = "tbEnter";
             tbEnter.PlaceholderColor = Color.Gray;
-            tbEnter.PlaceholderText = "Enter text here...";
+            tbEnter.PlaceholderText = "Nhập vào đây";
             tbEnter.ReadOnlyBorderColor1 = Color.LightGray;
             tbEnter.ReadOnlyBorderColor2 = Color.LightGray;
             tbEnter.ReadOnlyFillColor1 = Color.WhiteSmoke;
@@ -125,7 +125,7 @@
             // btnUpdate
             // 
             btnUpdate.AccessibleDescription = "The default button control that accept input though the mouse, touch and keyboard";
-            btnUpdate.AccessibleName = "Update";
+            btnUpdate.AccessibleName = "Cập nhật";
             btnUpdate.AutoSizeBasedOnText = false;
             btnUpdate.BackColor = Color.Transparent;
             btnUpdate.BadgeBackColor = Color.Red;
@@ -191,7 +191,7 @@
             btnUpdate.ShakeIntensity = 5;
             btnUpdate.Size = new Size(537, 47);
             btnUpdate.TabIndex = 20;
-            btnUpdate.Text = "Update";
+            btnUpdate.Text = "Cập nhật";
             btnUpdate.TextAlign = ContentAlignment.MiddleCenter;
             btnUpdate.TextColor = Color.FromArgb(117, 164, 127);
             btnUpdate.TooltipText = null;

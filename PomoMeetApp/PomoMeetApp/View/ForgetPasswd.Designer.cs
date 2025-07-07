@@ -186,7 +186,7 @@
             tbToEmail.Location = new Point(53, 184);
             tbToEmail.Name = "tbToEmail";
             tbToEmail.PlaceholderColor = Color.Gray;
-            tbToEmail.PlaceholderText = "Enter text here...";
+            tbToEmail.PlaceholderText = "Nhập vào đây";
             tbToEmail.ReadOnlyBorderColor1 = Color.LightGray;
             tbToEmail.ReadOnlyBorderColor2 = Color.LightGray;
             tbToEmail.ReadOnlyFillColor1 = Color.WhiteSmoke;
@@ -241,7 +241,7 @@
             tbOTP.Location = new Point(51, 187);
             tbOTP.Name = "tbOTP";
             tbOTP.PlaceholderColor = Color.Gray;
-            tbOTP.PlaceholderText = "Enter text here...";
+            tbOTP.PlaceholderText = "Nhập vào đây";
             tbOTP.ReadOnlyBorderColor1 = Color.LightGray;
             tbOTP.ReadOnlyBorderColor2 = Color.LightGray;
             tbOTP.ReadOnlyFillColor1 = Color.WhiteSmoke;
@@ -323,7 +323,7 @@
             tbNewPass.Location = new Point(53, 187);
             tbNewPass.Name = "tbNewPass";
             tbNewPass.PlaceholderColor = Color.Gray;
-            tbNewPass.PlaceholderText = "Enter text here...";
+            tbNewPass.PlaceholderText = "Nhập vào đây";
             tbNewPass.ReadOnlyBorderColor1 = Color.LightGray;
             tbNewPass.ReadOnlyBorderColor2 = Color.LightGray;
             tbNewPass.ReadOnlyFillColor1 = Color.WhiteSmoke;

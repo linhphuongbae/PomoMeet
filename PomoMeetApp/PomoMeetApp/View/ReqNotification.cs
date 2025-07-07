@@ -157,7 +157,7 @@ namespace PomoMeetApp.View
                 {
                     Text = "No notifications",
                     AutoSize = true,
-                    Font = new Font("Segoe UI", 10, FontStyle.Italic),
+                    Font = new Font("Inter", 10, FontStyle.Italic),
                     ForeColor = Color.Gray,
                     Padding = new Padding(10)
                 });

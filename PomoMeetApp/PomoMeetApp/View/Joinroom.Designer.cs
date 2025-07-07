@@ -100,7 +100,7 @@
             // label2
             // 
             label2.AutoSize = true;
-            label2.Font = new Font("Segoe UI", 10.8F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            label2.Font = new Font("Inter", 10.8F, FontStyle.Bold, GraphicsUnit.Point, 0);
             label2.Location = new Point(62, 118);
             label2.Name = "label2";
             label2.Size = new Size(149, 25);
@@ -134,7 +134,7 @@
             stb_roomId.EnableDropShadow = false;
             stb_roomId.FillColor1 = Color.White;
             stb_roomId.FillColor2 = Color.White;
-            stb_roomId.Font = new Font("Segoe UI", 9.5F);
+            stb_roomId.Font = new Font("Inter", 9.5F);
             stb_roomId.ForeColor = Color.DimGray;
             stb_roomId.HoverBorderColor1 = Color.Gray;
             stb_roomId.HoverBorderColor2 = Color.Gray;
@@ -165,7 +165,7 @@
             // lb_Password
             // 
             lb_Password.AutoSize = true;
-            lb_Password.Font = new Font("Segoe UI", 10.8F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            lb_Password.Font = new Font("Inter", 10.8F, FontStyle.Bold, GraphicsUnit.Point, 0);
             lb_Password.Location = new Point(62, 232);
             lb_Password.Name = "lb_Password";
             lb_Password.Size = new Size(143, 25);
@@ -199,7 +199,7 @@
             stb_Password.EnableDropShadow = false;
             stb_Password.FillColor1 = Color.White;
             stb_Password.FillColor2 = Color.White;
-            stb_Password.Font = new Font("Segoe UI", 9.5F);
+            stb_Password.Font = new Font("Inter", 9.5F);
             stb_Password.ForeColor = Color.DimGray;
             stb_Password.HoverBorderColor1 = Color.Gray;
             stb_Password.HoverBorderColor2 = Color.Gray;
@@ -236,7 +236,7 @@
             sbtn_JoinRoom.AutoSizeBasedOnText = false;
             sbtn_JoinRoom.BackColor = Color.Transparent;
             sbtn_JoinRoom.BadgeBackColor = Color.Red;
-            sbtn_JoinRoom.BadgeFont = new Font("Segoe UI", 8F, FontStyle.Bold);
+            sbtn_JoinRoom.BadgeFont = new Font("Inter", 8F, FontStyle.Bold);
             sbtn_JoinRoom.BadgeValue = 0;
             sbtn_JoinRoom.BadgeValueForeColor = Color.White;
             sbtn_JoinRoom.BorderColor = Color.Transparent;

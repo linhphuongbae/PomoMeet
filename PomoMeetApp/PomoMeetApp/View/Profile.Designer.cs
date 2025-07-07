@@ -141,7 +141,7 @@
             tbUsername.Location = new Point(339, 267);
             tbUsername.Name = "tbUsername";
             tbUsername.PlaceholderColor = Color.Gray;
-            tbUsername.PlaceholderText = "Enter text here...";
+            tbUsername.PlaceholderText = "Nhập vào đây";
             tbUsername.ReadOnlyBorderColor1 = Color.LightGray;
             tbUsername.ReadOnlyBorderColor2 = Color.LightGray;
             tbUsername.ReadOnlyFillColor1 = Color.WhiteSmoke;
@@ -196,7 +196,7 @@
             tbEmail.Location = new Point(339, 387);
             tbEmail.Name = "tbEmail";
             tbEmail.PlaceholderColor = Color.Gray;
-            tbEmail.PlaceholderText = "Enter text here...";
+            tbEmail.PlaceholderText = "Nhập vào đây";
             tbEmail.ReadOnlyBorderColor1 = Color.LightGray;
             tbEmail.ReadOnlyBorderColor2 = Color.LightGray;
             tbEmail.ReadOnlyFillColor1 = Color.WhiteSmoke;
@@ -251,7 +251,7 @@
             tbNewPassword.Location = new Point(339, 510);
             tbNewPassword.Name = "tbNewPassword";
             tbNewPassword.PlaceholderColor = Color.Gray;
-            tbNewPassword.PlaceholderText = "Enter text here...";
+            tbNewPassword.PlaceholderText = "Nhập vào đây";
             tbNewPassword.ReadOnlyBorderColor1 = Color.LightGray;
             tbNewPassword.ReadOnlyBorderColor2 = Color.LightGray;
             tbNewPassword.ReadOnlyFillColor1 = Color.WhiteSmoke;
@@ -306,7 +306,7 @@
             tbConfirmPassword.Location = new Point(339, 625);
             tbConfirmPassword.Name = "tbConfirmPassword";
             tbConfirmPassword.PlaceholderColor = Color.Gray;
-            tbConfirmPassword.PlaceholderText = "Enter text here...";
+            tbConfirmPassword.PlaceholderText = "Nhập vào đây";
             tbConfirmPassword.ReadOnlyBorderColor1 = Color.LightGray;
             tbConfirmPassword.ReadOnlyBorderColor2 = Color.LightGray;
             tbConfirmPassword.ReadOnlyFillColor1 = Color.WhiteSmoke;
@@ -382,7 +382,7 @@
             btnSave.AutoSizeBasedOnText = false;
             btnSave.BackColor = Color.Transparent;
             btnSave.BadgeBackColor = Color.Red;
-            btnSave.BadgeFont = new Font("Segoe UI", 8F, FontStyle.Bold);
+            btnSave.BadgeFont = new Font("Inter", 8F, FontStyle.Bold);
             btnSave.BadgeValue = 0;
             btnSave.BadgeValueForeColor = Color.White;
             btnSave.BorderColor = Color.DarkSeaGreen;

@@ -86,7 +86,7 @@ namespace PomoMeetApp.View
                 Label lbl = new Label
                 {
                     Text = fromUsername,
-                    Location = new Point((card.Width - TextRenderer.MeasureText(fromUsername, new Font("Segoe UI", 10, FontStyle.Bold)).Width) / 2, 120),
+                    Location = new Point((card.Width - TextRenderer.MeasureText(fromUsername, new Font("Inter", 10, FontStyle.Bold)).Width) / 2, 120),
                     AutoSize = true,
                     Font = new Font("Inter", 10, FontStyle.Bold)
                 };
@@ -255,7 +255,7 @@ namespace PomoMeetApp.View
                 Label lbl = new Label
                 {
                     Text = fromUsername,
-                    Location = new Point((card.Width - TextRenderer.MeasureText(fromUsername, new Font("Segoe UI", 10, FontStyle.Bold)).Width) / 2, 120),
+                    Location = new Point((card.Width - TextRenderer.MeasureText(fromUsername, new Font("Inter", 10, FontStyle.Bold)).Width) / 2, 120),
                     AutoSize = true,
                     Font = new Font("Inter", 10, FontStyle.Bold)
                 };
@@ -422,7 +422,7 @@ namespace PomoMeetApp.View
                 Label lbl = new Label
                 {
                     Text = fromUsername,
-                    Location = new Point((card.Width - TextRenderer.MeasureText(fromUsername, new Font("Segoe UI", 10, FontStyle.Bold)).Width) / 2, 120),
+                    Location = new Point((card.Width - TextRenderer.MeasureText(fromUsername, new Font("Inter", 10, FontStyle.Bold)).Width) / 2, 120),
                     AutoSize = true,
                     Font = new Font("Inter", 10, FontStyle.Bold)
                 };
@@ -573,9 +573,9 @@ namespace PomoMeetApp.View
                 Label lbl = new Label
                 {
                     Text = username,
-                    Location = new Point((card.Width - TextRenderer.MeasureText(username, new Font("Segoe UI", 10, FontStyle.Bold)).Width) / 2, 120),
+                    Location = new Point((card.Width - TextRenderer.MeasureText(username, new Font("Inter", 10, FontStyle.Bold)).Width) / 2, 120),
                     AutoSize = true,
-                    Font = new Font("Segoe UI", 10, FontStyle.Bold)
+                    Font = new Font("Inter", 10, FontStyle.Bold)
                 };
                 // Button Add Friend
                 var btnAdd = new SiticoneNetCoreUI.SiticoneButton
@@ -598,7 +598,7 @@ namespace PomoMeetApp.View
                     GradientColor = Color.FromArgb(117, 164, 127),
                     BorderColor = Color.FromArgb(117, 164, 127),
                     TextColor = Color.FromArgb(117, 164, 127),
-                    Font = new Font("Segoe UI", 9, FontStyle.Bold)
+                    Font = new Font("Inter", 9, FontStyle.Bold)
                 };
 
                 // logic bấm nút

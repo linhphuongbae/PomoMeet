@@ -72,7 +72,7 @@
             siticoneButton1.AutoSizeBasedOnText = false;
             siticoneButton1.BackColor = Color.Transparent;
             siticoneButton1.BadgeBackColor = Color.Red;
-            siticoneButton1.BadgeFont = new Font("Segoe UI", 36F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            siticoneButton1.BadgeFont = new Font("Inter", 36F, FontStyle.Bold, GraphicsUnit.Point, 0);
             siticoneButton1.BadgeValue = 0;
             siticoneButton1.BadgeValueForeColor = Color.White;
             siticoneButton1.BorderColor = Color.Transparent;
@@ -94,7 +94,7 @@
             siticoneButton1.EnableRippleEffect = true;
             siticoneButton1.EnableShadow = false;
             siticoneButton1.EnableTextWrapping = false;
-            siticoneButton1.Font = new Font("Segoe UI", 18F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            siticoneButton1.Font = new Font("Inter", 18F, FontStyle.Regular, GraphicsUnit.Point, 0);
             siticoneButton1.ForeColor = Color.Black;
             siticoneButton1.GlowColor = Color.FromArgb(100, 255, 255, 255);
             siticoneButton1.GlowIntensity = 100;
@@ -149,7 +149,7 @@
             siticoneButton3.AutoSizeBasedOnText = false;
             siticoneButton3.BackColor = Color.Transparent;
             siticoneButton3.BadgeBackColor = Color.Red;
-            siticoneButton3.BadgeFont = new Font("Segoe UI", 8F, FontStyle.Bold);
+            siticoneButton3.BadgeFont = new Font("Inter", 8F, FontStyle.Bold);
             siticoneButton3.BadgeValue = 0;
             siticoneButton3.BadgeValueForeColor = Color.White;
             siticoneButton3.BorderColor = Color.Transparent;
@@ -171,7 +171,7 @@
             siticoneButton3.EnableRippleEffect = true;
             siticoneButton3.EnableShadow = false;
             siticoneButton3.EnableTextWrapping = false;
-            siticoneButton3.Font = new Font("Segoe UI", 18F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            siticoneButton3.Font = new Font("Inter", 18F, FontStyle.Regular, GraphicsUnit.Point, 0);
             siticoneButton3.ForeColor = Color.Black;
             siticoneButton3.GlowColor = Color.FromArgb(100, 255, 255, 255);
             siticoneButton3.GlowIntensity = 100;
@@ -226,7 +226,7 @@
             siticoneButton4.AutoSizeBasedOnText = false;
             siticoneButton4.BackColor = Color.Transparent;
             siticoneButton4.BadgeBackColor = Color.Red;
-            siticoneButton4.BadgeFont = new Font("Segoe UI", 8F, FontStyle.Bold);
+            siticoneButton4.BadgeFont = new Font("Inter", 8F, FontStyle.Bold);
             siticoneButton4.BadgeValue = 0;
             siticoneButton4.BadgeValueForeColor = Color.White;
             siticoneButton4.BorderColor = Color.Transparent;
@@ -248,7 +248,7 @@
             siticoneButton4.EnableRippleEffect = true;
             siticoneButton4.EnableShadow = false;
             siticoneButton4.EnableTextWrapping = false;
-            siticoneButton4.Font = new Font("Segoe UI", 18F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            siticoneButton4.Font = new Font("Inter", 18F, FontStyle.Regular, GraphicsUnit.Point, 0);
             siticoneButton4.ForeColor = Color.Black;
             siticoneButton4.GlowColor = Color.FromArgb(100, 255, 255, 255);
             siticoneButton4.GlowIntensity = 100;
@@ -303,7 +303,7 @@
             siticoneButton5.AutoSizeBasedOnText = false;
             siticoneButton5.BackColor = Color.Transparent;
             siticoneButton5.BadgeBackColor = Color.Red;
-            siticoneButton5.BadgeFont = new Font("Segoe UI", 8F, FontStyle.Bold);
+            siticoneButton5.BadgeFont = new Font("Inter", 8F, FontStyle.Bold);
             siticoneButton5.BadgeValue = 0;
             siticoneButton5.BadgeValueForeColor = Color.White;
             siticoneButton5.BorderColor = Color.Transparent;
@@ -325,7 +325,7 @@
             siticoneButton5.EnableRippleEffect = true;
             siticoneButton5.EnableShadow = false;
             siticoneButton5.EnableTextWrapping = false;
-            siticoneButton5.Font = new Font("Segoe UI", 18F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            siticoneButton5.Font = new Font("Inter", 18F, FontStyle.Regular, GraphicsUnit.Point, 0);
             siticoneButton5.ForeColor = Color.Black;
             siticoneButton5.GlowColor = Color.FromArgb(100, 255, 255, 255);
             siticoneButton5.GlowIntensity = 100;
@@ -679,7 +679,7 @@
             siticoneButton2.AutoSizeBasedOnText = false;
             siticoneButton2.BackColor = Color.Transparent;
             siticoneButton2.BadgeBackColor = Color.Red;
-            siticoneButton2.BadgeFont = new Font("Segoe UI", 36F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            siticoneButton2.BadgeFont = new Font("Inter", 36F, FontStyle.Bold, GraphicsUnit.Point, 0);
             siticoneButton2.BadgeValue = 0;
             siticoneButton2.BadgeValueForeColor = Color.White;
             siticoneButton2.BorderColor = Color.Transparent;
@@ -701,7 +701,7 @@
             siticoneButton2.EnableRippleEffect = true;
             siticoneButton2.EnableShadow = false;
             siticoneButton2.EnableTextWrapping = false;
-            siticoneButton2.Font = new Font("Segoe UI", 18F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            siticoneButton2.Font = new Font("Inter", 18F, FontStyle.Regular, GraphicsUnit.Point, 0);
             siticoneButton2.ForeColor = Color.Black;
             siticoneButton2.GlowColor = Color.FromArgb(100, 255, 255, 255);
             siticoneButton2.GlowIntensity = 100;
@@ -810,7 +810,7 @@
             // siticoneLabel2
             // 
             siticoneLabel2.BackColor = Color.Transparent;
-            siticoneLabel2.Font = new Font("Segoe UI", 17F);
+            siticoneLabel2.Font = new Font("Inter", 17F);
             siticoneLabel2.Location = new Point(527, 230);
             siticoneLabel2.Name = "siticoneLabel2";
             siticoneLabel2.Size = new Size(214, 45);
@@ -835,7 +835,7 @@
             siticoneToggleSwitch3.IsReadOnly = false;
             siticoneToggleSwitch3.IsRequired = false;
             siticoneToggleSwitch3.LabelColor = Color.Black;
-            siticoneToggleSwitch3.LabelFont = new Font("Segoe UI", 9F);
+            siticoneToggleSwitch3.LabelFont = new Font("Inter", 9F);
             siticoneToggleSwitch3.Location = new Point(894, 240);
             siticoneToggleSwitch3.Logger = null;
             siticoneToggleSwitch3.Name = "siticoneToggleSwitch3";

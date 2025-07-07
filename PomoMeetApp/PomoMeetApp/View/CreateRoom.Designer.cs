@@ -366,7 +366,7 @@
             sbtn_CreateRoom.BackColor = Color.Transparent;
             sbtn_CreateRoom.BackgroundImage = Properties.Resources.Rectangle_5;
             sbtn_CreateRoom.BadgeBackColor = Color.Red;
-            sbtn_CreateRoom.BadgeFont = new Font("Segoe UI", 8F, FontStyle.Bold);
+            sbtn_CreateRoom.BadgeFont = new Font("Inter", 8F, FontStyle.Bold);
             sbtn_CreateRoom.BadgeValue = 0;
             sbtn_CreateRoom.BadgeValueForeColor = Color.White;
             sbtn_CreateRoom.BorderColor = Color.Transparent;
@@ -445,7 +445,7 @@
             sbtn_InviteFriends.BackColor = Color.Transparent;
             sbtn_InviteFriends.BackgroundImage = Properties.Resources.Rectangle_5;
             sbtn_InviteFriends.BadgeBackColor = Color.Red;
-            sbtn_InviteFriends.BadgeFont = new Font("Segoe UI", 8F, FontStyle.Bold);
+            sbtn_InviteFriends.BadgeFont = new Font("Inter", 8F, FontStyle.Bold);
             sbtn_InviteFriends.BadgeValue = 0;
             sbtn_InviteFriends.BadgeValueForeColor = Color.White;
             sbtn_InviteFriends.BorderColor = Color.Transparent;
@@ -752,7 +752,7 @@
             stb_Play.BackColor = Color.Transparent;
             stb_Play.BackgroundImage = Properties.Resources.play;
             stb_Play.BadgeBackColor = Color.Red;
-            stb_Play.BadgeFont = new Font("Segoe UI", 8F, FontStyle.Bold);
+            stb_Play.BadgeFont = new Font("Inter", 8F, FontStyle.Bold);
             stb_Play.BadgeValue = 0;
             stb_Play.BadgeValueForeColor = Color.White;
             stb_Play.BorderColor = Color.Transparent;
@@ -774,7 +774,7 @@
             stb_Play.EnableRippleEffect = true;
             stb_Play.EnableShadow = false;
             stb_Play.EnableTextWrapping = false;
-            stb_Play.Font = new Font("Segoe UI", 9F);
+            stb_Play.Font = new Font("Inter", 9F);
             stb_Play.GlowColor = Color.FromArgb(100, 255, 255, 255);
             stb_Play.GlowIntensity = 100;
             stb_Play.GlowRadius = 20F;

@@ -53,11 +53,11 @@
             // sbtn_JoinRoom
             // 
             sbtn_JoinRoom.AccessibleDescription = "The default button control that accept input though the mouse, touch and keyboard";
-            sbtn_JoinRoom.AccessibleName = "Join a room";
+            sbtn_JoinRoom.AccessibleName = "Tham gia";
             sbtn_JoinRoom.AutoSizeBasedOnText = false;
             sbtn_JoinRoom.BackColor = Color.Transparent;
             sbtn_JoinRoom.BadgeBackColor = Color.Red;
-            sbtn_JoinRoom.BadgeFont = new Font("Segoe UI", 8F, FontStyle.Bold);
+            sbtn_JoinRoom.BadgeFont = new Font("Inter", 8F, FontStyle.Bold);
             sbtn_JoinRoom.BadgeValue = 0;
             sbtn_JoinRoom.BadgeValueForeColor = Color.White;
             sbtn_JoinRoom.BorderColor = Color.Transparent;
@@ -120,7 +120,7 @@
             sbtn_JoinRoom.ShakeIntensity = 5;
             sbtn_JoinRoom.Size = new Size(180, 57);
             sbtn_JoinRoom.TabIndex = 17;
-            sbtn_JoinRoom.Text = "Join a room";
+            sbtn_JoinRoom.Text = "Tham gia";
             sbtn_JoinRoom.TextAlign = ContentAlignment.MiddleCenter;
             sbtn_JoinRoom.TextColor = Color.White;
             sbtn_JoinRoom.TooltipText = null;
@@ -154,7 +154,7 @@
             stb_Password.EnableDropShadow = false;
             stb_Password.FillColor1 = Color.White;
             stb_Password.FillColor2 = Color.White;
-            stb_Password.Font = new Font("Segoe UI", 9.5F);
+            stb_Password.Font = new Font("Inter", 9.5F);
             stb_Password.ForeColor = Color.DimGray;
             stb_Password.HoverBorderColor1 = Color.Gray;
             stb_Password.HoverBorderColor2 = Color.Gray;
@@ -186,7 +186,7 @@
             // lb_Password
             // 
             lb_Password.AutoSize = true;
-            lb_Password.Font = new Font("Segoe UI", 10.8F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            lb_Password.Font = new Font("Inter", 10.8F, FontStyle.Bold, GraphicsUnit.Point, 0);
             lb_Password.Location = new Point(64, 144);
             lb_Password.Name = "lb_Password";
             lb_Password.Size = new Size(143, 25);

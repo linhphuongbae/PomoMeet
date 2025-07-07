@@ -49,7 +49,7 @@
             btn_FriendRequests.BackColor = Color.Transparent;
             btn_FriendRequests.BackgroundImage = (Image)resources.GetObject("btn_FriendRequests.BackgroundImage");
             btn_FriendRequests.BadgeBackColor = Color.Red;
-            btn_FriendRequests.BadgeFont = new Font("Segoe UI", 8F, FontStyle.Bold);
+            btn_FriendRequests.BadgeFont = new Font("Inter", 8F, FontStyle.Bold);
             btn_FriendRequests.BadgeValue = 0;
             btn_FriendRequests.BadgeValueForeColor = Color.White;
             btn_FriendRequests.BorderColor = Color.Transparent;
@@ -128,7 +128,7 @@
             btn_FindFriends.BackColor = Color.Transparent;
             btn_FindFriends.BackgroundImage = (Image)resources.GetObject("btn_FindFriends.BackgroundImage");
             btn_FindFriends.BadgeBackColor = Color.Red;
-            btn_FindFriends.BadgeFont = new Font("Segoe UI", 8F, FontStyle.Bold);
+            btn_FindFriends.BadgeFont = new Font("Inter", 8F, FontStyle.Bold);
             btn_FindFriends.BadgeValue = 0;
             btn_FindFriends.BadgeValueForeColor = Color.White;
             btn_FindFriends.BorderColor = Color.Transparent;
@@ -340,7 +340,7 @@
             btn_AllFriends.BackColor = Color.Transparent;
             btn_AllFriends.BackgroundImage = (Image)resources.GetObject("btn_AllFriends.BackgroundImage");
             btn_AllFriends.BadgeBackColor = Color.Red;
-            btn_AllFriends.BadgeFont = new Font("Segoe UI", 8F, FontStyle.Bold);
+            btn_AllFriends.BadgeFont = new Font("Inter", 8F, FontStyle.Bold);
             btn_AllFriends.BadgeValue = 0;
             btn_AllFriends.BadgeValueForeColor = Color.White;
             btn_AllFriends.BorderColor = Color.Transparent;
@@ -419,7 +419,7 @@
             btn_OnlineFriends.BackColor = Color.Transparent;
             btn_OnlineFriends.BackgroundImage = (Image)resources.GetObject("btn_OnlineFriends.BackgroundImage");
             btn_OnlineFriends.BadgeBackColor = Color.Red;
-            btn_OnlineFriends.BadgeFont = new Font("Segoe UI", 8F, FontStyle.Bold);
+            btn_OnlineFriends.BadgeFont = new Font("Inter", 8F, FontStyle.Bold);
             btn_OnlineFriends.BadgeValue = 0;
             btn_OnlineFriends.BadgeValueForeColor = Color.White;
             btn_OnlineFriends.BorderColor = Color.Transparent;

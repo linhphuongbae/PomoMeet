@@ -254,7 +254,7 @@ namespace PomoMeetApp.View
                         DateTime? pausedTime = DateTime.TryParse(pausedStr, out var parsedPause2) ? parsedPause2.ToUniversalTime() : (DateTime?)null;
 
                         // 7. Cập nhật nút Start
-                        btn_Start.Text = isPomodoroRunning ? "Pause" : (pausedTime != null ? "Resume" : "Start");
+                        btn_Start.Text = isPomodoroRunning ? "Pause" : (pausedTime != null ? "Resume" : "Bắt đầu");
 
                         // 8. Điều khiển logic hiển thị và chạy đếm ngược
                         if (isPomodoroRunning && startTime != null)

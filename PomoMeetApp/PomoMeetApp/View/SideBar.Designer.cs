@@ -111,7 +111,7 @@
             siticoneButton4.AutoSizeBasedOnText = false;
             siticoneButton4.BackColor = Color.Transparent;
             siticoneButton4.BadgeBackColor = Color.Red;
-            siticoneButton4.BadgeFont = new Font("Segoe UI", 36F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            siticoneButton4.BadgeFont = new Font("Inter", 36F, FontStyle.Bold, GraphicsUnit.Point, 0);
             siticoneButton4.BadgeValue = 0;
             siticoneButton4.BadgeValueForeColor = Color.White;
             siticoneButton4.BorderColor = Color.Transparent;
@@ -488,7 +488,7 @@
             siticoneButton5.AutoSizeBasedOnText = false;
             siticoneButton5.BackColor = Color.Transparent;
             siticoneButton5.BadgeBackColor = Color.Red;
-            siticoneButton5.BadgeFont = new Font("Segoe UI", 8F, FontStyle.Bold);
+            siticoneButton5.BadgeFont = new Font("Inter", 8F, FontStyle.Bold);
             siticoneButton5.BadgeValue = 0;
             siticoneButton5.BadgeValueForeColor = Color.White;
             siticoneButton5.BorderColor = Color.Transparent;
@@ -566,7 +566,7 @@
             siticoneButton6.AutoSizeBasedOnText = false;
             siticoneButton6.BackColor = Color.Transparent;
             siticoneButton6.BadgeBackColor = Color.Red;
-            siticoneButton6.BadgeFont = new Font("Segoe UI", 8F, FontStyle.Bold);
+            siticoneButton6.BadgeFont = new Font("Inter", 8F, FontStyle.Bold);
             siticoneButton6.BadgeValue = 0;
             siticoneButton6.BadgeValueForeColor = Color.White;
             siticoneButton6.BorderColor = Color.Transparent;
@@ -644,7 +644,7 @@
             siticoneButton7.AutoSizeBasedOnText = false;
             siticoneButton7.BackColor = Color.Transparent;
             siticoneButton7.BadgeBackColor = Color.Red;
-            siticoneButton7.BadgeFont = new Font("Segoe UI", 8F, FontStyle.Bold);
+            siticoneButton7.BadgeFont = new Font("Inter", 8F, FontStyle.Bold);
             siticoneButton7.BadgeValue = 0;
             siticoneButton7.BadgeValueForeColor = Color.White;
             siticoneButton7.BorderColor = Color.Transparent;
@@ -722,7 +722,7 @@
             siticoneButton8.AutoSizeBasedOnText = false;
             siticoneButton8.BackColor = Color.Transparent;
             siticoneButton8.BadgeBackColor = Color.Red;
-            siticoneButton8.BadgeFont = new Font("Segoe UI", 36F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            siticoneButton8.BadgeFont = new Font("Inter", 36F, FontStyle.Bold, GraphicsUnit.Point, 0);
             siticoneButton8.BadgeValue = 0;
             siticoneButton8.BadgeValueForeColor = Color.White;
             siticoneButton8.BorderColor = Color.Transparent;

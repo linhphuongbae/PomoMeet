@@ -67,7 +67,7 @@
             sbtn_CreateNewRoom.AutoSizeBasedOnText = false;
             sbtn_CreateNewRoom.BackColor = Color.Transparent;
             sbtn_CreateNewRoom.BadgeBackColor = Color.Red;
-            sbtn_CreateNewRoom.BadgeFont = new Font("Segoe UI", 8F, FontStyle.Bold);
+            sbtn_CreateNewRoom.BadgeFont = new Font("Inter", 8F, FontStyle.Bold);
             sbtn_CreateNewRoom.BadgeValue = 0;
             sbtn_CreateNewRoom.BadgeValueForeColor = Color.White;
             sbtn_CreateNewRoom.BorderColor = Color.Transparent;
@@ -168,7 +168,7 @@
             tb_Search.EnableDropShadow = false;
             tb_Search.FillColor1 = Color.YellowGreen;
             tb_Search.FillColor2 = Color.White;
-            tb_Search.Font = new Font("Segoe UI", 9.5F);
+            tb_Search.Font = new Font("Inter", 9.5F);
             tb_Search.ForeColor = Color.DimGray;
             tb_Search.HoverBorderColor1 = Color.Gray;
             tb_Search.HoverBorderColor2 = Color.Gray;
@@ -218,7 +218,7 @@
             tbtn_JoinRoom.AutoSizeBasedOnText = false;
             tbtn_JoinRoom.BackColor = Color.Transparent;
             tbtn_JoinRoom.BadgeBackColor = Color.Red;
-            tbtn_JoinRoom.BadgeFont = new Font("Segoe UI", 8F, FontStyle.Bold);
+            tbtn_JoinRoom.BadgeFont = new Font("Inter", 8F, FontStyle.Bold);
             tbtn_JoinRoom.BadgeValue = 0;
             tbtn_JoinRoom.BadgeValueForeColor = Color.White;
             tbtn_JoinRoom.BorderColor = Color.Transparent;

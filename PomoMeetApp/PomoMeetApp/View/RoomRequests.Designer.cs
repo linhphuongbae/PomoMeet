@@ -154,9 +154,9 @@
             btCopy.NotificationDuration = 3000;
             btCopy.NotificationText = "Text has been copied to clipboard";
             btCopy.NotificationTextColor = Color.FromArgb(50, 50, 50);
-            btCopy.NotificationTextFont = new Font("Segoe UI", 10F);
+            btCopy.NotificationTextFont = new Font("Inter", 10F);
             btCopy.NotificationTitle = "Copy Completed";
-            btCopy.NotificationTitleFont = new Font("Segoe UI", 10F, FontStyle.Bold);
+            btCopy.NotificationTitleFont = new Font("Inter", 10F, FontStyle.Bold);
             btCopy.PressedFillColor = Color.Transparent;
             btCopy.RippleColor = Color.FromArgb(50, 255, 255, 255);
             btCopy.RippleExpandRate = 2F;
@@ -291,7 +291,7 @@
             siticoneButton1.BackColor = Color.Transparent;
             siticoneButton1.BackgroundImage = Properties.Resources.search;
             siticoneButton1.BadgeBackColor = Color.Red;
-            siticoneButton1.BadgeFont = new Font("Segoe UI", 8F, FontStyle.Bold);
+            siticoneButton1.BadgeFont = new Font("Inter", 8F, FontStyle.Bold);
             siticoneButton1.BadgeValue = 0;
             siticoneButton1.BadgeValueForeColor = Color.White;
             siticoneButton1.BorderColor = Color.Transparent;
@@ -313,7 +313,7 @@
             siticoneButton1.EnableRippleEffect = true;
             siticoneButton1.EnableShadow = false;
             siticoneButton1.EnableTextWrapping = false;
-            siticoneButton1.Font = new Font("Segoe UI", 9F);
+            siticoneButton1.Font = new Font("Inter", 9F);
             siticoneButton1.GlowColor = Color.FromArgb(100, 255, 255, 255);
             siticoneButton1.GlowIntensity = 100;
             siticoneButton1.GlowRadius = 20F;

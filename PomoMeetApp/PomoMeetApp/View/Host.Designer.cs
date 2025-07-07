@@ -172,7 +172,7 @@
             sbtn_ChangeHost.AutoSizeBasedOnText = false;
             sbtn_ChangeHost.BackColor = Color.Transparent;
             sbtn_ChangeHost.BadgeBackColor = Color.Red;
-            sbtn_ChangeHost.BadgeFont = new Font("Segoe UI", 8F, FontStyle.Bold);
+            sbtn_ChangeHost.BadgeFont = new Font("Inter", 8F, FontStyle.Bold);
             sbtn_ChangeHost.BadgeValue = 0;
             sbtn_ChangeHost.BadgeValueForeColor = Color.White;
             sbtn_ChangeHost.BorderColor = Color.Transparent;
@@ -250,7 +250,7 @@
             sbtn_Kick.AutoSizeBasedOnText = false;
             sbtn_Kick.BackColor = Color.Transparent;
             sbtn_Kick.BadgeBackColor = Color.Red;
-            sbtn_Kick.BadgeFont = new Font("Segoe UI", 8F, FontStyle.Bold);
+            sbtn_Kick.BadgeFont = new Font("Inter", 8F, FontStyle.Bold);
             sbtn_Kick.BadgeValue = 0;
             sbtn_Kick.BadgeValueForeColor = Color.White;
             sbtn_Kick.BorderColor = Color.Transparent;
@@ -356,7 +356,7 @@
             tb_FindMembers.EnableDropShadow = false;
             tb_FindMembers.FillColor1 = Color.FromArgb(217, 217, 217);
             tb_FindMembers.FillColor2 = Color.FromArgb(217, 217, 217);
-            tb_FindMembers.Font = new Font("Segoe UI", 9.5F);
+            tb_FindMembers.Font = new Font("Inter", 9.5F);
             tb_FindMembers.ForeColor = Color.DimGray;
             tb_FindMembers.HoverBorderColor1 = Color.Gray;
             tb_FindMembers.HoverBorderColor2 = Color.Gray;

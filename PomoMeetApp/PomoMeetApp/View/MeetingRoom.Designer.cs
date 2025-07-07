@@ -134,7 +134,7 @@
             // btn_Reset
             // 
             btn_Reset.AccessibleDescription = "The default button control that accept input though the mouse, touch and keyboard";
-            btn_Reset.AccessibleName = "Reset";
+            btn_Reset.AccessibleName = "Đặt lại";
             btn_Reset.AutoSizeBasedOnText = false;
             btn_Reset.BackColor = Color.Transparent;
             btn_Reset.BadgeBackColor = Color.DarkSeaGreen;
@@ -200,7 +200,7 @@
             btn_Reset.ShakeIntensity = 5;
             btn_Reset.Size = new Size(149, 37);
             btn_Reset.TabIndex = 5;
-            btn_Reset.Text = "Reset";
+            btn_Reset.Text = "Đặt lại";
             btn_Reset.TextAlign = ContentAlignment.MiddleCenter;
             btn_Reset.TextColor = Color.Black;
             btn_Reset.TooltipText = null;
@@ -289,7 +289,7 @@
             // btn_Start
             // 
             btn_Start.AccessibleDescription = "The default button control that accept input though the mouse, touch and keyboard";
-            btn_Start.AccessibleName = "Start";
+            btn_Start.AccessibleName = "Bắt đầu";
             btn_Start.AutoSizeBasedOnText = false;
             btn_Start.BackColor = Color.Transparent;
             btn_Start.BadgeBackColor = Color.DarkSeaGreen;
@@ -355,7 +355,7 @@
             btn_Start.ShakeIntensity = 5;
             btn_Start.Size = new Size(149, 37);
             btn_Start.TabIndex = 1;
-            btn_Start.Text = "Start";
+            btn_Start.Text = "Bắt đầu";
             btn_Start.TextAlign = ContentAlignment.MiddleCenter;
             btn_Start.TextColor = Color.Black;
             btn_Start.TooltipText = null;
@@ -475,7 +475,7 @@
             lb_participant.Name = "lb_participant";
             lb_participant.Size = new Size(145, 28);
             lb_participant.TabIndex = 0;
-            lb_participant.Text = "Participants";
+            lb_participant.Text = "Người tham gia";
             lb_participant.TextAlign = ContentAlignment.MiddleCenter;
             // 
             // participants_panel
@@ -629,7 +629,7 @@
             siticoneLabel1.Name = "siticoneLabel1";
             siticoneLabel1.Size = new Size(68, 28);
             siticoneLabel1.TabIndex = 11;
-            siticoneLabel1.Text = "Chat";
+            siticoneLabel1.Text = "Trò chuyện";
             siticoneLabel1.TextAlign = ContentAlignment.MiddleCenter;
             // 
             // siticoneImageButton9
@@ -677,7 +677,7 @@
             siticoneLabel2.Name = "siticoneLabel2";
             siticoneLabel2.Size = new Size(92, 28);
             siticoneLabel2.TabIndex = 0;
-            siticoneLabel2.Text = "Chat";
+            siticoneLabel2.Text = "Trò chuyện";
             siticoneLabel2.TextAlign = ContentAlignment.MiddleCenter;
             // 
             // sbtn_ChangeHost
@@ -1127,7 +1127,7 @@
             // btn_Break
             // 
             btn_Break.AccessibleDescription = "The default button control that accept input though the mouse, touch and keyboard";
-            btn_Break.AccessibleName = "Break";
+            btn_Break.AccessibleName = "Nghỉ";
             btn_Break.AutoSizeBasedOnText = false;
             btn_Break.BackColor = Color.Transparent;
             btn_Break.BadgeBackColor = Color.DarkSeaGreen;
@@ -1194,7 +1194,7 @@
             btn_Break.ShakeIntensity = 5;
             btn_Break.Size = new Size(92, 32);
             btn_Break.TabIndex = 41;
-            btn_Break.Text = "Break";
+            btn_Break.Text = "Nghỉ";
             btn_Break.TextAlign = ContentAlignment.MiddleCenter;
             btn_Break.TextColor = Color.Black;
             btn_Break.TooltipText = null;

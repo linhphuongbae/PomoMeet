@@ -117,7 +117,7 @@
             tbUsername.Location = new Point(438, 276);
             tbUsername.Name = "tbUsername";
             tbUsername.PlaceholderColor = Color.Gray;
-            tbUsername.PlaceholderText = "Enter text here...";
+            tbUsername.PlaceholderText = "Nhập vào đây";
             tbUsername.ReadOnlyBorderColor1 = Color.LightGray;
             tbUsername.ReadOnlyBorderColor2 = Color.LightGray;
             tbUsername.ReadOnlyFillColor1 = Color.WhiteSmoke;
@@ -186,7 +186,7 @@
             tbPassword.Location = new Point(437, 420);
             tbPassword.Name = "tbPassword";
             tbPassword.PlaceholderColor = Color.Gray;
-            tbPassword.PlaceholderText = "Enter text here...";
+            tbPassword.PlaceholderText = "Nhập vào đây";
             tbPassword.ReadOnlyBorderColor1 = Color.LightGray;
             tbPassword.ReadOnlyBorderColor2 = Color.LightGray;
             tbPassword.ReadOnlyFillColor1 = Color.WhiteSmoke;
@@ -216,7 +216,7 @@
             btnSignInGG.AutoSizeBasedOnText = false;
             btnSignInGG.BackColor = Color.Transparent;
             btnSignInGG.BadgeBackColor = Color.Red;
-            btnSignInGG.BadgeFont = new Font("Segoe UI", 8F, FontStyle.Bold);
+            btnSignInGG.BadgeFont = new Font("Inter", 8F, FontStyle.Bold);
             btnSignInGG.BadgeValue = 0;
             btnSignInGG.BadgeValueForeColor = Color.White;
             btnSignInGG.BorderColor = Color.FromArgb(117, 164, 127);
@@ -532,7 +532,7 @@
             ShowPass.EnableRippleEffect = true;
             ShowPass.FocusBorderWidth = 2;
             ShowPass.FocusColor = Color.FromArgb(252, 255, 224);
-            ShowPass.Font = new Font("Segoe UI", 9F);
+            ShowPass.Font = new Font("Inter", 9F);
             ShowPass.ForeColor = Color.FromArgb(117, 164, 127);
             ShowPass.HoverBackColor = Color.Gainsboro;
             ShowPass.IndeterminateBorderColor = Color.FromArgb(160, 160, 160);
