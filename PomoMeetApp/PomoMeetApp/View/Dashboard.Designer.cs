@@ -176,7 +176,7 @@
             tb_Search.Location = new Point(1068, 171);
             tb_Search.Name = "tb_Search";
             tb_Search.PlaceholderColor = Color.Gray;
-            tb_Search.PlaceholderText = "Search here ...";
+            tb_Search.PlaceholderText = "Tìm kiếm...";
             tb_Search.ReadOnlyBorderColor1 = Color.LightGray;
             tb_Search.ReadOnlyBorderColor2 = Color.LightGray;
             tb_Search.ReadOnlyFillColor1 = Color.WhiteSmoke;

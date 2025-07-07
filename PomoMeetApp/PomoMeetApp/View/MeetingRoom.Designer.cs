@@ -470,7 +470,7 @@
             // lb_participant
             // 
             lb_participant.BackColor = Color.Transparent;
-            lb_participant.Font = new Font("Inter", 11F, FontStyle.Bold);
+            lb_participant.Font = new Font("Inter", 10F, FontStyle.Bold);
             lb_participant.Location = new Point(0, 9);
             lb_participant.Name = "lb_participant";
             lb_participant.Size = new Size(145, 28);
@@ -624,13 +624,13 @@
             // siticoneLabel1
             // 
             siticoneLabel1.BackColor = Color.Transparent;
-            siticoneLabel1.Font = new Font("Inter", 11F, FontStyle.Bold);
-            siticoneLabel1.Location = new Point(3, 10);
+            siticoneLabel1.Font = new Font("Inter", 10F, FontStyle.Bold);
+            siticoneLabel1.Location = new Point(4, 4);
             siticoneLabel1.Name = "siticoneLabel1";
-            siticoneLabel1.Size = new Size(68, 28);
+            siticoneLabel1.Size = new Size(150, 40);
             siticoneLabel1.TabIndex = 11;
             siticoneLabel1.Text = "Trò chuyện";
-            siticoneLabel1.TextAlign = ContentAlignment.MiddleCenter;
+            siticoneLabel1.TextAlign = ContentAlignment.MiddleLeft;
             // 
             // siticoneImageButton9
             // 
