@@ -311,6 +311,16 @@ namespace PomoMeetApp.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap chat_room {
+            get {
+                object obj = ResourceManager.GetObject("chat_room", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized resource of type System.Byte[].
         /// </summary>
         internal static byte[] ChildhoodDreams {
@@ -506,6 +516,16 @@ namespace PomoMeetApp.Properties {
         internal static System.Drawing.Bitmap icon_sound_on {
             get {
                 object obj = ResourceManager.GetObject("icon_sound_on", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap icons8_meeting_room_30 {
+            get {
+                object obj = ResourceManager.GetObject("icons8-meeting-room-30", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }

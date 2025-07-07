@@ -89,21 +89,21 @@
             // label1
             // 
             label1.AutoSize = true;
-            label1.Font = new Font("Inter", 24F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            label1.Font = new Font("Inter", 22.2F, FontStyle.Bold);
             label1.ForeColor = Color.White;
             label1.Location = new Point(243, 22);
             label1.Name = "label1";
-            label1.Size = new Size(339, 57);
+            label1.Size = new Size(313, 53);
             label1.TabIndex = 0;
             label1.Text = "Tham gia phòng";
             // 
             // label2
             // 
             label2.AutoSize = true;
-            label2.Font = new Font("Inter", 10.8F, FontStyle.Bold, GraphicsUnit.Point, 0);
-            label2.Location = new Point(62, 118);
+            label2.Font = new Font("Inter", 12F, FontStyle.Bold);
+            label2.Location = new Point(62, 127);
             label2.Name = "label2";
-            label2.Size = new Size(149, 25);
+            label2.Size = new Size(166, 28);
             label2.TabIndex = 1;
             label2.Text = "Nhập mã phòng";
             label2.Click += label2_Click;
@@ -134,7 +134,7 @@
             stb_roomId.EnableDropShadow = false;
             stb_roomId.FillColor1 = Color.White;
             stb_roomId.FillColor2 = Color.White;
-            stb_roomId.Font = new Font("Inter", 9.5F);
+            stb_roomId.Font = new Font("Inter", 10.2F);
             stb_roomId.ForeColor = Color.DimGray;
             stb_roomId.HoverBorderColor1 = Color.Gray;
             stb_roomId.HoverBorderColor2 = Color.Gray;
@@ -165,10 +165,10 @@
             // lb_Password
             // 
             lb_Password.AutoSize = true;
-            lb_Password.Font = new Font("Inter", 10.8F, FontStyle.Bold, GraphicsUnit.Point, 0);
-            lb_Password.Location = new Point(62, 232);
+            lb_Password.Font = new Font("Inter", 12F, FontStyle.Bold);
+            lb_Password.Location = new Point(62, 237);
             lb_Password.Name = "lb_Password";
-            lb_Password.Size = new Size(143, 25);
+            lb_Password.Size = new Size(159, 28);
             lb_Password.TabIndex = 4;
             lb_Password.Text = "Nhập mật khẩu";
             lb_Password.Visible = false;
@@ -199,12 +199,12 @@
             stb_Password.EnableDropShadow = false;
             stb_Password.FillColor1 = Color.White;
             stb_Password.FillColor2 = Color.White;
-            stb_Password.Font = new Font("Inter", 9.5F);
+            stb_Password.Font = new Font("Inter", 10.2F);
             stb_Password.ForeColor = Color.DimGray;
             stb_Password.HoverBorderColor1 = Color.Gray;
             stb_Password.HoverBorderColor2 = Color.Gray;
             stb_Password.IsEnabled = true;
-            stb_Password.Location = new Point(62, 284);
+            stb_Password.Location = new Point(62, 271);
             stb_Password.Name = "stb_Password";
             stb_Password.PlaceholderColor = Color.Gray;
             stb_Password.PlaceholderText = "abc12345-1223345";
@@ -277,7 +277,7 @@
             sbtn_JoinRoom.IsReadOnly = false;
             sbtn_JoinRoom.IsToggleButton = false;
             sbtn_JoinRoom.IsToggled = false;
-            sbtn_JoinRoom.Location = new Point(319, 371);
+            sbtn_JoinRoom.Location = new Point(321, 357);
             sbtn_JoinRoom.LongPressDurationMS = 1000;
             sbtn_JoinRoom.Name = "sbtn_JoinRoom";
             sbtn_JoinRoom.NormalFontStyle = FontStyle.Regular;
@@ -313,7 +313,7 @@
             btn_TogglePassword.BackgroundImage = Properties.Resources.eye_close;
             btn_TogglePassword.FlatAppearance.BorderSize = 0;
             btn_TogglePassword.FlatStyle = FlatStyle.Flat;
-            btn_TogglePassword.Location = new Point(689, 294);
+            btn_TogglePassword.Location = new Point(686, 280);
             btn_TogglePassword.Name = "btn_TogglePassword";
             btn_TogglePassword.Size = new Size(27, 29);
             btn_TogglePassword.TabIndex = 11;
@@ -326,7 +326,7 @@
             AutoScaleDimensions = new SizeF(8F, 20F);
             AutoScaleMode = AutoScaleMode.Font;
             BackColor = Color.White;
-            ClientSize = new Size(796, 457);
+            ClientSize = new Size(796, 446);
             Controls.Add(btn_TogglePassword);
             Controls.Add(sbtn_JoinRoom);
             Controls.Add(stb_Password);

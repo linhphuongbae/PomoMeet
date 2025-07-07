@@ -148,9 +148,6 @@
   <data name="cam_on" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\videocam.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-	<data name="Send" type="System.Resources.ResXFileRef, System.Windows.Forms">
-		<value>..\Resources\Send.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-	</data>
   <data name="cam_off" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\cam_off.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
@@ -175,8 +172,8 @@
   <data name="speaker_mute" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\speaker_mute.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="BeneathTheRain" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\BeneathTheRain.wav;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  <data name="Send" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Send.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="panel" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\panel.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
@@ -189,6 +186,9 @@
   </data>
   <data name="mic" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\mic.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="group1" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\group1.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="avt9" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\avt9.jpg;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
@@ -240,6 +240,9 @@
   </data>
   <data name="Image" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\Image.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="BeneathTheRain" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\BeneathTheRain.wav;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
   <data name="musicImage7" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\musicImage7.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
@@ -313,9 +316,6 @@
   <data name="Rectangle" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\Rectangle.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="done_pomodoro" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\done_pomodoro.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
   <data name="Create" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\Create.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
@@ -331,8 +331,8 @@
   <data name="new_exit" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\new_exit.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="new_exit" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\new_exit.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  <data name="icons8-meeting-room-30" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\icons8-meeting-room-30.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="musicImage2" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\musicImage2.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
@@ -363,6 +363,9 @@
   </data>
   <data name="ChildhoodDreams" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\ChildhoodDreams.wav;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="face" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\face.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="musicImage5" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\musicImage5.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
@@ -406,10 +409,7 @@
   <data name="LogoPomoMeet" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\LogoPomoMeet.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="group1" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\group1.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="face" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\face.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  <data name="chat_room" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\chat_room.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
 </root>

@@ -43,7 +43,7 @@
             btn_TogglePassword.BackgroundImage = Properties.Resources.eye_close;
             btn_TogglePassword.FlatAppearance.BorderSize = 0;
             btn_TogglePassword.FlatStyle = FlatStyle.Flat;
-            btn_TogglePassword.Location = new Point(688, 197);
+            btn_TogglePassword.Location = new Point(691, 187);
             btn_TogglePassword.Name = "btn_TogglePassword";
             btn_TogglePassword.Size = new Size(27, 29);
             btn_TogglePassword.TabIndex = 18;
@@ -87,7 +87,7 @@
             sbtn_JoinRoom.GradientColor = Color.FromArgb(117, 164, 127);
             sbtn_JoinRoom.GradientMode = System.Drawing.Drawing2D.LinearGradientMode.Vertical;
             sbtn_JoinRoom.HintText = null;
-            sbtn_JoinRoom.HoverBackColor = Color.FromArgb(117, 164, 127);
+            sbtn_JoinRoom.HoverBackColor = Color.Transparent;
             sbtn_JoinRoom.HoverFontStyle = FontStyle.Regular;
             sbtn_JoinRoom.HoverTextColor = Color.White;
             sbtn_JoinRoom.HoverTransitionDuration = 250;
@@ -98,7 +98,7 @@
             sbtn_JoinRoom.IsReadOnly = false;
             sbtn_JoinRoom.IsToggleButton = false;
             sbtn_JoinRoom.IsToggled = false;
-            sbtn_JoinRoom.Location = new Point(293, 270);
+            sbtn_JoinRoom.Location = new Point(309, 255);
             sbtn_JoinRoom.LongPressDurationMS = 1000;
             sbtn_JoinRoom.Name = "sbtn_JoinRoom";
             sbtn_JoinRoom.NormalFontStyle = FontStyle.Regular;
@@ -106,7 +106,7 @@
             sbtn_JoinRoom.ParticleColor = Color.FromArgb(200, 200, 200);
             sbtn_JoinRoom.ParticleCount = 15;
             sbtn_JoinRoom.PressAnimationScale = 0.97F;
-            sbtn_JoinRoom.PressedBackColor = Color.FromArgb(74, 128, 235);
+            sbtn_JoinRoom.PressedBackColor = Color.Transparent;
             sbtn_JoinRoom.PressedFontStyle = FontStyle.Regular;
             sbtn_JoinRoom.PressTransitionDuration = 150;
             sbtn_JoinRoom.ReadOnlyTextColor = Color.FromArgb(100, 100, 100);
@@ -154,12 +154,12 @@
             stb_Password.EnableDropShadow = false;
             stb_Password.FillColor1 = Color.White;
             stb_Password.FillColor2 = Color.White;
-            stb_Password.Font = new Font("Inter", 9.5F);
+            stb_Password.Font = new Font("Inter", 10.2F);
             stb_Password.ForeColor = Color.DimGray;
             stb_Password.HoverBorderColor1 = Color.Gray;
             stb_Password.HoverBorderColor2 = Color.Gray;
             stb_Password.IsEnabled = true;
-            stb_Password.Location = new Point(64, 188);
+            stb_Password.Location = new Point(65, 178);
             stb_Password.Name = "stb_Password";
             stb_Password.PlaceholderColor = Color.Gray;
             stb_Password.PlaceholderText = "abc12345-1223345";
@@ -186,10 +186,10 @@
             // lb_Password
             // 
             lb_Password.AutoSize = true;
-            lb_Password.Font = new Font("Inter", 10.8F, FontStyle.Bold, GraphicsUnit.Point, 0);
-            lb_Password.Location = new Point(64, 144);
+            lb_Password.Font = new Font("Inter", 12F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            lb_Password.Location = new Point(65, 141);
             lb_Password.Name = "lb_Password";
-            lb_Password.Size = new Size(143, 25);
+            lb_Password.Size = new Size(159, 28);
             lb_Password.TabIndex = 15;
             lb_Password.Text = "Nhập mật khẩu";
             // 
@@ -243,11 +243,11 @@
             // label1
             // 
             label1.AutoSize = true;
-            label1.Font = new Font("Inter", 24F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            label1.Font = new Font("Inter", 22.2F, FontStyle.Bold);
             label1.ForeColor = Color.White;
-            label1.Location = new Point(243, 22);
+            label1.Location = new Point(246, 28);
             label1.Name = "label1";
-            label1.Size = new Size(339, 57);
+            label1.Size = new Size(313, 53);
             label1.TabIndex = 0;
             label1.Text = "Tham gia phòng";
             // 
