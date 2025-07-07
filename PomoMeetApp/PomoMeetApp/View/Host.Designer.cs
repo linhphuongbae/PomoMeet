@@ -154,7 +154,7 @@
             tlp_ListMembers.ColumnCount = 4;
             tlp_ListMembers.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 50F));
             tlp_ListMembers.ColumnStyles.Add(new ColumnStyle(SizeType.Absolute, 169F));
-            tlp_ListMembers.ColumnStyles.Add(new ColumnStyle(SizeType.Absolute, 135F));
+            tlp_ListMembers.ColumnStyles.Add(new ColumnStyle(SizeType.Absolute, 155F));
             tlp_ListMembers.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 50F));
             tlp_ListMembers.Controls.Add(sbtn_ChangeHost, 2, 0);
             tlp_ListMembers.Controls.Add(sbtn_Kick, 3, 0);
@@ -168,7 +168,7 @@
             // sbtn_ChangeHost
             // 
             sbtn_ChangeHost.AccessibleDescription = "The default button control that accept input though the mouse, touch and keyboard";
-            sbtn_ChangeHost.AccessibleName = "Chuyển host";
+            sbtn_ChangeHost.AccessibleName = "Chuyển chủ phòng";
             sbtn_ChangeHost.AutoSizeBasedOnText = false;
             sbtn_ChangeHost.BackColor = Color.Transparent;
             sbtn_ChangeHost.BadgeBackColor = Color.Red;
@@ -213,7 +213,7 @@
             sbtn_ChangeHost.IsReadOnly = false;
             sbtn_ChangeHost.IsToggleButton = false;
             sbtn_ChangeHost.IsToggled = false;
-            sbtn_ChangeHost.Location = new Point(235, 3);
+            sbtn_ChangeHost.Location = new Point(225, 3);
             sbtn_ChangeHost.LongPressDurationMS = 1000;
             sbtn_ChangeHost.Name = "sbtn_ChangeHost";
             sbtn_ChangeHost.NormalFontStyle = FontStyle.Regular;
@@ -233,9 +233,9 @@
             sbtn_ChangeHost.ShadowOffset = new Point(2, 2);
             sbtn_ChangeHost.ShakeDuration = 500;
             sbtn_ChangeHost.ShakeIntensity = 5;
-            sbtn_ChangeHost.Size = new Size(113, 29);
+            sbtn_ChangeHost.Size = new Size(141, 29);
             sbtn_ChangeHost.TabIndex = 12;
-            sbtn_ChangeHost.Text = "Chuyển host";
+            sbtn_ChangeHost.Text = "Chuyển chủ phòng";
             sbtn_ChangeHost.TextAlign = ContentAlignment.MiddleCenter;
             sbtn_ChangeHost.TextColor = Color.Black;
             sbtn_ChangeHost.TooltipText = null;
@@ -291,7 +291,7 @@
             sbtn_Kick.IsReadOnly = false;
             sbtn_Kick.IsToggleButton = false;
             sbtn_Kick.IsToggled = false;
-            sbtn_Kick.Location = new Point(370, 3);
+            sbtn_Kick.Location = new Point(380, 3);
             sbtn_Kick.LongPressDurationMS = 1000;
             sbtn_Kick.Name = "sbtn_Kick";
             sbtn_Kick.NormalFontStyle = FontStyle.Regular;
@@ -311,7 +311,7 @@
             sbtn_Kick.ShadowOffset = new Point(2, 2);
             sbtn_Kick.ShakeDuration = 500;
             sbtn_Kick.ShakeIntensity = 5;
-            sbtn_Kick.Size = new Size(57, 29);
+            sbtn_Kick.Size = new Size(47, 29);
             sbtn_Kick.TabIndex = 13;
             sbtn_Kick.Text = "Đá";
             sbtn_Kick.TextAlign = ContentAlignment.MiddleCenter;
@@ -323,7 +323,7 @@
             // siticoneLabel1
             // 
             siticoneLabel1.BackColor = Color.Transparent;
-            siticoneLabel1.Font = new Font("Inter Medium", 12F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            siticoneLabel1.Font = new Font("Inter SemiBold", 12F, FontStyle.Bold, GraphicsUnit.Point, 0);
             siticoneLabel1.Location = new Point(31, 76);
             siticoneLabel1.Name = "siticoneLabel1";
             siticoneLabel1.Size = new Size(271, 29);
@@ -361,10 +361,10 @@
             tb_FindMembers.HoverBorderColor1 = Color.Gray;
             tb_FindMembers.HoverBorderColor2 = Color.Gray;
             tb_FindMembers.IsEnabled = true;
-            tb_FindMembers.Location = new Point(90, 19);
+            tb_FindMembers.Location = new Point(31, 19);
             tb_FindMembers.Name = "tb_FindMembers";
             tb_FindMembers.PlaceholderColor = Color.Gray;
-            tb_FindMembers.PlaceholderText = "Search username...";
+            tb_FindMembers.PlaceholderText = "Tìm tên";
             tb_FindMembers.ReadOnlyBorderColor1 = Color.LightGray;
             tb_FindMembers.ReadOnlyBorderColor2 = Color.LightGray;
             tb_FindMembers.ReadOnlyFillColor1 = Color.WhiteSmoke;
@@ -374,7 +374,7 @@
             tb_FindMembers.ShadowAnimationDuration = 1;
             tb_FindMembers.ShadowBlur = 10;
             tb_FindMembers.ShadowColor = Color.FromArgb(15, 0, 0, 0);
-            tb_FindMembers.Size = new Size(317, 38);
+            tb_FindMembers.Size = new Size(430, 38);
             tb_FindMembers.SolidBorderColor = Color.LightSlateGray;
             tb_FindMembers.SolidBorderFocusColor = Color.FromArgb(77, 77, 255);
             tb_FindMembers.SolidBorderHoverColor = Color.Gray;

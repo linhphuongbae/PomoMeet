@@ -259,14 +259,14 @@
             sbtn_JoinRoom.EnableShadow = false;
             sbtn_JoinRoom.EnableTextWrapping = false;
             sbtn_JoinRoom.Font = new Font("Inter ExtraBold", 12F, FontStyle.Bold, GraphicsUnit.Point, 0);
-            sbtn_JoinRoom.GlowColor = Color.FromArgb(117, 164, 127);
+            sbtn_JoinRoom.GlowColor = Color.DarkGray;
             sbtn_JoinRoom.GlowIntensity = 100;
             sbtn_JoinRoom.GlowRadius = 20F;
             sbtn_JoinRoom.GradientBackground = true;
             sbtn_JoinRoom.GradientColor = Color.FromArgb(117, 164, 127);
             sbtn_JoinRoom.GradientMode = System.Drawing.Drawing2D.LinearGradientMode.Vertical;
             sbtn_JoinRoom.HintText = null;
-            sbtn_JoinRoom.HoverBackColor = Color.FromArgb(117, 164, 127);
+            sbtn_JoinRoom.HoverBackColor = Color.Transparent;
             sbtn_JoinRoom.HoverFontStyle = FontStyle.Regular;
             sbtn_JoinRoom.HoverTextColor = Color.White;
             sbtn_JoinRoom.HoverTransitionDuration = 250;

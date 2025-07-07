@@ -79,7 +79,7 @@
             siticonePanel3.RippleMaxSize = 600F;
             siticonePanel3.RippleSpeed = 15F;
             siticonePanel3.ShowBorder = true;
-            siticonePanel3.Size = new Size(789, 233);
+            siticonePanel3.Size = new Size(529, 233);
             siticonePanel3.TabIndex = 8;
             siticonePanel3.TabStop = true;
             siticonePanel3.UseBorderGradient = false;
@@ -106,7 +106,7 @@
             btCopy.Font = new Font("Inter", 10.8F, FontStyle.Bold, GraphicsUnit.Point, 0);
             btCopy.ForeColor = Color.White;
             btCopy.HoverFillColor = Color.Transparent;
-            btCopy.Location = new Point(421, 122);
+            btCopy.Location = new Point(272, 133);
             btCopy.MakeRadial = false;
             btCopy.Name = "btCopy";
             btCopy.NormalFillColor = Color.Transparent;
@@ -123,11 +123,12 @@
             btCopy.ShowFocusCue = false;
             btCopy.Size = new Size(117, 57);
             btCopy.TabIndex = 5;
-            btCopy.TargetControl = null;
+            btCopy.TargetControl = tbMamoi;
             btCopy.Text = "Sao chép";
             btCopy.TooltipText = "Click to copy";
             btCopy.TopLeftRadius = 12;
             btCopy.TopRightRadius = 12;
+            btCopy.Click += btCopy_Click;
             // 
             // tbMamoi
             // 
@@ -165,7 +166,7 @@
             tbMamoi.HoverBorderColor1 = Color.Transparent;
             tbMamoi.HoverBorderColor2 = Color.Transparent;
             tbMamoi.IsEnabled = true;
-            tbMamoi.Location = new Point(255, 121);
+            tbMamoi.Location = new Point(106, 132);
             tbMamoi.Name = "tbMamoi";
             tbMamoi.PlaceholderColor = Color.Gray;
             tbMamoi.PlaceholderText = "ABC123";
@@ -195,7 +196,7 @@
             label2.BackColor = Color.FromArgb(117, 164, 127);
             label2.Font = new Font("Inter", 10.2F, FontStyle.Regular, GraphicsUnit.Point, 0);
             label2.ForeColor = Color.White;
-            label2.Location = new Point(246, 83);
+            label2.Location = new Point(97, 94);
             label2.Name = "label2";
             label2.Size = new Size(315, 24);
             label2.TabIndex = 3;
@@ -208,24 +209,17 @@
             label1.BackColor = Color.FromArgb(117, 164, 127);
             label1.Font = new Font("Inter", 22.2F, FontStyle.Bold, GraphicsUnit.Point, 0);
             label1.ForeColor = Color.White;
-            label1.Location = new Point(209, 19);
+            label1.Location = new Point(60, 30);
             label1.Name = "label1";
             label1.Size = new Size(384, 53);
             label1.TabIndex = 2;
             label1.Text = "Mời bạn bè tham gia";
-
-            // Cập nhật thuộc tính TargetControl để sao chép nội dung từ tbMamoi
-            btCopy.TargetControl = tbMamoi; // Đây là text box chứa ID phòng
-
-            // Cập nhật sự kiện click cho nút btCopy
-            btCopy.Click += btCopy_Click;
-
             // 
             // InviteMore
             // 
             AutoScaleDimensions = new SizeF(8F, 20F);
             AutoScaleMode = AutoScaleMode.Font;
-            ClientSize = new Size(786, 224);
+            ClientSize = new Size(518, 224);
             Controls.Add(siticonePanel3);
             Name = "InviteMore";
             Text = "InviteMore";
