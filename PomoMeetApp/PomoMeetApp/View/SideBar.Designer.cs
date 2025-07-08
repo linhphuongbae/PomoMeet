@@ -160,7 +160,7 @@
             siticoneButton4.ParticleColor = Color.FromArgb(200, 200, 200);
             siticoneButton4.ParticleCount = 15;
             siticoneButton4.PressAnimationScale = 0.97F;
-            siticoneButton4.PressedBackColor = Color.White;
+            siticoneButton4.PressedBackColor = Color.Transparent;
             siticoneButton4.PressedFontStyle = FontStyle.Regular;
             siticoneButton4.PressTransitionDuration = 150;
             siticoneButton4.ReadOnlyTextColor = Color.FromArgb(100, 100, 100);
@@ -537,7 +537,7 @@
             siticoneButton5.ParticleColor = Color.FromArgb(200, 200, 200);
             siticoneButton5.ParticleCount = 15;
             siticoneButton5.PressAnimationScale = 0.97F;
-            siticoneButton5.PressedBackColor = Color.White;
+            siticoneButton5.PressedBackColor = Color.Transparent;
             siticoneButton5.PressedFontStyle = FontStyle.Regular;
             siticoneButton5.PressTransitionDuration = 150;
             siticoneButton5.ReadOnlyTextColor = Color.FromArgb(100, 100, 100);
@@ -618,7 +618,7 @@
             siticoneButton6.PressedBackColor = Color.White;
             siticoneButton6.PressedFontStyle = FontStyle.Regular;
             siticoneButton6.PressTransitionDuration = 150;
-            siticoneButton6.ReadOnlyTextColor = Color.FromArgb(100, 100, 100);
+            siticoneButton6.ReadOnlyTextColor = Color.Transparent;
             siticoneButton6.RippleColor = Color.FromArgb(255, 255, 255);
             siticoneButton6.RippleOpacity = 0.3F;
             siticoneButton6.RippleRadiusMultiplier = 0.6F;
@@ -693,7 +693,7 @@
             siticoneButton7.ParticleColor = Color.FromArgb(200, 200, 200);
             siticoneButton7.ParticleCount = 15;
             siticoneButton7.PressAnimationScale = 0.97F;
-            siticoneButton7.PressedBackColor = Color.White;
+            siticoneButton7.PressedBackColor = Color.Transparent;
             siticoneButton7.PressedFontStyle = FontStyle.Regular;
             siticoneButton7.PressTransitionDuration = 150;
             siticoneButton7.ReadOnlyTextColor = Color.FromArgb(100, 100, 100);
@@ -771,7 +771,7 @@
             siticoneButton8.ParticleColor = Color.FromArgb(200, 200, 200);
             siticoneButton8.ParticleCount = 15;
             siticoneButton8.PressAnimationScale = 0.97F;
-            siticoneButton8.PressedBackColor = Color.White;
+            siticoneButton8.PressedBackColor = Color.Transparent;
             siticoneButton8.PressedFontStyle = FontStyle.Regular;
             siticoneButton8.PressTransitionDuration = 150;
             siticoneButton8.ReadOnlyTextColor = Color.FromArgb(100, 100, 100);

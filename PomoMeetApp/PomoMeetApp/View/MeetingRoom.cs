@@ -101,6 +101,8 @@ namespace PomoMeetApp.View
 
         public MeetingRoom(string userId, string roomId)
         {
+            this.SuspendLayout();
+
             InitializeComponent();
             currentUserId = userId;
             currentroomId = roomId;
@@ -120,6 +122,9 @@ namespace PomoMeetApp.View
             this.Controls.Add(notificationInRoom);
             notificationInRoom.Location = new Point(347, 36);  // Góc dưới bên trái
             notificationInRoom.Size = new Size(496, 62); // Kích thước thông báo
+
+            this.ResumeLayout(false);
+
         }
 
         private async void MeetingRoom_Load(object sender, EventArgs e)
@@ -2277,104 +2282,32 @@ namespace PomoMeetApp.View
                 if (parts.Length != 4) return;
 
                 string userId = parts[0];
-                string username = parts[1]; // Lấy từ tin nhắn để giảm truy vấn
+                string username = parts[1];
                 string messageText = parts[2];
                 string createdAt = parts[3];
-
 
                 // Lấy avatarKey từ Firestore hoặc cache
                 var (_, avatarKey) = await GetUserInfoFromFirestore(userId);
 
-                // Tái sử dụng logic hiển thị từ ListenMessage
-                SafeInvoke(() =>
+                // Tạo message data để truyền vào UI thread
+                var messageData = new
                 {
-                    lock (messageLock)
-                    {
-                        bool originalAutoScroll = pn_DisplayMessage.AutoScroll;
-                        pn_DisplayMessage.AutoScroll = false;
+                    UserId = userId,
+                    Username = username,
+                    MessageText = messageText,
+                    CreatedAt = createdAt,
+                    AvatarKey = avatarKey
+                };
 
-                        int nextY = 10;
-                        if (pn_DisplayMessage.Controls.Count > 0)
-                        {
-                            Control lastControl = pn_DisplayMessage.Controls[pn_DisplayMessage.Controls.Count - 1];
-                            nextY = lastControl.Bottom + 5;
-                        }
-
-                        Panel messagePanel = new Panel
-                        {
-                            Width = pn_DisplayMessage.Width - 20,
-                            BackColor = Color.Transparent,
-                            Anchor = AnchorStyles.Top | AnchorStyles.Left
-                        };
-
-                        bool isMyMessage = userId == currentUserId;
-
-                        PictureBox avatar = new PictureBox
-                        {
-                            Size = new Size(40, 40),
-                            SizeMode = PictureBoxSizeMode.Zoom,
-                            BackColor = Color.Transparent,
-                            Image = MakeRoundedAvatar(GetAvatarFromResources(avatarKey), new Size(40, 40))
-                        };
-
-                        MessageBubble bubble = new MessageBubble(messageText, isMyMessage)
-                        {
-                            Width = 180
-                        };
-
-                        Label lblName = new Label
-                        {
-                            Text = username,
-                            Font = new Font("Inter", 10, FontStyle.Bold),
-                            ForeColor = Color.Black,
-                            AutoSize = true
-                        };
-
-                        Label lblTime = new Label
-                        {
-                            Text = $"Hôm nay lúc {createdAt}",
-                            Font = new Font("Inter", 8),
-                            ForeColor = Color.Gray,
-                            AutoSize = true
-                        };
-
-                        int nameY = 0;
-                        int bubbleY = nameY + lblName.Height + 4;
-                        int timeY = bubbleY + bubble.Height + 4;
-                        int panelHeight = timeY + lblTime.Height + 10;
-
-                        messagePanel.Height = panelHeight;
-
-                        if (isMyMessage)
-                        {
-                            avatar.Location = new Point(10, bubbleY);
-                            bubble.Location = new Point(60, bubbleY);
-                            lblName.Location = new Point(60, nameY);
-                            lblTime.Location = new Point(60, timeY);
-                        }
-                        else
-                        {
-                            bubble.Location = new Point(10, bubbleY);
-                            avatar.Location = new Point(210, bubbleY);
-                            lblName.Location = new Point(10, nameY);
-                            lblTime.Location = new Point(10, timeY);
-                        }
-
-                        messagePanel.Controls.Add(avatar);
-                        messagePanel.Controls.Add(lblName);
-                        messagePanel.Controls.Add(bubble);
-                        messagePanel.Controls.Add(lblTime);
-
-                        messagePanel.Location = new Point(10, nextY);
-                        pn_DisplayMessage.Controls.Add(messagePanel);
-
-                        pn_DisplayMessage.AutoScroll = originalAutoScroll;
-                        if (pn_DisplayMessage.AutoScroll)
-                        {
-                            pn_DisplayMessage.AutoScrollPosition = new Point(0, pn_DisplayMessage.DisplayRectangle.Height);
-                        }
-                    }
-                });
+                // Chuyển sang UI thread với BeginInvoke (không chờ)
+                if (InvokeRequired)
+                {
+                    BeginInvoke(new Action(() => AddMessageToUI(messageData)));
+                }
+                else
+                {
+                    AddMessageToUI(messageData);
+                }
             }
             catch (Exception ex)
             {
@@ -2382,6 +2315,169 @@ namespace PomoMeetApp.View
                 {
                     CustomMessageBox.Show($"Lỗi xử lý tin nhắn TCP: {ex.Message}", "Lỗi", MessageBoxMode.OK);
                 });
+            }
+        }
+
+        private void AddMessageToUI(dynamic messageData)
+        {
+            try
+            {
+                // Tạm thời suspend layout để tránh flicker
+                pn_DisplayMessage.SuspendLayout();
+
+                // Tính toán vị trí mới
+                int nextY = 10;
+                if (pn_DisplayMessage.Controls.Count > 0)
+                {
+                    Control lastControl = pn_DisplayMessage.Controls[pn_DisplayMessage.Controls.Count - 1];
+                    nextY = lastControl.Bottom + 5;
+                }
+
+                // Tạo message panel
+                Panel messagePanel = CreateMessagePanel(messageData, nextY);
+
+                // Thêm vào panel
+                pn_DisplayMessage.Controls.Add(messagePanel);
+
+                // Resume layout
+                pn_DisplayMessage.ResumeLayout();
+
+                // Scroll xuống cuối một cách mượt mà
+                ScrollToBottom();
+            }
+            catch (Exception ex)
+            {
+                Debug.WriteLine($"Lỗi thêm tin nhắn vào UI: {ex.Message}");
+            }
+        }
+
+        // Tạo message panel riêng biệt
+        private Panel CreateMessagePanel(dynamic messageData, int yPosition)
+        {
+            bool isMyMessage = messageData.UserId == currentUserId;
+
+            Panel messagePanel = new Panel
+            {
+                Width = pn_DisplayMessage.Width - 20,
+                BackColor = Color.Transparent,
+                Anchor = AnchorStyles.Top | AnchorStyles.Left,
+                Location = new Point(10, yPosition)
+            };
+
+            // Tạo avatar
+            PictureBox avatar = new PictureBox
+            {
+                Size = new Size(40, 40),
+                SizeMode = PictureBoxSizeMode.Zoom,
+                BackColor = Color.Transparent,
+                Image = MakeRoundedAvatar(GetAvatarFromResources(messageData.AvatarKey), new Size(40, 40))
+            };
+
+            // Tạo message bubble
+            MessageBubble bubble = new MessageBubble(messageData.MessageText, isMyMessage)
+            {
+                Width = 180
+            };
+
+            // Tạo label name
+            Label lblName = new Label
+            {
+                Text = messageData.Username,
+                Font = new Font("Inter", 10, FontStyle.Bold),
+                ForeColor = Color.Black,
+                AutoSize = true
+            };
+
+            // Tạo label time
+            Label lblTime = new Label
+            {
+                Text = $"Hôm nay lúc {messageData.CreatedAt}",
+                Font = new Font("Inter", 8),
+                ForeColor = Color.Gray,
+                AutoSize = true
+            };
+
+            // Tính toán layout
+            int nameY = 0;
+            int bubbleY = nameY + lblName.Height + 4;
+            int timeY = bubbleY + bubble.Height + 4;
+            int panelHeight = timeY + lblTime.Height + 10;
+
+            messagePanel.Height = panelHeight;
+
+            // Đặt vị trí controls
+            if (isMyMessage)
+            {
+                avatar.Location = new Point(10, bubbleY);
+                bubble.Location = new Point(60, bubbleY);
+                lblName.Location = new Point(60, nameY);
+                lblTime.Location = new Point(60, timeY);
+            }
+            else
+            {
+                bubble.Location = new Point(10, bubbleY);
+                avatar.Location = new Point(210, bubbleY);
+                lblName.Location = new Point(10, nameY);
+                lblTime.Location = new Point(10, timeY);
+            }
+
+            // Thêm controls vào panel
+            messagePanel.Controls.AddRange(new Control[] { avatar, lblName, bubble, lblTime });
+
+            return messagePanel;
+        }
+
+        private void ScrollToBottom()
+        {
+            if (pn_DisplayMessage.Controls.Count > 0)
+            {
+                // Sử dụng timer để scroll mượt mà
+                System.Windows.Forms.Timer scrollTimer = new System.Windows.Forms.Timer();
+                scrollTimer.Interval = 10;
+                int targetY = pn_DisplayMessage.DisplayRectangle.Height;
+                int currentY = -pn_DisplayMessage.AutoScrollPosition.Y;
+                int step = Math.Max(1, (targetY - currentY) / 10);
+
+                scrollTimer.Tick += (sender, e) =>
+                {
+                    currentY += step;
+                    if (currentY >= targetY)
+                    {
+                        pn_DisplayMessage.AutoScrollPosition = new Point(0, targetY);
+                        scrollTimer.Stop();
+                        scrollTimer.Dispose();
+                    }
+                    else
+                    {
+                        pn_DisplayMessage.AutoScrollPosition = new Point(0, currentY);
+                    }
+                };
+
+                scrollTimer.Start();
+            }
+        }
+
+        private void LimitMessageCount()
+        {
+            const int maxMessages = 50; // Giới hạn 50 tin nhắn
+
+            if (pn_DisplayMessage.Controls.Count > maxMessages)
+            {
+                // Xóa tin nhắn cũ nhất
+                for (int i = 0; i < pn_DisplayMessage.Controls.Count - maxMessages; i++)
+                {
+                    Control oldControl = pn_DisplayMessage.Controls[0];
+                    pn_DisplayMessage.Controls.RemoveAt(0);
+                    oldControl.Dispose();
+                }
+
+                // Điều chỉnh lại vị trí các tin nhắn còn lại
+                int nextY = 10;
+                foreach (Control control in pn_DisplayMessage.Controls)
+                {
+                    control.Location = new Point(control.Location.X, nextY);
+                    nextY = control.Bottom + 5;
+                }
             }
         }
         private void CleanupTcpChat()
@@ -2430,24 +2526,34 @@ namespace PomoMeetApp.View
             {
                 return;
             }
+
+            // Disable button để tránh spam
+            btnSendMessages.Enabled = false;
+
             try
             {
                 var (username, _) = await GetUserInfoFromFirestore(currentUserId);
                 string timestamp = DateTime.Now.ToString("HH:mm");
                 string message = $"{currentUserId}|{username}|{msg}|{timestamp}";
+
                 if (client?.Connected == true)
                 {
                     var stream = client.GetStream();
                     byte[] msgBytes = Encoding.UTF8.GetBytes(message);
                     await stream.WriteAsync(msgBytes, 0, msgBytes.Length);
                 }
+
                 tbMessages.Clear();
             }
             catch (Exception ex)
             {
                 CustomMessageBox.Show($"Lỗi gửi tin nhắn: {ex.Message}", "Lỗi", MessageBoxMode.OK);
             }
-
+            finally
+            {
+                // Re-enable button
+                btnSendMessages.Enabled = true;
+            }
         }
 
         public class MessageBubble : Panel
@@ -2504,8 +2610,6 @@ namespace PomoMeetApp.View
                 }
             }
         }
-
-
 
         // hàm lấy realtime message, đây là chỗ để quay đầu, đừng có xóa -_-
         private void ListenMessage()
