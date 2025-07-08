@@ -781,7 +781,7 @@ namespace PomoMeetApp.View
             {
                 { $"members_status.{currentUserId}", new Dictionary<string, object>
                     {
-                        { "camera_on", false },
+                        { "camera_on", true },
                         { "mic_on", false },
                         { "speaker_on", true }
                     }
