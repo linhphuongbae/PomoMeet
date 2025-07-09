@@ -866,10 +866,18 @@ namespace PomoMeetApp.View
             // 9. Lấy thông tin thành viên
             await GetMembersFromFirestore();
 
+            // Set volume
+            rtcEngine.AdjustPlaybackSignalVolume(100);
+            rtcEngine.AdjustRecordingSignalVolume(100);
+
+            // Enable volume indication
+            rtcEngine.EnableAudioVolumeIndication(500, 3, true);
+
             // 10. Tham gia kênh
             uint localUid = GetUidFromId(currentUserId);
             int result = rtcEngine.JoinChannel("", currentroomId, "", localUid);
             Debug.WriteLine($"Join Channel result: {result}, LocalUID: {localUid}");
+
 
             // 11. Chỉ tắt mic, video sẽ xử lý sau khi join
             rtcEngine.MuteLocalAudioStream(true);
@@ -1328,21 +1336,35 @@ namespace PomoMeetApp.View
             bool currentMicState = memberStates.ContainsKey(currentUserId) && memberStates[currentUserId].MicOn;
             bool newMicState = !currentMicState;
 
-
-            // Cập nhật trạng thái mic trong Firestore
-            await UpdateMicStateAsync(currentUserId, newMicState);
-
-            // Cập nhật trạng thái local
-            if (memberStates.ContainsKey(currentUserId))
+            try
             {
-                memberStates[currentUserId].MicOn = newMicState;
+                // 1. Cập nhật trạng thái mic trong Agora 
+                int result = rtcEngine.MuteLocalAudioStream(!newMicState); // true = bật, false = tắt
+
+                if (result == 0) // Thành công
+                {
+                    // 2. Cập nhật trạng thái mic trong Firestore
+                    await UpdateMicStateAsync(currentUserId, newMicState);
+
+                    // 3. Cập nhật trạng thái local
+                    if (memberStates.ContainsKey(currentUserId))
+                    {
+                        memberStates[currentUserId].MicOn = newMicState;
+                    }
+
+                    // 4. Đổi icon nút mic
+                    btn_Mic.BackgroundImage = newMicState ? Properties.Resources.mic : Properties.Resources.videomic_off;
+
+                }
+                else
+                {
+                    Debug.WriteLine($"Failed to change mic state: {result}");
+                }
             }
-
-            // Đổi icon nút mic
-            btn_Mic.BackgroundImage = newMicState ? Properties.Resources.mic : Properties.Resources.videomic_off;
-
-            // Bật hoặc tắt mic ngay lập tức
-            rtcEngine.MuteLocalAudioStream(!newMicState);
+            catch (Exception ex)
+            {
+                Debug.WriteLine($"Error in mic control: {ex.Message}");
+            }
         }
 
         private async Task UpdateSpeakerStateAsync(string userId, bool turnOn)
@@ -1359,28 +1381,35 @@ namespace PomoMeetApp.View
             bool currentSpeakerState = memberStates.ContainsKey(currentUserId) && memberStates[currentUserId].SpeakerOn;
             bool newSpeakerState = !currentSpeakerState;
 
-            // 1. Cập nhật trạng thái loa trong Firestore
-            await UpdateSpeakerStateAsync(currentUserId, newSpeakerState);
-
-            // 2. Cập nhật trạng thái loa trong bộ nhớ local
-            if (memberStates.ContainsKey(currentUserId))
+            try
             {
-                memberStates[currentUserId].SpeakerOn = newSpeakerState;
+                // 1. Cập nhật trạng thái loa trong Firestore
+                await UpdateSpeakerStateAsync(currentUserId, newSpeakerState);
+
+                // 2. Cập nhật trạng thái loa trong bộ nhớ local
+                if (memberStates.ContainsKey(currentUserId))
+                {
+                    memberStates[currentUserId].SpeakerOn = newSpeakerState;
+                }
+
+                // 3. Thay đổi icon nút loa theo trạng thái
+                btn_Speaker.BackgroundImage = newSpeakerState
+                    ? Properties.Resources.icon_sound_on   // icon loa đang bật
+                    : Properties.Resources.speaker_mute; // icon loa đang tắt
+
+
+                if (newSpeakerState)
+                {
+                    rtcEngine.AdjustPlaybackSignalVolume(100); // Volume 100%
+                }
+                else
+                {
+                    rtcEngine.AdjustPlaybackSignalVolume(0); // Volume 0% = tắt hoàn toàn
+                }
             }
-
-            // 3. Thay đổi icon nút loa theo trạng thái
-            btn_Speaker.BackgroundImage = newSpeakerState
-                ? Properties.Resources.icon_sound_on   // icon loa đang bật
-                : Properties.Resources.speaker_mute; // icon loa đang tắt
-
-            // 4. Xử lý bật/tắt âm thanh 
-            if (newSpeakerState)
+            catch (Exception ex)
             {
-                rtcEngine.SetEnableSpeakerphone(true); // bật loa ngoài
-            }
-            else
-            {
-                rtcEngine.SetEnableSpeakerphone(false); // tắt loa ngoài, chuyển sang tai nghe nếu có
+                Debug.WriteLine($"Error in speaker control: {ex.Message}");
             }
         }
 
