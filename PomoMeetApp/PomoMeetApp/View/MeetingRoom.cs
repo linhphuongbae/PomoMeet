@@ -1685,10 +1685,10 @@ namespace PomoMeetApp.View
                 lastShownJoinUserId = remoteUserId;
 
                 // Gửi thông báo cho tất cả các thành viên trong phòng (trừ người mới tham gia)
-                //if (remoteUserId != hostId)
-                //{
-                //    await NotifyAllMembersAboutNewJoin(remoteUserId);
-                //}
+                if (remoteUserId != hostId)
+                {
+                    await NotifyAllMembersAboutNewJoin(remoteUserId);
+                }
             }
         }
 
@@ -1810,6 +1810,9 @@ namespace PomoMeetApp.View
         };
                 await roomRef.UpdateAsync(updates);
 
+                isPomodoroRunning = false; // Reset trạng thái Pomodoro nếu có
+                StopPomodoro(true);
+
                 // Cleanup Agora resources
                 CleanupAgoraResources();
             }
@@ -1831,6 +1834,7 @@ namespace PomoMeetApp.View
         {
             try
             {
+                StopPomodoro(true); // Dừng Pomodoro nếu đang chạy
                 if (rtcEngine != null)
                 {
 
@@ -1849,15 +1853,6 @@ namespace PomoMeetApp.View
                     rtcEngine.Dispose();
                     rtcEngine = null;
 
-                    outputDevice?.Stop();
-                    outputDevice?.Dispose();
-                    outputDevice = null;
-
-                    audioFileReader?.Dispose();
-                    audioFileReader = null;
-
-                    musicProgressTimer?.Stop();
-                    musicProgressTimer = null;
                 }
             }
             catch (Exception ex)
@@ -2135,6 +2130,8 @@ namespace PomoMeetApp.View
         {
             try
             {
+                isPomodoroRunning = false; // Reset trạng thái Pomodoro nếu có
+                StopPomodoro(true); // Dừng Pomodoro nếu đang chạy
 
                 FirestoreDb db = FirebaseConfig.database;
                 DocumentReference roomRef = db.Collection("Room").Document(currentroomId);
@@ -2938,16 +2935,47 @@ namespace PomoMeetApp.View
                 return;
             }
 
-            var PomodoroRef = FirebaseConfig.database.Collection("Pomodoro_Sessions").Document(currentroomId);
+            try
+            {
+                // Reset Pomodoro về thời gian ban đầu và bắt đầu lại
+                var now = DateTime.UtcNow;
+                pomodoroStartTime = now;
+                isBreakTime = false; // Reset về trạng thái làm việc
 
-            await PomodoroRef.UpdateAsync(new Dictionary<string, object>
+                // Cập nhật Firebase
+                var PomodoroRef = FirebaseConfig.database.Collection("Pomodoro_Sessions").Document(currentroomId);
+                await PomodoroRef.UpdateAsync(new Dictionary<string, object>
         {
-            { "is_running", false },
-            { "start_time", null },
-            { "paused_time", null }
+            { "is_running", true },
+            { "start_time", now.ToString("o") },
+            { "paused_time", null },
+            { "is_break_time", false }
         });
 
-            StopPomodoro(resetUI: true);
+                // Reset và bắt đầu lại countdown
+                isPomodoroRunning = true;
+                StartPomodoroCountdown(now);
+
+                // Reset nhạc từ đầu nếu có
+                if (musicIndex >= 0 && musicIndex < songBytes.Length)
+                {
+                    // Reset nhạc về đầu
+                    if (audioFileReader != null)
+                    {
+                        audioFileReader.Position = 0;
+                        currentMusicSeconds = 0;
+                        SafeInvoke(() =>
+                        {
+                            ProgressBarMusic.Value = 0;
+                            lb_CurrentTime.Text = "00:00";
+                        });
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                Debug.WriteLine($"Lỗi khi reset: {ex.Message}", "Lỗi", MessageBoxMode.OK);
+            }
         }
 
         private void SetBackgroundFromArray(int index)
@@ -2990,15 +3018,11 @@ namespace PomoMeetApp.View
                 {
                     if (isPomodoroRunning && (DateTime.UtcNow - pomodoroStartTime).TotalSeconds < countdownTime * 60)
                     {
-                        if (audioFileReader != null && outputDevice != null && musicProgressTimer != null)
-                        {
-                            audioFileReader.Position = 0;
-                            outputDevice.Play();
-                            currentMusicSeconds = 0;
-                            musicProgressTimer.Start();
-                        }
+                        audioFileReader.Position = 0;
+                        outputDevice.Play();
+                        currentMusicSeconds = 0;
+                        musicProgressTimer?.Start();
                     }
-
                 };
 
                 outputDevice.Play();
@@ -3137,33 +3161,96 @@ namespace PomoMeetApp.View
 
         private void StopPomodoro(bool resetUI = false)
         {
-            pomoTimer?.Stop();
-            outputDevice?.Stop();
-            musicProgressTimer?.Stop();
-
-            if (resetUI)
+            try
             {
-                audioFileReader?.Dispose();
-                audioFileReader = null;
-                outputDevice?.Dispose();
-                outputDevice = null;
-                pausedMusicPosition = 0;
-                currentMusicSeconds = 0;
-                musicTotalSeconds = 0;
-
-                if (!string.IsNullOrEmpty(cachedMusicPath) && File.Exists(cachedMusicPath))
+                // Dừng timer trước để tránh timer vẫn chạy khi dispose
+                if (pomoTimer != null)
                 {
-                    try { File.Delete(cachedMusicPath); } catch { }
-                    cachedMusicPath = null;
+                    pomoTimer.Stop();
+                    pomoTimer.Dispose();
+                    pomoTimer = null;
                 }
 
-                SafeInvoke(() =>
+                if (musicProgressTimer != null)
                 {
-                    ProgressBarMusic.Value = 0;
-                    lb_time_counter.Text = "--:--";
-                    lb_CurrentTime.Text = "00:00";
-                    lb_TotalTime.Text = "--:--";
-                });
+                    musicProgressTimer.Stop();
+                    musicProgressTimer.Dispose();
+                    musicProgressTimer = null;
+                }
+
+                // Dừng và dispose audio devices an toàn
+                if (outputDevice != null)
+                {
+                    try
+                    {
+                        if (outputDevice.PlaybackState == PlaybackState.Playing ||
+                            outputDevice.PlaybackState == PlaybackState.Paused)
+                        {
+                            outputDevice.Stop();
+                        }
+                    }
+                    catch { }
+
+                    try
+                    {
+                        outputDevice.Dispose();
+                    }
+                    catch { }
+
+                    outputDevice = null;
+                }
+
+                // Dispose audioFileReader an toàn
+                if (audioFileReader != null)
+                {
+                    try
+                    {
+                        audioFileReader.Dispose();
+                    }
+                    catch { }
+
+                    audioFileReader = null;
+                }
+
+                if (resetUI)
+                {
+                    // Reset các biến
+                    pausedMusicPosition = 0;
+                    currentMusicSeconds = 0;
+                    musicTotalSeconds = 0;
+
+                    // Xóa file cache
+                    if (!string.IsNullOrEmpty(cachedMusicPath) && File.Exists(cachedMusicPath))
+                    {
+                        try
+                        {
+                            // Đợi một chút để đảm bảo file không bị lock
+                            System.Threading.Thread.Sleep(100);
+                            File.Delete(cachedMusicPath);
+                        }
+                        catch { }
+
+                        cachedMusicPath = null;
+                    }
+
+                    // Reset UI
+                    SafeInvoke(() =>
+                    {
+                        try
+                        {
+                            if (ProgressBarMusic != null) ProgressBarMusic.Value = 0;
+                            if (lb_time_counter != null) lb_time_counter.Text = "--:--";
+                            if (lb_CurrentTime != null) lb_CurrentTime.Text = "00:00";
+                            if (lb_TotalTime != null) lb_TotalTime.Text = "--:--";
+                        }
+                        catch { }
+                    });
+                }
+            }
+            catch (Exception ex)
+            {
+                // Log lỗi nhưng không hiển thị cho user trong trường hợp này
+                Debug.WriteLine($"Error in StopPomodoro: {ex.Message}");
             }
         }
 
