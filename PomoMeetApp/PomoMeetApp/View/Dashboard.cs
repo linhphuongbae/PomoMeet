@@ -669,6 +669,16 @@ namespace PomoMeetApp.View
 
                         this.Invoke(() =>
                         {
+                            // Tạo bản sao danh sách các form hiện tại
+                            var openForms = Application.OpenForms.Cast<Form>().ToList();
+
+                            foreach (Form frm in openForms)
+                            {
+                                if (frm != this && !frm.IsDisposed)
+                                {
+                                    try { frm.Close(); } catch { }
+                                }
+                            }
                             Application.Exit();
                         });
                     }

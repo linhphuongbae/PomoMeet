@@ -100,7 +100,8 @@ namespace PomoMeetApp.View
         private string lastShownLeftUserId = string.Empty;
         public static bool RoomDeletedByHost = false;
 
-
+        private bool initialMembersLoaded = false;
+        private HashSet<string> oldMembers = new HashSet<string>();
 
         public MeetingRoom(string userId, string roomId)
         {
@@ -343,6 +344,34 @@ namespace PomoMeetApp.View
                 if (!snapshot.TryGetValue("members_status", out Dictionary<string, object> membersStatus))
                 {
                     return;
+                }
+
+                var currentMembers = new HashSet<string>(membersStatus.Keys);
+
+                // Nếu chưa load lần đầu (tức là lần đầu vào phòng), chỉ lưu lại, KHÔNG show thông báo join
+                if (!initialMembersLoaded)
+                {
+                    oldMembers = new HashSet<string>(currentMembers); // Lưu lại các thành viên hiện có
+                    initialMembersLoaded = true;
+                }
+                else
+                {
+                    // Những lần update tiếp theo mới kiểm tra member mới và show notification
+                    var newMembers = currentMembers.Except(oldMembers).ToList();
+
+                    foreach (var joinedId in newMembers)
+                    {
+                        if (joinedId != currentUserId)
+                        {
+                            var username = await GetUsernameFromFirestore(joinedId);
+                            // Hiển thị thông báo người mới vào phòng
+                            this.Invoke(() => {
+                                notificationInRoom.SetNotification($"'{username}' đã tham gia phòng!", "new_join");
+                            });
+                        }
+                    }
+
+                    oldMembers = currentMembers; // Cập nhật lại cho lần so sánh tiếp theo
                 }
 
                 // Bỏ qua kiểm tra đầu tiên trong 3 giây đầu
@@ -1656,10 +1685,10 @@ namespace PomoMeetApp.View
                 lastShownJoinUserId = remoteUserId;
 
                 // Gửi thông báo cho tất cả các thành viên trong phòng (trừ người mới tham gia)
-                if (remoteUserId != hostId)
-                {
-                    await NotifyAllMembersAboutNewJoin(remoteUserId);
-                }
+                //if (remoteUserId != hostId)
+                //{
+                //    await NotifyAllMembersAboutNewJoin(remoteUserId);
+                //}
             }
         }
 
