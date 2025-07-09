@@ -34,12 +34,10 @@
             siticonePanel6 = new SiticoneNetCoreUI.SiticonePanel();
             siticonePictureBox8 = new SiticoneNetCoreUI.SiticonePictureBox();
             siticonePictureBox7 = new SiticoneNetCoreUI.SiticonePictureBox();
-            siticonePictureBox6 = new SiticoneNetCoreUI.SiticonePictureBox();
             siticonePictureBox5 = new SiticoneNetCoreUI.SiticonePictureBox();
             siticonePictureBox3 = new SiticoneNetCoreUI.SiticonePictureBox();
             siticonePictureBox4 = new SiticoneNetCoreUI.SiticonePictureBox();
             siticoneButton5 = new SiticoneNetCoreUI.SiticoneButton();
-            siticoneButton6 = new SiticoneNetCoreUI.SiticoneButton();
             siticoneButton7 = new SiticoneNetCoreUI.SiticoneButton();
             siticoneButton8 = new SiticoneNetCoreUI.SiticoneButton();
             siticonePanel1.SuspendLayout();
@@ -58,12 +56,10 @@
             siticonePanel1.Controls.Add(siticoneButton4);
             siticonePanel1.Controls.Add(siticonePanel6);
             siticonePanel1.Controls.Add(siticonePictureBox7);
-            siticonePanel1.Controls.Add(siticonePictureBox6);
             siticonePanel1.Controls.Add(siticonePictureBox5);
             siticonePanel1.Controls.Add(siticonePictureBox3);
             siticonePanel1.Controls.Add(siticonePictureBox4);
             siticonePanel1.Controls.Add(siticoneButton5);
-            siticonePanel1.Controls.Add(siticoneButton6);
             siticonePanel1.Controls.Add(siticoneButton7);
             siticonePanel1.Controls.Add(siticoneButton8);
             siticonePanel1.CornerRadiusBottomLeft = 0F;
@@ -301,7 +297,7 @@
             siticonePictureBox7.Images = (List<Image>)resources.GetObject("siticonePictureBox7.Images");
             siticonePictureBox7.InterpolationMode = System.Drawing.Drawing2D.InterpolationMode.HighQualityBicubic;
             siticonePictureBox7.IsCircular = false;
-            siticonePictureBox7.Location = new Point(21, 545);
+            siticonePictureBox7.Location = new Point(21, 440);
             siticonePictureBox7.MaintainAspectRatio = true;
             siticonePictureBox7.Name = "siticonePictureBox7";
             siticonePictureBox7.PlaceholderImage = null;
@@ -312,48 +308,6 @@
             siticonePictureBox7.SizeMode = SiticoneNetCoreUI.SiticonePictureBoxSizeMode.Normal;
             siticonePictureBox7.TabIndex = 11;
             siticonePictureBox7.Text = "siticonePictureBox7";
-            // 
-            // siticonePictureBox6
-            // 
-            siticonePictureBox6.BackColor = Color.Transparent;
-            siticonePictureBox6.BorderColor = Color.Black;
-            siticonePictureBox6.BorderWidth = 1;
-            siticonePictureBox6.Brightness = 1F;
-            siticonePictureBox6.Contrast = 1F;
-            siticonePictureBox6.CornerRadius = 0;
-            siticonePictureBox6.DraggingSpeed = 3.15F;
-            siticonePictureBox6.EnableAsyncLoading = false;
-            siticonePictureBox6.EnableCaching = false;
-            siticonePictureBox6.EnableDragDrop = false;
-            siticonePictureBox6.EnableExtendedImageSources = false;
-            siticonePictureBox6.EnableFilters = false;
-            siticonePictureBox6.EnableFlipping = false;
-            siticonePictureBox6.EnableGlow = false;
-            siticonePictureBox6.EnableHighDpiSupport = false;
-            siticonePictureBox6.EnableMouseInteraction = false;
-            siticonePictureBox6.EnablePlaceholder = false;
-            siticonePictureBox6.EnableRotation = false;
-            siticonePictureBox6.EnableShadow = false;
-            siticonePictureBox6.EnableSlideshow = false;
-            siticonePictureBox6.FlipHorizontal = false;
-            siticonePictureBox6.FlipVertical = false;
-            siticonePictureBox6.Grayscale = false;
-            siticonePictureBox6.Image = (Image)resources.GetObject("siticonePictureBox6.Image");
-            siticonePictureBox6.ImageOpacity = 1F;
-            siticonePictureBox6.Images = (List<Image>)resources.GetObject("siticonePictureBox6.Images");
-            siticonePictureBox6.InterpolationMode = System.Drawing.Drawing2D.InterpolationMode.HighQualityBicubic;
-            siticonePictureBox6.IsCircular = false;
-            siticonePictureBox6.Location = new Point(19, 449);
-            siticonePictureBox6.MaintainAspectRatio = true;
-            siticonePictureBox6.Name = "siticonePictureBox6";
-            siticonePictureBox6.PlaceholderImage = null;
-            siticonePictureBox6.RotationAngle = 0F;
-            siticonePictureBox6.Saturation = 1F;
-            siticonePictureBox6.ShowBorder = false;
-            siticonePictureBox6.Size = new Size(54, 62);
-            siticonePictureBox6.SizeMode = SiticoneNetCoreUI.SiticonePictureBoxSizeMode.Normal;
-            siticonePictureBox6.TabIndex = 10;
-            siticonePictureBox6.Text = "siticonePictureBox6";
             // 
             // siticonePictureBox5
             // 
@@ -530,7 +484,7 @@
             siticoneButton5.IsReadOnly = false;
             siticoneButton5.IsToggleButton = false;
             siticoneButton5.IsToggled = false;
-            siticoneButton5.Location = new Point(81, 545);
+            siticoneButton5.Location = new Point(81, 440);
             siticoneButton5.LongPressDurationMS = 1000;
             siticoneButton5.Name = "siticoneButton5";
             siticoneButton5.NormalFontStyle = FontStyle.Regular;
@@ -558,84 +512,6 @@
             siticoneButton5.UseAdvancedRendering = true;
             siticoneButton5.UseParticles = false;
             siticoneButton5.Click += siticoneButton5_Click;
-            // 
-            // siticoneButton6
-            // 
-            siticoneButton6.AccessibleDescription = "The default button control that accept input though the mouse, touch and keyboard";
-            siticoneButton6.AccessibleName = "Cài đặt";
-            siticoneButton6.AutoSizeBasedOnText = false;
-            siticoneButton6.BackColor = Color.Transparent;
-            siticoneButton6.BadgeBackColor = Color.Red;
-            siticoneButton6.BadgeFont = new Font("Inter", 8F, FontStyle.Bold);
-            siticoneButton6.BadgeValue = 0;
-            siticoneButton6.BadgeValueForeColor = Color.White;
-            siticoneButton6.BorderColor = Color.Transparent;
-            siticoneButton6.BorderWidth = 2;
-            siticoneButton6.ButtonBackColor = Color.Transparent;
-            siticoneButton6.ButtonImage = null;
-            siticoneButton6.CanBeep = true;
-            siticoneButton6.CanGlow = false;
-            siticoneButton6.CanShake = true;
-            siticoneButton6.ContextMenuStripEx = null;
-            siticoneButton6.CornerRadiusBottomLeft = 0;
-            siticoneButton6.CornerRadiusBottomRight = 0;
-            siticoneButton6.CornerRadiusTopLeft = 0;
-            siticoneButton6.CornerRadiusTopRight = 0;
-            siticoneButton6.CustomCursor = Cursors.Default;
-            siticoneButton6.DisabledTextColor = Color.FromArgb(150, 150, 150);
-            siticoneButton6.EnableLongPress = false;
-            siticoneButton6.EnablePressAnimation = true;
-            siticoneButton6.EnableRippleEffect = true;
-            siticoneButton6.EnableShadow = false;
-            siticoneButton6.EnableTextWrapping = false;
-            siticoneButton6.Font = new Font("Inter ExtraBold", 18F, FontStyle.Bold, GraphicsUnit.Point, 0);
-            siticoneButton6.ForeColor = Color.Black;
-            siticoneButton6.GlowColor = Color.FromArgb(100, 255, 255, 255);
-            siticoneButton6.GlowIntensity = 100;
-            siticoneButton6.GlowRadius = 20F;
-            siticoneButton6.GradientBackground = false;
-            siticoneButton6.GradientColor = Color.FromArgb(114, 168, 255);
-            siticoneButton6.GradientMode = System.Drawing.Drawing2D.LinearGradientMode.Vertical;
-            siticoneButton6.HintText = null;
-            siticoneButton6.HoverBackColor = Color.Transparent;
-            siticoneButton6.HoverFontStyle = FontStyle.Regular;
-            siticoneButton6.HoverTextColor = Color.White;
-            siticoneButton6.HoverTransitionDuration = 250;
-            siticoneButton6.ImageAlign = ContentAlignment.MiddleLeft;
-            siticoneButton6.ImagePadding = 5;
-            siticoneButton6.ImageSize = new Size(16, 16);
-            siticoneButton6.IsRadial = false;
-            siticoneButton6.IsReadOnly = false;
-            siticoneButton6.IsToggleButton = false;
-            siticoneButton6.IsToggled = false;
-            siticoneButton6.Location = new Point(82, 449);
-            siticoneButton6.LongPressDurationMS = 1000;
-            siticoneButton6.Name = "siticoneButton6";
-            siticoneButton6.NormalFontStyle = FontStyle.Regular;
-            siticoneButton6.ParticleColor = Color.FromArgb(200, 200, 200);
-            siticoneButton6.ParticleCount = 15;
-            siticoneButton6.PressAnimationScale = 0.97F;
-            siticoneButton6.PressedBackColor = Color.White;
-            siticoneButton6.PressedFontStyle = FontStyle.Regular;
-            siticoneButton6.PressTransitionDuration = 150;
-            siticoneButton6.ReadOnlyTextColor = Color.Transparent;
-            siticoneButton6.RippleColor = Color.FromArgb(255, 255, 255);
-            siticoneButton6.RippleOpacity = 0.3F;
-            siticoneButton6.RippleRadiusMultiplier = 0.6F;
-            siticoneButton6.ShadowBlur = 5;
-            siticoneButton6.ShadowColor = Color.FromArgb(100, 0, 0, 0);
-            siticoneButton6.ShadowOffset = new Point(2, 2);
-            siticoneButton6.ShakeDuration = 500;
-            siticoneButton6.ShakeIntensity = 5;
-            siticoneButton6.Size = new Size(184, 62);
-            siticoneButton6.TabIndex = 4;
-            siticoneButton6.Text = "Cài đặt";
-            siticoneButton6.TextAlign = ContentAlignment.MiddleLeft;
-            siticoneButton6.TextColor = Color.FromArgb(252, 255, 224);
-            siticoneButton6.TooltipText = null;
-            siticoneButton6.UseAdvancedRendering = true;
-            siticoneButton6.UseParticles = false;
-            siticoneButton6.Click += siticoneButton6_Click;
             // 
             // siticoneButton7
             // 
@@ -686,7 +562,7 @@
             siticoneButton7.IsReadOnly = false;
             siticoneButton7.IsToggleButton = false;
             siticoneButton7.IsToggled = false;
-            siticoneButton7.Location = new Point(79, 349);
+            siticoneButton7.Location = new Point(84, 349);
             siticoneButton7.LongPressDurationMS = 1000;
             siticoneButton7.Name = "siticoneButton7";
             siticoneButton7.NormalFontStyle = FontStyle.Regular;
@@ -812,12 +688,10 @@
         private SiticoneNetCoreUI.SiticonePanel siticonePanel6;
         private SiticoneNetCoreUI.SiticonePictureBox siticonePictureBox8;
         private SiticoneNetCoreUI.SiticonePictureBox siticonePictureBox7;
-        private SiticoneNetCoreUI.SiticonePictureBox siticonePictureBox6;
         private SiticoneNetCoreUI.SiticonePictureBox siticonePictureBox5;
         private SiticoneNetCoreUI.SiticonePictureBox siticonePictureBox3;
         private SiticoneNetCoreUI.SiticonePictureBox siticonePictureBox4;
         private SiticoneNetCoreUI.SiticoneButton siticoneButton5;
-        private SiticoneNetCoreUI.SiticoneButton siticoneButton6;
         private SiticoneNetCoreUI.SiticoneButton siticoneButton7;
         private SiticoneNetCoreUI.SiticoneButton siticoneButton8;
     }
