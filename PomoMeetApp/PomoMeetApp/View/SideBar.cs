@@ -36,18 +36,26 @@ namespace PomoMeetApp.View
         {
             Friends fr = new Friends();
             fr.Show();
+
+       
+            Form currentForm = this.FindForm(); 
+            if (currentForm != null)
+            {
+                currentForm.Hide(); // Đóng form hiện tại
+            }
         }
 
-        private void siticoneButton6_Click(object sender, EventArgs e)
-        {
-            Setting st = new Setting();
-            st.Show();
-        }
+
 
         private void siticoneButton8_Click(object sender, EventArgs e)
         {
             Dashboard db = new Dashboard(curUserId);
-            db.ShowDialog();
+            db.Show();
+            Form currentForm = this.FindForm();
+            if (currentForm != null)
+            {
+                currentForm.Hide(); // Đóng form hiện tại
+            }
         }
 
         private async void siticoneButton5_Click(object sender, EventArgs e)
