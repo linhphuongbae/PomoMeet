@@ -98,6 +98,9 @@ namespace PomoMeetApp.View
 
         private string lastShownJoinUserId = string.Empty;
         private string lastShownLeftUserId = string.Empty;
+        public static bool RoomDeletedByHost = false;
+
+
 
         public MeetingRoom(string userId, string roomId)
         {
@@ -315,15 +318,22 @@ namespace PomoMeetApp.View
                 if (this.IsDisposed || this.Disposing || isLeavingRoom) return;
 
                 // Kiểm tra phòng bị xóa
-                if (!snapshot.Exists)
+                if (!snapshot.Exists ||
+                    (snapshot.TryGetValue("deleted_by_host", out bool deleted) && deleted) ||
+                    (snapshot.TryGetValue("is_closing", out bool closing) && closing))
                 {
                     SafeInvoke(() =>
                     {
                         if (!this.IsDisposed && !this.Disposing)
                         {
                             isLeavingRoom = true;
-                            CustomMessageBox.Show("Phòng đã bị xóa bởi host!", "Thông báo", MessageBoxMode.OK);
-                            this.Close();
+                            MeetingRoom.RoomDeletedByHost = true;
+
+                            // Đóng form sau 1 giây để đảm bảo thông báo hiển thị
+                            Task.Delay(1000).ContinueWith(_ =>
+                            {
+                                this.Invoke(() => this.Close());
+                            });
                         }
                     });
                     return;
@@ -683,15 +693,22 @@ namespace PomoMeetApp.View
                 if (remoteUserId != hostId)
                 {
                     // Cập nhật thời gian offline của người dùng
-                    await db.Collection("Room")
-                        .Document(currentroomId)
-                        .UpdateAsync(new Dictionary<string, object>
-                        {
-                    { "last_left_user", new {
-                        user_id = remoteUserId,
-                        timestamp = DateTime.UtcNow // Ghi lại thời gian offline
-                    }}
-                        });
+                    var docRef = db.Collection("Room").Document(currentroomId);
+                    var docSnap = await docRef.GetSnapshotAsync();
+                    if (docSnap.Exists)
+                    {
+                        await docRef.UpdateAsync(new Dictionary<string, object>
+    {
+        { "last_left_user", new {
+            user_id = remoteUserId,
+            timestamp = DateTime.UtcNow
+        }}
+    });
+                    }
+                    else
+                    {
+                        // Document không còn, không update gì nữa
+                    }
                 }
 
                 // Gửi thông báo cho tất cả các thành viên trong phòng (trừ người đã offline)
@@ -1769,8 +1786,10 @@ namespace PomoMeetApp.View
             }
             catch (Exception ex)
             {
-                MessageBox.Show($"Lỗi khi rời phòng: {ex.Message}", "Lỗi", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                // Vẫn cần cleanup ngay cả khi có lỗi
+                if (!(ex is Grpc.Core.RpcException rpc && rpc.Status.StatusCode == Grpc.Core.StatusCode.NotFound))
+                {
+                    MessageBox.Show($"Lỗi khi rời phòng: {ex.Message}", "Lỗi", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                }
                 CleanupAgoraResources();
             }
             finally
@@ -1810,6 +1829,12 @@ namespace PomoMeetApp.View
         }
         protected override void OnFormClosing(FormClosingEventArgs e)
         {
+            if (MeetingRoom.RoomDeletedByHost)
+            {
+                e.Cancel = false;
+                return;
+            }
+
             if (isBeingKicked)
             {
                 // Nếu bị kick thì cho phép đóng form ngay
@@ -1949,11 +1974,11 @@ namespace PomoMeetApp.View
                         isLeavingRoom = false; // Reset flag
                         return false; // User hủy, không đóng form
                     }
+                    await NotifyMembersRoomClosing();
 
                     await MarkRoomAsDeletedByHost();
                     await DeleteRoomFromFirestore();
                     await DeleteInvitationsOfRoom(currentroomId);
-                    NotifyMembersRoomClosed();
 
                     await UserStatusManager.Instance.UpdateUserStatus(currentUserId, "offline");
                     // Cleanup Agora resources cho host
@@ -2009,6 +2034,25 @@ namespace PomoMeetApp.View
 
                 isLeavingRoom = false; // Reset flag khi có lỗi
                 return false;
+            }
+        }
+        private async Task NotifyMembersRoomClosing()
+        {
+            try
+            {
+                var db = FirebaseConfig.database;
+                var roomRef = db.Collection("Room").Document(currentroomId);
+
+                // Đánh dấu phòng sắp đóng để các thành viên nhận biết
+                await roomRef.UpdateAsync(new Dictionary<string, object>
+        {
+            { "is_closing", true },
+            { "closing_time", FieldValue.ServerTimestamp }
+        });
+            }
+            catch (Exception ex)
+            {
+                Debug.WriteLine($"Lỗi khi thông báo đóng phòng: {ex.Message}");
             }
         }
         private async Task MarkRoomAsDeletedByHost()

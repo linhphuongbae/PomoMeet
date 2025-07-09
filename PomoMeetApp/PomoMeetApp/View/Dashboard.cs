@@ -633,6 +633,13 @@ namespace PomoMeetApp.View
             this.Show();
             this.BringToFront();
             this.WindowState = FormWindowState.Normal; // Đảm bảo form không bị minimized
+
+            // Kiểm tra flag
+            if (MeetingRoom.RoomDeletedByHost)
+            {
+                MeetingRoom.RoomDeletedByHost = false; // Reset lại flag sau khi hiện
+                CustomMessageBox.Show("Phòng đã bị xóa bởi host.", "Thông báo", MessageBoxMode.OK);
+            }
         }
         private bool isListenerStopped = false;
 

@@ -39,7 +39,8 @@ namespace PomoMeetApp.View
 
                     var dashboard = Application.OpenForms.OfType<Dashboard>().FirstOrDefault();
                     this.Hide(); // Ẩn ReqNotification trước
-
+                    if (dashboard != null)
+                        dashboard.Hide();
                     var meetingRoom = new MeetingRoom(currentUserId, roomId);
                     meetingRoom.FormClosed += async (s, e) =>
                     {
@@ -47,8 +48,7 @@ namespace PomoMeetApp.View
 
                         if (dashboard != null && !dashboard.IsDisposed)
                         {
-                            dashboard.Show();
-                            dashboard.BringToFront();
+                            dashboard.ShowDashboard();
                         }
 
                         if (meetingRoom.isBeingKicked && !meetingRoom.hasShownKickNotification)
@@ -58,7 +58,7 @@ namespace PomoMeetApp.View
                         }
                     };
 
-                    meetingRoom.ShowDialog(); // ✅ Chỉ ShowDialog ở đây
+                    meetingRoom.ShowDialog();
                 }
             }
             catch (Exception ex)

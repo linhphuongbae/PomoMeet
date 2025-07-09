@@ -213,8 +213,8 @@ namespace PomoMeetApp.View
             // Send invitations
             await SendInvitations(selectedFriends);
 
-            this.Close(); // Ẩn RoomRequests trước
             _createRoom.Hide(); // Ẩn CreateRoom trước
+            this.Hide(); // Ẩn luôn RoomRequests trước khi vào phòng
 
             // Ẩn Dashboard nếu còn
             var dashboard = Application.OpenForms.OfType<Dashboard>().FirstOrDefault();
@@ -224,10 +224,52 @@ namespace PomoMeetApp.View
             await UserStatusManager.Instance.UpdateUserStatus(_currentUserId, "online");
 
             var meetingRoom = new MeetingRoom(_currentUserId, _roomId);
-            meetingRoom.ShowDialog(); // Chặn cho đến khi user đóng MeetingRoom
+            meetingRoom.FormClosed += async (s, e) =>
+            {
+                await Task.Delay(100); // Đợi một chút để đảm bảo MeetingRoom đóng hoàn toàn
 
-            _createRoom.Close(); // Đóng sau khi MeetingRoom kết thúc
-            this.Close();
+                // Xử lý an toàn khi đóng các form
+                try
+                {
+                    if (dashboard != null && !dashboard.IsDisposed)
+                    {
+                        if (dashboard.IsHandleCreated)
+                        {
+                            dashboard.Invoke(() =>
+                            {
+                                dashboard.ShowDashboard();
+                            });
+                        }
+                        else
+                        {
+                            dashboard.Show();
+                        }
+                    }
+
+                    if (_createRoom != null && !_createRoom.IsDisposed)
+                    {
+                        _createRoom.Close();
+                    }
+
+                    if (!this.IsDisposed)
+                    {
+                        if (this.IsHandleCreated)
+                        {
+                            this.Invoke(() => this.Close());
+                        }
+                        else
+                        {
+                            this.Close();
+                        }
+                    }
+                }
+                catch (Exception ex)
+                {
+                    Debug.WriteLine($"Lỗi khi đóng form: {ex.Message}");
+                    this.Close(); // Đảm bảo form luôn được đóng
+                }
+            };
+            meetingRoom.ShowDialog();
         }
         protected override void OnFormClosing(FormClosingEventArgs e)
         {
@@ -240,7 +282,5 @@ namespace PomoMeetApp.View
                 _createRoom.BringToFront();
             }
         }
-
-
     }
 }

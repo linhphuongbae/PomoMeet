@@ -141,10 +141,17 @@ namespace PomoMeetApp.View
 
                 await UserStatusManager.Instance.UpdateUserStatus(currentUserId, "in call"); // Cập nhật trạng thái người dùng
 
-                this.Hide(); // Ẩn ngay
                 MeetingRoom meetingRoom = new MeetingRoom(currentUserId, roomInfo.RoomId);
+                meetingRoom.FormClosed += (s, e) =>
+                {
+                    dashboard?.ShowDashboard();
+                    if (this.InvokeRequired)
+                        this.Invoke((MethodInvoker)(() => this.Close()));
+                    else
+                        this.Close();
+                };
+                this.Hide(); // Hide CreateRoom
                 meetingRoom.ShowDialog();
-                this.Close(); // Đóng sau khi họp xong
             }
 
         }
