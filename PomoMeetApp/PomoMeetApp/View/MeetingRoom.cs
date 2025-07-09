@@ -1849,6 +1849,15 @@ namespace PomoMeetApp.View
                     rtcEngine.Dispose();
                     rtcEngine = null;
 
+                    outputDevice?.Stop();
+                    outputDevice?.Dispose();
+                    outputDevice = null;
+
+                    audioFileReader?.Dispose();
+                    audioFileReader = null;
+
+                    musicProgressTimer?.Stop();
+                    musicProgressTimer = null;
                 }
             }
             catch (Exception ex)
@@ -2981,11 +2990,15 @@ namespace PomoMeetApp.View
                 {
                     if (isPomodoroRunning && (DateTime.UtcNow - pomodoroStartTime).TotalSeconds < countdownTime * 60)
                     {
-                        audioFileReader.Position = 0;
-                        outputDevice.Play();
-                        currentMusicSeconds = 0;
-                        musicProgressTimer?.Start();
+                        if (audioFileReader != null && outputDevice != null && musicProgressTimer != null)
+                        {
+                            audioFileReader.Position = 0;
+                            outputDevice.Play();
+                            currentMusicSeconds = 0;
+                            musicProgressTimer.Start();
+                        }
                     }
+
                 };
 
                 outputDevice.Play();
