@@ -59,7 +59,7 @@ namespace PomoMeetApp.View
                 BadgeAnimationType = BadgeAnimationType.ScaleInOut,
                 // Optional: Refresh badge on click
                 RefreshBadgeOnClick = true,
-                NotificationTooltip = "You have new notifications",
+                NotificationTooltip = "Bạn có thông báo mới",
                 BellColor = Color.Black,
                 Text = string.Empty, // No notifications initially
                 Cursor = Cursors.Hand
@@ -156,7 +156,7 @@ namespace PomoMeetApp.View
             }
             else
             {
-                MessageBox.Show("User ID is not set. Please log in first.");
+                MessageBox.Show("Chưa thiết lập User ID. Vui lòng đăng nhập trước.");
             }
         }
 
@@ -216,7 +216,7 @@ namespace PomoMeetApp.View
             }
             catch (Exception ex)
             {
-                Console.WriteLine($"Error updating notification badge: {ex.Message}");
+                Console.WriteLine($"Lỗi khi cập nhật biểu tượng thông báo: {ex.Message}");
             }
         }
 
@@ -263,7 +263,7 @@ namespace PomoMeetApp.View
             }
             catch (Exception ex)
             {
-                Console.WriteLine($"Error setting up listener: {ex.Message}");
+                Console.WriteLine($"Lỗi khi thiết lập listener: {ex.Message}");
             }
         }
 

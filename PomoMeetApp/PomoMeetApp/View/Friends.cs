@@ -527,7 +527,7 @@ namespace PomoMeetApp.View
             string searchQuery = txtFindFriends.Text.Trim();
             if (string.IsNullOrEmpty(searchQuery))
             {
-                CustomMessageBox.Show("Vui lòng nhập username.");
+                CustomMessageBox.Show("Vui lòng nhập tên tài khoản.");
                 return;
             }
             // connect database nè

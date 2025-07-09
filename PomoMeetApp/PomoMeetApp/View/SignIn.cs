@@ -59,7 +59,7 @@ namespace PomoMeetApp.View
             }
             catch (Exception ex)
             {
-                Debug.WriteLine($"[SignIn] Login failed: {ex}");
+                Debug.WriteLine($"[SignIn] Đăng nhập thất bại: {ex}");
             }
 
         }
@@ -128,7 +128,7 @@ namespace PomoMeetApp.View
             }
             catch (Exception ex)
             {
-                Debug.WriteLine($"[SignIn-Google] Google login failed: {ex}");
+                Debug.WriteLine($"[SignIn-Google] Đăng nhập Google thất bại: {ex}");
             }
 
         }

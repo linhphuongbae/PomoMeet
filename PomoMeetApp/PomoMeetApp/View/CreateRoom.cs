@@ -112,7 +112,7 @@ namespace PomoMeetApp.View
 
             if (string.IsNullOrEmpty(roomMode)) // Kiểm tra xem người dùng đã chọn chế độ hay chưa
             {
-                CustomMessageBox.Show("Vui lòng chọn chế độ phòng (Private hoặc Public).", "Thông báo",
+                CustomMessageBox.Show("Vui lòng chọn chế độ phòng (Riêng tư hoặc Công khai).", "Thông báo",
                     MessageBoxMode.OK);
                 return;
             }
@@ -303,7 +303,7 @@ namespace PomoMeetApp.View
 
             if (string.IsNullOrEmpty(roomMode))
             {
-                CustomMessageBox.Show("Vui lòng chọn chế độ phòng (Private hoặc Public).", "Thông báo", MessageBoxMode.OK);
+                CustomMessageBox.Show("Vui lòng chọn chế độ phòng (Riêng tư hoặc Công khai).", "Thông báo", MessageBoxMode.OK);
                 return;
             }
 

@@ -78,7 +78,7 @@ namespace PomoMeetApp.View
             }
             catch (Exception ex)
             {
-                Debug.WriteLine($"[SignUp] Registration failed: {ex}");
+                Debug.WriteLine($"[SignUp] Đăng ký thất bại: {ex}");
             }
 
         }

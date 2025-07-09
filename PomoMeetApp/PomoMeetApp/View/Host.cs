@@ -64,7 +64,7 @@ namespace PomoMeetApp.View
                 // Kiểm tra nếu người hiện tại có phải là host không
                 if (currentUserId != hostId)
                 {
-                    CustomMessageBox.Show("Chỉ host hiện tại mới có quyền chuyển host.");
+                    CustomMessageBox.Show("Chỉ chủ phòng hiện tại mới có thể chuyển quyền.");
                     return;
                 }
 
@@ -77,11 +77,11 @@ namespace PomoMeetApp.View
 
                 // Cập nhật host trong Firestore
                 await roomRef.UpdateAsync("host_id", newHostId);  // Cập nhật host_id mới
-                CustomMessageBox.Show("Host đã được chuyển thành công!");
+                CustomMessageBox.Show("Chủ phòng đã được chuyển thành công!");
             }
             catch (Exception ex)
             {
-                Debug.WriteLine($"Lỗi khi chuyển host: {ex.Message}");
+                Debug.WriteLine($"Lỗi khi chuyển chủ phòng: {ex.Message}");
             }
         }
 
@@ -93,7 +93,7 @@ namespace PomoMeetApp.View
 
             if (!snapshot.Exists)
             {
-                MessageBox.Show("Không tìm thấy phòng với room_id: " + currentroomId);
+                MessageBox.Show("Không tìm thấy phòng với id: " + currentroomId);
                 return;
             }
 
@@ -152,7 +152,7 @@ namespace PomoMeetApp.View
 
             var btnTransfer = new Button()
             {
-                Text = "Chuyển host",
+                Text = "Chuyển chủ phòng",
                 AutoSize = true,
                 BackColor = Color.FromArgb(117, 164, 127),
                 ForeColor = Color.White,
@@ -232,7 +232,7 @@ namespace PomoMeetApp.View
                 // Kiểm tra quyền host
                 if (currentUserId != hostId)
                 {
-                    CustomMessageBox.Show("Chỉ host hiện tại mới có quyền kick.");
+                    CustomMessageBox.Show("Chỉ chủ phòng hiện tại mới có quyền đá.");
                     return;
                 }
 
@@ -297,7 +297,7 @@ namespace PomoMeetApp.View
 
             if (!snapshot.Exists)
             {
-                MessageBox.Show("Không tìm thấy phòng với room_id: " + currentroomId);
+                MessageBox.Show("Không tìm thấy phòng với id: " + currentroomId);
                 return;
             }
 

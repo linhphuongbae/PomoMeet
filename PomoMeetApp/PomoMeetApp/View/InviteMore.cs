@@ -34,7 +34,7 @@ namespace PomoMeetApp.View
             {
                 // Sao chép nội dung của tbMamoi (ID phòng) vào clipboard
                 Clipboard.SetText(tbMamoi.Text);
-                CustomMessageBox.Show("Mã phòng đã được sao chép vào clipboard!");
+                CustomMessageBox.Show("Mã phòng đã được sao chép!");
             }
             catch (Exception ex)
             {

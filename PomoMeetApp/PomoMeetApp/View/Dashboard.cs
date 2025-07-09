@@ -464,12 +464,12 @@ namespace PomoMeetApp.View
                 }
                 else
                 {
-                    Console.WriteLine($"Failed to create controls for room {roomId}");
+                    Console.WriteLine($"Không thể tạo giao diện cho phòng học {roomId}");
                 }
             }
             catch (Exception ex)
             {
-                Console.WriteLine($"Error creating room panel for {roomId}: {ex.Message}");
+                Console.WriteLine($"Lỗi khi tạo giao diện phòng cho {roomId}: {ex.Message}");
             }
         }
 
@@ -491,7 +491,7 @@ namespace PomoMeetApp.View
                 }
                 catch (Exception ex)
                 {
-                    Console.WriteLine($"Error removing controls: {ex.Message}");
+                    Console.WriteLine($"Lỗi khi xóa các thành phần giao diện: {ex.Message}");
                 }
             }
 
@@ -516,7 +516,7 @@ namespace PomoMeetApp.View
                     // Kiểm tra null trước khi sử dụng
                     if (panel == null || lblName == null || lblCount == null || picLock == null)
                     {
-                        Console.WriteLine($"Null control found for room {roomId}, removing from dictionary");
+                        Console.WriteLine($"Không tìm thấy control cho phòng {roomId}, đang xóa khỏi danh sách quản lý.");
                         roomPanels.Remove(roomId);
                         fullRoomPanels.Remove(roomId);
                         continue;
@@ -540,7 +540,7 @@ namespace PomoMeetApp.View
                 }
                 catch (Exception ex)
                 {
-                    Console.WriteLine($"Error adding controls for room: {ex.Message}");
+                    Console.WriteLine($"Lỗi khi thêm các thành phần giao diện cho phòng: {ex.Message}");
                 }
             }
 
@@ -555,11 +555,11 @@ namespace PomoMeetApp.View
             }
             catch (Exception ex)
             {
-                Console.WriteLine($"Error updating pagination buttons: {ex.Message}");
+                Console.WriteLine($"Lỗi khi cập nhật các nút phân trang: {ex.Message}");
             }
 
             // Debug: In ra console để kiểm tra
-            Console.WriteLine($"Total rooms: {totalRooms}, Current page: {pageIndex}, Start: {startIndex}, End: {endIndex}");
+            Console.WriteLine($"Tổng số phòng: {totalRooms}, Trang hiện tại: {pageIndex}, Bắt đầu: {startIndex}, Kết thúc: {endIndex}");
             Console.WriteLine($"btnPrev visible: {btnPrev?.Visible}, btnNext visible: {btnNext?.Visible}");
         }
 
@@ -638,7 +638,7 @@ namespace PomoMeetApp.View
             if (MeetingRoom.RoomDeletedByHost)
             {
                 MeetingRoom.RoomDeletedByHost = false; // Reset lại flag sau khi hiện
-                CustomMessageBox.Show("Phòng đã bị xóa bởi host.", "Thông báo", MessageBoxMode.OK);
+                CustomMessageBox.Show("Phòng đã bị xóa bởi chủ phòng.", "Thông báo", MessageBoxMode.OK);
             }
         }
         private bool isListenerStopped = false;

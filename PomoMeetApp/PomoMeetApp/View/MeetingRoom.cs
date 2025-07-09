@@ -386,7 +386,7 @@ namespace PomoMeetApp.View
                                             dashboard.Activate();
                                         }
 
-                                        CustomMessageBox.Show("Bạn đã bị kick khỏi phòng!", "Thông báo", MessageBoxMode.OK);
+                                        CustomMessageBox.Show("Bạn đã bị đá khỏi phòng!", "Thông báo", MessageBoxMode.OK);
                                     }
                                 };
 
@@ -893,7 +893,7 @@ namespace PomoMeetApp.View
             // 10. Tham gia kênh
             uint localUid = GetUidFromId(currentUserId);
             int result = rtcEngine.JoinChannel("", currentroomId, "", localUid);
-            Debug.WriteLine($"Join Channel result: {result}, LocalUID: {localUid}");
+            Debug.WriteLine($"Kết quả tham gia kênh: {result}, UID cục bộ: {localUid}");
 
 
             // 11. Chỉ tắt mic, video sẽ xử lý sau khi join
@@ -1375,12 +1375,12 @@ namespace PomoMeetApp.View
                 }
                 else
                 {
-                    Debug.WriteLine($"Failed to change mic state: {result}");
+                    Debug.WriteLine($"Không thể thay đổi trạng thái micro: {result}");
                 }
             }
             catch (Exception ex)
             {
-                Debug.WriteLine($"Error in mic control: {ex.Message}");
+                Debug.WriteLine($"Lỗi khi điều khiển micro: {ex.Message}");
             }
         }
 
@@ -1426,7 +1426,7 @@ namespace PomoMeetApp.View
             }
             catch (Exception ex)
             {
-                Debug.WriteLine($"Error in speaker control: {ex.Message}");
+                Debug.WriteLine($"Lỗi khi điều khiển loa: {ex.Message}");
             }
         }
 
@@ -1824,7 +1824,7 @@ namespace PomoMeetApp.View
             }
             catch (Exception ex)
             {
-                Debug.WriteLine($"Error cleaning up Agora resources: {ex.Message}");
+                Debug.WriteLine($"Lỗi dọn dẹp tài nguyên Agora: {ex.Message}");
             }
         }
         protected override void OnFormClosing(FormClosingEventArgs e)
@@ -1952,7 +1952,7 @@ namespace PomoMeetApp.View
                         this.Invoke(() =>
                         {
                             result = CustomMessageBox.Show(
-                                "Bạn là host. Bạn có muốn xóa phòng không? Tất cả thành viên sẽ bị rời phòng.",
+                                "Bạn là chủ phòng. Bạn có muốn xóa phòng không? Tất cả thành viên sẽ bị rời phòng.",
                                 "Xác nhận xóa phòng",
                                 MessageBoxMode.YesNo
                             );
@@ -1962,7 +1962,7 @@ namespace PomoMeetApp.View
                     else
                     {
                         result = CustomMessageBox.Show(
-    "Bạn là host. Bạn có muốn xóa phòng không? Tất cả thành viên sẽ bị rời phòng.",
+    "Bạn là chủ phòng. Bạn có muốn xóa phòng không? Tất cả thành viên sẽ bị rời phòng.",
     "Xác nhận xóa phòng",
     MessageBoxMode.YesNo
 );
@@ -2059,7 +2059,7 @@ namespace PomoMeetApp.View
         {
             try
             {
-                Debug.WriteLine($"Marking room {currentroomId} as deleted by host...");
+                Debug.WriteLine($"Đang đánh dấu phòng {currentroomId} là đã bị chủ phòng xóa...");
 
                 var db = FirebaseConfig.database;
                 var roomRef = db.Collection("Room").Document(currentroomId);
@@ -2171,7 +2171,7 @@ namespace PomoMeetApp.View
                 {
                     if (ex.SocketErrorCode == SocketError.AddressAlreadyInUse)
                     {
-                        Debug.WriteLine("Port 5000 đã được sử dụng. Instance này sẽ chỉ là client.");
+                        Debug.WriteLine("Cổng 5000 đã được dùng. Chương trình sẽ chạy ở chế độ client.");
                         server = null;
                         isTcpServerRunning = false;
                     }
@@ -2846,7 +2846,7 @@ namespace PomoMeetApp.View
         {
             if (currentUserId != hostId)
             {
-                CustomMessageBox.Show("Bạn không phải là Host.", "Thông báo", MessageBoxMode.OK);
+                CustomMessageBox.Show("Bạn không phải là chủ phòng.", "Thông báo", MessageBoxMode.OK);
                 return;
             }
 
@@ -3129,7 +3129,7 @@ namespace PomoMeetApp.View
         {
             if (currentUserId != hostId)
             {
-                CustomMessageBox.Show("Chỉ host mới có thể chuyển sang Pomodoro thủ công.");
+                CustomMessageBox.Show("Chỉ chủ phòng mới có thể chuyển sang Pomodoro thủ công.");
                 return;
             }
 
@@ -3148,7 +3148,7 @@ namespace PomoMeetApp.View
         {
             if (currentUserId != hostId)
             {
-                CustomMessageBox.Show("Chỉ host mới có thể chuyển sang Break thủ công.");
+                CustomMessageBox.Show("Chỉ chủ phòng mới có thể chuyển sang Break thủ công.");
                 return;
             }
 
@@ -3228,7 +3228,7 @@ namespace PomoMeetApp.View
             }
             catch (Exception ex)
             {
-                Debug.WriteLine($"Error in FormClosed: {ex.Message}");
+                Debug.WriteLine($"Lỗi đóng Form: {ex.Message}");
             }
         }
 

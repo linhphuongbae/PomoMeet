@@ -92,7 +92,7 @@ namespace PomoMeetApp.View
 
                     if (string.IsNullOrEmpty(friendId))
                     {
-                        CustomMessageBox.Show("Friend ID is null or empty. Skipping this friendship.");
+                        CustomMessageBox.Show("Friend ID bị null hoặc rỗng. Bỏ qua mối quan hệ bạn bè này.");
                         continue;
                     }
 
@@ -119,18 +119,18 @@ namespace PomoMeetApp.View
                     }
                     else
                     {
-                        CustomMessageBox.Show($"User document for friend ID {friendId} does not exist. Skipping this friend.");
+                        CustomMessageBox.Show($"Không tìm thấy thông tin người dùng cho bạn có ID {friendId}. Sẽ bỏ qua.");
                     }
                 }
 
                 if (siticonePanel2.Controls.Count == 0)
                 {
-                    Debug.WriteLine("No friends found.");
+                    Debug.WriteLine("Không tìm thấy bạn");
                 }
             }
             catch (Exception ex)
             {
-               Debug.WriteLine($"Error loading friends list: {ex.Message}");
+               Debug.WriteLine($"Lỗi tải danh sách bạn bè: {ex.Message}");
             }
         }
 

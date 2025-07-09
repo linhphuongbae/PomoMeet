@@ -38,14 +38,14 @@ namespace PomoMeetApp.View
             await HandleResponseAsync("Accepted", async () =>
             {
                 var db = FirebaseConfig.database;
-                if (db == null) throw new Exception("Database connection is not initialized.");
+                if (db == null) throw new Exception("Kết nối cơ sở dữ liệu chưa được khởi tạo.");
 
                 var docRef = db.Collection("Invitations").Document(inviteId);
                 var snapshot = await docRef.GetSnapshotAsync();
 
                 if (!snapshot.Exists)
                 {
-                    throw new Exception("Invitation no longer exists.");
+                    throw new Exception("Lời mời không tồn tại.");
                 }
 
                 // Update the invitation status to "Accepted"
@@ -61,14 +61,14 @@ namespace PomoMeetApp.View
             await HandleResponseAsync("Rejected", async () =>
             {
                 var db = FirebaseConfig.database;
-                if (db == null) throw new Exception("Database connection is not initialized.");
+                if (db == null) throw new Exception("Kết nối cơ sở dữ liệu chưa được khởi tạo.");
 
                 var docRef = db.Collection("Invitations").Document(inviteId);
                 var snapshot = await docRef.GetSnapshotAsync();
 
                 if (!snapshot.Exists)
                 {
-                    throw new Exception("Invitation no longer exists.");
+                    throw new Exception("Lời mời không tồn tại.");
                 }
 
                 // Update the invitation status to "Rejected"
@@ -84,7 +84,7 @@ namespace PomoMeetApp.View
                 btnDecline.Enabled = false;
 
                 var db = FirebaseConfig.database;
-                if (db == null) throw new Exception("Database connection is not initialized.");
+                if (db == null) throw new Exception("Kết nối cơ sở dữ liệu chưa được khởi tạo.");
 
                 // First check if the document exists
                 var docRef = db.Collection("Invitations").Document(inviteId);
@@ -108,7 +108,7 @@ namespace PomoMeetApp.View
             }
             catch (Exception ex)
             {
-                Debug.WriteLine($"Error processing {response.ToLower()} action: {ex.Message}");
+                Debug.WriteLine($"Lỗi khi xử lý hành động {response.ToLower()}: {ex.Message}");
                 btnAccept.Enabled = true;
                 btnDecline.Enabled = true;
             }

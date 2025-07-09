@@ -63,7 +63,7 @@ namespace PomoMeetApp.View
             }
             catch (Exception ex)
             {
-                Debug.WriteLine($"Error handling response: {ex.Message}");
+                Debug.WriteLine($"Lỗi khi xử lý phản hồi: {ex.Message}");
                 isJoiningRoom = false;
             }
             finally
@@ -145,17 +145,17 @@ namespace PomoMeetApp.View
             }
             catch (Exception ex)
             {
-                Debug.WriteLine($"Error loading notifications: {ex.Message}");
+                Debug.WriteLine($"Lỗi khi tải thông báo: {ex.Message}");
             }
         }
 
         private void ShowNoNotificationsMessage()
         {
-            if (!panelNotifications.Controls.OfType<Label>().Any(lbl => lbl.Text == "No notifications"))
+            if (!panelNotifications.Controls.OfType<Label>().Any(lbl => lbl.Text == "Không có thông báo"))
             {
                 panelNotifications.Controls.Add(new Label
                 {
-                    Text = "No notifications",
+                    Text = "Không có thông báo",
                     AutoSize = true,
                     Font = new Font("Inter", 10, FontStyle.Italic),
                     ForeColor = Color.Gray,
@@ -181,7 +181,7 @@ namespace PomoMeetApp.View
 
                 return dateTime.ToString("dd/MM/yyyy");
             }
-            return "Invalid time";
+            return "Thời gian không hợp lệ";
         }
 
         private void ReqNotification_Load(object sender, EventArgs e)

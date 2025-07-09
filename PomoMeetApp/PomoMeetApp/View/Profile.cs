@@ -83,7 +83,7 @@ namespace PomoMeetApp.View
             }
             catch (Exception ex)
             {
-                Debug.WriteLine($"Error loading user data: {ex.Message}");
+                Debug.WriteLine($"Lỗi khi tải dữ liệu người dùng: {ex.Message}");
             }
         }
         private Image LoadAvatarImage(string avatarName)
@@ -162,7 +162,7 @@ namespace PomoMeetApp.View
             }
             catch (Exception ex)
             {
-                Debug.WriteLine($"Error updating profile: {ex.Message}");
+                Debug.WriteLine($"Lỗi khi cập nhật dữ liệu người dùng: {ex.Message}");
             }
         }
 
@@ -172,7 +172,7 @@ namespace PomoMeetApp.View
             // Tạo form chọn avatar
             var avatarSelector = new Form
             {
-                Text = "Select Avatar",
+                Text = "Chọn ảnh đại diện",
                 Size = new Size(400, 400),
                 FormBorderStyle = FormBorderStyle.FixedDialog,
                 StartPosition = FormStartPosition.CenterParent
@@ -229,7 +229,7 @@ namespace PomoMeetApp.View
             }
             catch (Exception ex)
             {
-                Debug.WriteLine($"Error updating avatar: {ex.Message}");
+                Debug.WriteLine($"Lỗi khi cập nhật dữ liệu người dùng: {ex.Message}");
             }
         }
 
