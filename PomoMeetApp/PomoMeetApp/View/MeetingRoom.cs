@@ -383,46 +383,94 @@ namespace PomoMeetApp.View
 
                 if (!membersStatus.ContainsKey(currentUserId))
                 {
-                    SafeInvoke(() =>
+                    if (isBeingKicked || isLeavingRoom)
+                        return;
+
+                    isBeingKicked = true;
+
+                    // Dừng listener ngay lập tức
+                    if (roomListener != null)
                     {
-                        if (!this.IsDisposed && !this.Disposing && !isLeavingRoom)
+                        _ = Task.Run(async () =>
                         {
-                            isBeingKicked = true;
-                            isLeavingRoom = true; // Đánh dấu đang rời phòng
-
-                            // Dừng tất cả listeners
-                            if (roomListener != null)
+                            try
                             {
-                                roomListener.StopAsync();
-                                roomListener = null;
+                                await roomListener.StopAsync();
                             }
+                            catch { }
+                            roomListener = null;
+                        });
+                    }
 
-                            if (!hasShownKickNotification)
-                            {
-                                this.FormClosed += (s, e) =>
-                                {
-                                    if (!hasShownKickNotification)
-                                    {
-                                        hasShownKickNotification = true;
+                    // Cleanup resources
+                    CleanupAgoraResources();
+                    CleanupTcpChat();
 
-                                        var dashboard = Application.OpenForms.OfType<Dashboard>()
-                                            .FirstOrDefault(f => f.currentUserId == currentUserId);
-
-                                        if (dashboard != null)
-                                        {
-                                            dashboard.Show();
-                                            dashboard.BringToFront();
-                                            dashboard.Activate();
-                                        }
-
-                                        CustomMessageBox.Show("Bạn đã bị đá khỏi phòng!", "Thông báo", MessageBoxMode.OK);
-                                    }
-                                };
-
-                                this.Close();
-                            }
+                    // Update user status async
+                    _ = Task.Run(async () =>
+                    {
+                        try
+                        {
+                            await UserStatusManager.Instance.UpdateUserStatus(currentUserId, "offline");
+                        }
+                        catch (Exception ex)
+                        {
+                            Debug.WriteLine($"Error updating user status: {ex.Message}");
                         }
                     });
+
+                    // Hiển thị thông báo trên UI thread
+                    if (!hasShownKickNotification)
+                    {
+                        hasShownKickNotification = true;
+                        if (this.InvokeRequired)
+                        {
+                            this.Invoke(() =>
+                            {
+                                CustomMessageBox.Show("Bạn đã bị đá khỏi phòng!", "Thông báo", MessageBoxMode.OK);
+                            });
+                        }
+                        else
+                        {
+                            CustomMessageBox.Show("Bạn đã bị đá khỏi phòng!", "Thông báo", MessageBoxMode.OK);
+                        }
+                    }
+
+                    // Tìm dashboard
+                    var dashboard = Application.OpenForms.OfType<Dashboard>()
+                        .FirstOrDefault(f => f.currentUserId == currentUserId);
+
+                    // Set flag và đóng form trên UI thread
+                    if (this.InvokeRequired)
+                    {
+                        this.Invoke(() =>
+                        {
+                            isLeavingRoom = true;
+                            this.Close();
+
+                            // Hiển thị dashboard
+                            if (dashboard != null)
+                            {
+                                dashboard.Show();
+                                dashboard.BringToFront();
+                                dashboard.Activate();
+                            }
+                        });
+                    }
+                    else
+                    {
+                        isLeavingRoom = true;
+                        this.Close();
+
+                        // Hiển thị dashboard
+                        if (dashboard != null)
+                        {
+                            dashboard.Show();
+                            dashboard.BringToFront();
+                            dashboard.Activate();
+                        }
+                    }
+
                     return;
                 }
 
@@ -1862,19 +1910,15 @@ namespace PomoMeetApp.View
         }
         protected override void OnFormClosing(FormClosingEventArgs e)
         {
-            if (MeetingRoom.RoomDeletedByHost)
+            // Nếu đang bị kick hoặc room bị xóa bởi host, cho phép đóng ngay
+            if (isBeingKicked || MeetingRoom.RoomDeletedByHost)
             {
                 e.Cancel = false;
+                CleanupTcpChat();
+                base.OnFormClosing(e);
                 return;
             }
 
-            if (isBeingKicked)
-            {
-                // Nếu bị kick thì cho phép đóng form ngay
-                e.Cancel = false;
-                CleanupTcpChat();
-                return;
-            }
             // Chỉ xử lý khi user click X để đóng form
             if (e.CloseReason == CloseReason.UserClosing && !isLeavingRoom)
             {
@@ -1909,7 +1953,6 @@ namespace PomoMeetApp.View
                         this.Invoke(() =>
                         {
                             CustomMessageBox.Show($"Lỗi: {ex.Message}", "Lỗi", MessageBoxMode.OK);
-
                             isLeavingRoom = false; // Reset flag
                         });
                     }
@@ -1924,6 +1967,7 @@ namespace PomoMeetApp.View
                 CleanupAgoraResources();
                 CleanupTcpChat();
             }
+
             notificationListener?.StopAsync();
             notificationListener = null;
 

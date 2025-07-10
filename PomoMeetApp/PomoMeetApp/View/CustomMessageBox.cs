@@ -113,5 +113,10 @@ namespace PomoMeetApp.View
         {
 
         }
+
+        private void btn_Ok_Click(object sender, EventArgs e)
+        {
+
+        }
     }
 }

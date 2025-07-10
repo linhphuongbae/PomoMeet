@@ -265,9 +265,6 @@ namespace PomoMeetApp.View
                     // Reload danh sách participants
                     LoadParticipants();
 
-                    // QUAN TRỌNG: Sau khi update Firestore, listener của MeetingRoom sẽ tự động 
-                    // phát hiện user không còn trong members_status và tự đóng form
-                    // Không cần phải manually tìm và đóng form nữa
                 }
                 else
                 {

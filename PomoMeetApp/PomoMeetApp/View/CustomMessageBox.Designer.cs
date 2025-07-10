@@ -110,6 +110,7 @@
             btn_Ok.TabIndex = 4;
             btn_Ok.Text = "OK";
             btn_Ok.UseVisualStyleBackColor = false;
+            btn_Ok.Click += btn_Ok_Click;
             // 
             // btn_Co
             // 
