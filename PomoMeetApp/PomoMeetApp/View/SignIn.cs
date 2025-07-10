@@ -112,6 +112,7 @@ namespace PomoMeetApp.View
                             };
 
                             await db.Collection("User").Document(userId).SetAsync(userData);
+                            UserSession.CurrentUser = userData;
                         }
                         else
                         {
@@ -123,12 +124,15 @@ namespace PomoMeetApp.View
                 {
                     // Lấy userId từ tài liệu hiện có
                     userId = emailQuerySnapshot.Documents[0].Id;
+                    UserData data = emailQuerySnapshot.Documents[0].ConvertTo<UserData>();
+                    UserSession.CurrentUser = data;
                 }
                 await FormTransition.FadeTo(this, new Dashboard(userId));
             }
             catch (Exception ex)
             {
-                Debug.WriteLine($"[SignIn-Google] Đăng nhập Google thất bại: {ex}");
+                //Debug.WriteLine($"[SignIn-Google] Đăng nhập Google thất bại: {ex}");
+                MessageBox.Show($"[SignIn-Google] Đăng nhập Google thất bại: {ex}");
             }
 
         }
