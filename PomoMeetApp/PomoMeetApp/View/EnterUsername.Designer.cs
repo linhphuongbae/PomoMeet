@@ -211,6 +211,7 @@
             Controls.Add(tbEnter);
             Controls.Add(email);
             Controls.Add(Rectangle);
+            MaximumSize = new Size(932, 489);
             Name = "EnterUsername";
             Text = "EnterUsername";
             ((System.ComponentModel.ISupportInitialize)Rectangle).EndInit();

@@ -494,6 +494,7 @@
             Controls.Add(label3);
             Controls.Add(siticonePanel1);
             Controls.Add(siticonePanel2);
+            MaximumSize = new Size(800, 753);
             Name = "RoomRequests";
             Text = "RoomRequests";
             siticonePanel1.ResumeLayout(false);

@@ -35,7 +35,6 @@
             mySiticoneLicenseSettings2 = new SiticoneNetCoreUI.MySiticoneLicenseSettings();
             tb_Search = new SiticoneNetCoreUI.SiticoneTextBox();
             mySiticoneLicenseSettings3 = new SiticoneNetCoreUI.MySiticoneLicenseSettings();
-            sideBar1 = new SideBar();
             userProfilePanel2 = new UserProfilePanel();
             tbtn_JoinRoom = new SiticoneNetCoreUI.SiticoneButton();
             SuspendLayout();
@@ -196,13 +195,6 @@
             tb_Search.ValidationErrorMessage = "Invalid input.";
             tb_Search.ValidationFunction = null;
             // 
-            // sideBar1
-            // 
-            sideBar1.Location = new Point(0, 0);
-            sideBar1.Name = "sideBar1";
-            sideBar1.Size = new Size(278, 1250);
-            sideBar1.TabIndex = 18;
-            // 
             // userProfilePanel2
             // 
             userProfilePanel2.BackColor = Color.Transparent;
@@ -296,12 +288,12 @@
             BackColor = Color.FromArgb(252, 255, 224);
             ClientSize = new Size(1422, 977);
             Controls.Add(userProfilePanel2);
-            Controls.Add(sideBar1);
             Controls.Add(tb_Search);
             Controls.Add(tbtn_JoinRoom);
             Controls.Add(sbtn_CreateNewRoom);
             Controls.Add(siticoneLabel2);
             Controls.Add(siticoneLabel1);
+            MaximumSize = new Size(1440, 1024);
             Name = "Dashboard";
             Text = "Dashboard";
             ResumeLayout(false);

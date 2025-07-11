@@ -467,6 +467,7 @@
             Controls.Add(siticoneLabel2);
             Controls.Add(siticoneLabel1);
             Controls.Add(pictureBox_avatar);
+            MaximumSize = new Size(1282, 977);
             Name = "Profile";
             Text = "Profile";
             ((System.ComponentModel.ISupportInitialize)pictureBox_avatar).EndInit();

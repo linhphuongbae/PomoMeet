@@ -35,7 +35,6 @@
             pnFriends = new SiticoneNetCoreUI.SiticonePanel();
             label3 = new Label();
             lbAllFriends = new Label();
-            sideBar2 = new SideBar();
             btn_AllFriends = new SiticoneNetCoreUI.SiticoneButton();
             btn_OnlineFriends = new SiticoneNetCoreUI.SiticoneButton();
             pnFriends.SuspendLayout();
@@ -325,13 +324,6 @@
             lbAllFriends.TabIndex = 11;
             lbAllFriends.Text = "Bạn bè (10)";
             // 
-            // sideBar2
-            // 
-            sideBar2.Location = new Point(0, 0);
-            sideBar2.Name = "sideBar2";
-            sideBar2.Size = new Size(271, 1250);
-            sideBar2.TabIndex = 29;
-            // 
             // btn_AllFriends
             // 
             btn_AllFriends.AccessibleDescription = "The default button control that accept input though the mouse, touch and keyboard";
@@ -498,12 +490,12 @@
             ClientSize = new Size(1422, 977);
             Controls.Add(btn_OnlineFriends);
             Controls.Add(btn_AllFriends);
-            Controls.Add(sideBar2);
             Controls.Add(lbAllFriends);
             Controls.Add(txtFindFriends);
             Controls.Add(pnFriends);
             Controls.Add(btn_FindFriends);
             Controls.Add(btn_FriendRequests);
+            MaximumSize = new Size(1440, 1024);
             Name = "Friends";
             Text = "Friends";
             Load += Friends_Load;

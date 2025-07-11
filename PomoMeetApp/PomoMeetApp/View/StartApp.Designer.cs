@@ -81,6 +81,7 @@
             BackColor = Color.FromArgb(252, 255, 224);
             ClientSize = new Size(1422, 977);
             Controls.Add(LogoPomoMeet);
+            MaximumSize = new Size(1440, 1024);
             Name = "StartApp";
             Text = "StartApp";
             Load += StartApp_Load;

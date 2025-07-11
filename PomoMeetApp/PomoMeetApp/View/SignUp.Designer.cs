@@ -622,6 +622,7 @@
             Controls.Add(label1);
             Controls.Add(email);
             Controls.Add(Rectangle);
+            MaximumSize = new Size(1440, 1024);
             Name = "SignUp";
             Text = "SignUp";
             ((System.ComponentModel.ISupportInitialize)Rectangle).EndInit();

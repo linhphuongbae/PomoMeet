@@ -113,6 +113,7 @@ namespace PomoMeetApp.View
             ClientSize = new Size(648, 458);
             Controls.Add(panelNotifications);
             Controls.Add(siticonePanel2);
+            MaximumSize = new Size(666, 505);
             Name = "ReqNotification";
             Text = "ReqNotification";
             Load += ReqNotification_Load;

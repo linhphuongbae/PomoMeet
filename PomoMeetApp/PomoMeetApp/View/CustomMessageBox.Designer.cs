@@ -138,6 +138,7 @@
             Controls.Add(btn_Yes);
             Controls.Add(lb_Message);
             Controls.Add(pn_Title);
+            MaximumSize = new Size(475, 233);
             Name = "CustomMessageBox";
             Text = "CustomMessageBox";
             Load += CustomMessageBox_Load;

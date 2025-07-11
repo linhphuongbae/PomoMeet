@@ -868,6 +868,7 @@
             Controls.Add(label2);
             Controls.Add(label3);
             Controls.Add(siticonePanel1);
+            MaximumSize = new Size(800, 842);
             Name = "CreateRoom";
             Text = "CreateRoom";
             Load += CreateRoom_Load;

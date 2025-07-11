@@ -10,7 +10,7 @@
 
 | Họ và tên                | MSSV      | Vai trò          |
 |--------------------------|-----------|------------------|
-| Trần Phương Linh         | 23520851  | Trưởng nhóm      |
+| Trần Thị Phương Linh     | 23520851  | Trưởng nhóm      |
 | Võ Nguyễn Ngọc Thùy      | 23521561  | Thành viên       |
 | Đậu Đức An Phú           | 23521179  | Thành viên       |
 

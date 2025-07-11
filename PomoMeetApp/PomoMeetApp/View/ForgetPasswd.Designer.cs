@@ -359,6 +359,7 @@
             Controls.Add(label1);
             Controls.Add(lbEmail);
             Controls.Add(Rectangle);
+            MaximumSize = new Size(657, 484);
             Name = "ForgetPasswd";
             Text = "ForgetPasswd";
             ((System.ComponentModel.ISupportInitialize)Rectangle).EndInit();

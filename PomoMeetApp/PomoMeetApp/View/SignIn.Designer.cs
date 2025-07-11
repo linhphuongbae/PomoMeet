@@ -577,6 +577,7 @@
             Controls.Add(email);
             Controls.Add(label1);
             Controls.Add(Rectangle);
+            MaximumSize = new Size(1440, 1024);
             Name = "SignIn";
             Text = "SingIn";
             ((System.ComponentModel.ISupportInitialize)Rectangle).EndInit();

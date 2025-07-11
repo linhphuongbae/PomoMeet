@@ -391,6 +391,7 @@
             ClientSize = new Size(492, 458);
             Controls.Add(siticonePanel1);
             Controls.Add(siticonePanel2);
+            MaximumSize = new Size(510, 505);
             Name = "Host";
             Text = "Host";
             Load += Host_Load;

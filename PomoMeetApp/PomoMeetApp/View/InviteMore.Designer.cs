@@ -221,6 +221,7 @@
             AutoScaleMode = AutoScaleMode.Font;
             ClientSize = new Size(518, 224);
             Controls.Add(siticonePanel3);
+            MaximumSize = new Size(536, 271);
             Name = "InviteMore";
             Text = "InviteMore";
             siticonePanel3.ResumeLayout(false);

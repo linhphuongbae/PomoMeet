@@ -262,6 +262,7 @@
             Controls.Add(stb_Password);
             Controls.Add(lb_Password);
             Controls.Add(siticonePanel1);
+            MaximumSize = new Size(818, 386);
             Name = "PrivateRoom";
             Text = "PrivateRoom";
             siticonePanel1.ResumeLayout(false);

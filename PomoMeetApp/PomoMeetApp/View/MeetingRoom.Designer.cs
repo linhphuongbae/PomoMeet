@@ -70,7 +70,6 @@
             panel4 = new Panel();
             pictureBox1 = new PictureBox();
             btnSendMessages = new SiticoneNetCoreUI.SiticoneButton();
-            sideBar2 = new SideBar();
             tbMessages = new RichTextBox();
             btnEmoji = new SiticoneNetCoreUI.SiticoneButton();
             pn_DisplayMessage = new Panel();
@@ -1343,14 +1342,6 @@
             btnSendMessages.UseParticles = false;
             btnSendMessages.Click += btnSendMessages_Click;
             // 
-            // sideBar2
-            // 
-            sideBar2.Location = new Point(0, 0);
-            sideBar2.Name = "sideBar2";
-            sideBar2.Size = new Size(276, 1250);
-            sideBar2.TabIndex = 50;
-            sideBar2.Load += sideBar2_Load;
-            // 
             // tbMessages
             // 
             tbMessages.Location = new Point(1124, 874);
@@ -1460,7 +1451,6 @@
             ClientSize = new Size(1422, 977);
             Controls.Add(btnEmoji);
             Controls.Add(tbMessages);
-            Controls.Add(sideBar2);
             Controls.Add(btnSendMessages);
             Controls.Add(pictureBox1);
             Controls.Add(userProfilePanel1);
@@ -1472,6 +1462,7 @@
             Controls.Add(pn_DisplayMessage);
             Controls.Add(panel7);
             Controls.Add(panel8);
+            MaximumSize = new Size(1440, 1024);
             Name = "MeetingRoom";
             Text = "Meeting Room";
             Load += MeetingRoom_Load;

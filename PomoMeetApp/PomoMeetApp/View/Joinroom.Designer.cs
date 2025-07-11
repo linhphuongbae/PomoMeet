@@ -334,6 +334,7 @@
             Controls.Add(stb_roomId);
             Controls.Add(label2);
             Controls.Add(siticonePanel1);
+            MaximumSize = new Size(814, 493);
             Name = "Joinroom";
             Text = "Joinroom";
             Load += Joinroom_Load;
