@@ -68,5 +68,10 @@ namespace PomoMeetApp.View
         {
 
         }
+
+        private void StartApp_Load(object sender, EventArgs e)
+        {
+
+        }
     }
 }

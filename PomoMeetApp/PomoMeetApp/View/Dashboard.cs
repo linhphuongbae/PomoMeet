@@ -21,6 +21,9 @@ namespace PomoMeetApp.View
         public string currentUserId;
         private FirestoreChangeListener _userListener;
 
+        private bool isClosing = false;
+        private bool isListenerStopped = false;
+
         private Dictionary<string, (Panel panel, Label lblName, Label lblCount, PictureBox picLock)> roomPanels =
     new Dictionary<string, (Panel, Label, Label, PictureBox)>();
 
@@ -187,6 +190,21 @@ namespace PomoMeetApp.View
 
         private void Dashboard_FormClosed(object sender, FormClosedEventArgs e)
         {
+            if (!isListenerStopped)
+            {
+                isListenerStopped = true;
+                _ = Task.Run(async () =>
+                {
+                    try
+                    {
+                        if (roomListListener != null)
+                            await roomListListener.StopAsync();
+                        if (_userListener != null)
+                            await _userListener.StopAsync();
+                    }
+                    catch { }
+                });
+            }
         }
 
         private void tbtn_JoinRoom_Click(object sender, EventArgs e)
@@ -641,60 +659,101 @@ namespace PomoMeetApp.View
                 CustomMessageBox.Show("Phòng đã bị xóa bởi chủ phòng.", "Thông báo", MessageBoxMode.OK);
             }
         }
-        private bool isListenerStopped = false;
 
         protected override void OnFormClosing(FormClosingEventArgs e)
         {
-            if (e.CloseReason == CloseReason.UserClosing)
+            if (e.CloseReason == CloseReason.UserClosing && !isClosing)
             {
-                e.Cancel = true;
+                e.Cancel = true; // Cancel việc đóng form tạm thời
+                isClosing = true; // Đánh dấu đang trong quá trình đóng
 
+                // Disable các control để tránh user tương tác
+                this.Enabled = false;
+
+                // Chạy cleanup trong background thread
                 Task.Run(async () =>
                 {
                     try
                     {
+                        // Cập nhật trạng thái user về offline
                         await UserStatusManager.Instance.UpdateUserStatus(currentUserId, "offline");
-                    }
-                    catch (Exception ex)
-                    {
-                        MessageBox.Show($"Lỗi khi cập nhật trạng thái offline: {ex.Message}", "Lỗi", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                    }
-                    finally
-                    {
+
+                        // Stop các listener
                         if (!isListenerStopped)
                         {
                             isListenerStopped = true;
-                            await roomListListener?.StopAsync();
-                        }
 
+                            // Stop room listener
+                            if (roomListListener != null)
+                                await roomListListener.StopAsync();
+
+                            // Stop user listener
+                            if (_userListener != null)
+                                await _userListener.StopAsync();
+                        }
+                    }
+                    catch (Exception ex)
+                    {
+                        // Log lỗi nhưng vẫn tiếp tục đóng app
+                        Console.WriteLine($"Lỗi khi cleanup: {ex.Message}");
+                    }
+                    finally
+                    {
+                        // Quay về UI thread để đóng form
                         this.Invoke(() =>
                         {
-                            // Tạo bản sao danh sách các form hiện tại
-                            var openForms = Application.OpenForms.Cast<Form>().ToList();
-
-                            foreach (Form frm in openForms)
+                            try
                             {
-                                if (frm != this && !frm.IsDisposed)
+                                // Đóng tất cả các form khác
+                                var openForms = Application.OpenForms.Cast<Form>().ToList();
+                                foreach (Form frm in openForms)
                                 {
-                                    try { frm.Close(); } catch { }
+                                    if (frm != this && !frm.IsDisposed)
+                                    {
+                                        try
+                                        {
+                                            frm.Close();
+                                        }
+                                        catch { }
+                                    }
                                 }
+
+                                // Cuối cùng mới exit application
+                                Application.Exit();
                             }
-                            Application.Exit();
+                            catch
+                            {
+                                // Nếu có lỗi, force exit
+                                Environment.Exit(0);
+                            }
                         });
                     }
                 });
             }
             else
             {
+                // Nếu đang trong quá trình đóng hoặc không phải user close
                 if (!isListenerStopped)
                 {
                     isListenerStopped = true;
-                    _ = roomListListener?.StopAsync(); // không await vì đang ở luồng UI
+                    // Stop listeners (không await vì đang ở UI thread)
+                    _ = Task.Run(async () =>
+                    {
+                        try
+                        {
+                            if (roomListListener != null)
+                                await roomListListener.StopAsync();
+                            if (_userListener != null)
+                                await _userListener.StopAsync();
+                        }
+                        catch { }
+                    });
                 }
 
                 base.OnFormClosing(e);
             }
         }
+
 
 
 

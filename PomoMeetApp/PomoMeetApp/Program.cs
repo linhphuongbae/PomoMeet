@@ -13,11 +13,22 @@ namespace PomoMeetApp
         {
             // To customize application configuration such as set high DPI settings or default font,
             // see https://aka.ms/applicationconfiguration.
-            FirebaseConfig.SetEnviromentVariable();
-            ApplicationConfiguration.Initialize();
-            Application.EnableVisualStyles();
-            Application.SetCompatibleTextRenderingDefault(false);
-            Application.Run(new StartApp());
+            try
+            {
+                FirebaseConfig.SetEnviromentVariable();
+                ApplicationConfiguration.Initialize();
+                Application.EnableVisualStyles();
+                Application.SetCompatibleTextRenderingDefault(false);
+                Application.Run(new StartApp());
+            }
+            catch (Exception ex)
+            {
+            }
+            finally
+            {
+                // ??m b?o t?t c? process ???c ?óng
+                Environment.Exit(0);
+            }
         }
     }
 }
